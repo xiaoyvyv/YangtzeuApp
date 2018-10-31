@@ -71,14 +71,16 @@ public class OkHttp {
 
     public static void do_Get(final String url, final OnResultStringListener onResultStringListener) {
         LogUtils.i("Get--加载链接：" + url);
-
         final String cache_key = EncryptUtils.encryptMD5ToString("get:string" + url);
+
+        //如果网址错误
         if (!URLUtil.isNetworkUrl(url)) {
             if (onResultStringListener != null)
                 onResultStringListener.onFailure("错误的网址：" + url);
             return;
         }
 
+        //如果没有网络
         if (!NetworkUtils.isConnected()) {
             if (onResultStringListener != null)
                 onResultStringListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
@@ -249,7 +251,6 @@ public class OkHttp {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-
                 ResponseBody result = response.body();
                 final String string = result != null ? result.string() : nullString;
                 UIHandler.post(new Runnable() {
@@ -260,6 +261,7 @@ public class OkHttp {
                                 onResultStringListener.onFailure(OkhttpError.ERROR_FAILURE);
                             return;
                         }
+
                         if (onResultStringListener != null) {
                             if (string.contains(OkhttpError.ERROR_SCHOOL_HOST)) {
                                 onResultStringListener.onFailure(OkhttpError.ERROR_LOGIN_SCHOOL_INTERNET);

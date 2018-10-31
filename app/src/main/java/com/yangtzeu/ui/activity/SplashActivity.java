@@ -12,6 +12,7 @@ import com.yangtzeu.presenter.SplashPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.SplashView;
 import com.yangtzeu.utils.AppIconUtils;
+import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 public class SplashActivity extends BaseActivity implements SplashView {
@@ -36,6 +37,10 @@ public class SplashActivity extends BaseActivity implements SplashView {
     @Override
     public void setEvents() {
         new AppIconUtils().pmTest(this);
+
+        //进入窗口创建文件夹
+        MyUtils.createSDCardDir("A_Tool/");
+        MyUtils.createSDCardDir("A_Tool/Download/");
 
         presenter = new SplashPresenter(this, this);
         presenter.loadPermission(new SplashModel.OnPermissionCallBack() {

@@ -56,22 +56,58 @@ OkHttpClient okHttpClient = new OkHttpClient.Builder()
 主要是Android的原生WebView太垃圾了，所以接入了X5内核
 
 ##软件截图
-[![主页](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")
-[![主页](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")
+
+|主页|新闻|功能|
+|:---:|:---:|:---:|
+|![主页](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")|![新闻](https://www.showdoc.cc/server/api/common/visitfile/sign/6749114e011136c945fdb03f91f2891f?showdoc=.jpg "新闻")|![功能](https://www.showdoc.cc/server/api/common/visitfile/sign/d6b92c42a5885042f7873ca344ac489c?showdoc=.jpg "功能")
+
+|课表|我的|考试|
+|:---:|:---:|:---:|
+|![课表](https://www.showdoc.cc/server/api/common/visitfile/sign/db2699f1266e8732b66ca8f76c707e3c?showdoc=.jpg "主页")|![我的](https://www.showdoc.cc/server/api/common/visitfile/sign/af5da26f6857df9ff537df08b4647e39?showdoc=.jpg "我的")|![我的考试](https://www.showdoc.cc/server/api/common/visitfile/sign/8f56b564e5cf8e31b612aa528e251975?showdoc=.jpg "我的考试")
+
+##代码示例
+
+- **登录流程**
+> [UserUtils.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/utils/UserUtils.java "UserUtils.java")
+
+- **[长江大学官网](http://www.yangtzeu.edu.cn/ "大学官网")轮播图爬取，更新检查，在线人数等等**
+>[YangtzeuUtils.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/utils/YangtzeuUtils.java "YangtzeuUtils.java")
+
+- **爬取成绩，绩点**
+>爬取成绩：[GradePart1Model.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/model/GradePart1Model.java "GradePart1Model.java")
+>爬取绩点：[GradePart2Model.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/model/GradePart2Model.java "GradePart2Model.java")
+
+- **爬取课表Js并解析：**
+>[TableModel.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/model/TableModel.java "TableModel.java")
+
+- **一卡通服务爬取**
+>[CardCenterActivity.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/ui/activity/CardCenterActivity.java "CardCenterActivity.java")
+
+- **修改密码**
+>[ChangePassModel.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/model/ChangePassModel.java "ChangePassModel.java")
+
+- **更多内容请自行翻阅源码**
+
+##写在最后
+
+- ** 开发此新长大助手花费了许多个人精力，其中会有很多问题和不足的地方，如果您在使用的过程中遇到了Bug，请谅解！**
+
+- ** 软件为个人开发，从前端到后台，独立完成。所以没有充足的时间和机型去测试App的兼容性，如果您遇到了什么问题，可以加入我们的[【官方群：617082514】](http://shang.qq.com/wpa/qunwpa?idkey=cce0b4adab1b1de2d6dc261ff73cf54396c22751fb36a9c9296fc8f376fb23f7 "官方群")进行咨询解答！群里会分享很多有用的东西**
+
+- ** 本人大三狗一枚，机械专业，非计科。由于课程繁多难，更新时间可能会慢一点，如果没能在第一时间适配长江大学教务系统，还请您到[教务系统官网](http://jwc3.yangtzeu.edu.cn/eams/login.action "官网")进行操作！**
+
+- ** 此源码请勿用做非法用途，并且最终解释权归我[&#64;小玉](http://ll.xyll520.top/ "&#64;小玉")所有**
+
+- ** 大家都是学生党一枚，App的服务器都是租的，真心贵呀！由于没有经费租好的服务器，所以App在使用过程中，难免出现网络加载缓慢等现象，请谅解！**
+
+- ** 最后，我又来厚脸皮一下下，如果此软件的确给您带来了方便，不妨打赏我一点点，或者领一下支付宝红包也利人利己，就当支持一下我吧！&hearts; &hearts; &hearts;**
 
 
+|支付宝红包|支付宝|微信|简书|
+|:---:|:---:|:---:|:---:|
+|[![支付宝红包](https://www.showdoc.cc/server/api/common/visitfile/sign/3795982a5ff0f8c3c7811f2ef9f716ae?showdoc=.jpg "支付宝红包")](https://qr.alipay.com/c1x08894fliska9rxlrecb5 "支付宝红包")|[![支付宝](https://www.showdoc.cc/server/api/common/visitfile/sign/20b0232faa826d7e072d532f03d59897?showdoc=.jpg "支付宝")](https://www.showdoc.cc/server/api/common/visitfile/sign/20b0232faa826d7e072d532f03d59897?showdoc=.jpg "支付宝")|[![微信](https://www.showdoc.cc/server/api/common/visitfile/sign/a67fc8383cae5a3b31b2e1c9284009eb?showdoc=.jpg "微信")](https://www.showdoc.cc/server/api/common/visitfile/sign/a67fc8383cae5a3b31b2e1c9284009eb?showdoc=.jpg "微信")|[![简书](https://www.showdoc.cc/server/api/common/visitfile/sign/a3e3243e51573f6568fd4031c4527ad0?showdoc=.jpg "简书")](https://www.showdoc.cc/server/api/common/visitfile/sign/a3e3243e51573f6568fd4031c4527ad0?showdoc=.jpg "简书")|
 
-
-
-
-
-
-
-
-
-
-
-
+## 谢谢支持，完！
 
 
 

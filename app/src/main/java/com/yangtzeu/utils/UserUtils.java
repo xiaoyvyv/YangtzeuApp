@@ -46,7 +46,6 @@ public class UserUtils {
     private static Handler handler;
 
     public static void do_Login(final Context context, String[] userInfo, final OnLogResultListener logResultListener) {
-
         if (userInfo.length != 2 || context == null) {
             if (logResultListener != null)
                 logResultListener.onFailure("登录信息错误");
@@ -121,9 +120,9 @@ public class UserUtils {
 
                 if (logResultListener != null) {
                     if (NetworkUtils.isConnected()) {
-                        logResultListener.onFailure("教务处网络过载，请稍后再试");
+                        logResultListener.onFailure("表单参数获取错误，请稍后再试");
                     } else {
-                        logResultListener.onFailure(error);
+                        logResultListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
                     }
                 }
             }
@@ -189,7 +188,6 @@ public class UserUtils {
             public void onFailure(String error) {
                 if (onLoginResultListener != null)
                     onLoginResultListener.onFailure("教务处网络过载，请稍后再试");
-
             }
         });
     }

@@ -302,4 +302,5 @@
     <string name="input_we_chat">请输入微信号</string>
     <string name="input_info">请完善身份信息</string>
     <string name="input_info_subtitle">填写必要的信息</string>
+    <string name="lock_phone">远离手机</string>
 </resources>

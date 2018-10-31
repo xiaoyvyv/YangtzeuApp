@@ -39,7 +39,10 @@ public class YangtzeuService extends Service {
             public void run() {
                 boolean isOnline = SPUtils.getInstance("user_info").getBoolean("online");
                 if (isOnline) {
+                    //保持教务处服务器连接
                     YangtzeuUtils.getStudentInfo();
+
+                    //保持App服务器连接
                     YangtzeuUtils.keepOnline(new OnResultListener<OnLineBean>() {
                         @Override
                         public void onResult(OnLineBean s) {
@@ -53,6 +56,7 @@ public class YangtzeuService extends Service {
                     });
                     LogUtils.i("保持服务器连接");
                 }
+
             }
         };
         timer.schedule(timeTask, 0, 30000);
