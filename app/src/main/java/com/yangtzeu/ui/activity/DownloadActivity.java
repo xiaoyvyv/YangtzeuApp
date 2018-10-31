@@ -35,7 +35,6 @@ public class DownloadActivity extends BaseActivity {
         toolbar = findViewById(R.id.toolbar);
         mRecyclerView = findViewById(R.id.mRecyclerView);
         refresh = findViewById(R.id.refresh);
-        Glide
     }
 
     @Override
