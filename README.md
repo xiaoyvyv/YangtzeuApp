@@ -35,8 +35,11 @@ Glide.with(context).load(iamge).into(imageView);
 这个是持久化Cookie用的，配合Okhttp3使用
 ```java
 SetCookieCache setCookieCache = new SetCookieCache();
+
 SharedPrefsCookiePersistor sharedPrefsCookiePersistor = new SharedPrefsCookiePersistor(context);
+
 PersistentCookieJar cookieJar = new PersistentCookieJar(setCookieCache, sharedPrefsCookiePersistor);
+
 OkHttpClient okHttpClient = new OkHttpClient.Builder()
      .connectTimeout(10000, TimeUnit.MILLISECONDS)
      .proxy(Proxy.NO_PROXY)
