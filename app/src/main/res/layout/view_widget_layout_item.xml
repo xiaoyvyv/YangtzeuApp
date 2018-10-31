@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:background="@drawable/ic_widget_item_bg"
+    android:textStyle="bold"
+    android:textSize="8.5sp"
+    android:alpha="0.6"
+    android:textColor="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/table_section"
+    android:gravity="top|center_horizontal"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    tools:ignore="SmallSp" />

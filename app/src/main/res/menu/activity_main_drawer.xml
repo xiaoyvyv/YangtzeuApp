@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/base_setting">
+        <menu>
+            <item
+                android:id="@+id/setting_center"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/setting_center" />
+            <item
+                android:id="@+id/change_theme"
+                android:icon="@drawable/ic_color"
+                android:title="@string/change_theme" />
+            <item
+                android:id="@+id/term_year"
+                android:icon="@drawable/ic_year"
+                android:title="@string/set_term" />
+            <item
+                android:id="@+id/clear"
+                android:icon="@drawable/ic_clean"
+                android:title="@string/clean_cache" />
+        </menu>
+    </item>
+
+    <item android:title="@string/more">
+        <menu>
+            <item
+                android:id="@+id/manger"
+                android:icon="@drawable/ic_manger"
+                android:title="后台管理" />
+            <item
+                android:id="@+id/about"
+                android:icon="@drawable/ic_about"
+                android:title="关于软件" />
+            <item
+                android:id="@+id/red_bag"
+                android:icon="@drawable/ic_red_bag"
+                android:title="每日红包" />
+            <item
+                android:id="@+id/check_update"
+                android:icon="@drawable/ic_update"
+                android:title="检查更新" />
+            <item
+                android:id="@+id/exit"
+                android:icon="@drawable/ic_exit"
+                android:title="退出" />
+        </menu>
+    </item>
+</menu>

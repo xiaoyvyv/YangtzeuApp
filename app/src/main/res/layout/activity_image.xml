@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.ImageActivity">
+
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:background="@android:color/black"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:banner_indicatorGravity="center_horizontal"
+        app:banner_numberIndicatorTextSize="12sp"
+        app:banner_pointAutoPlayAble="false"
+        app:banner_pointContainerBackground="#00000000"
+        app:banner_tipTextColor="?attr/colorAccent"
+        app:banner_tipTextSize="12sp"
+        app:banner_transitionEffect="defaultEffect" />
+
+    <FrameLayout
+        android:background="@color/translate"
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:clipToPadding="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/image_details" />
+
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

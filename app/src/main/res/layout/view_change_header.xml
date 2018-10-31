@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/QQ_Head"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:alpha="0.8"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/qq_header"
+        android:clickable="true"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:focusable="true" />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/white_d" />
+
+    <TextView
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:alpha="0.8"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/clear"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:focusable="true" />
+</LinearLayout>

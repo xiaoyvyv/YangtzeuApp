@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.activity.LoveDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/love" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffd5d5">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.lib.moving.MovingImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@mipmap/holder"
+                    app:miv_load_on_create="true"
+                    app:miv_max_relative_size="3"
+                    app:miv_min_relative_offset="0.2"
+                    app:miv_repetitions="-1"
+                    app:miv_speed="50"
+                    app:miv_start_delay="1000" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="80dp"
+                    android:gravity="center_horizontal"
+                    android:shadowColor="@color/red"
+                    android:shadowDx="-4"
+                    android:shadowDy="4"
+                    android:shadowRadius="1"
+                    android:text="L O V E"
+                    android:textColor="@color/love"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/header"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/image"
+                    android:layout_margin="@dimen/card_margin_10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/holder"
+                    app:civ_border_color="@color/black_20"
+                    app:civ_border_width="1dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/header_ta"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/image"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/card_margin_10"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/holder"
+                    app:civ_border_color="@color/black_20"
+                    app:civ_border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/header"
+                    android:layout_marginStart="@dimen/card_margin_10"
+                    android:layout_marginEnd="@dimen/card_margin_10"
+                    android:alpha="0.7"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="-3"
+                    android:shadowDy="3"
+                    android:shadowRadius="2"
+                    android:text="王怀玉"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/name_ta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/header"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/card_margin_10"
+                    android:layout_marginEnd="@dimen/card_margin_10"
+                    android:alpha="0.7"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="-3"
+                    android:shadowDy="3"
+                    android:shadowRadius="2"
+                    android:text="王怀玉"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                    android:layout_margin="@dimen/card_margin_10"
+                    android:alpha="0.6"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="-3"
+                    android:shadowDy="3"
+                    android:shadowRadius="2"
+                    android:text="手机使用了很长时间，确实不错。\n正品，续航不错，休系统操作不错，很漂亮，没有问题，特地表扬下客服周迅态度很不错"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/des"
+                    android:layout_marginStart="@dimen/card_margin_10"
+                    android:alpha="0.4"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="-3"
+                    android:shadowDy="3"
+                    android:shadowRadius="2"
+                    android:text="2018-12-56 12:45:12 pm"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.lib.falling.FallingView
+            android:id="@+id/fallingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

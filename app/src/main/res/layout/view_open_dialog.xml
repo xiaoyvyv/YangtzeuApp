@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:lineSpacingExtra="5dp"
+    android:gravity="start"
+    android:layout_margin="10dp"
+    android:textSize="16sp"
+    android:textColor="@color/black"
+    android:textStyle="bold"
+    android:autoLink="all"
+    android:linksClickable="true"
+    android:text="开源许可说明：\n\nGson\n  地址：https://github.com/google/gson\n\nJsoup\n  地址：https://jsoup.org\n\nGlide\n  地址：https://github.com/bumptech/glide\n\nCircleImageView\n  地址：https://github.com/hdodenhof/CircleImageView\n\nBGABanner-Android\n  地址：https://github.com/zhiyou007/BGABanner-Android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="HardcodedText" />
+</ScrollView>

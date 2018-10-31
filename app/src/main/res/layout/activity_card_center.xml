@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.CardCenterActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayout"
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="校园一卡通服务中心" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.8">
+
+                <TextView
+                    android:id="@+id/card_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="校园卡卡号：查询中"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/card_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="校园卡余额：查询中"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/card_tran_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="校园卡过渡余额：查询中"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/my_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/empty_room"
+                        android:src="@drawable/ic_mine"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="我的信息"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/acchistrjn_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_search"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="校园卡流水查询"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/cardfer_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_payment"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="银行卡充值校园卡"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/toaccountLose_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_lock"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="校园卡挂失"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/toaccountUnLose_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_unlock"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="校园卡解挂"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+
+                <LinearLayout
+                    android:id="@+id/bankbund_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_phonelink"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="银行卡绑定校园卡"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/bankunbund_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_unphonelink"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="银行卡解绑校园卡"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/bankacc_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_money"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="银行卡余额查询"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/toaccountCpwd_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_change"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="修改校园卡查询密码"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:id="@+id/SafeSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:onClick="onClick"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:layout_marginStart="10dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_password"
+                        android:tint="?attr/colorPrimary" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="@dimen/fragment4_view"
+                        android:layout_marginBottom="@dimen/fragment4_view"
+                        android:background="@color/black_20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/fragment4_height"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:gravity="start|center_vertical"
+                        android:text="安全问题设置"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fragment4_dp"
+                        android:layout_height="@dimen/fragment4_dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_right"
+                        android:tint="?attr/colorPrimary" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.lib.x5web.X5WebView
+                android:id="@+id/x5web"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:visibility="gone" />
+
+            <com.lib.x5web.WebViewProgressBar
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp" />
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_mine"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="end|bottom" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".ui.activity.ShopAddActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/add_love" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name_ta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/translate"
+                android:focusable="true"
+                android:hint="表白对象 心仪的Ta"
+                android:minLines="1"
+                android:padding="@dimen/card_margin_10"
+                android:singleLine="true"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white_f0" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/translate"
+                android:gravity="top"
+                android:hint="描述一下 心仪的Ta"
+                android:maxLines="5"
+                android:minLines="5"
+                android:padding="@dimen/card_margin_10"
+                android:textSize="15sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="@dimen/card_margin_10"
+                app:cardCornerRadius="@dimen/card_margin_5"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white_e"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:id="@+id/add_image_trip"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/card_margin_5"
+                        android:src="@drawable/ic_add"
+                        android:tint="#aaaaaa" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:scaleType="centerCrop"
+                        android:text="添加照片"
+                        android:textColor="#aaaaaa"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_margin_10">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white_f0" />
+
+                <com.lib.x5web.WebViewProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/qq_ta"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/translate"
+                android:digits="0123456789"
+                android:gravity="center_vertical"
+                android:hint="Ta的QQ   (用于获取头像)"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="@dimen/card_margin_10"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white_f0" />
+
+            <TextView
+                android:id="@+id/music"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/translate"
+                android:gravity="center_vertical"
+                android:hint="为Ta点一首歌吧"
+                android:maxLines="1"
+                android:padding="@dimen/card_margin_10"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white_f0" />
+
+            <TextView
+                android:id="@+id/isHide"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/translate"
+                android:gravity="center_vertical"
+                android:hint="公开表白"
+                android:maxLines="1"
+                android:padding="@dimen/card_margin_10"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white_f0" />
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:text="@string/do_love"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

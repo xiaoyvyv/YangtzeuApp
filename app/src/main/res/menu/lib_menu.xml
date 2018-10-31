@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:orderInCategory="100"
+        android:title="@string/lib_home"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/search_book"
+        android:icon="@drawable/ic_search"
+        android:orderInCategory="100"
+        android:title="@string/search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/new_book"
+        android:icon="@drawable/ic_book"
+        android:orderInCategory="100"
+        android:title="@string/new_book"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/top_book"
+        android:icon="@drawable/ic_chart"
+        android:orderInCategory="100"
+        android:title="@string/top_book"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/banner_guide_foreground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:banner_indicatorGravity="right"
+        app:banner_pageChangeDuration="1000"
+        app:banner_pointTopBottomMargin="10dp"
+        app:banner_pointContainerBackground="#20000000"
+        app:banner_pointAutoPlayAble="false"
+        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+        app:banner_tipTextSize="14sp"
+        app:banner_transitionEffect="defaultEffect" />
+
+    <TextView
+        android:layout_gravity="end"
+        android:id="@+id/tv_guide_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="4dp"
+        android:text="@string/skip"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <Button
+        android:layout_marginBottom="60dp"
+        android:layout_gravity="bottom|center"
+        android:id="@+id/btn_guide_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="@string/enter_main"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:visibility="visible" />
+</FrameLayout>

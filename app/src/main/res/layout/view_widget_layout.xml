@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_widget_bg"
+    android:orientation="vertical">
+    <!--Widget支持的控件-->
+    <!--FrameLayout-->
+    <!--LinearLayout-->
+    <!--RelativeLayout-->
+    <!--GridLayout-->
+    <!--AnalogClock-->
+    <!--Button-->
+    <!--Chronometer-->
+    <!--ImageButton-->
+    <!--ImageView-->
+    <!--ProgressBar-->
+    <!--TextView-->
+    <!--ViewFlipper-->
+    <!--ListView-->
+    <!--GridView-->
+    <!--StackView-->
+    <!--AdapterViewFlipper-->
+    <TextView
+        android:alpha="0.7"
+        android:textColor="@color/black"
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="@string/my_table"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/Layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:id="@+id/now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="当前周次" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="打开助手" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="刷新课表" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black_20" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周一"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周二"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周三"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周四"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周五"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周六"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="周日"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="7"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+</LinearLayout>
+

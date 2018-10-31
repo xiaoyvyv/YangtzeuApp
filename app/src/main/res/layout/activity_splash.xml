@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.activity.SplashActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/adTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/adView"
+            android:layout_gravity="start"
+            android:padding="@dimen/card_margin_5" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@mipmap/splash"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/app_name"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/icon"
+            android:layout_toEndOf="@+id/icon"
+            android:gravity="center"
+            android:shadowColor="@color/colorPrimary_BiLiFen"
+            android:shadowDx="-5"
+            android:shadowDy="5"
+            android:shadowRadius="1"
+            android:text="新版长大助手"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/app_name"
+            android:layout_alignStart="@+id/app_name"
+            android:layout_alignEnd="@+id/app_name"
+            android:layout_alignBottom="@+id/icon"
+            android:layout_toEndOf="@+id/icon"
+            android:gravity="center"
+            android:shadowColor="@color/colorPrimary_BiLiFen"
+            android:shadowDx="-5"
+            android:shadowDy="5"
+            android:shadowRadius="1"
+            android:text="小 玉 个 人 开 发 中 心"
+            android:textSize="12sp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+</LinearLayout>

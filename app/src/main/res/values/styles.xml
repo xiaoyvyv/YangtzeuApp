@@ -1,0 +1,165 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="App" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--页面背景色-->
+        <item name="android:windowBackground">@color/white_fa</item>
+    </style>
+
+
+
+    <style name="AppTheme.NoStateBar"  parent="App">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--默认-->
+    <style name="AppTheme.NoActionBar" parent="App">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--酷安绿-->
+    <style name="AppTheme_KuAnLv" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_KuAnLv</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_KuAnLv</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--姨妈红-->
+    <style name="AppTheme_YiMaHong" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_YiMaHong</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_YiMaHong</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--哔哩粉-->
+    <style name="AppTheme_BiLiFen" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_BiLiFen</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_BiLiFen</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--颐堤蓝-->
+    <style name="AppTheme_YiDiLan" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_YiDiLan</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_YiDiLan</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--水鸭青-->
+    <style name="AppTheme_ShuiYaQing" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_ShuiYaQing</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_ShuiYaQing</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--伊藤橙-->
+    <style name="AppTheme_YiTengCheng" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_YiTengCheng</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_YiTengCheng</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--基佬紫-->
+    <style name="AppTheme_JiLaoZi" parent="App">
+        <item name="colorPrimary">@color/colorPrimaryDark_JiLaoZi</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_JiLaoZi</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--知乎蓝-->
+    <style name="AppTheme_ZhiHuLan" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_ZhiHuLan</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_ZhiHuLan</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--古铜棕-->
+    <style name="AppTheme_GuTongZong" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_GuTongZong</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_GuTongZong</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--低调灰-->
+    <style name="AppTheme_DiDiaoHui" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_DiDiaoHui</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_DiDiaoHui</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--高端黒-->
+    <style name="AppTheme_GaoDuanHei" parent="App">
+        <item name="colorPrimary">@color/colorPrimary_GaoDuanHei</item>
+        <item name="colorPrimaryDark">@color/colorPrimary_GaoDuanHei</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Love"  parent="App">
+        <item name="colorPrimaryDark">@color/love</item>
+        <item name="colorPrimary">@color/love</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="CollapsingToolbarLayout">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--页面设置主题-->
+    <style name="Theme.Settings" parent="@style/App">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
+    </style>
+
+    <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:navigationIcon">?attr/homeAsUpIndicator</item>
+        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
+    </style>
+
+    <style name="BottomToBottom" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/out_to_bottom</item>
+    </style>
+
+    <style name="TopToTop" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/out_to_top</item>
+    </style>
+
+    <style name="style_dialog" parent="App">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="lib_home_table">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="lib_toolbar">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="update_dialog" parent="App">
+        <item name="android:windowBackground">@color/translate</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

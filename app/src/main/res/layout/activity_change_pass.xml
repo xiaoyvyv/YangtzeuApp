@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.ChangePassActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/change_pass" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/default_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_mine"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/translate"
+                                    android:hint="学号"
+                                    android:inputType="number"
+                                    android:textSize="16sp"
+                                    tools:ignore="HardcodedText" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/black_20"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_lock"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/translate"
+                                    android:hint="旧密码"
+                                    android:inputType="textPassword"
+                                    android:textSize="16sp"
+                                    tools:ignore="HardcodedText" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/black_20"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_lock"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/translate"
+                                    android:hint="新密码"
+                                    android:inputType="textPassword"
+                                    android:textSize="16sp"
+                                    tools:ignore="HardcodedText" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/black_20"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_password"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/translate"
+                                    android:hint="确认新密码"
+                                    android:inputType="textPassword"
+                                    android:textSize="16sp"
+                                    tools:ignore="HardcodedText" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="start"
+                android:lineSpacingExtra="2.5dp"
+                android:text="1.登录之后才能修改密码\n2.新密码必须包含大写字母、小写字母、数字"
+                android:textSize="8sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <Button
+                android:id="@+id/ChangeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:text="确定修改"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

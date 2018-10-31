@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context="com.yangtzeu.activities.main_activity">
+    <item
+        android:id="@+id/add_cet"
+        android:title="Cet报名"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/join_in_web"
+        android:title="官网报名"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/read_in_web"
+        android:title="原文查看"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/g_web"
+        android:title="官网查询一"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/g_web2"
+        android:title="官网查询二"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+</menu>

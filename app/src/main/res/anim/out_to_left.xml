@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 首先让要退出的Activity向左移
+-->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"  android:interpolator="@android:anim/accelerate_interpolator">
+ <translate
+  android:fromXDelta="0%p"
+  android:toXDelta="-100%p"
+  android:duration="300" />
+</set>
+
+<!--
+ android:fromXDelta 动画开始的位置
+ android:toXDelta   动画结束的位置
+ android:duration   动画的时间
+ -->

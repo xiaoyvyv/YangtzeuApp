@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <cn.bingoogolapple.bgabanner.BGABanner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:fitsSystemWindows="true"
+            app:banner_indicatorGravity="right"
+            app:banner_isNumberIndicator="true"
+            app:banner_numberIndicatorTextSize="12sp"
+            app:banner_pointAutoPlayAble="true"
+            app:banner_pointAutoPlayInterval="3000"
+            app:banner_pointContainerBackground="#20000000"
+            app:banner_tipTextColor="@color/white_d"
+            app:banner_tipTextSize="12sp"
+            app:banner_transitionEffect="depth" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/jwc_news_web"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_jwc_title"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:background="@drawable/ic_replay_bg"
+            android:id="@+id/search"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="搜教务新闻..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText,RtlSymmetry" />
+        <GridView
+            android:layout_marginTop="10dp"
+            android:id="@+id/jwc_gridView"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="vertical" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/yangtzeu_news_web"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_jwc_title"
+            android:textStyle="bold" />
+
+        <GridView
+            android:id="@+id/grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>

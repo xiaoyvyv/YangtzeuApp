@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#76b1e9</color>
+    <color name="colorPrimaryDark">#76b1e9</color>
+    <color name="colorAccent">#d8371b</color>
+
+
+    <color name="colorAccent_">#D81B60</color>
+    <color name="colorPrimary_">#7aadf2</color>
+    <color name="white">#ffffff</color>
+    <color name="translate">#00000000</color>
+    <color name="white_d">#dddddd</color>
+    <color name="black">#000000</color>
+    <color name="black_20">#20000000</color>
+    <color name="red">#ff0000</color>
+    <color name="white_a">#aaaaaa</color>
+    <color name="white_e">#eeeeee</color>
+    <color name="button_tint">#7aadf2</color>
+    <color name="white_f0">#f0f0f0</color>
+
+    <color name="love">#ff6666</color>
+
+    <color name="_90">#ff0000</color>
+    <color name="_80">#D9007E</color>
+    <color name="_70">#2200CC</color>
+    <color name="_60">#22cc00</color>
+    <color name="_60_">#112233</color>
+    <color name="green">#00ff00</color>
+    <color name="white_fa">#fafafa</color>
+
+
+    <color name="colorPrimary_KuAnLv">#4CAF50</color>
+    <color name="colorPrimaryDark_KuAnLv">#2E7D32</color>
+
+    <color name="colorPrimary_YiMaHong">#f44336</color>
+    <color name="colorPrimaryDark_YiMaHong">#f44336</color>
+
+
+    <color name="colorPrimary_BiLiFen">#ff80ab</color>
+    <color name="colorPrimaryDark_BiLiFen">#ff80ab</color>
+
+
+    <color name="colorPrimary_YiDiLan">#3f51b5</color>
+    <color name="colorPrimaryDark_YiDiLan">#3f51b5</color>
+
+    <color name="colorPrimary_ShuiYaQing">#009688</color>
+    <color name="colorPrimaryDark_ShuiYaQing">#009688</color>
+
+    <color name="colorPrimary_YiTengCheng">#f57c00</color>
+    <color name="colorPrimaryDark_YiTengCheng">#f57c00</color>
+
+    <color name="colorPrimary_JiLaoZi">#673ab7</color>
+    <color name="colorPrimaryDark_JiLaoZi">#673ab7</color>
+
+    <color name="colorPrimary_ZhiHuLan">#2196f3</color>
+    <color name="colorPrimaryDark_ZhiHuLan">#2196f3</color>
+
+    <color name="colorPrimary_GuTongZong">#795548</color>
+    <color name="colorPrimaryDark_GuTongZong">#795548</color>
+
+    <color name="colorPrimary_DiDiaoHui">#607d8b</color>
+    <color name="colorPrimaryDark_DiDiaoHui">#607d8b</color>
+
+    <color name="colorPrimary_GaoDuanHei">#212121</color>
+    <color name="colorPrimaryDark_GaoDuanHei">#212121</color>
+</resources>

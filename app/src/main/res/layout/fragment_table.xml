@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/my_table" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:background="?attr/colorPrimary"
+            app:layout_collapseMode="pin"
+            app:tabIndicatorColor="@color/white_d"
+            app:tabMinWidth="60dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/white_d" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/table_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.scwang.smartrefresh.header.StoreHouseHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shhText="MY CLASS TABLE" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/mNestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/week_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="周一"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="周二"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="周三"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="周四"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="周五"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="周六"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="周日"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/week_layout"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        tools:ignore="HardcodedText,SmallSp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="08:00\n-\n09:35"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="10:05\n-\n11:40"
+                            android:textSize="10sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="14:00\n-\n13:35"
+                            android:textSize="10sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="14:05\n-\n15:40"
+                            android:textSize="10sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="19:00\n-\n20:35"
+                            android:textSize="10sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="21:05\n-\n22:40"
+                            android:textSize="10sp"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:spanCount="7" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

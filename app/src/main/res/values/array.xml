@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="term_trip">
+        <item>年份2018–2019  学期2</item>
+        <item>年份2018–2019  学期1</item>
+        <item>年份2017–2018  学期2</item>
+        <item>年份2017–2018  学期1</item>
+        <item>年份2016–2017  学期2</item>
+        <item>年份2016–2017  学期1</item>
+        <item>年份2015–2016  学期2</item>
+        <item>年份2015–2016  学期1</item>
+        <item>年份2014–2015  学期2</item>
+        <item>年份2014–2015  学期1</item>
+        <item>年份2013–2014  学期2</item>
+        <item>年份2013–2014  学期1</item>
+        <item>年份2012–2013  学期2</item>
+        <item>年份2012–2013  学期1</item>
+        <item>年份2011–2012  学期2</item>
+        <item>年份2011–2012  学期1</item>
+        <item>年份2010–2011  学期2</item>
+        <item>年份2010–2011  学期1</item>
+    </string-array>
+
+    <string-array name="term_id">
+        <item>50</item>
+        <item>49</item>
+        <item>48</item>
+        <item>46</item>
+        <item>45</item>
+        <item>44</item>
+        <item>43</item>
+        <item>42</item>
+        <item>41</item>
+        <item>40</item>
+        <item>39</item>
+        <item>38</item>
+        <item>37</item>
+        <item>36</item>
+        <item>35</item>
+        <item>34</item>
+        <item>33</item>
+        <item>32</item>
+    </string-array>
+
+    <string-array name="physical_day">
+        <item>任意时间</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
+    </string-array>
+
+    <string-array name="physical_which">
+        <item>任意时间</item>
+        <item>第一大节</item>
+        <item>第二大节</item>
+        <item>第三大节</item>
+        <item>第四大节</item>
+        <item>第五大节</item>
+    </string-array>
+</resources>

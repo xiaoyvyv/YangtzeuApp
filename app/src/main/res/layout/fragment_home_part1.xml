@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/jwc_notice"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/jwc_jwtz_t"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/load_more"
+                android:textColor="?attr/colorAccent" />
+
+            <LinearLayout
+                android:id="@+id/jwc_jwtz"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/jwc_jwtz_t"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/jwc_event"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/jwc_bzsw_t"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="加载更多>>"
+                android:textColor="?attr/colorAccent" />
+
+            <LinearLayout
+                android:id="@+id/jwc_bzsw"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/jwc_bzsw_t"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/jwc_activity"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/jwc_jwdt_t"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="加载更多>>"
+                android:textColor="?attr/colorAccent" />
+
+            <LinearLayout
+                android:id="@+id/jwc_jwdt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/jwc_jwdt_t"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/jwc_news_paper"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/jwc_jxjb_t"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="加载更多>>"
+                android:textColor="?attr/colorAccent" />
+
+            <LinearLayout
+                android:id="@+id/jwc_jxjb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/jwc_jxjb_t"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:scaleType="fitXY" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

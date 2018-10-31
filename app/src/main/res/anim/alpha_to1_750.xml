@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator">
+    <alpha xmlns:android="http://schemas.android.com/apk/res/android"
+        android:duration="750"
+        android:fillAfter="true"
+        android:fillBefore="false"
+        android:fromAlpha="0"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:repeatCount="0"
+        android:repeatMode="reverse"
+        android:startOffset="250"
+        android:toAlpha="1" />
+</set>
+
+    <!--android:duration：动画持续的时长，单位是毫秒-->
+    <!--android:fillAfter：动画结束之后是否保持动画的最终状态；true，表示保持动画的最终状态-->
+    <!--android:fillBefore：动画结束之后是否保持动画开始前的状态；true，表示恢复到动画开始前的状态-->
+    <!--android:fromAlpha：动画开始的透明度，取值0.0~1.0，0.0表示完全透明，1.0表示保持原有状态不变-->
+    <!--android:interpolator：动画插值器。是实现动画不规则运动的一种方式，后面讲到-->
+    <!--android:repeatCount：动画重复的次数。指定动画重复播放的次数，如果你需要无限循环播放，请填写一个小于0的数值，我一般写-1-->
+    <!--android:repeatMode：动画重复的Mode，有reverse和restart两种，效果看后面-->
+    <!--android:startOffset：动画播放延迟时长，就是调用start之后延迟多少时间播放动画-->
+    <!--android:toAlpha：动画最终的透明度，取值和android:fromAlpha一样-->

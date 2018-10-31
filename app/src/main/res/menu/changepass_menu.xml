@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yangtzeu.activities.main_activity">
+    <item
+        android:id="@+id/web_change_pass"
+        android:title="网页改密"
+        app:showAsAction="always"
+        tools:ignore="HardcodedText" />
+</menu>

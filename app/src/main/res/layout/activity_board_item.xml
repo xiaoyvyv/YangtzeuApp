@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:transitionName="share">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="2.5dp">
+
+        <LinearLayout
+            android:id="@+id/OnClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/StudentImg"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_mine"
+                    app:civ_border_color="#a9ffffff"
+                    app:civ_border_width="0.5dp" />
+
+                <TextView
+                    android:id="@+id/Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_margin="5dp"
+                    android:layout_toEndOf="@+id/StudentImg"
+                    android:alpha="0.9"
+                    android:maxLength="5"
+                    android:text="昵称"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    tools:ignore="HardcodedText" />
+
+
+                <TextView
+                    android:id="@+id/Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Name"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@+id/StudentImg"
+                    android:alpha="0.7"
+                    android:text="12-27 12:25"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/GeQian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Time"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toEndOf="@+id/StudentImg"
+                    android:alpha="0.7"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="别提以前，我想忘了。"
+                    android:textColor="#00376a"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/Class"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="5dp"
+                    android:alpha="0.7"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:lineSpacingExtra="5dp"
+                    android:singleLine="true"
+                    android:text="第十楼"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/Lou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Class"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="5dp"
+                    android:alpha="0.7"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:lineSpacingExtra="5dp"
+                    android:singleLine="true"
+                    android:text="第十楼"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="12.5dp"
+                android:alpha="0.7"
+                android:autoLink="all"
+                android:ellipsize="end"
+                android:lineSpacingExtra="4dp"
+                android:maxLines="10"
+                android:textIsSelectable="true"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                app:cardCornerRadius="1dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="300dp"
+                    android:scaleType="fitXY"
+                    tools:ignore="ContentDescription" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/PingLun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/ic_replay_bg"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:alpha="0.7"
+                    android:gravity="start"
+                    android:text="暂无评论"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
