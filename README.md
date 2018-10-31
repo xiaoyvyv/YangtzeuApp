@@ -56,7 +56,8 @@ OkHttpClient okHttpClient = new OkHttpClient.Builder()
 主要是Android的原生WebView太垃圾了，所以接入了X5内核
 
 ##软件截图
-[![主页](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")[![主页](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")
+[![主页](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")
+[![主页](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")](https://www.showdoc.cc/server/api/common/visitfile/sign/23c1675cbbdd87ff96e7e801f754676e?showdoc=.jpg "主页")
 
 
 
