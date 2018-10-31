@@ -1,4 +1,4 @@
-##新长大助手
+##新长大助手##
 
 - #### 应用简介
 ###### 一款专门为长大师生打造的App。
@@ -12,7 +12,8 @@
 - #### 小提示
 ###### 长大的学子们，觉得好用的话！多多宣传一下！笔芯^_^!
 
-##原理篇
+##原理篇##
+
 - #### 基本原理
 **App的基本原理**
 ###### 通过对长江大学教务系统进行抓包，然后分析其登录流程，然后在Android客户端模拟整个登录流程，并且将登录成功后的Cookie保存下来，然后访问相应的页面时携带上Cookie。
@@ -55,7 +56,7 @@ OkHttpClient okHttpClient = new OkHttpClient.Builder()
 ##### 12.[腾讯X5内核](https://x5.tencent.com/ "腾讯X内核")
 主要是Android的原生WebView太垃圾了，所以接入了X5内核
 
-##软件截图
+##软件截图##
 
 |主页|新闻|功能|
 |:---:|:---:|:---:|
@@ -65,7 +66,7 @@ OkHttpClient okHttpClient = new OkHttpClient.Builder()
 |:---:|:---:|:---:|
 |![课表](https://www.showdoc.cc/server/api/common/visitfile/sign/db2699f1266e8732b66ca8f76c707e3c?showdoc=.jpg "主页")|![我的](https://www.showdoc.cc/server/api/common/visitfile/sign/af5da26f6857df9ff537df08b4647e39?showdoc=.jpg "我的")|![我的考试](https://www.showdoc.cc/server/api/common/visitfile/sign/8f56b564e5cf8e31b612aa528e251975?showdoc=.jpg "我的考试")
 
-##代码示例
+##代码示例##
 
 - **登录流程**
 > [UserUtils.java](https://github.com/xiaoyvyv/YangtzeuApp/blob/master/app/src/main/java/com/yangtzeu/utils/UserUtils.java "UserUtils.java")
@@ -88,7 +89,7 @@ OkHttpClient okHttpClient = new OkHttpClient.Builder()
 
 - **更多内容请自行翻阅源码**
 
-##写在最后
+##写在最后##
 
 - ** 开发此新长大助手花费了许多个人精力，其中会有很多问题和不足的地方，如果您在使用的过程中遇到了Bug，请谅解！**
 
