@@ -1,5 +1,6 @@
 package com.yangtzeu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherBean {
@@ -12,7 +13,7 @@ public class WeatherBean {
 
     private String msg;
     private String retCode;
-    private List<ResultBean> result;
+    private List<ResultBean> result= new ArrayList<>();
 
     public String getMsg() {
         return msg;

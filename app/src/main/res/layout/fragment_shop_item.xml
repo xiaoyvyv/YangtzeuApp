@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/card_margin_10"
-                android:layout_marginTop="@dimen/card_margin_5"
+                android:layout_marginTop="@dimen/margin_5"
                 android:alpha="0.4"
                 android:text="2018-12-56 12:45:12 pm"
                 android:textColor="@color/black"/>

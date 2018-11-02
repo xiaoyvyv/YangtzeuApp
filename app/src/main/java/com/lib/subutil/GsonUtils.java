@@ -1,8 +1,10 @@
 package com.lib.subutil;
 
 
+import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
@@ -75,7 +77,20 @@ public final class GsonUtils {
      * @return instance of type
      */
     public static <T> T fromJson(final String json, final Class<T> type) {
-        return GSON.fromJson(json, type);
+        T t = null;
+        try {
+            t = GSON.fromJson(json, type);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            try {
+                Class typeClass=Class.forName(type.getName());
+                Object o=typeClass.newInstance();
+                t = (T) o;
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        return t;
     }
 
     /**
@@ -86,7 +101,13 @@ public final class GsonUtils {
      * @return instance of type
      */
     public static <T> T fromJson(final String json, final Type type) {
-        return GSON.fromJson(json, type);
+        T t = null;
+        try {
+            t = GSON.fromJson(json, type);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+        return t;
     }
 
     /**

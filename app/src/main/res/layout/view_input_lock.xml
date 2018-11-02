@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#545454"
+            android:padding="@dimen/card_margin_10"
+            android:text="@string/input_lock_time"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#545454"
+            android:paddingStart="@dimen/card_margin_10"
+            android:paddingTop="@dimen/margin_5"
+            android:paddingEnd="@dimen/card_margin_10"
+            android:paddingBottom="@dimen/card_margin_10"
+            android:text="@string/please_input_right_time"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_replay_bg"
+            android:layout_marginBottom="@dimen/card_margin_10"
+            android:layout_marginStart="@dimen/card_margin_10"
+            android:layout_marginTop="@dimen/card_margin_10">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/timeView"
+                android:background="@color/translate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:digits="0123456789"
+                android:hint="@string/input_lock_time"
+                android:inputType="number"
+                android:maxLength="2"
+                android:padding="@dimen/card_margin_10"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

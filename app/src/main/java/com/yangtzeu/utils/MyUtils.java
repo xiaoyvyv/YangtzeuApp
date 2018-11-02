@@ -22,9 +22,11 @@ import android.os.Environment;
 import android.os.Vibrator;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Base64;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
@@ -1039,6 +1041,128 @@ public class MyUtils {
     //获取QQ头像
     public static String getQQHeader(String qq) {
         return "http://q1.qlogo.cn/g?b=qq&nk=" + qq + "&s=100";
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public static void setMoveWidget(final View view, final View.OnClickListener listener) {
+        view.setClickable(true);
+        view.setOnTouchListener(new View.OnTouchListener() {
+            private int padding = 20;
+            private int right;
+            private int top;
+            private int bottom;
+            private int left;
+            private int startY;
+            private int startX;
+            private boolean isClick = false;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        //获取当前按下的坐标
+                        startX = (int) event.getRawX();
+                        startY = (int) event.getRawY();
+                        isClick = true;
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        right = 0;
+                        top = 0;
+                        bottom = 0;
+                        left = 0;
+
+                        //获取移动后的坐标
+                        int moveX = (int) event.getRawX();
+                        int moveY = (int) event.getRawY();
+                        //拿到手指移动距离的大小
+                        int move_bigX = moveX - startX;
+                        int move_bigY = moveY - startY;
+                        //拿到当前控件未移动的坐标
+                        left = view.getLeft();
+                        top = view.getTop();
+                        left += move_bigX;
+                        top += move_bigY;
+                        right = left + view.getWidth();
+                        bottom = top + view.getHeight();
+                        view.layout(left, top, right, bottom);
+                        startX = moveX;
+                        startY = moveY;
+                        isClick = false;
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        right = padding + view.getWidth();
+                        view.layout(padding, top, right, bottom);
+
+                        if (isClick && listener != null) {
+                            listener.onClick(v);
+                        }
+                        return true;
+                }
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 跳转到应用市场app详情界面
+     *
+     * @param appPkg    App的包名
+     * @param marketPkg 应用市场包名
+     */
+    public static void launchMarketApp(String appPkg, String marketPkg) {
+        try {
+            if (TextUtils.isEmpty(appPkg)) return;
+            Uri uri = Uri.parse("market://details?id=" + appPkg);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            if (!TextUtils.isEmpty(marketPkg)) intent.setPackage(marketPkg);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (Exception e) {
+            ToastUtils.showShort("您的手机没有安装 酷安 应用市场");
+        }
+    }
+
+    /**
+     * 检测辅助功能是否开启
+     *
+     * @return boolean
+     */
+    public static boolean isAccessibilitySettingsOn(Context mContext, Class<?> serviceClass) {
+        int accessibilityEnabled = 0;
+        // TestService为对应的服务
+        final String service = AppUtils.getAppPackageName() + "/" + serviceClass.getCanonicalName();
+        LogUtils.i("service:" + service);
+        // com.z.buildingaccessibilityservices/android.accessibilityservice.AccessibilityService
+        try {
+            accessibilityEnabled = Settings.Secure.getInt(mContext.getApplicationContext().getContentResolver(),
+                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+            LogUtils.i("accessibilityEnabled = " + accessibilityEnabled);
+        } catch (Settings.SettingNotFoundException e) {
+            LogUtils.e("Error finding setting, default accessibility to not found: " + e.getMessage());
+        }
+        TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
+
+        if (accessibilityEnabled == 1) {
+            LogUtils.i("***ACCESSIBILITY IS ENABLED*** -----------------");
+            String settingValue = Settings.Secure.getString(mContext.getApplicationContext().getContentResolver(),
+                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            // com.z.buildingaccessibilityservices/com.z.buildingaccessibilityservices.TestService
+            if (settingValue != null) {
+                mStringColonSplitter.setString(settingValue);
+                while (mStringColonSplitter.hasNext()) {
+                    String accessibilityService = mStringColonSplitter.next();
+
+                    LogUtils.i("-------------- > accessibilityService :: " + accessibilityService + " " + service);
+                    if (accessibilityService.equalsIgnoreCase(service)) {
+                        LogUtils.i("We've found the correct setting - accessibility is switched on!");
+                        return true;
+                    }
+                }
+            }
+        } else {
+            LogUtils.e("***ACCESSIBILITY IS DISABLED***");
+        }
+        return false;
     }
 
 }

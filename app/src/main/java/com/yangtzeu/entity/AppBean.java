@@ -1,5 +1,6 @@
 package com.yangtzeu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppBean {
@@ -10,7 +11,7 @@ public class AppBean {
      */
 
     private int size;
-    private List<AppListBean> appList;
+    private List<AppListBean> appList= new ArrayList<>();
 
     public int getSize() {
         return size;

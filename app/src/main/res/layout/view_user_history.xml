@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:background="#545454"
             android:paddingStart="@dimen/card_margin_10"
-            android:paddingTop="@dimen/card_margin_5"
+            android:paddingTop="@dimen/margin_5"
             android:paddingEnd="@dimen/card_margin_10"
             android:paddingBottom="@dimen/card_margin_10"
             android:text="@string/choose_user"

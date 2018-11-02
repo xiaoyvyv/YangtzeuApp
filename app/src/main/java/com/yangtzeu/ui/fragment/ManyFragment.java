@@ -1,13 +1,15 @@
 package com.yangtzeu.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -15,12 +17,14 @@ import com.lib.notice.NoticeView;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ManyPresenter;
 import com.yangtzeu.ui.activity.ChatActivity;
+import com.yangtzeu.ui.activity.LockActivity;
 import com.yangtzeu.ui.activity.LoveActivity;
 import com.yangtzeu.ui.activity.ShopActivity;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.view.ManyView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
+import com.yangtzeu.utils.NotificationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -59,10 +63,16 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
         noticeView = rootView.findViewById(R.id.noticeView);
         banner = rootView.findViewById(R.id.banner);
         mRecyclerView = rootView.findViewById(R.id.mRecyclerView);
+
+        rootView.findViewById(R.id.lock).setOnClickListener(this);
         rootView.findViewById(R.id.shop).setOnClickListener(this);
         rootView.findViewById(R.id.chat).setOnClickListener(this);
         rootView.findViewById(R.id.love).setOnClickListener(this);
         rootView.findViewById(R.id.cut_off).setOnClickListener(this);
+        rootView.findViewById(R.id.lock).setOnClickListener(this);
+        rootView.findViewById(R.id.like).setOnClickListener(this);
+
+
 
         toolbar.inflateMenu(R.menu.fragment_many_menu);
         toolbar.setOnMenuItemClickListener(new  Toolbar.OnMenuItemClickListener() {
@@ -91,6 +101,8 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
         presenter.loadMarqueeView();
         presenter.loadBanner();
         presenter.fitAdapter();
+
+
 
     }
 
@@ -136,6 +148,27 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
             case R.id.cut_off:
                 MyUtils.openUrl(activity, Url.My_Home, true);
                 break;
+            case R.id.lock:
+                boolean isEnable = NotificationUtils.isNotificationEnabled(activity);
+                if (isEnable) {
+                    MyUtils.startActivity(LockActivity.class);
+                } else {
+                    MyUtils.getAlert(activity, "检测到您未允许本App的锁屏通知权限，建议您允许！\n\n请勾选允许锁屏通知\n\n权限用于在锁屏界面显示手机锁定剩余时间\n\n若不需要显示请点击取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            NotificationUtils.toNotificationSetting(activity);
+                        }
+                    }, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MyUtils.startActivity(LockActivity.class);
+                        }
+                    }).show();
+                }
+                break;
+            case R.id.like:
+                presenter.loadQQLikeEvents();
+            break;
         }
     }
 }

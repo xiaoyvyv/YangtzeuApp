@@ -41,7 +41,7 @@ public class FeedBackActivity extends BaseActivity implements FeedBackView {
 
     @Override
     public void setEvents() {
-        String my_qq = SPUtils.getInstance("user_info").getString("qq", "2440888027");
+        String my_qq = SPUtils.getInstance("user_info").getString("qq");
         qq.setText(my_qq);
 
         president = new FeedBackPresenter(this, this);

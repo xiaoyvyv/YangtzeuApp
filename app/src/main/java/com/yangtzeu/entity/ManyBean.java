@@ -1,6 +1,7 @@
 package com.yangtzeu.entity;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManyBean {
@@ -11,7 +12,7 @@ public class ManyBean {
      */
 
     private String info;
-    private List<DataBean> data;
+    private List<DataBean> data= new ArrayList<>();
 
     public String getInfo() {
         return info;

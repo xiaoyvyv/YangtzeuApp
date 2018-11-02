@@ -64,6 +64,7 @@ public class FallObject {
         isWindRandom = builder.isWindRandom;
         isWindChange = builder.isWindChange;
 
+        initWindLevel = builder.initWindLevel;
         initSpeed = builder.initSpeed;
         randomSpeed();
         randomSize();
@@ -75,6 +76,7 @@ public class FallObject {
         initSpeed = builder.initSpeed;
         bitmap = builder.bitmap;
 
+        initWindLevel = builder.initWindLevel;
         isSpeedRandom = builder.isSpeedRandom;
         isSizeRandom = builder.isSizeRandom;
         isWindRandom = builder.isWindRandom;

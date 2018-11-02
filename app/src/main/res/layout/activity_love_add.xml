@@ -64,7 +64,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_margin="@dimen/card_margin_10"
-                app:cardCornerRadius="@dimen/card_margin_5"
+                app:cardCornerRadius="@dimen/margin_5"
                 app:cardElevation="0dp">
 
                 <ImageView
@@ -87,7 +87,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="@dimen/card_margin_5"
+                        android:layout_marginBottom="@dimen/margin_5"
                         android:src="@drawable/ic_add"
                         android:tint="#aaaaaa" />
 

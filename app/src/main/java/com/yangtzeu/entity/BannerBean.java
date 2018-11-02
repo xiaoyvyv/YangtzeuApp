@@ -1,5 +1,6 @@
 package com.yangtzeu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BannerBean {
@@ -9,7 +10,7 @@ public class BannerBean {
      */
 
     private String version;
-    private List<DataBean> data;
+    private List<DataBean> data= new ArrayList<>();
 
     public String getVersion() {
         return version;

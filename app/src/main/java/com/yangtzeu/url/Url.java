@@ -118,6 +118,9 @@ public class Url {
     public static final String Yangtzeu_App_Love = My_App_Home + "/yangtzeu/image/love.png";
     //当前在线人数
     public static final String Yangtzeu_App_Online = My_App_Home + "/yangtzeu/api/yz_online.php";
+    //当前在线人数
+    public static final String Yangtzeu_App_Online_Show = My_App_Home +"/yangtzeu/api/yz_online_show.php";
+
     //长大App
     public static final String Yangtzeu_App_MyApp = My_App_Home + "/yangtzeu/json/yz_app.json";
     //功能页面滚动条通知
@@ -140,6 +143,10 @@ public class Url {
     public static final String Yangtzeu_Many_Item = My_App_Home + "/yangtzeu/json/yz_many.json";
     //导航界面
     public static final String Yangtzeu_AppTripInfo = My_App_Home + "/yangtzeu/json/yz_trip.json";
+    //锁屏白名单
+    public static final String Yangtzeu_App_Lock_White = My_App_Home + "/yangtzeu/json/yz_lock_white.json";
+    //开源地址
+    public static final String Yangtzeu_Github = "https://github.com/xiaoyvyv/YangtzeuApp/blob/master/README.md";
 
 
     /**
@@ -310,10 +317,31 @@ public class Url {
                 .build();
     }
 
+
+    //增加表白评论
+    public static Request getAddLoveReplayUrl(String love_id, String user_id, String user_name, String content) {
+        FormBody formBody = new FormBody.Builder()
+                .add("love_id", love_id)
+                .add("user_id", user_id)
+                .add("user_name", user_name)
+                .add("content", content)
+                .build();
+        LogUtils.i(love_id, user_id, user_name, content);
+        return new Request.Builder()
+                .url(My_App_Home + "/yangtzeu/api/yz_love_replay.php?action=add")
+                .post(formBody)
+                .build();
+    }
+
     //删除表白
     public static String deleteLove(String id) {
         return My_App_Home + "/yangtzeu/api/yz_love.php?action=delete&id=" + id;
     }
+
+
+
+
+
 
     public static String Yangtzeu_Physical_Home = "http://phylab.yangtzeu.edu.cn/jpkc/";
     /**

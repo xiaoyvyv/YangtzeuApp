@@ -53,24 +53,24 @@
         android:background="#bbffffff"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/card_margin_5">
+        android:padding="@dimen/margin_5">
 
         <EditText
             android:id="@+id/input"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_margin="@dimen/card_margin_5"
+            android:layout_margin="@dimen/margin_5"
             android:layout_weight="1"
             android:background="@color/translate"
             android:focusable="true"
             android:hint="@string/my_chat"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:lineSpacingExtra="@dimen/card_margin_5"
+            android:lineSpacingExtra="@dimen/margin_5"
             android:paddingStart="@dimen/card_margin_10"
-            android:paddingTop="@dimen/card_margin_5"
+            android:paddingTop="@dimen/margin_5"
             android:paddingEnd="@dimen/card_margin_10"
-            android:paddingBottom="@dimen/card_margin_5"
+            android:paddingBottom="@dimen/margin_5"
             android:textSize="15sp"
             tools:ignore="Autofill" />
 

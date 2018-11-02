@@ -13,19 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/table_section"
         android:layout_margin="@dimen/table_item_margin"
-        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardBackgroundColor="@color/translate"
         app:cardCornerRadius="2.5dp"
-        app:cardElevation="1dp">
+        app:cardElevation="0dp">
 
         <TextView
             android:id="@+id/mClass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/card_margin_5"
             android:gravity="top|center_horizontal"
             android:paddingStart="2.5dp"
-            android:paddingTop="@dimen/card_margin_5"
+            android:paddingTop="@dimen/margin_5"
             android:paddingEnd="2.5dp"
+            android:paddingBottom="@dimen/margin_5"
             android:text="我是课程"
             android:textColor="@color/white"
             android:textSize="9.5sp"

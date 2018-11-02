@@ -1,10 +1,11 @@
 package com.yangtzeu.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GradeBean implements Serializable {
-    private List<GradeBean> gradeBeans;
+    private List<GradeBean> gradeBeans= new ArrayList<>();
 
     private String courseYear;
     private String courseTerm;

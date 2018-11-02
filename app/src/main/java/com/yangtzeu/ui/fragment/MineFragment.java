@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -79,6 +80,9 @@ public class MineFragment extends BaseFragment implements MineView {
     private LinearLayout cetLayout;
     private LinearLayout pingJiaoLayout;
     private LinearLayout logoutLayout;
+    private LinearLayout coolLayout;
+    private LinearLayout githubLayout;
+
     private Activity activity;
     private OnlineBroadcastReceiver onlineBroadcastReceiver;
     private boolean isReceiver = false;
@@ -121,6 +125,8 @@ public class MineFragment extends BaseFragment implements MineView {
         cetLayout = rootView.findViewById(R.id.cetLayout);
         pingJiaoLayout = rootView.findViewById(R.id.pingJiaoLayout);
         logoutLayout = rootView.findViewById(R.id.logoutLayout);
+        githubLayout = rootView.findViewById(R.id.githubLayout);
+        coolLayout = rootView.findViewById(R.id.coolLayout);
 
 
     }
@@ -154,6 +160,12 @@ public class MineFragment extends BaseFragment implements MineView {
         refreshLayout.autoRefresh();
 
 
+        online.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.openUrl(activity, Url.Yangtzeu_App_Online_Show);
+            }
+        });
 
         userHeader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,6 +273,21 @@ public class MineFragment extends BaseFragment implements MineView {
             @Override
             public void onClick(View v) {
                 MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_Teacher);
+            }
+        });
+
+
+        coolLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.launchMarketApp(AppUtils.getAppPackageName(), "com.coolapk.market");
+            }
+        });
+
+        githubLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_Github, true);
             }
         });
 

@@ -104,7 +104,7 @@ public class ChooseClassModel implements IChooseClassModel {
                                 if (ObjectUtils.isEmpty(url_end)) {
                                     ToastUtils.showShort("选课时间未到");
                                 } else {
-                                    MyUtils.openUrl(activity, "http://221.233.24.23" + url_end);
+                                    MyUtils.openUrl(activity, "http://221.233.24.23" + url_end, true);
                                 }
                             }
                         });

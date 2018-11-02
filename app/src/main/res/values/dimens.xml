@@ -10,7 +10,7 @@
     <dimen name="table_section">125dp</dimen>
 
     <dimen name="card_radius">5dp</dimen>
-    <dimen name="card_margin_5">5dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
     <dimen name="fragment4_dp">25dp</dimen>
     <dimen name="fragment4_view">10dp</dimen>
     <dimen name="fragment4_height">48dp</dimen>

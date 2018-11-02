@@ -30,9 +30,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/card_margin_5"
+            android:layout_margin="@dimen/margin_5"
             android:elevation="2dp"
-            app:cardCornerRadius="@dimen/card_margin_5">
+            app:cardCornerRadius="@dimen/margin_5">
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -71,7 +71,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/card_margin_5">
+                android:padding="@dimen/margin_5">
 
                 <ImageView
                     android:layout_width="35dp"
@@ -103,7 +103,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/card_margin_5">
+                android:padding="@dimen/margin_5">
 
                 <ImageView
                     android:layout_width="35dp"
@@ -135,7 +135,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/card_margin_5">
+                android:padding="@dimen/margin_5">
 
                 <ImageView
                     android:layout_width="35dp"
@@ -167,7 +167,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/card_margin_5">
+                android:padding="@dimen/margin_5">
 
                 <ImageView
                     android:layout_width="35dp"
@@ -225,7 +225,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="@dimen/card_margin_5"
+            android:layout_marginTop="@dimen/margin_5"
             android:background="@color/black_20" />
 
         <LinearLayout
@@ -233,7 +233,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="@dimen/card_margin_5">
+            android:padding="@dimen/margin_5">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/replay"

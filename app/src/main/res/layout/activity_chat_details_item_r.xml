@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="@dimen/card_margin_5"
+    android:padding="@dimen/margin_5"
     tools:ignore="HardcodedText">
 
 
@@ -81,7 +81,7 @@
         android:layout_below="@+id/name"
         android:layout_alignParentEnd="true"
         android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/card_margin_5"
+        android:layout_margin="@dimen/margin_5"
         android:layout_marginStart="5dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher1"

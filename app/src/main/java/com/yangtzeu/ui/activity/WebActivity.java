@@ -150,14 +150,15 @@ public class WebActivity extends BaseActivity {
             toolbar.setVisibility(View.GONE);
             ic_close.setVisibility(View.VISIBLE);
         }
-        ic_close.setOnClickListener(new View.OnClickListener() {
+
+        //设置按钮可移动
+        MyUtils.setMoveWidget(ic_close, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WebActivity.this.finish();
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-
 
         web_container.addView(mWebView, 0, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,

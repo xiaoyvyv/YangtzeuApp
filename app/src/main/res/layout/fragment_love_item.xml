@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/card_margin_10"
-                android:layout_marginTop="@dimen/card_margin_5"
+                android:layout_marginTop="@dimen/margin_5"
                 android:alpha="0.4"
                 android:text="2018-12-56 12:45:12 pm"
                 android:textColor="@color/black"
@@ -76,22 +76,42 @@
         android:layout_height="220dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="20dp"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitStart"
         android:src="@mipmap/holder" />
 
     <LinearLayout
-        android:layout_marginStart="15dp"
-        android:orientation="vertical"
-        android:id="@+id/replay_message"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_replay_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include
-            layout="@layout/activity_board_replay_item"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/replay_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_replay_bg"
+            android:orientation="vertical">
+
+            <include layout="@layout/activity_board_replay_item" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/addReplay"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="top"
+            android:layout_marginTop="@dimen/card_margin_10"
+            android:layout_marginEnd="@dimen/card_margin_10"
+            android:src="@mipmap/chat"
+            android:tint="?attr/colorPrimary"
+            android:contentDescription="@string/app_name" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"

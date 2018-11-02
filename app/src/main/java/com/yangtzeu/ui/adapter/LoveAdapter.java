@@ -1,6 +1,8 @@
 package com.yangtzeu.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,16 +10,21 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.android.material.textfield.TextInputEditText;
 import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.LoveBean;
 import com.yangtzeu.entity.MessageBean;
+import com.yangtzeu.entity.ShopBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.ui.activity.LoveDetailsActivity;
@@ -26,9 +33,11 @@ import com.yangtzeu.utils.MyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.Request;
 
 
 /**
@@ -98,7 +107,7 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 if (is_manger) {
-                    MyUtils.getAlert(context, context.getString(R.string.is_delete_shop), new DialogInterface.OnClickListener() {
+                    MyUtils.getAlert(context, context.getString(R.string.is_delete_love), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ToastUtils.showShort(R.string.delete_ing);
@@ -124,21 +133,75 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
             }
         });
 
-        addReplay(viewHolder, replay);
+        addReplay(context,viewHolder.replay_message, replay);
+        addReplayListener(context, viewHolder.replay_message, viewHolder.addReplay, replay, id);
     }
 
-    private void addReplay(LoveAdapter.ViewHolder viewHolder, List<LoveBean.DataBean.ReplayBean> replay) {
+    public static void addReplayListener(final Context context, final LinearLayout container, final View view, final List<LoveBean.DataBean.ReplayBean> replay, final String love_id) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("InflateParams")
+                View inflate = LayoutInflater.from(context).inflate(R.layout.fragment_love_replay, null);
+                final TextInputEditText replayView = inflate.findViewById(R.id.replay);
+                AlertDialog alert = MyUtils.getAlert(context, null, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String input = Objects.requireNonNull(replayView.getText()).toString().trim();
+                        if (input.isEmpty()) {
+                            ToastUtils.showShort(R.string.please_input);
+                        } else {
+                            LoveBean.DataBean.ReplayBean replayBean = new LoveBean.DataBean.ReplayBean();
+                            String my_name = SPUtils.getInstance("user_info").getString("name");
+                            String my_number = SPUtils.getInstance("user_info").getString("number");
+                            replayBean.setUser_name(my_name);
+                            replayBean.setContent(input);
+                            replay.add(replayBean);
+                            addReplay(context, container, replay);
+
+                            KeyboardUtils.hideSoftInput(replayView);
+                            dialog.dismiss();
+
+                            final ProgressDialog replay_dialog = MyUtils.getProgressDialog(context, "评论发布中");
+                            replay_dialog.show();
+                            Request request = Url.getAddLoveReplayUrl(love_id, my_number, my_name, input);
+                            OkHttp.do_Post(request, new OnResultStringListener() {
+                                @Override
+                                public void onResponse(String response) {
+                                    replay_dialog.dismiss();
+                                    ToastUtils.showShort(R.string.replay_success);
+                                }
+
+                                @Override
+                                public void onFailure(String error) {
+                                    replay.remove(replay.size() - 1);
+                                    replay_dialog.dismiss();
+                                    ToastUtils.showShort(R.string.replay_error);
+                                }
+                            });
+
+                        }
+                    }
+                });
+                alert.setView(inflate);
+                alert.setTitle(null);
+                alert.show();
+            }
+        });
+    }
+
+    public static void addReplay(Context context,LinearLayout container, List<LoveBean.DataBean.ReplayBean> replay) {
         if (replay.size() == 0) {
-            viewHolder.replay_message.removeAllViews();
+            container.removeAllViews();
             View item = View.inflate(context, R.layout.activity_board_replay_item, null);
-            viewHolder.replay_message.addView(item);
+            container.addView(item);
         } else {
-            viewHolder.replay_message.removeAllViews();
+            container.removeAllViews();
         }
         for (int j = 0; j < replay.size(); j++) {
             //载入回复Item布局,并且加入回复容器布局
             View HuiFuItem = View.inflate(context, R.layout.activity_board_replay_item, null);
-            viewHolder.replay_message.addView(HuiFuItem);
+            container.addView(HuiFuItem);
             TextView HuiFuItemText = HuiFuItem.findViewById(R.id.HuiFuText);
             final String rText = replay.get(j).getContent();
             final String rName = "<font color=#00367a>" + replay.get(j).getUser_name() + "</font>";
@@ -170,12 +233,14 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
         TextView des;
         ImageView image;
         ImageView header;
+        ImageView addReplay;
 
         ViewHolder(View ll_class) {
             super(ll_class);
             replay_message = ll_class.findViewById(R.id.replay_message);
             name = ll_class.findViewById(R.id.name);
             time = ll_class.findViewById(R.id.time);
+            addReplay = ll_class.findViewById(R.id.addReplay);
             header = ll_class.findViewById(R.id.header);
             des = ll_class.findViewById(R.id.des);
             image = ll_class.findViewById(R.id.image);

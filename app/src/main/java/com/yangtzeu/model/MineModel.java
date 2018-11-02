@@ -75,6 +75,7 @@ public class MineModel implements IMineModel {
                 activity.sendBroadcast(intent);
             }
         });
+
     }
 
 
@@ -96,7 +97,7 @@ public class MineModel implements IMineModel {
             public void onClick(final View v) {
                 dialog.dismiss();
 
-                @SuppressLint("InflateParams") final View view = activity.getLayoutInflater().inflate(R.layout.view_input_view, null);
+                @SuppressLint("InflateParams") final View view = activity.getLayoutInflater().inflate(R.layout.view_input_qq, null);
                 final TextInputEditText inputEditText = view.findViewById(R.id.text);
                 TextView textView = view.findViewById(R.id.trip);
                 textView.setText(R.string.input_qq);

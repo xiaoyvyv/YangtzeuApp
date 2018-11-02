@@ -28,4 +28,8 @@ public class ManyPresenter {
     public void fitAdapter() {
         model.fitAdapter(activity, view);
     }
+
+    public void loadQQLikeEvents() {
+        model.loadQQLikeEvents(activity, view);
+    }
 }

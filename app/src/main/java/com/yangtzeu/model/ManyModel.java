@@ -1,6 +1,10 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,6 +19,7 @@ import com.yangtzeu.entity.MarqueeBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IManyModel;
+import com.yangtzeu.service.qq.QQService;
 import com.yangtzeu.ui.adapter.ManyAdapter;
 import com.yangtzeu.ui.view.ManyView;
 import com.yangtzeu.url.Url;
@@ -101,5 +106,36 @@ public class ManyModel implements IManyModel {
                 ToastUtils.showShort(R.string.load_error);
             }
         });
+    }
+
+    @Override
+    public void loadQQLikeEvents(final Activity activity, ManyView view) {
+        if (MyUtils.isAccessibilitySettingsOn(activity,QQService.class)) {
+            ToastUtils.showShort(R.string.please_open_friend);
+            try {
+                Intent intent =activity.getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
+                activity.startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ToastUtils.showShort(R.string.no_qq_app);
+            }
+        } else {
+            ToastUtils.showShort(R.string.qq_like_permission_error);
+            AlertDialog dialog = new AlertDialog.Builder(activity)
+                    .setTitle(R.string.trip)
+                    .setMessage(R.string.need_accessibility)
+                    .setPositiveButton("打开", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            activity.startActivity(intent);
+                            activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                        }
+                    })
+                    .setNegativeButton(R.string.clear, null)
+                    .create();
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
     }
 }

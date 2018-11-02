@@ -1,5 +1,6 @@
 package com.yangtzeu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class BoardBean {
      */
 
     private String code;
-    private List<ResultBean> result;
+    private List<ResultBean> result= new ArrayList<>();
 
     public String getCode() {
         return code;

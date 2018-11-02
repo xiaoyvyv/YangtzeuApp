@@ -1,8 +1,9 @@
 package com.yangtzeu.ui.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -11,10 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 
-import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
-import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -121,6 +121,20 @@ public class TableFragment extends BaseFragment implements TableView {
                         Intent pickIntent = new Intent(Intent.ACTION_PICK);
                         pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                         startActivityForResult(pickIntent, 200);
+                        break;
+                    case R.id.alpha:
+                        final SeekBar bar = new SeekBar(getActivity());
+                        bar.setMax(255);
+                        bar.setProgress(90);
+                        AlertDialog alert = MyUtils.getAlert(getActivity(), "设置课表方块透明度", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SPUtils.getInstance("app_info").put("table_alpha", MyUtils.formattingH(bar.getProgress()));
+                                refreshLayout.autoRefresh();
+                            }
+                        });
+                        alert.setView(bar);
+                        alert.show();
                         break;
                 }
                 return false;

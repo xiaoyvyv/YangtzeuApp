@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageBean implements Serializable {
-    private List<ImageItem> imageItems;
+    private List<ImageItem> imageItems= new ArrayList<>();
 
     public List<ImageItem> getImageItems() {
         return imageItems;

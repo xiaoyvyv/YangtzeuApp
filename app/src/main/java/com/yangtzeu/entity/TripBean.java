@@ -1,6 +1,7 @@
 package com.yangtzeu.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TripBean implements Serializable{
@@ -10,7 +11,7 @@ public class TripBean implements Serializable{
      */
 
     private String version;
-    private List<DataBean> data;
+    private List<DataBean> data= new ArrayList<>();
 
     public String getVersion() {
         return version;

@@ -14,13 +14,16 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CacheDiskUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.lib.mob.im.IMManager;
 import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.database.DatabaseUtils;
@@ -28,6 +31,7 @@ import com.yangtzeu.database.MyOpenHelper;
 import com.yangtzeu.entity.AlertBean;
 import com.yangtzeu.entity.BanBean;
 import com.yangtzeu.entity.Course;
+import com.yangtzeu.entity.MessageBean;
 import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.entity.TripBean;
 import com.yangtzeu.entity.UpDateBean;
@@ -495,6 +499,7 @@ public class YangtzeuUtils {
         }
     }
 
+    //弹出完善身份信息的对话框
     public static void inputInfoAlert(Context context) {
         @SuppressLint("InflateParams")
         View view = LayoutInflater.from(context).inflate(R.layout.view_user_info, null);
@@ -520,6 +525,26 @@ public class YangtzeuUtils {
         alert.setView(view);
         alert.show();
     }
+
+    public static void getLockPhoneWhiteUser() {
+        OkHttp.do_Get(Url.Yangtzeu_App_Lock_White, new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                MessageBean messageBean = GsonUtils.fromJson(response, MessageBean.class);
+                String info = messageBean.getInfo();
+                if (info.contains(IMManager.getUser().getId())) {
+                    //进程不同，用文件存储数据，以便时实更新
+                    CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put("lock_time", "0");
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                getLockPhoneWhiteUser();
+            }
+        });
+    }
+
 
     public static String getStudyTimeSpan() {
         // 获取当前日期

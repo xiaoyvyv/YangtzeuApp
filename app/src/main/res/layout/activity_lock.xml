@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/lock_phone" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -25,11 +25,62 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5"
+                app:cardCornerRadius="@dimen/card_radius">
+
+                <com.skyfishjy.library.RippleBackground
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    app:rb_color="?attr/colorPrimary"
+                    app:rb_duration="3500"
+                    app:rb_radius="32dp"
+                    app:rb_rippleAmount="6"
+                    app:rb_scale="6">
+
+                    <Button
+                        android:id="@+id/start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:shadowColor="@color/black_20"
+                        android:shadowDx="4"
+                        android:shadowDy="2"
+                        android:shadowRadius="1"
+                        android:text="START"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+                </com.skyfishjy.library.RippleBackground>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5"
+                app:cardCornerRadius="@dimen/card_radius">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@string/admin_trip"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp" />
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

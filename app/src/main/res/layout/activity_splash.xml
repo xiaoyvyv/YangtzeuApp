@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/adView"
             android:layout_gravity="start"
-            android:padding="@dimen/card_margin_5" />
+            android:padding="@dimen/margin_5" />
     </RelativeLayout>
 
     <RelativeLayout

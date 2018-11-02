@@ -71,24 +71,36 @@ public class OkHttp {
 
     public static void do_Get(final String url, final OnResultStringListener onResultStringListener) {
         LogUtils.i("Get--加载链接：" + url);
+
+        //缓存的Key
         final String cache_key = EncryptUtils.encryptMD5ToString("get:string" + url);
 
-        //如果网址错误
+        //如果网址错误，则退出
         if (!URLUtil.isNetworkUrl(url)) {
             if (onResultStringListener != null)
                 onResultStringListener.onFailure("错误的网址：" + url);
             return;
         }
 
-        //如果没有网络
+        //如果没有网络，且设置为禁用缓存，则退出
         if (!NetworkUtils.isConnected()) {
-            if (onResultStringListener != null)
-                onResultStringListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
-
-            boolean cache_okhttp = SPUtils.getInstance("app_info").getBoolean("cache_okhttp", true);
-            if (!cache_okhttp || StringUtils.equals(url, Url.Yangtzeu_Login_Path)) {
-                return;
+            if (onResultStringListener != null) {
+                boolean cache_okhttp = SPUtils.getInstance("app_info").getBoolean("cache_okhttp", true);
+                if (!cache_okhttp || StringUtils.equals(url, Url.Yangtzeu_Login_Path)) {
+                    onResultStringListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
+                    return;
+                } else {
+                    String cache = CacheDiskUtils.getInstance(MyUtils.geCacheDir()).getString(cache_key);
+                    if (ObjectUtils.isNotEmpty(cache) && !url.contains(OkhttpError.ERROR_SCHOOL_HOST)) {
+                        onResultStringListener.onResponse(cache);
+                    } else {
+                        onResultStringListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
+                    }
+                }
+            } else {
+                LogUtils.i("未设置网络请求监听---Url：" + url);
             }
+            return;
         }
 
         final Request request = new Request.Builder()
@@ -102,12 +114,9 @@ public class OkHttp {
                     @Override
                     public void run() {
                         if (onResultStringListener != null) {
-                            String cache = CacheDiskUtils.getInstance(MyUtils.geCacheDir()).getString(cache_key);
-                            if (ObjectUtils.isNotEmpty(cache) && !url.contains("10.10.240.250")) {
-                                onResultStringListener.onResponse(cache);
-                            } else {
-                                onResultStringListener.onFailure(OkhttpError.ERROR_LOAD);
-                            }
+                            onResultStringListener.onFailure(OkhttpError.ERROR_LOAD);
+                        } else {
+                            LogUtils.i("未设置网络请求监听---Url：" + url);
                         }
                     }
                 });
@@ -120,19 +129,26 @@ public class OkHttp {
                 UIHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (response.code() != 200) {
-                            if (onResultStringListener != null)
-                                onResultStringListener.onFailure(OkhttpError.ERROR_FAILURE);
-                            return;
-                        }
+                        //缓存到sd卡
+                        CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put(cache_key, string);
+
                         if (onResultStringListener != null) {
+                            //返回码不为200即退出
+                            if (response.code() != 200) {
+                                onResultStringListener.onFailure(OkhttpError.ERROR_FAILURE);
+                                return;
+                            }
+
+                            //如果返回结果包含校园网登录信息，且不为留言，则退出
                             if (string.contains(OkhttpError.ERROR_SCHOOL_HOST) && !url.contains(Url.Yangtzeu_App_ShowMessage)) {
                                 onResultStringListener.onFailure(OkhttpError.ERROR_LOGIN_SCHOOL_INTERNET);
-                            } else {
-                                //缓存到sd卡
-                                CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put(cache_key, string);
-                                onResultStringListener.onResponse(string);
+                                return;
                             }
+
+                            //返回成功结果
+                            onResultStringListener.onResponse(string);
+                        } else {
+                            LogUtils.i("未设置网络请求监听---Url：" + url);
                         }
                     }
                 });
@@ -143,21 +159,35 @@ public class OkHttp {
     public static void do_Get(final String url, final OnResultBytesListener onResultListener) {
         LogUtils.i("Get--加载链接：" + url);
 
+        //缓存的Key
         final String cache_key = EncryptUtils.encryptMD5ToString("get:bytes" + url);
 
+        //如果网址错误，则退出
         if (!URLUtil.isNetworkUrl(url)) {
             if (onResultListener != null)
                 onResultListener.onFailure("错误的网址：" + url);
             return;
         }
 
+        //如果没有网络，且设置为禁用缓存，则退出
         if (!NetworkUtils.isConnected()) {
-            if (onResultListener != null)
-                onResultListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
-            boolean cache_okhttp = SPUtils.getInstance("app_info").getBoolean("cache_okhttp", true);
-            if (!cache_okhttp) {
-                return;
+            if (onResultListener != null) {
+                boolean cache_okhttp = SPUtils.getInstance("app_info").getBoolean("cache_okhttp", true);
+                if (!cache_okhttp || StringUtils.equals(url, Url.Yangtzeu_Login_Path)) {
+                    onResultListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
+                    return;
+                } else {
+                    byte[] cache = CacheDiskUtils.getInstance(MyUtils.geCacheDir()).getBytes(cache_key);
+                    if (ObjectUtils.isNotEmpty(cache) && !url.contains(OkhttpError.ERROR_SCHOOL_HOST)) {
+                        onResultListener.onResponse(cache);
+                    } else {
+                        onResultListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
+                    }
+                }
+            } else {
+                LogUtils.i("未设置网络请求监听---Url：" + url);
             }
+            return;
         }
 
         final Request request = new Request.Builder()
@@ -171,12 +201,9 @@ public class OkHttp {
                     @Override
                     public void run() {
                         if (onResultListener != null) {
-                            byte[] cache = CacheDiskUtils.getInstance(MyUtils.geCacheDir()).getBytes(cache_key);
-                            if (ObjectUtils.isNotEmpty(cache) && !url.contains("10.10.240.250")) {
-                                onResultListener.onResponse(cache);
-                            } else {
-                                onResultListener.onFailure(OkhttpError.ERROR_LOAD);
-                            }
+                            onResultListener.onFailure(OkhttpError.ERROR_LOAD);
+                        } else {
+                            LogUtils.i("未设置网络请求监听---Url：" + url);
                         }
                     }
                 });
@@ -184,25 +211,33 @@ public class OkHttp {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-
                 final byte[] result = Objects.requireNonNull(response.body()).bytes();
                 final String string = result != null ? new String(result) : nullString;
                 UIHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (response.code() != 200) {
-                            if (onResultListener != null)
-                                onResultListener.onFailure(OkhttpError.ERROR_FAILURE);
-                            return;
-                        }
+                        //缓存到sd卡
+                        CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put(cache_key, result);
+
                         if (onResultListener != null) {
+                            //返回码不为200即退出
+                            if (response.code() != 200) {
+                                onResultListener.onFailure(OkhttpError.ERROR_FAILURE);
+                                return;
+                            }
+
+                            //如果返回结果包含校园网登录信息，且不为留言，则退出
                             if (string.contains(OkhttpError.ERROR_SCHOOL_HOST)) {
                                 onResultListener.onFailure(OkhttpError.ERROR_LOGIN_SCHOOL_INTERNET);
-                            } else {
-                                CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put(cache_key, result);
-                                onResultListener.onResponse(result);
+                                return;
                             }
+
+                            //返回成功结果
+                            onResultListener.onResponse(result);
+                        } else {
+                            LogUtils.i("未设置网络请求监听---Url：" + url);
                         }
+
                     }
                 });
             }
@@ -211,7 +246,6 @@ public class OkHttp {
 
 
     public static void do_Post(final Request request, final OnResultStringListener onResultStringListener) {
-
         FormBody body = (FormBody) request.body();
         StringBuilder temp = new StringBuilder();
         if (body != null) {
@@ -219,15 +253,11 @@ public class OkHttp {
                 temp.append(body.name(i)).append(":").append(body.value(i)).append(";");
             }
         }
-        LogUtils.i("Post--加载链接：" + request.url().toString());
-        final String cache_key = EncryptUtils.encryptMD5ToString("post:string" + request.url().toString() + temp.toString());
+
         if (!NetworkUtils.isConnected()) {
             if (onResultStringListener != null)
                 onResultStringListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
-            boolean cache_okhttp = SPUtils.getInstance("app_info").getBoolean("cache_okhttp", true);
-            if (!cache_okhttp || StringUtils.equals(request.url().toString(), Url.Yangtzeu_Login_Path)) {
-                return;
-            }
+            return;
         }
 
 
@@ -238,12 +268,9 @@ public class OkHttp {
                     @Override
                     public void run() {
                         if (onResultStringListener != null) {
-                            String cache = CacheDiskUtils.getInstance(MyUtils.geCacheDir()).getString(cache_key);
-                            if (ObjectUtils.isNotEmpty(cache)) {
-                                onResultStringListener.onResponse(cache);
-                            } else {
-                                onResultStringListener.onFailure(OkhttpError.ERROR_LOAD);
-                            }
+                            onResultStringListener.onFailure(OkhttpError.ERROR_LOAD);
+                        } else {
+                            LogUtils.i("未设置网络请求监听---Url：" + request.url());
                         }
                     }
                 });
@@ -256,19 +283,23 @@ public class OkHttp {
                 UIHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (response.code() != 200) {
-                            if (onResultStringListener != null)
-                                onResultStringListener.onFailure(OkhttpError.ERROR_FAILURE);
-                            return;
-                        }
-
                         if (onResultStringListener != null) {
+                            //返回码不为200即退出
+                            if (response.code() != 200) {
+                                onResultStringListener.onFailure(OkhttpError.ERROR_FAILURE);
+                                return;
+                            }
+
+                            //如果返回结果包含校园网登录信息，且不为留言，则退出
                             if (string.contains(OkhttpError.ERROR_SCHOOL_HOST)) {
                                 onResultStringListener.onFailure(OkhttpError.ERROR_LOGIN_SCHOOL_INTERNET);
-                            } else {
-                                CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put(cache_key, string);
-                                onResultStringListener.onResponse(string);
+                                return;
                             }
+
+                            //返回成功结果
+                            onResultStringListener.onResponse(string);
+                        }else {
+                            LogUtils.i("未设置网络请求监听---Url：" + request.url());
                         }
                     }
                 });

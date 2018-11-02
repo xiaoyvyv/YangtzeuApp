@@ -1,5 +1,6 @@
 package com.yangtzeu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OnLineBean {
@@ -12,7 +13,7 @@ public class OnLineBean {
 
     private String info;
     private int size;
-    private List<DataBean> data;
+    private List<DataBean> data= new ArrayList<>();
 
     public String getInfo() {
         return info;

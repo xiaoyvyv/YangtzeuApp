@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,13 +37,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdapter.ViewHolder> {
     private Context context;
     private Activity activity;
-
+    private String alpha;
     @SuppressLint("UseSparseArrays")
     private HashMap<Integer, Course[]> booleans = new HashMap<>();
     private HashMap<String, String> colorHash = new HashMap<>();
-    private String[] tempColor = {"#ff80ab", "#4CAF50", "#FF4081",
-            "#3f51b5", "#009688", "#f57c00", "#673ab7",
-            "#2196f3", "#795548", "#607d8b", "#515151", "#D9cc7E"};
+    private String[] tempColor;
 
     public TableFragmentAdapter(Context context) {
         this.context = context;
@@ -51,6 +50,16 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
             Course courses[] = new Course[2];
             booleans.put(i, courses);
         }
+
+        initColor();
+    }
+
+    private void initColor() {
+        colorHash.clear();
+        alpha = SPUtils.getInstance("app_info").getString("table_alpha", "90");
+        tempColor = new String[]{"#" + alpha + "ff80ab", "#" + alpha + "4CAF50", "#" + alpha + "FF4081",
+                "#" + alpha + "3f51b5", "#" + alpha + "009688", "#" + alpha + "f57c00", "#" + alpha + "673ab7",
+                "#" + alpha + "2196f3", "#" + alpha + "795548", "#" + alpha + "607d8b", "#" + alpha + "515151", "#" + alpha + "D9cc7E"};
     }
 
     public void addCourse(Course course) {
@@ -96,6 +105,11 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int i) {
+        if (i == 0) {
+            color_index = 0;
+            initColor();
+        }
+
         Course course = Objects.requireNonNull(booleans.get(i))[0];
         final Course course_more = Objects.requireNonNull(booleans.get(i))[1];
 
@@ -105,7 +119,7 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
             String mSetClass = (String) list.get(week + "_" + String.valueOf(i));
 
             if (mSetClass != null) {
-                viewHolder.ClassCardView.setCardBackgroundColor(activity.getResources().getColor(R.color.colorPrimary));
+                viewHolder.ClassCardView.setCardBackgroundColor(Color.parseColor("#" + alpha + "ff80ab"));
                 viewHolder.ClassCardView.setVisibility(View.VISIBLE);
                 viewHolder.mClass.setText("自定义课表\n\n" + mSetClass);
                 viewHolder.onclick.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +157,6 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
                         trip.setText("第" + week + "周-星期" + where[1] + "-第" + where[0] + "节");
 
                         AlertDialog dialog = new AlertDialog.Builder(context)
-                                .setTitle("自定义课表")
                                 .setView(view)
                                 .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                                     @Override
@@ -151,7 +164,7 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
                                         String str_start = Objects.requireNonNull(start.getText()).toString().trim();
                                         String str_end = Objects.requireNonNull(end.getText()).toString().trim();
                                         String str_text = Objects.requireNonNull(text.getText()).toString();
-                                        if (!str_start.isEmpty()&&!str_end.isEmpty()&&!str_text.isEmpty()) {
+                                        if (!str_start.isEmpty() && !str_end.isEmpty() && !str_text.isEmpty()) {
                                             int start = Integer.parseInt(str_start);
                                             int end = Integer.parseInt(str_end);
 
@@ -194,9 +207,16 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
         final String finalName = name;
         final String finalRoom = room;
 
+        //不透明时设置阴影
+        if (alpha.equals("ff")) {
+            viewHolder.ClassCardView.setCardElevation(ConvertUtils.dp2px(1));
+        } else {
+            viewHolder.ClassCardView.setCardElevation(ConvertUtils.dp2px(0));
+        }
 
         if (course_more != null) {
-            viewHolder.ClassCardView.setCardBackgroundColor(activity.getResources().getColor(R.color.red));
+            viewHolder.ClassCardView.setCardBackgroundColor(Color.parseColor("#" + alpha + "ff0000"));
+
             String name_more = course_more.getName();
             name_more = name_more.replace("\"", "");
 
@@ -234,8 +254,8 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
                 }
             });
         } else {
-            // viewHolder.ClassCardView.setCardBackgroundColor(activity.getResources().getColor(ColorList[i % 6]));
-            viewHolder.ClassCardView.setCardBackgroundColor(Color.parseColor(getColor(id)));
+            String colorStr = getColor(id);
+            viewHolder.ClassCardView.setCardBackgroundColor(Color.parseColor(colorStr));
             viewHolder.onclick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -277,20 +297,19 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
     }
 
 
-    private int i = 0;
-
+    private int color_index = 0;
     private String getColor(String id) {
         String color = colorHash.get(id);
         if (color == null) {
-            if (tempColor.length > i) {
-                color = tempColor[i];
-                i++;
+            if (tempColor.length > color_index) {
+                color = tempColor[color_index];
+                color_index++;
             } else {
                 Random rand = new Random();
                 String red = MyUtils.formattingH(rand.nextInt(255));
                 String green = MyUtils.formattingH(rand.nextInt(255));
                 String blue = MyUtils.formattingH(rand.nextInt(255));
-                color = "#" + red + green + blue;
+                color = "#" + alpha + red + green + blue;
             }
             colorHash.put(id, color);
         }
@@ -315,7 +334,7 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
         return (Section * 7 - 1) - (7 - Week);
     }
 
-    public static int[] GetWhichByAndSectionPosition(int position) {
+    private static int[] GetWhichByAndSectionPosition(int position) {
         int[] sec_which = new int[2];
         sec_which[0] = position / 7 + 1;
         sec_which[1] = position % 7 + 1;

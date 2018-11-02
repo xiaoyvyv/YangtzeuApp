@@ -1,10 +1,16 @@
 package com.yangtzeu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdBean {
 
-    private List<ResultBean> result;
+    private List<ResultBean> result = new ArrayList<>();
+
+    public AdBean() {
+        result.add(new ResultBean());
+    }
+
 
     public List<ResultBean> getResult() {
         return result;

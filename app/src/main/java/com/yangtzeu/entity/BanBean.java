@@ -1,5 +1,6 @@
 package com.yangtzeu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BanBean {
@@ -10,7 +11,7 @@ public class BanBean {
      */
 
     private String info;
-    private List<DataBean> data;
+    private List<DataBean> data= new ArrayList<>();
 
     public String getInfo() {
         return info;
