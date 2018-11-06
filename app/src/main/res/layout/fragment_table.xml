@@ -171,7 +171,7 @@
                             android:layout_marginTop="@dimen/table_item_margin"
                             android:layout_marginBottom="@dimen/table_item_margin"
                             android:gravity="center"
-                            android:text="14:00\n-\n13:35"
+                            android:text="14:00\n-\n15:35"
                             android:textSize="10sp"
                             tools:ignore="HardcodedText" />
 
@@ -181,7 +181,7 @@
                             android:layout_marginTop="@dimen/table_item_margin"
                             android:layout_marginBottom="@dimen/table_item_margin"
                             android:gravity="center"
-                            android:text="14:05\n-\n15:40"
+                            android:text="16:05\n-\n17:40"
                             android:textSize="10sp"
                             tools:ignore="HardcodedText" />
 

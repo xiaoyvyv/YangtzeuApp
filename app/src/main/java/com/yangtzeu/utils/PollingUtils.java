@@ -24,7 +24,6 @@ public class PollingUtils {
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (manager != null) {
-            manager.cancel(pendingIntent);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 manager.setExactAndAllowWhileIdle(AlarmManager.RTC, System.currentTimeMillis()+seconds, pendingIntent);
             } else{

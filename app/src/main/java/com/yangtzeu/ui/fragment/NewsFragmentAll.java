@@ -44,6 +44,7 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
     private String from_url;
     private String url;
     private List<NewsBean> beans = new ArrayList<>();
+    private boolean isRefresh = true;
 
     public NewsFragmentAll() {
 
@@ -91,8 +92,7 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
             public void onRefresh(com.scwang.smartrefresh.layout.api.RefreshLayout refreshLayout) {
                 page = 1;
                 url= getNewsUrl(page);
-                beans.clear();
-                newsAdapter.clearData();
+                isRefresh = true;
                 presenter2.loadNewsData();
             }
         });
@@ -103,6 +103,7 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
             public void onLoadMore(com.scwang.smartrefresh.layout.api.RefreshLayout refreshLayout) {
                 page = page + 1;
                 url = getNewsUrl(page);
+                isRefresh = false;
                 presenter2.loadNewsData();
             }
         });
@@ -152,6 +153,11 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
     @Override
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public boolean isRefresh() {
+        return isRefresh;
     }
 
 

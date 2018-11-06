@@ -26,6 +26,11 @@ public class ShopModel implements IShopModel {
             public void onResponse(String response) {
                 view.getRefresh().finishRefresh();
                 view.getRefresh().finishLoadMore();
+                if (view.isRefresh()) {
+                    view.getData().clear();
+                    view.getAdapter().clear();
+                }
+
                 ShopBean shopBean = GsonUtils.fromJson(response, ShopBean.class);
                 String info = shopBean.getInfo();
                 if (info.equals("商品查询成功")) {

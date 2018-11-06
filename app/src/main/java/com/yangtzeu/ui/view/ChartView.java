@@ -9,7 +9,6 @@ import lecho.lib.hellocharts.view.LineChartView;
 
 public interface ChartView {
     LineChartView getLineChartView();
-    ColumnChartView getColumnChartView();
 
     List<GradeBean> getData();
 }

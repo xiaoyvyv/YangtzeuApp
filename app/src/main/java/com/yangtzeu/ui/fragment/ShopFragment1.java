@@ -40,8 +40,14 @@ public class ShopFragment1 extends BaseFragment implements ShopView {
     private SmartRefreshLayout refresh;
     private List<ShopBean.DataBean> data = new ArrayList<>();
     private boolean is_manger = false;
+    private boolean isRefresh;
 
-    public static ShopFragment1 newInstance(String type,String text,boolean is_manger) {
+    @Override
+    public boolean isRefresh() {
+        return isRefresh;
+    }
+
+    public static ShopFragment1 newInstance(String type, String text, boolean is_manger) {
         ShopFragment1 fragment = new ShopFragment1();
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
@@ -85,8 +91,7 @@ public class ShopFragment1 extends BaseFragment implements ShopView {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 start = 0;
-                data.clear();
-                adapter.clear();
+                isRefresh = true;
                 president.loadData();
             }
         });
@@ -94,6 +99,7 @@ public class ShopFragment1 extends BaseFragment implements ShopView {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
                 start =start+30 ;
+                isRefresh = false;
                 president.loadData();
             }
         });

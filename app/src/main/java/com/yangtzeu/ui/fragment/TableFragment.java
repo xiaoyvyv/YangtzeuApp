@@ -1,9 +1,11 @@
 package com.yangtzeu.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -123,17 +126,34 @@ public class TableFragment extends BaseFragment implements TableView {
                         startActivityForResult(pickIntent, 200);
                         break;
                     case R.id.alpha:
-                        final SeekBar bar = new SeekBar(getActivity());
-                        bar.setMax(255);
-                        bar.setProgress(90);
-                        AlertDialog alert = MyUtils.getAlert(getActivity(), "设置课表方块透明度", new DialogInterface.OnClickListener() {
+                        @SuppressLint("InflateParams")
+                        View view = LayoutInflater.from(activity).inflate(R.layout.view_change_alpha, null);
+                        final SeekBar bar = view.findViewById(R.id.seekBar);
+                        final CardView sample = view.findViewById(R.id.sample);
+                        String alpha = SPUtils.getInstance("app_info").getString("table_alpha", "ff");
+                        bar.setProgress(Integer.parseInt(alpha, 16));
+
+                        sample.setCardBackgroundColor(Color.parseColor("#"+alpha+"76b1e9"));
+                        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                            @Override
+                            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                sample.setCardBackgroundColor(Color.parseColor("#"+MyUtils.formattingH(progress)+"76b1e9"));
+                            }
+                            @Override
+                            public void onStartTrackingTouch(SeekBar seekBar) { }
+                            @Override
+                            public void onStopTrackingTouch(SeekBar seekBar) { }
+                        });
+
+                        AlertDialog alert = MyUtils.getAlert(getActivity(), null, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 SPUtils.getInstance("app_info").put("table_alpha", MyUtils.formattingH(bar.getProgress()));
                                 refreshLayout.autoRefresh();
                             }
                         });
-                        alert.setView(bar);
+                        alert.setTitle(null);
+                        alert.setView(view);
                         alert.show();
                         break;
                 }

@@ -33,11 +33,5 @@
             android:layout_height="match_parent"
             android:padding="20dp" />
 
-        <lecho.lib.hellocharts.view.ColumnChartView
-            android:id="@+id/mColumnChartView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp" />
-
-
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

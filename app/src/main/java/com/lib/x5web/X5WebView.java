@@ -268,7 +268,6 @@ public class X5WebView extends WebView {
         webSetting.setBlockNetworkImage(false);
         webSetting.setSavePassword(true);
         webSetting.setSaveFormData(true);
-
         webSetting.setAppCacheEnabled(true);
         webSetting.setAppCachePath(MyUtils.rootPath()+"A_Tool/WebCache/"); //设置  Application Caches 缓存目录
         webSetting.setDatabaseEnabled(true);

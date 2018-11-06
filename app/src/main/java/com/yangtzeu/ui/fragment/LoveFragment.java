@@ -40,7 +40,12 @@ public class LoveFragment extends BaseFragment implements LoveView {
     private SmartRefreshLayout refresh;
     private List<LoveBean.DataBean> data=new ArrayList<>();
     private boolean is_manger = false;
+    private boolean isRefresh = true;
 
+    @Override
+    public boolean isRefresh() {
+        return isRefresh;
+    }
 
     public static LoveFragment newInstance(String type, String text, boolean is_manger) {
         LoveFragment fragment = new LoveFragment();
@@ -89,8 +94,7 @@ public class LoveFragment extends BaseFragment implements LoveView {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
                 start = 0;
-                data.clear();
-                adapter.clear();
+                isRefresh = true;
                 president.loadData();
             }
         });
@@ -98,6 +102,7 @@ public class LoveFragment extends BaseFragment implements LoveView {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
                 start =start+30 ;
+                isRefresh = false;
                 president.loadData();
             }
         });

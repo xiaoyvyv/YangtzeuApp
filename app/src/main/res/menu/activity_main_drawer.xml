@@ -18,6 +18,10 @@
                 android:icon="@drawable/ic_year"
                 android:title="@string/set_term" />
             <item
+                android:id="@+id/collection"
+                android:icon="@drawable/ic_collection"
+                android:title="@string/my_collection" />
+            <item
                 android:id="@+id/clear"
                 android:icon="@drawable/ic_clean"
                 android:title="@string/clean_cache" />

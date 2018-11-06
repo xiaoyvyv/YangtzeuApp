@@ -11,4 +11,7 @@ public interface IMainModel {
     void setBottomViewWithFragment(Activity activity, MainView view);
 
     void initEvents(Activity activity, MainView view);
+
+    void startPoll(Activity activity, MainView view);
+
 }

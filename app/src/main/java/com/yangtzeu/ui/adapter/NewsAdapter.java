@@ -38,6 +38,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public void clearData() {
         this.newsBeans.clear();
+        notifyDataSetChanged();
     }
 
 

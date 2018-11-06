@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
 import com.lib.mob.im.IMManager;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.BanBean;
@@ -64,22 +65,6 @@ public class UserUtils {
                         logResultListener.onFailure("用户封停");
                     SPUtils.getInstance("user_info").remove("cookie");
                     SPUtils.getInstance("user_info").put("online", false);
-
-                    AlertDialog dialog = new AlertDialog.Builder(context)
-                            .setTitle("管理员温馨提示")
-                            .setMessage("由于系统检测到你在使用本App的过程中，出现过不文明行为！\n\n给予封停该学号的处分！\n解封时间待定！")
-                            .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    ActivityUtils.finishAllActivities();
-                                    AppUtils.exitApp();
-                                }
-                            })
-                            .create();
-                    dialog.show();
-                    dialog.setCancelable(false);
-                    dialog.setCanceledOnTouchOutside(false);
                     return;
                 }
             }
@@ -117,6 +102,7 @@ public class UserUtils {
                     context.startActivity(intent);
                     return;
                 }
+
 
                 if (logResultListener != null) {
                     if (NetworkUtils.isConnected()) {

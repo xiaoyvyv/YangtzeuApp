@@ -51,6 +51,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 
     public void clear() {
         mBigList.clear();
+        notifyDataSetChanged();
     }
 
 

@@ -37,7 +37,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        tools:targetApi="n">
 
         <!-- 数据共享 -->
         <provider
@@ -143,49 +145,6 @@
             </intent-filter>
         </receiver>
 
-
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-
-        <activity
-            android:name=".ui.activity.ImageActivity"
-            android:theme="@style/AppTheme.NoStateBar" />
-        <activity
-            android:name=".ui.activity.MainActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.activity.LoginActivity"
-            android:theme="@style/AppTheme.NoStateBar" />
-        <activity
-            android:name=".ui.activity.ChatDetailsActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ui.activity.LockActivity"
-            android:exported="true"/>
-        <activity android:name=".ui.activity.ChatActivity"
-            android:exported="true"/>
-
-        <activity android:name=".ui.activity.LoveActivity" />
-        <activity android:name=".ui.activity.WebActivity" />
-        <activity android:name=".ui.activity.DownloadActivity" />
-        <activity android:name=".ui.activity.MessageActivity" />
-        <activity android:name=".ui.activity.ChartActivity" />
-        <activity android:name=".ui.activity.JwcListActivity" />
-        <activity android:name=".ui.activity.CetActivity" />
-        <activity android:name=".ui.activity.TestActivity" />
-        <activity android:name=".ui.activity.PhysicalActivity" />
-        <activity android:name=".ui.activity.CardCenterActivity" />
-        <activity android:name=".ui.activity.BoardActivity" />
-        <activity android:name=".ui.activity.ChangePassActivity" />
-        <activity android:name=".ui.activity.ChooseClassActivity" />
-        <activity android:name=".ui.activity.BoardAddActivity" />
-        <activity android:name=".ui.activity.FeedBackActivity" />
-
-        <service android:name=".service.YangtzeuService" />
         <service
             android:name=".widget.ClassWidgetProviderService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
@@ -206,7 +165,66 @@
                 android:resource="@xml/qq_like" />
         </service>
 
+        <!--X5播放器-->
+        <activity
+            android:name="com.tencent.smtt.sdk.VideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:alwaysRetainTaskState="true">
+            <intent-filter>
+                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
+        </activity>
+
+        <!--Mob聊天-->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".ui.activity.ImageActivity"
+            android:theme="@style/AppTheme.NoStateBar" />
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:theme="@style/AppTheme.NoStateBar" />
+        <activity
+            android:name=".ui.activity.ChatDetailsActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.activity.LockActivity"
+            android:exported="true"/>
+        <activity android:name=".ui.activity.ChatActivity"
+            android:exported="true"/>
+        <activity android:name=".ui.activity.WebActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <!--计算器-->
+        <activity android:name="com.lib.calculator.calculator.CalculatorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name="com.lib.calculator.calculator.ResultsActivity" />
+
+        <activity android:name=".ui.activity.LoveActivity" />
+        <activity android:name=".ui.activity.DownloadActivity" />
+        <activity android:name=".ui.activity.MessageActivity" />
+        <activity android:name=".ui.activity.ChartActivity" />
+        <activity android:name=".ui.activity.JwcListActivity" />
+        <activity android:name=".ui.activity.CetActivity" />
+        <activity android:name=".ui.activity.TestActivity" />
+        <activity android:name=".ui.activity.PhysicalActivity" />
+        <activity android:name=".ui.activity.CardCenterActivity" />
+        <activity android:name=".ui.activity.BoardActivity" />
+        <activity android:name=".ui.activity.ChangePassActivity" />
+        <activity android:name=".ui.activity.ChooseClassActivity" />
+        <activity android:name=".ui.activity.BoardAddActivity" />
+        <activity android:name=".ui.activity.FeedBackActivity" />
         <activity android:name=".ui.activity.AboutActivity" />
         <activity android:name=".ui.activity.MangerActivity" />
         <activity android:name=".ui.activity.SettingActivity" />
@@ -220,6 +238,12 @@
         <activity android:name=".ui.activity.MusicActivity" />
         <activity android:name=".ui.activity.FragmentActivity" />
         <activity android:name=".ui.activity.TripActivity" />
+        <activity android:name=".ui.activity.WebListActivity" />
+        <activity android:name=".ui.activity.CollectionActivity" />
+        <activity android:name=".ui.activity.RulerActivity" />
+        <activity android:name=".ui.activity.CompassActivity" />
+        <activity android:name=".ui.activity.TranslateActivity" />
+        <activity android:name=".ui.activity.KgActivity" />
     </application>
 
 </manifest>

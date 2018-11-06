@@ -24,6 +24,8 @@ import android.widget.FrameLayout;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,6 +37,8 @@ import com.lib.x5web.X5WebView;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.WebView;
 import com.yangtzeu.R;
+import com.yangtzeu.database.DatabaseUtils;
+import com.yangtzeu.entity.CollectionBean;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
@@ -66,6 +70,7 @@ public class WebActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        if (isNoTitle) ScreenUtils.setFullScreen(this);
         try {
             if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11) {
                 getWindow()
@@ -190,10 +195,12 @@ public class WebActivity extends BaseActivity {
 
 
         String cookie_list[] = cookie.split(";");
-
         CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeSessionCookie();
-        cookieManager.removeAllCookie();
+
+        if (from_url.contains(Url.My_App_Home)) {
+            cookieManager.removeSessionCookie();
+            cookieManager.removeAllCookie();
+        }
 
         //设置cookie
         for (String mCookie : cookie_list) {
@@ -272,7 +279,12 @@ public class WebActivity extends BaseActivity {
                 if (mWebView.getUrl().contains("about:blank"))
                     ToastUtils.showShort(R.string.cant_save);
                 else if (isLoadingFinish) {
-                    Snackbar.make(toolbar, "加载未完成，请稍等...", Snackbar.LENGTH_SHORT).show();
+                    CollectionBean bean = new CollectionBean();
+                    bean.setTime(TimeUtils.getNowString());
+                    bean.setTitle(mWebView.getTitle());
+                    bean.setUrl(mWebView.getUrl());
+                    DatabaseUtils.getHelper(this, "collection.db").save(bean);
+                    ToastUtils.showShort(R.string.collection_right);
                 }
                 return true;
             case R.id.refresh:

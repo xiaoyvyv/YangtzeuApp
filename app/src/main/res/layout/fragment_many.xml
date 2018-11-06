@@ -21,377 +21,630 @@
             app:title="@string/many" />
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/refresh"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <cn.bingoogolapple.bgabanner.BGABanner
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:fitsSystemWindows="true"
-                app:banner_indicatorGravity="right"
-                app:banner_isNumberIndicator="true"
-                app:banner_numberIndicatorTextSize="12sp"
-                app:banner_pointAutoPlayAble="true"
-                app:banner_pointAutoPlayInterval="3000"
-                app:banner_pointContainerBackground="#20000000"
-                app:banner_tipTextColor="@color/white_d"
-                app:banner_tipTextSize="12sp"
-                app:banner_transitionEffect="depth" />
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/shop"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin_5">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_shop"
-                        android:tint="?attr/colorPrimary" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:alpha="0.6"
-                        android:gravity="start|center_vertical"
-                        android:text="@string/shop_mall"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/chat"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/chat"
-                        android:tint="?attr/colorPrimary"
-                        android:contentDescription="@string/app_name" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:alpha="0.6"
-                        android:text="@string/my_chat"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/love"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_heart"
-                        android:tint="?attr/colorPrimary" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:alpha="0.6"
-                        android:text="@string/love_wall"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/cut_off"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="5dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_cut_off"
-                        android:tint="?attr/colorPrimary" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:alpha="0.6"
-                        android:text="@string/cut_off_shop"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/black_20" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.lib.notice.NoticeView
-                    android:id="@+id/noticeView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_replay_bg"
-                    android:padding="10dp"
-                    app:nvDuration="1000"
-                    app:nvIcon="@drawable/ic_message"
-                    app:nvIconPadding="10dp"
-                    app:nvIconTint="?attr/colorPrimary"
-                    app:nvInterval="3000"
-                    app:nvTextColor="@color/black"
-                    app:nvTextGravity="left"
-                    app:nvTextMaxLines="1"
-                    app:nvTextSize="15sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/card_margin_10"
-                android:background="@color/black_20" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/lock"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:shadowColor="@color/black_20"
-                        android:shadowDx="-10"
-                        android:shadowDy="10"
-                        android:shadowRadius="1"
-                        android:text="@string/lock"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:tint="?attr/colorPrimary"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:alpha="0.5"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="@string/locke_phone_new"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/like"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:shadowColor="@color/black_20"
-                        android:shadowDx="-10"
-                        android:shadowDy="10"
-                        android:shadowRadius="1"
-                        android:text="@string/like"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:tint="?attr/colorPrimary"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:alpha="0.5"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="@string/q_like"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/web"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:shadowColor="@color/black_20"
-                        android:shadowDx="-10"
-                        android:shadowDy="10"
-                        android:shadowRadius="1"
-                        android:text="@string/web"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:tint="?attr/colorPrimary"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:alpha="0.5"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="长大网站集"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        tools:ignore="HardcodedText" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:shadowColor="@color/black_20"
-                        android:shadowDx="-10"
-                        android:shadowDy="10"
-                        android:shadowRadius="1"
-                        android:text="锁"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:tint="?attr/colorPrimary"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:alpha="0.5"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="远离手机（新）"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        tools:ignore="HardcodedText" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/black_20" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="4" />
+                android:orientation="vertical">
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <cn.bingoogolapple.bgabanner.BGABanner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:fitsSystemWindows="true"
+                    app:banner_indicatorGravity="right"
+                    app:banner_isNumberIndicator="true"
+                    app:banner_numberIndicatorTextSize="12sp"
+                    app:banner_pointAutoPlayAble="true"
+                    app:banner_pointAutoPlayInterval="3000"
+                    app:banner_pointContainerBackground="#20000000"
+                    app:banner_tipTextColor="@color/white_d"
+                    app:banner_tipTextSize="12sp"
+                    app:banner_transitionEffect="depth" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/shop"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_5">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_shop"
+                            android:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:alpha="0.6"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/shop_mall"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/chat"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:contentDescription="@string/app_name"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/chat"
+                            android:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:alpha="0.6"
+                            android:text="@string/my_chat"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/love"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:contentDescription="@string/app_name"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_heart"
+                            android:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:alpha="0.6"
+                            android:text="@string/love_wall"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/cut_off"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:contentDescription="@string/app_name"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_cut_off"
+                            android:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:alpha="0.6"
+                            android:text="@string/cut_off_shop"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.lib.notice.NoticeView
+                        android:id="@+id/noticeView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_replay_bg"
+                        android:padding="10dp"
+                        app:nvDuration="1000"
+                        app:nvIcon="@drawable/ic_message"
+                        app:nvIconPadding="10dp"
+                        app:nvIconTint="?attr/colorPrimary"
+                        app:nvInterval="3000"
+                        app:nvTextColor="#aa000000"
+                        app:nvTextGravity="left"
+                        app:nvTextMaxLines="1"
+                        app:nvTextSize="15sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_margin_10"
+                    android:background="@color/black_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin_10"
+                    android:text="@string/little_tool"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/lock"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/lock"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesLock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripLock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="@string/locke_phone_new"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/like"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/like"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesLike"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripLike"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="@string/q_like"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/web"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/web"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesWeb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripWeb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="长大网站集"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/calculator"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/qi"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesQi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripQi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="@string/calculator"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/ruler"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/rule"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesRuler"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripRuler"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="@string/trip_ruler"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/compass"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/compass"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesCompass"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripCompass"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="@string/miui_compass"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/translate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/translate"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesTranslate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripTranslate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="外文翻译"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/kg"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:shadowColor="@color/black_20"
+                            android:shadowDx="-10"
+                            android:shadowDy="10"
+                            android:shadowRadius="1"
+                            android:text="@string/K"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:tint="?attr/colorPrimary"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/timesKg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="5sp"
+                            tools:ignore="SmallSp" />
+
+                        <TextView
+                            android:id="@+id/tripKg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:alpha="0.5"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="@string/kg"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin_10"
+                    android:text="@string/online_tool"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:spanCount="4" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

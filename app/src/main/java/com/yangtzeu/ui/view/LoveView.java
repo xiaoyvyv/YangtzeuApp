@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public interface LoveView {
 
+    boolean isRefresh();
+
     RecyclerView getRecyclerView();
 
     int getStart();

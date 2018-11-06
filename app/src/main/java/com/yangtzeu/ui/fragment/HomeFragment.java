@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.yangtzeu.R;
@@ -48,6 +49,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @SuppressLint("StaticFieldLeak")
     public static AppBarLayout app_bar;
+    private HomePresenter presenter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,14 +73,12 @@ public class HomeFragment extends BaseFragment implements HomeView {
         city = rootView.findViewById(R.id.city);
         pass = rootView.findViewById(R.id.pass);
         week = rootView.findViewById(R.id.week);
-        study_time=rootView.findViewById(R.id.study_time);
+        study_time = rootView.findViewById(R.id.study_time);
     }
 
     @Override
     public void setEvents() {
-
-
-        HomePresenter presenter = new HomePresenter(getActivity(), this);
+        presenter = new HomePresenter(getActivity(), this);
         presenter.setToolbarWhitDrawer();
         presenter.getHoliday();
         presenter.getWeather();
@@ -88,7 +88,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
         //设置Fragment适配器
         FragmentAdapter fragmentAdapter = new FragmentAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
         Fragment fragment1 = new HomePartFragment1();
-        fragmentAdapter.addFragment(getString(R.string.jwc_news),fragment1);
+        fragmentAdapter.addFragment(getString(R.string.jwc_news), fragment1);
 
         Fragment fragment2 = new HomePartFragment2();
         fragment2.setUserVisibleHint(true);
@@ -102,6 +102,34 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
         presenter.fitViewPagerAndTabLayout();
 
+        city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = city.getText().toString().trim();
+                if (str.equals("荆州")) {
+                    city.setText("武汉");
+                    SPUtils.getInstance("user_info").put("city", "武汉");
+                } else {
+                    city.setText("荆州");
+                    SPUtils.getInstance("user_info").put("city", "荆州");
+                }
+                presenter.getWeather();
+            }
+        });
+        temp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = city.getText().toString().trim();
+                if (str.equals("荆州")) {
+                    city.setText("武汉");
+                    SPUtils.getInstance("user_info").put("city", "武汉");
+                } else {
+                    city.setText("荆州");
+                    SPUtils.getInstance("user_info").put("city", "荆州");
+                }
+                presenter.getWeather();
+            }
+        });
     }
 
     @Override

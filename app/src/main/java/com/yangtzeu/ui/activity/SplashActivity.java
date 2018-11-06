@@ -1,10 +1,12 @@
 package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.model.SplashModel;
@@ -20,6 +22,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
     private ImageView adView;
     private SplashPresenter presenter;
     private TextView adTitle;
+    private TextView times;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
     public void findViews() {
         adView = findViewById(R.id.adView);
         adTitle = findViewById(R.id.adTitle);
+        times = findViewById(R.id.times);
+
     }
 
     @Override
@@ -42,6 +47,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
         //进入窗口创建文件夹
         MyUtils.createSDCardDir("A_Tool/");
         MyUtils.createSDCardDir("A_Tool/Download/");
+        MyUtils.createSDCardDir(SPUtils.getInstance("app_info").getString("save_path", "A_Tool/Download/"));
 
         presenter = new SplashPresenter(this, this);
         presenter.loadPermission(new SplashModel.OnPermissionCallBack() {
@@ -53,6 +59,11 @@ public class SplashActivity extends BaseActivity implements SplashView {
             }
         });
 
+
+        //总共打开次数
+        TextView tv = new TextView(this);
+        tv.setText(R.string.app_name);
+        YangtzeuUtils.getOnClickTimes(tv,times, true);
     }
 
     @Override

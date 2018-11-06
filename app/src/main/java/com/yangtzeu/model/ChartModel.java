@@ -30,69 +30,87 @@ public class ChartModel implements IChartModel {
 
         LineChartView mChartView = view.getLineChartView();
 
-        mChartView.setInteractive(true);//设置图表是可以交互的（拖拽，缩放等效果的前提）
-       // mChartView.setZoomType(ZoomType.VERTICAL);//设置缩放方向
-
+        // 设置图表是可以交互的（拖拽，缩放等效果的前提）
+        mChartView.setInteractive(true);
+        // 设置只能水平缩放
         mChartView.setZoomType(ZoomType.HORIZONTAL);
-        mChartView.setMaxZoom((float) 20);//最大方法比例
+
+        // 最大放大比例
+        mChartView.setMaxZoom((float) 20);
         mChartView.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
 
+        // 设置X轴文字
         List<AxisValue> valuesX = new ArrayList<>();
         for (int i = 0; i < data1.size(); i++) {
-            valuesX.add(new AxisValue(i).setValue(i).setLabel(data1.get(i).getCourseName()));
+            String x_str = data1.get(i).getCourseName();
+            if (x_str.length() > 12) {
+                x_str = x_str.substring(0, 12) + "...";
+            }
+
+            AxisValue xValue = new AxisValue(i)
+                    .setValue(i)
+                    .setLabel(x_str);
+            valuesX.add(xValue);
         }
 
+        // 设置Y轴文字
         List<AxisValue> valuesY = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i <= 20; i++) {
             valuesY.add(new AxisValue(i).setValue(i * 5).setLabel(String.valueOf(i * 5)));
         }
 
-        final Axis axisX = new Axis(valuesX);//x轴
-        Axis axisY = new Axis(valuesY);//y轴
-        axisX.setHasLines(true);// 是否显示X轴网格线
-        axisY.setHasLines(true);// 是否显示Y轴网格线
+        // X轴
+        final Axis axisX = new Axis(valuesX);
+        // Y轴
+        Axis axisY = new Axis(valuesY);
+        // 是否显示X轴网格线
+        axisX.setHasLines(true);
+        // 是否显示Y轴网格线
+        axisY.setHasLines(true);
 
-        ArrayList<PointValue> values = new ArrayList<>();//折线上的点
+        // 折线上的点集合
+        ArrayList<PointValue> values = new ArrayList<>();
         for (int i = 0; i < data1.size(); i++) {
-            String courseZuiZhong = data1.get(i).getCourseZuiZhong();
-            if (courseZuiZhong.contains(".")) {
-                courseZuiZhong = courseZuiZhong.substring(0, courseZuiZhong.lastIndexOf("."));
-            }
-            int grade = Integer.parseInt(courseZuiZhong);
-
-            values.add(new PointValue(i, grade));
+            String grade = data1.get(i).getCourseZuiZhong();
+            values.add(new PointValue(i, Float.parseFloat(grade)));
         }
 
-
+        // 将点连成线
         Line line = new Line(values)
-                .setStrokeWidth(2)
+                //设置线宽度
+                .setStrokeWidth(1)
+                //设置点的半径
                 .setPointRadius(2)
-                .setCubic(true)//设置是平滑的还是直的
-                .setColor(activity.getResources().getColor(R.color.colorPrimary));//声明线并设置颜色
+                //设置线是否是平滑
+                .setCubic(true)
+                //设置线颜色
+                .setColor(activity.getResources().getColor(R.color.colorPrimary));
 
-
+        // 将连填充到集合
         ArrayList<Line> lines = new ArrayList<>();
         lines.add(line);
 
-
+        // 设置图标数据源：X轴|Y轴|数据源
         LineChartData data = new LineChartData();
         data.setAxisXBottom(axisX);
         data.setAxisYLeft(axisY);
         data.setLines(lines);
 
-        mChartView.setLineChartData(data);//给图表设置数据
+        // 给图表设置数据
+        mChartView.setLineChartData(data);
 
+        // 固定Y轴的范围,如果没有这个,Y轴的范围会根据数据的最大值和最小值决定,这不是我想要的
         Viewport v = new Viewport(mChartView.getMaximumViewport());
         v.bottom = 0f;
         v.top = 100f;
-        //固定Y轴的范围,如果没有这个,Y轴的范围会根据数据的最大值和最小值决定,这不是我想要的
         mChartView.setMaximumViewport(v);
-        //这2个属性的设置一定要在lineChart.setMaximumViewport(v);这个方法之后,不然显示的坐标数据是不能左右滑动查看更多数据的
-        v.left = 0 ;
-       v.right = 12;
+
+        //设置初始的可见数据多少  0-6 ，必须在 setMaximumViewport() 之后调用
+        v.left = 0;
+        v.right = 6;
         mChartView.setCurrentViewport(v);
 
-
+        //设置点的监听
         mChartView.setOnValueTouchListener(new LineChartOnValueSelectListener() {
             @Override
             public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
@@ -108,9 +126,4 @@ public class ChartModel implements IChartModel {
 
     }
 
-    @Override
-    public void setColumnChart(Activity activity, ChartView view) {
-
-
-    }
 }

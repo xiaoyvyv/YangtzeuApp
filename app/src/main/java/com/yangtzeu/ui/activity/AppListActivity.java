@@ -36,7 +36,7 @@ public class AppListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_list);
+        setContentView(R.layout.activity_list);
         init();
         MyUtils.setToolbarBackToHome(this, toolbar);
 

@@ -27,12 +27,16 @@ public class LoveModel implements ILoveModel {
         String url = Url.queryAllLove(view.getType(),view.getText(),view.getStart());
         final int old_index = view.getAdapter().getItemCount();
         OkHttp.do_Get(url, new OnResultStringListener() {
-
             @Override
             public void onResponse(String response) {
-                LogUtils.i(response);
                 view.getRefresh().finishRefresh();
                 view.getRefresh().finishLoadMore();
+
+                if (view.isRefresh()) {
+                    data.clear();
+                    view.getAdapter().clear();
+                }
+
                 LoveBean loveBean = GsonUtils.fromJson(response, LoveBean.class);
                 String info = loveBean.getInfo();
                 if (info.equals("表白查询成功")) {

@@ -95,6 +95,12 @@ public class Url {
     public static final String Yangtzeu_JXDT = "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/jxdt/";
     //教学简报
     public static final String Yangtzeu_JXJB = "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/jxjb/";
+    //长江大学网站
+    public static final String Yangtzeu_All_Web = My_App_Home + "/yangtzeu/json/yz_web.json";
+    //长江大学学院网站
+    public static final String Yangtzeu_XueYuanWeb = "http://www.yangtzeu.edu.cn/xndh/jxdw.htm";
+    //缴纳网费
+    public static final String Yangtzeu_Fee = "http://58.50.120.1:89/Self/dashboard";
 
 
     /**
@@ -119,7 +125,7 @@ public class Url {
     //当前在线人数
     public static final String Yangtzeu_App_Online = My_App_Home + "/yangtzeu/api/yz_online.php";
     //当前在线人数
-    public static final String Yangtzeu_App_Online_Show = My_App_Home +"/yangtzeu/api/yz_online_show.php";
+    public static final String Yangtzeu_App_Online_Show = My_App_Home + "/yangtzeu/api/yz_online_show.php";
 
     //长大App
     public static final String Yangtzeu_App_MyApp = My_App_Home + "/yangtzeu/json/yz_app.json";
@@ -136,8 +142,8 @@ public class Url {
     //AppAlert通知地址
     public static final String Yangtzeu_AppAlertNotice = My_App_Home + "/yangtzeu/json/yz_main_alert.json";
     //封号相关
-    public static final String Yangtzeu_FengHao = My_App_Home + "/yangtzeu/api/yz_ban.php?action=add_ban_user&submit=do&number=201603246&name=why";
-    public static final String Yangtzeu_RemoveFengHao = My_App_Home + "/yangtzeu/api/yz_ban.php?action=delete_ban_user&submit=do&id=2";
+    public static final String Yangtzeu_FengHao = My_App_Home + "/yangtzeu/api/yz_ban.php?action=add_ban_user&submit=do";
+    public static final String Yangtzeu_RemoveFengHao = My_App_Home + "/yangtzeu/api/yz_ban.php?action=delete_ban_user&submit=do&id=";
     public static final String Yangtzeu_ShowBanUser = My_App_Home + "/yangtzeu/api/yz_ban.php?action=query_ban_user&submit=do";
     //功能页面
     public static final String Yangtzeu_Many_Item = My_App_Home + "/yangtzeu/json/yz_many.json";
@@ -147,14 +153,19 @@ public class Url {
     public static final String Yangtzeu_App_Lock_White = My_App_Home + "/yangtzeu/json/yz_lock_white.json";
     //开源地址
     public static final String Yangtzeu_Github = "https://github.com/xiaoyvyv/YangtzeuApp/blob/master/README.md";
-
+    //翻译
+    public static final String Yangtzeu_Translate = "http://api.guaqb.cn/api.php?fy=";
+    //X5内核调试
+    public static final String Yangtzeu_Debug_X5 = "http://debugtbs.qq.com";
+    //App反馈地址
+    public static String Yangtzeu_App_FeedBack = My_App_Home + "/yangtzeu/api/yz_feedback.php";
+    //全民k歌解析
+    public static String Url_Music_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
 
     /**
      * 旧版接口
      */
 
-    //App反馈地址
-    public static String Yangtzeu_App_FeedBack = My_Home + "/newyangtzeu/app_php/feedback.php";
     //发邮件
     public static String Yangtzeu_App_SendEmail = My_Home + "/php_mail/mail.php";
     //反馈
@@ -338,9 +349,18 @@ public class Url {
         return My_App_Home + "/yangtzeu/api/yz_love.php?action=delete&id=" + id;
     }
 
-
-
-
+    //点击数统计
+    public static String getTongJi(String key, String name, boolean isAdd) {
+        if (isAdd) {
+            return My_App_Home + "/yangtzeu/api/yz_statistics.php?action=do"
+                    + "&key=" + key
+                    + "&name=" + name;
+        } else {
+            return My_App_Home + "/yangtzeu/api/yz_statistics.php?action=do&type=find"
+                    + "&key=" + key
+                    + "&name=" + name;
+        }
+    }
 
 
     public static String Yangtzeu_Physical_Home = "http://phylab.yangtzeu.edu.cn/jpkc/";

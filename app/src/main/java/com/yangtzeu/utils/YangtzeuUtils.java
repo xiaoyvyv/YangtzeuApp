@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CacheDiskUtils;
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -346,7 +347,7 @@ public class YangtzeuUtils {
             public void onResponse(String response) {
                 Document doc = Jsoup.parse(response);
                 if (doc.text().contains("学籍信息")) {
-                    LogUtils.i("学籍信息获取成功");
+                    LogUtils.e("学籍信息获取成功");
                     try {
                         Elements studentInfoTb = doc.select("table#studentInfoTb tbody tr");
                         String studentInfoTb1 = studentInfoTb.get(1).text();
@@ -526,6 +527,7 @@ public class YangtzeuUtils {
         alert.show();
     }
 
+    //获取锁屏白名单
     public static void getLockPhoneWhiteUser() {
         OkHttp.do_Get(Url.Yangtzeu_App_Lock_White, new OnResultStringListener() {
             @Override
@@ -540,11 +542,29 @@ public class YangtzeuUtils {
 
             @Override
             public void onFailure(String error) {
-                getLockPhoneWhiteUser();
+                LogUtils.e(error);
             }
         });
     }
 
+    //获取统计点击数
+    public static void getOnClickTimes(TextView keyTextView, final TextView jiTextView,boolean isAdd) {
+        String name = keyTextView.getText().toString().trim();
+        String key = EncryptUtils.encryptMD5ToString(name);
+
+        OkHttp.do_Get(Url.getTongJi(key, name,isAdd), new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                MessageBean bean= GsonUtils.fromJson(response,MessageBean.class);
+                jiTextView.setText(bean.getInfo());
+            }
+
+            @Override
+            public void onFailure(String error) {
+                jiTextView.setText("统计失败");
+            }
+        });
+    }
 
     public static String getStudyTimeSpan() {
         // 获取当前日期

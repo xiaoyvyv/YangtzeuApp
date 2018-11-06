@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".ui.activity.SplashActivity">
 
     <RelativeLayout
@@ -29,52 +29,26 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:background="@mipmap/splash"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:gravity="center">
+        android:background="@mipmap/splash">
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:contentDescription="@string/app_name"
             android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/app_name" />
+            android:visibility="gone" />
 
         <TextView
-            android:visibility="gone"
-            android:id="@+id/app_name"
-            android:layout_width="130dp"
-            android:layout_height="30dp"
-            android:layout_alignTop="@+id/icon"
-            android:layout_toEndOf="@+id/icon"
-            android:gravity="center"
-            android:shadowColor="@color/colorPrimary_BiLiFen"
-            android:shadowDx="-5"
-            android:shadowDy="5"
-            android:shadowRadius="1"
-            android:text="新版长大助手"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:visibility="gone"
+            android:id="@+id/times"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/app_name"
-            android:layout_alignStart="@+id/app_name"
-            android:layout_alignEnd="@+id/app_name"
-            android:layout_alignBottom="@+id/icon"
-            android:layout_toEndOf="@+id/icon"
+            android:layout_margin="@dimen/margin_5"
             android:gravity="center"
-            android:shadowColor="@color/colorPrimary_BiLiFen"
-            android:shadowDx="-5"
-            android:shadowDy="5"
-            android:shadowRadius="1"
-            android:text="小 玉 个 人 开 发 中 心"
-            android:textSize="12sp"
-            android:textStyle="italic" />
-
+            android:text="@string/use_times"
+            android:textSize="8sp"
+            tools:ignore="SmallSp" />
     </RelativeLayout>
 </LinearLayout>

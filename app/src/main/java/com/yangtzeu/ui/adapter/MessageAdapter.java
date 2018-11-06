@@ -52,6 +52,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public void clear() {
         dataBeans.clear();
+        notifyDataSetChanged();
     }
 
 

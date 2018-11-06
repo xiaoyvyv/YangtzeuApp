@@ -18,6 +18,11 @@
     <color name="button_tint">#7aadf2</color>
     <color name="white_f0">#f0f0f0</color>
 
+    <color name="darkRed">#702216</color>
+    <color name="lightGray">#323232</color>
+    <color name="deepGray">#8B8B8B</color>
+    <color name="ocbg">#237EAD</color>
+
     <color name="love">#ff6666</color>
 
     <color name="_90">#ff0000</color>

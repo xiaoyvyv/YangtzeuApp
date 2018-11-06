@@ -5,15 +5,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.NetworkUtils;
-import com.blankj.utilcode.util.ObjectUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.ManyBean;
 import com.yangtzeu.utils.MyUtils;
+import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,7 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
 
     public void clear() {
         appBeans.clear();
-        notifyItemRangeChanged(0, getItemCount());
+        notifyDataSetChanged();
     }
 
 
@@ -55,7 +53,7 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         ManyBean.DataBean itemBean = appBeans.get(position);
         final String url = itemBean.getUrl();
         final String title = itemBean.getTitle();
@@ -67,9 +65,12 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
         holder.OnClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    MyUtils.openUrl(context, url, true);
+                MyUtils.openUrl(context, url, true);
+                YangtzeuUtils.getOnClickTimes(holder.title, holder.times,true);
             }
         });
+
+        YangtzeuUtils.getOnClickTimes(holder.title, holder.times, false);
     }
 
     @Override
@@ -90,10 +91,12 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView image;
         TextView title;
+        TextView times;
         LinearLayout OnClick;
 
         ViewHolder(View view) {
             super(view);
+            times = view.findViewById(R.id.times);
             image = view.findViewById(R.id.image);
             title = view.findViewById(R.id.title);
             OnClick = view.findViewById(R.id.OnClick);

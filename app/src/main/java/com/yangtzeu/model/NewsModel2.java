@@ -26,6 +26,10 @@ public class NewsModel2 implements INewsModel2 {
             public void onResponse(String response) {
                 view.getSmartRefreshLayout().finishLoadMore();
                 view.getSmartRefreshLayout().finishRefresh();
+                if (view.isRefresh()) {
+                    view.getData().clear();
+                    view.getNewsAdapter().clearData();
+                }
                 try {
                     Document document = Jsoup.parse(response);
                     Elements li = document.select("div.content_c#content_list ul").get(0).select("ul li");

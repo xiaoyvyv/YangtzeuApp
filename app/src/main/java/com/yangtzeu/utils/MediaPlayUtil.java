@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.LogUtils;
 public class MediaPlayUtil {
     private static MediaPlayUtil mMediaPlayUtil;
     private MediaPlayer mMediaPlayer;
+    private boolean isLooping = true;
 
 
     public void setPlayOnCompleteListener(MediaPlayer.OnCompletionListener playOnCompleteListener) {
@@ -32,15 +33,19 @@ public class MediaPlayUtil {
         mMediaPlayer = new MediaPlayer();
     }
 
+    public void setLooping(boolean looping) {
+        isLooping = looping;
+    }
 
     public void play(String soundFilePath) {
+        soundFilePath = soundFilePath.replace(" ", "");
         if (mMediaPlayer == null) {
             return;
         }
         try {
             mMediaPlayer.reset();
             mMediaPlayer.setDataSource(soundFilePath);
-            mMediaPlayer.setLooping(true);
+            mMediaPlayer.setLooping(isLooping);
             mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -58,6 +63,13 @@ public class MediaPlayUtil {
     public void pause() {
         if (mMediaPlayer != null) {
             mMediaPlayer.pause();
+        }
+    }
+
+
+    public void start() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.start();
         }
     }
 

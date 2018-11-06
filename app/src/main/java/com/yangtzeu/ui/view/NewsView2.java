@@ -21,4 +21,6 @@ public interface NewsView2 {
     SmartRefreshLayout getSmartRefreshLayout();
 
     String getUrl();
+
+    boolean isRefresh();
 }

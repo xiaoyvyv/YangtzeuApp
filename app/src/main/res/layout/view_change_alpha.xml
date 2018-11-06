@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/set_table_alpha"
+        android:id="@+id/trip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#545454"
+        android:padding="@dimen/card_margin_10"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#545454"
+        android:paddingStart="@dimen/card_margin_10"
+        android:paddingTop="@dimen/margin_5"
+        android:paddingEnd="@dimen/card_margin_10"
+        android:paddingBottom="@dimen/card_margin_10"
+        android:text="@string/change_alpha"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/login_bg"
+            android:contentDescription="@string/app_name" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/sample"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/card_margin_10"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/alpha_test"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <SeekBar
+            android:progress="90"
+            android:max="255"
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sample"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/card_margin_10"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="@dimen/card_margin_10" />
+
+    </RelativeLayout>
+
+</LinearLayout>

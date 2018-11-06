@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="paddingPercent" value="15" />
+                                                <entry key="paddingPercent" value="5" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -68,11 +68,12 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="TEXT" />
-                                      <entry key="backgroundColor" value="ff80ab" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="backgroundColor" value="00bceb" />
                                       <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="CIRCLE" />
-                                      <entry key="imageAsset" value="E:\AndroidProject\YangtzeuApp\app\src\main\res\mipmap-xxxhdpi\ic_icon2.png" />
+                                      <entry key="imageAsset" value="E:\AndroidProject\YangtzeuApp\app\src\main\res\mipmap-xxxhdpi\yangtzeu_pic_head.png" />
+                                      <entry key="outputName" value="ic_launcher2" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -108,7 +109,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_circle_outline_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_play_circle_outline_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -119,7 +120,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_add_circle" />
+                            <entry key="outputName" value="ic_play" />
                             <entry key="sourceFile" value="C:\Users\XiaoYv" />
                           </map>
                         </option>

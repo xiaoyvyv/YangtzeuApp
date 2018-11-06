@@ -13,6 +13,7 @@ import android.webkit.URLUtil;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.model.imodel.IImageModel;
@@ -43,15 +44,15 @@ public class ImageModel implements IImageModel {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                MyUtils.shareText(activity,object.toString()  + "\n\n数据来自：" + Url.AppDownUrl);
+                MyUtils.shareText(activity, object.toString() + "\n\n数据来自：" + Url.AppDownUrl);
             }
         });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                if (object != null && URLUtil.isNetworkUrl(object.toString()) ) {
-                    MyUtils.saveFile(activity, object.toString(), "A_Tool/Download/Image/", FileUtils.getFileName(object.toString()));
+                if (object != null && URLUtil.isNetworkUrl(object.toString())) {
+                    MyUtils.saveFile(activity, object.toString(), SPUtils.getInstance("app_info").getString("save_path", "A_Tool/Download/") + "Image/", FileUtils.getFileName(object.toString()));
                 } else {
                     ToastUtils.showShort(R.string.cant_save);
                 }

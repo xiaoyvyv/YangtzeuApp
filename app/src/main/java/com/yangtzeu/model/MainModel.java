@@ -1,6 +1,11 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.SystemClock;
 import android.view.MenuItem;
 
 import com.blankj.utilcode.util.FragmentUtils;
@@ -15,7 +20,6 @@ import com.yangtzeu.ui.view.MainView;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.Objects;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -85,6 +89,23 @@ public class MainModel implements IMainModel {
         YangtzeuUtils.getAlertNotice(activity);
         YangtzeuUtils.getTripInfo(activity, false);
         YangtzeuUtils.checkAppVersion(activity);
+    }
+
+    @Override
+    public void startPoll(final Activity activity, MainView view) {
+
+
+       /*
+        //获取AlarmManager系统服务
+        AlarmManager manager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+        //包装需要执行Service的Intent
+        Intent intent = new Intent(activity, YangtzeuReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (manager != null) {
+            // 或者是指定时长
+            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 30 * 1000, pendingIntent);
+        }
+        */
     }
 
 }

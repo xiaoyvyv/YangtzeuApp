@@ -2,6 +2,7 @@ package com.yangtzeu.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.yangtzeu.R;
+import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.AlipayUtil;
 import com.yangtzeu.utils.AppIconUtils;
 import com.yangtzeu.utils.MyUtils;
@@ -31,7 +34,6 @@ import androidx.appcompat.widget.Toolbar;
 
 
 public class SettingActivity extends PreferenceActivity {
-    private final static String TAG = "【SettingActivity】";
     private Toolbar toolbar;
 
     @Override
@@ -46,7 +48,9 @@ public class SettingActivity extends PreferenceActivity {
     private void SetUp() {
 
         //文件保存路径设置
+        String string = SPUtils.getInstance("app_info").getString("save_path", "A_Tool/Download/");
         final EditTextPreference FileLocation = (EditTextPreference) findPreference("FileLocation");
+        FileLocation.setSummary(string);
         FileLocation.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -56,7 +60,7 @@ public class SettingActivity extends PreferenceActivity {
                 } else if ((input.substring(0, 1)).equals("/")) {
                     input = input.substring(1, input.length());
                 }
-                Log.e(TAG, "保存的文件下载路径" + input);
+                LogUtils.i( "保存的文件下载路径" + input);
                 SPUtils.getInstance("app_info").put("save_path", input);
 
                 MyUtils.createSDCardDir(input);
@@ -74,6 +78,23 @@ public class SettingActivity extends PreferenceActivity {
                 return true;
             }
         });
+
+        //X5
+        Preference x5 = findPreference("x5");
+        x5.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                MyUtils.getAlert(SettingActivity.this, "如果你在使用App的过程中，出现了网页加载错乱，或者加载页面不完整，可以按以下操作解决：\n\n1.点击确定\n2.点击安装线上内核\n3.安装完成后重启App即可解决问题", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyUtils.openUrl(SettingActivity.this, Url.Yangtzeu_Debug_X5);
+                    }
+                }).show();
+                return true;
+            }
+        });
+
+
 
         String name = SPUtils.getInstance("user_info").getString("name", "未知");
         //切换用户
@@ -169,6 +190,9 @@ public class SettingActivity extends PreferenceActivity {
                             ToastUtils.showLong("更换桌面图标成功，等待桌面刷新后即可");
                             SPUtils.getInstance("app_info").put("app_icon", "app_icon_" + finalI);
                             new AppIconUtils().pmTest(SettingActivity.this);
+                            if (finalI == 2) {
+                                SPUtils.getInstance("app_info").put("theme", "0");
+                            }
                         }
                     });
                     layout.addView(item);

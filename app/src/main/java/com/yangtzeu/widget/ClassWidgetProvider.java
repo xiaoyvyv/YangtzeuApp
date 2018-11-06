@@ -124,7 +124,7 @@ public class ClassWidgetProvider extends AppWidgetProvider {
                 context.startActivity(open);
                 break;
             case CHANGE_CLICK:
-                Intent appIntent = new Intent(context.getApplicationContext(), SplashActivity.class);
+                Intent appIntent = new Intent(context.getApplicationContext(), MainActivity.class);
                 appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(appIntent);
                 break;

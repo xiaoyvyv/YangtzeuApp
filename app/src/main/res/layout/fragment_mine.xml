@@ -21,16 +21,12 @@
             app:title="@string/me_info" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.scwang.smartrefresh.header.PhoenixHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_srlBackgroundColor="?attr/colorPrimary" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -49,15 +45,15 @@
                     android:src="@mipmap/login_bg" />
 
                 <TextView
-                    android:text="online：20"
-                    android:layout_margin="15dp"
                     android:id="@+id/online"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
                     android:alpha="0.9"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:shadowRadius="1"
+                    android:text="online：20"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -176,6 +172,57 @@
                                 android:tint="?attr/colorPrimary" />
                         </LinearLayout>
 
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/black_20" />
+
+                        <LinearLayout
+                            android:id="@+id/chooseClass"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="start|center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/fragment4_dp"
+                                android:layout_height="@dimen/fragment4_dp"
+                                android:layout_marginStart="10dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/ic_add_class"
+                                android:tint="?attr/colorPrimary" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="@dimen/fragment4_view"
+                                android:layout_marginBottom="@dimen/fragment4_view"
+                                android:background="@color/black_20" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/fragment4_height"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:alpha="0.6"
+                                android:gravity="start|center_vertical"
+                                android:text="@string/choose_class"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/fragment4_dp"
+                                android:layout_height="@dimen/fragment4_dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/ic_right"
+                                android:tint="?attr/colorPrimary" />
+                        </LinearLayout>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
@@ -281,57 +328,6 @@
                                 android:textSize="10sp"
                                 android:visibility="gone"
                                 tools:ignore="SmallSp" />
-
-                            <ImageView
-                                android:layout_width="@dimen/fragment4_dp"
-                                android:layout_height="@dimen/fragment4_dp"
-                                android:contentDescription="@string/app_name"
-                                android:src="@drawable/ic_right"
-                                android:tint="?attr/colorPrimary" />
-                        </LinearLayout>
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/black_20" />
-
-                        <LinearLayout
-                            android:id="@+id/chooseClass"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="?attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="start|center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="@dimen/fragment4_dp"
-                                android:layout_height="@dimen/fragment4_dp"
-                                android:layout_marginStart="10dp"
-                                android:contentDescription="@string/app_name"
-                                android:src="@drawable/ic_add_class"
-                                android:tint="?attr/colorPrimary" />
-
-                            <View
-                                android:layout_width="0.5dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="@dimen/fragment4_view"
-                                android:layout_marginBottom="@dimen/fragment4_view"
-                                android:background="@color/black_20" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="@dimen/fragment4_height"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="1"
-                                android:alpha="0.6"
-                                android:gravity="start|center_vertical"
-                                android:text="@string/choose_class"
-                                android:textColor="@color/black"
-                                android:textSize="15sp" />
 
                             <ImageView
                                 android:layout_width="@dimen/fragment4_dp"
@@ -497,25 +493,27 @@
                             android:background="@color/black_20" />
 
                         <RelativeLayout
-                            android:gravity="center_vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/card_margin_10">
+                            android:layout_margin="@dimen/card_margin_10"
+                            android:gravity="center_vertical">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/school_internet"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
+
                             <TextView
-                                android:layout_marginEnd="10dp"
-                                android:textColor="@color/colorPrimary"
                                 android:id="@+id/internet_state"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentEnd="true"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
                                 android:text="校园网检测中"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
                         </RelativeLayout>
@@ -525,6 +523,55 @@
                             android:layout_height="0.5dp"
                             android:background="@color/black_20" />
 
+                        <LinearLayout
+                            android:id="@+id/feeLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="start|center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/fragment4_dp"
+                                android:layout_height="@dimen/fragment4_dp"
+                                android:layout_marginStart="10dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/ic_fee"
+                                android:tint="?attr/colorPrimary" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="@dimen/fragment4_view"
+                                android:layout_marginBottom="@dimen/fragment4_view"
+                                android:background="@color/black_20" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/fragment4_height"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:alpha="0.6"
+                                android:gravity="start|center_vertical"
+                                android:text="@string/web_fee"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/fragment4_dp"
+                                android:layout_height="@dimen/fragment4_dp"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/ic_right"
+                                android:tint="?attr/colorPrimary" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/black_20" />
 
                         <LinearLayout
                             android:id="@+id/physicalLayout"
@@ -570,6 +617,7 @@
                                 android:src="@drawable/ic_right"
                                 android:tint="?attr/colorPrimary" />
                         </LinearLayout>
+
 
                         <View
                             android:layout_width="match_parent"
@@ -852,10 +900,12 @@
                             android:text="@string/about_app"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
                             android:background="@color/black_20" />
+
                         <LinearLayout
                             android:id="@+id/githubLayout"
                             android:layout_width="match_parent"
@@ -949,7 +999,7 @@
                                 android:layout_height="@dimen/fragment4_dp"
                                 android:contentDescription="@string/app_name"
                                 android:src="@drawable/ic_right"
-                                android:tint="?attr/colorPrimary"/>
+                                android:tint="?attr/colorPrimary" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -957,5 +1007,5 @@
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

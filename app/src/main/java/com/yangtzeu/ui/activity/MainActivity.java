@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -27,9 +27,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.lib.x5web.X5WebView;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.Course;
+import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.listener.OnClassListener;
+import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.MainPresenter;
-import com.yangtzeu.service.YangtzeuService;
+import com.yangtzeu.receiver.LockReceiver;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.fragment.GradeFragment;
 import com.yangtzeu.ui.fragment.HomeFragment;
@@ -41,12 +43,10 @@ import com.yangtzeu.ui.view.MainView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.AlipayUtil;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.PostUtils;
+import com.yangtzeu.utils.PollingUtils;
 import com.yangtzeu.utils.UserUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
-import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
@@ -72,6 +72,8 @@ public class MainActivity extends BaseActivity
     private TextView class_info;
     private LinearLayout have_class;
     private LinearLayout not_have_class;
+    private Timer timer1 = new Timer();
+    private Timer timer2 = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +99,10 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void setEvents() {
-        intent = new Intent(MainActivity.this, YangtzeuService.class);
-        startService(intent);
+        timer1 = new Timer();
+        timer2 = new Timer();
+
         leftNavigationView.setNavigationItemSelectedListener(this);
-
-
         homeFragment = new HomeFragment();
         homeFragment.setUserVisibleHint(true);
         manyFragment = new ManyFragment();
@@ -109,10 +110,10 @@ public class MainActivity extends BaseActivity
         tableFragment = new TableFragment();
         mineFragment = new MineFragment();
 
-
         MainPresenter presenter = new MainPresenter(this, this);
         presenter.setBottomViewWithFragment();
         presenter.initEvents();
+
 
 
         final Handler handler = new Handler(getMainLooper()) {
@@ -122,7 +123,7 @@ public class MainActivity extends BaseActivity
             }
         };
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        timer1.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Message msg = Message.obtain();
@@ -136,6 +137,29 @@ public class MainActivity extends BaseActivity
         } else {
             bottomNavigationView.inflateMenu(R.menu.main_bottom_menu);
         }
+
+
+        timer2.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //保持教务处服务器连接
+                YangtzeuUtils.getStudentInfo();
+
+                //保持App服务器连接
+                YangtzeuUtils.keepOnline(new OnResultListener<OnLineBean>() {
+                    @Override
+                    public void onResult(OnLineBean s) {
+                        int size = s.getSize();
+                        SPUtils.getInstance("app_info").put("online_size", size);
+                        Intent intent = new Intent();
+                        intent.setAction("Online_BroadcastReceiver");
+                        intent.putExtra("online_size", size);
+                        sendBroadcast(intent);
+                    }
+                });
+
+            }
+        }, 0, 10000);
     }
 
     private void setClassPlan() {
@@ -268,12 +292,15 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.manger:
                 String number = SPUtils.getInstance("user_info").getString("number");
-                if (!StringUtils.equals(number, "201603246")) {
+                if (StringUtils.equals(number, "201603246") || StringUtils.equals(number, "201602810")) {
+                    ToastUtils.showShort("欢迎您");
+                    MyUtils.startActivity(MangerActivity.class);
+                } else {
                     ToastUtils.showShort("抱歉，您不是管理员！");
-                    break;
                 }
-                ToastUtils.showShort("欢迎您");
-                MyUtils.startActivity(MangerActivity.class);
+                break;
+            case R.id.collection:
+                MyUtils.startActivity(CollectionActivity.class);
                 break;
             case R.id.about:
                 MyUtils.startActivity(AboutActivity.class);
@@ -350,21 +377,9 @@ public class MainActivity extends BaseActivity
                 }
             }.sendEmptyMessageDelayed(0, 2000); // 利用handler延迟发送更改状态信息
         } else {
-            UserUtils.do_Logout_Simple(this, new UserUtils.OnLogResultListener() {
-                @Override
-                public void onSuccess(String response) {
-                    ActivityUtils.finishAllActivities();
-                    AppUtils.exitApp();
-                }
-
-                @Override
-                public void onFailure(String error) {
-                    ActivityUtils.finishAllActivities();
-                    AppUtils.exitApp();
-
-                }
-            });
-
+            ActivityUtils.finishAllActivities();
+            AppUtils.exitApp();
+            android.os.Process.killProcess(android.os.Process.myPid());//再此之前可以做些退出等操作
         }
     }
 
@@ -412,8 +427,15 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onDestroy() {
+        PollingUtils.stopPollingBroadcast(this, LockReceiver.class, LockReceiver.ACTION);
         if (intent != null) {
             stopService(intent);
+        }
+        if (timer1 != null) {
+            timer1.cancel();
+        }
+        if (timer2 != null) {
+            timer2.cancel();
         }
         super.onDestroy();
     }

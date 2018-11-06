@@ -100,9 +100,9 @@ public class LoveDetailsActivity extends BaseActivity {
     @Override
     public void setEvents() {
         //添加评论
-        LoveAdapter.addReplay(this, replay_message, replay);
+        LoveAdapter.addReplay(this, replay_message, replay, master_id);
         //添加评论监听
-        LoveAdapter.addReplayListener(this, replay_message, addReplay, replay, id);
+        LoveAdapter.addReplayListener(this, replay_message, addReplay, replay, id, master_id);
 
         MusicActivity.getMusicLink(music, new OnResultListener<String>() {
             @Override

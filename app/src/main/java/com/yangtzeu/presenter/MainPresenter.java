@@ -24,4 +24,8 @@ public class MainPresenter {
     public void initEvents() {
         model.initEvents(activity, view);
     }
+
+    public void startPoll() {
+        model.startPoll(activity, view);
+    }
 }

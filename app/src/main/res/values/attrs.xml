@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--功能页面Notice-->
     <declare-styleable name="NoticeView">
         <!-- 图标 -->
         <attr name="nvIcon" format="reference"/>
@@ -26,6 +27,7 @@
         <attr name="nvDuration" format="integer"/>
     </declare-styleable>
 
+    <!--表白大图-->
     <declare-styleable name="MovingImageView" >
         <attr name="miv_speed" format="integer" />
         <attr name="miv_repetitions" format="integer" />
@@ -34,7 +36,30 @@
         <attr name="miv_start_delay" format="integer" />
         <attr name="miv_load_on_create" format="boolean" />
     </declare-styleable>
+
+    <!--表白大图-->
     <declare-styleable name="MovingImageViewTheme" >
         <attr name="movingImageViewStyle" format="reference" />
+    </declare-styleable>
+
+    <!--计算器-->
+    <declare-styleable name="AutofitTextView">
+        <!-- Minimum size of the text. -->
+        <attr name="minTextSize" format="dimension" />
+        <!-- Amount of precision used to calculate the correct text size to fit within its
+        bounds. Lower precision is more precise and takes more time. -->
+        <attr name="precision" format="float" />
+        <!-- Defines whether to automatically resize text to fit to the view's bounds. -->
+        <attr name="sizeToFit" format="boolean" />
+    </declare-styleable>
+
+    <!--GramophoneView（唱片机）属性-->
+    <declare-styleable name="GramophoneView">
+        <!--图片半径-->
+        <attr name="picture_radius" format="dimension"/>
+        <!--图片资源id-->
+        <attr name="src" format="reference"/>
+        <!--唱片旋转速度-->
+        <attr name="disk_rotate_speed" format="float"/>
     </declare-styleable>
 </resources>

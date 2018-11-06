@@ -19,9 +19,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.MinePresenter;
 import com.yangtzeu.ui.activity.BoardActivity;
@@ -29,7 +26,6 @@ import com.yangtzeu.ui.activity.CetActivity;
 import com.yangtzeu.ui.activity.ChangePassActivity;
 import com.yangtzeu.ui.activity.ChooseClassActivity;
 import com.yangtzeu.ui.activity.FeedBackActivity;
-import com.yangtzeu.ui.activity.MoreActivity;
 import com.yangtzeu.ui.activity.ShopActivity;
 import com.yangtzeu.ui.activity.TestActivity;
 import com.yangtzeu.ui.activity.base.BaseFragment;
@@ -43,6 +39,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * Created by Administrator on 2018/3/6.
@@ -59,7 +56,7 @@ public class MineFragment extends BaseFragment implements MineView {
     private ImageView image_bg;
     private Toolbar toolbar;
     private MinePresenter presenter;
-    private SmartRefreshLayout refreshLayout;
+    private SwipeRefreshLayout refreshLayout;
 
     private TextView online;
     private TextView userCetView;
@@ -82,6 +79,7 @@ public class MineFragment extends BaseFragment implements MineView {
     private LinearLayout logoutLayout;
     private LinearLayout coolLayout;
     private LinearLayout githubLayout;
+    private LinearLayout feeLayout;
 
     private Activity activity;
     private OnlineBroadcastReceiver onlineBroadcastReceiver;
@@ -127,6 +125,7 @@ public class MineFragment extends BaseFragment implements MineView {
         logoutLayout = rootView.findViewById(R.id.logoutLayout);
         githubLayout = rootView.findViewById(R.id.githubLayout);
         coolLayout = rootView.findViewById(R.id.coolLayout);
+        feeLayout = rootView.findViewById(R.id.feeLayout);
 
 
     }
@@ -144,20 +143,22 @@ public class MineFragment extends BaseFragment implements MineView {
         activity.registerReceiver(onlineBroadcastReceiver, filter);
         isReceiver = true;
 
-        refreshLayout.setEnableLoadMore(false);
         presenter = new MinePresenter(getActivity(), this);
         presenter.setToolbarEvent();
 
-        refreshLayout.setEnableLoadMore(false);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+
+        presenter.loadUserInfo();
+        presenter.loadMessage();
+        presenter.checkInternetView();
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
+            public void onRefresh() {
                 presenter.loadUserInfo();
                 presenter.loadMessage();
                 presenter.checkInternetView();
             }
         });
-        refreshLayout.autoRefresh();
 
 
         online.setOnClickListener(new View.OnClickListener() {
@@ -291,6 +292,13 @@ public class MineFragment extends BaseFragment implements MineView {
             }
         });
 
+        feeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_Fee, true);
+            }
+        });
+
         logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -378,7 +386,7 @@ public class MineFragment extends BaseFragment implements MineView {
     }
 
     @Override
-    public SmartRefreshLayout getRefresh() {
+    public SwipeRefreshLayout getRefresh() {
         return refreshLayout;
     }
 

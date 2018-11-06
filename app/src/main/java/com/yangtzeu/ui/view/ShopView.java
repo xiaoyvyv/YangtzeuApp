@@ -9,6 +9,8 @@ import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
 public interface ShopView {
+    boolean isRefresh();
+
     RecyclerView getRecyclerView();
 
     int getStart();

@@ -178,7 +178,7 @@ public class MineModel implements IMineModel {
         OkHttp.do_Get(url, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
-                view.getRefresh().finishRefresh();
+                view.getRefresh().setRefreshing(false);
                 final MessageBean bean = (new Gson()).fromJson(response, MessageBean.class);
                 String info = bean.getInfo();
                 if (info.contains("查询成功")) {
@@ -239,7 +239,7 @@ public class MineModel implements IMineModel {
 
             @Override
             public void onFailure(String error) {
-                view.getRefresh().finishRefresh();
+                view.getRefresh().setRefreshing(false);
                 ToastUtils.showShort(R.string.load_error);
             }
         });

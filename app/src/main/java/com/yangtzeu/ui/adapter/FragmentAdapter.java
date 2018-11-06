@@ -30,6 +30,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public void clear() {
         mFragments.clear();
         mFragments_name.clear();
+        notifyDataSetChanged();
     }
 
     @Override

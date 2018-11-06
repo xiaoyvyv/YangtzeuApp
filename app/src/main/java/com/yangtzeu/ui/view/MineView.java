@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 public interface MineView {
@@ -30,7 +31,7 @@ public interface MineView {
 
     TextView getMessageImage();
 
-    SmartRefreshLayout getRefresh();
+    SwipeRefreshLayout getRefresh();
 
     TextView getInternetState();
 }

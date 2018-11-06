@@ -21,12 +21,15 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.lib.subutil.GsonUtils;
+import com.mob.imsdk.model.IMConversation;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.LoveBean;
 import com.yangtzeu.entity.MessageBean;
 import com.yangtzeu.entity.ShopBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
+import com.yangtzeu.ui.activity.ChatActivity;
+import com.yangtzeu.ui.activity.ChatDetailsActivity;
 import com.yangtzeu.ui.activity.LoveDetailsActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
@@ -133,16 +136,18 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
             }
         });
 
-        addReplay(context,viewHolder.replay_message, replay);
-        addReplayListener(context, viewHolder.replay_message, viewHolder.addReplay, replay, id);
+        addReplay(context, viewHolder.replay_message, replay, master_id);
+        addReplayListener(context, viewHolder.replay_message, viewHolder.addReplay, replay, id, master_id);
     }
 
-    public static void addReplayListener(final Context context, final LinearLayout container, final View view, final List<LoveBean.DataBean.ReplayBean> replay, final String love_id) {
+    public static void addReplayListener(final Context context, final LinearLayout container, final View view, final List<LoveBean.DataBean.ReplayBean> replay, final String love_id, final String master_id) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 @SuppressLint("InflateParams")
                 View inflate = LayoutInflater.from(context).inflate(R.layout.fragment_love_replay, null);
+                TextView trip = inflate.findViewById(R.id.trip);
+                trip.setText("聊一聊");
                 final TextInputEditText replayView = inflate.findViewById(R.id.replay);
                 AlertDialog alert = MyUtils.getAlert(context, null, new DialogInterface.OnClickListener() {
                     @Override
@@ -157,7 +162,7 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
                             replayBean.setUser_name(my_name);
                             replayBean.setContent(input);
                             replay.add(replayBean);
-                            addReplay(context, container, replay);
+                            addReplay(context, container, replay, master_id);
 
                             KeyboardUtils.hideSoftInput(replayView);
                             dialog.dismiss();
@@ -190,7 +195,7 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
         });
     }
 
-    public static void addReplay(Context context,LinearLayout container, List<LoveBean.DataBean.ReplayBean> replay) {
+    public static void addReplay(final Context context, LinearLayout container, List<LoveBean.DataBean.ReplayBean> replay, final String master_id) {
         if (replay.size() == 0) {
             container.removeAllViews();
             View item = View.inflate(context, R.layout.activity_board_replay_item, null);
@@ -207,6 +212,18 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
             final String rName = "<font color=#00367a>" + replay.get(j).getUser_name() + "</font>";
             LogUtils.i(rText, rName);
             HuiFuItemText.setText(Html.fromHtml(rName + ":\t\t" + rText));
+
+            //点击评论跳转聊天
+            HuiFuItemText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //targetId - 目标id（群聊为群的id，私聊为对方id）
+                    Intent intent = new Intent(context, ChatDetailsActivity.class);
+                    intent.putExtra("id", master_id);
+                    intent.putExtra("type", IMConversation.TYPE_USER);
+                    MyUtils.startActivity(intent);
+                }
+            });
         }
     }
 

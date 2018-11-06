@@ -28,9 +28,8 @@ public class BoardModel implements IBoardModel {
                 if (!mess.getCode().equals("404")) {
                     if (!mess.getResult().isEmpty()) {
                         if (view.isRefresh()) {
-                            view.getAdapter().clear();
                             view.getBoardData().clear();
-                            view.getAdapter().notifyDataSetChanged();
+                            view.getAdapter().clear();
 
                             view.getBoardData().addAll(mess.getResult());
                             view.getAdapter().SetDate(view.getBoardData());

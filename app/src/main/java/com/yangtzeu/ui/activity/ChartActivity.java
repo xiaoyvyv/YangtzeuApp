@@ -2,6 +2,7 @@ package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.GradeBean;
 import com.yangtzeu.presenter.ChartPresenter;
@@ -21,12 +22,12 @@ public class ChartActivity extends BaseActivity implements ChartView {
     private List<GradeBean> datas;
     private Toolbar toolbar;
     private LineChartView mLineChartView;
-    private ColumnChartView mColumnChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         datas = ((GradeBean) getIntent().getSerializableExtra("data")).getGradeBeans();
         super.onCreate(savedInstanceState);
+        ScreenUtils.setLandscape(this);
         setContentView(R.layout.activity_chart);
         init();
         MyUtils.setToolbarBackToHome(this, toolbar);
@@ -36,7 +37,6 @@ public class ChartActivity extends BaseActivity implements ChartView {
     public void findViews() {
         toolbar = findViewById(R.id.toolbar);
         mLineChartView = findViewById(R.id.mLineChartView);
-        mColumnChartView = findViewById(R.id.mColumnChartView);
 
     }
 
@@ -44,9 +44,6 @@ public class ChartActivity extends BaseActivity implements ChartView {
     public void setEvents() {
         ChartPresenter president = new ChartPresenter(this, this);
         president.setChart();
-        president.setColumnChart();
-
-
 
     }
 
@@ -55,10 +52,6 @@ public class ChartActivity extends BaseActivity implements ChartView {
         return mLineChartView;
     }
 
-    @Override
-    public ColumnChartView getColumnChartView() {
-        return mColumnChartView;
-    }
 
     @Override
     public List<GradeBean> getData() {

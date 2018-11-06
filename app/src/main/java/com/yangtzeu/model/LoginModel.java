@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -38,6 +39,18 @@ public class LoginModel implements ILoginModel {
         String password = SPUtils.getInstance("user_info").getString("password");
         view.getNumberView().setText(number);
         view.getPassWordView().setText(password);
+
+
+        view.getLoginButton().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ToastUtils.showShort("您未登录强制进入应用，将会导致大部分功能无法使用！");
+                MyUtils.startActivity(MainActivity.class);
+                activity.finish();
+                return true;
+            }
+        });
+
 
         view.getLoginButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,8 +172,23 @@ public class LoginModel implements ILoginModel {
                     .create();
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
+        } else if (error.equals("用户封停")) {
+            AlertDialog dialog = new AlertDialog.Builder(activity)
+                    .setTitle("管理员温馨提示")
+                    .setMessage("由于系统检测到你在使用本App的过程中，出现过不文明行为！\n\n给予封停该学号的处分！\n解封时间待定！")
+                    .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            ActivityUtils.finishAllActivities();
+                            AppUtils.exitApp();
+                        }
+                    })
+                    .create();
+            dialog.show();
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
         }
-
     }
 
     private void loginSuccess(Activity activity, LoginView view, String result) {

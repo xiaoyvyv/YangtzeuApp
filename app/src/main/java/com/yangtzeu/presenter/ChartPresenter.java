@@ -19,7 +19,4 @@ public class ChartPresenter {
         mode.setChart(activity, view);
     }
 
-    public void setColumnChart() {
-        mode.setColumnChart(activity, view);
-    }
 }

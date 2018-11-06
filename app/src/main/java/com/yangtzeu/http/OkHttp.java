@@ -113,6 +113,7 @@ public class OkHttp {
                 UIHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        LogUtils.e(e);
                         if (onResultStringListener != null) {
                             onResultStringListener.onFailure(OkhttpError.ERROR_LOAD);
                         } else {

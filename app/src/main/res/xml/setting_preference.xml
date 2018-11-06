@@ -45,6 +45,10 @@
             android:summary="修改启动图标"
             android:title="App桌面图标" />
         <Preference
+            android:key="x5"
+            android:summary="可解决网页加载排版错误的问题"
+            android:title="X5内核调试" />
+        <Preference
             android:key="Update"
             android:summary="已经是最新版本"
             android:title="检查更新" />

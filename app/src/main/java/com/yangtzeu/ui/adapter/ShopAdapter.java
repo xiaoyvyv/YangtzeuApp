@@ -194,7 +194,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                             replayBean.setUser_name(my_name);
                             replayBean.setContent(input);
                             replay.add(replayBean);
-                            addReplay(viewHolder, replay);
+                            addReplay(viewHolder, replay, master_id);
 
                             KeyboardUtils.hideSoftInput(replayView);
                             dialog.dismiss();
@@ -236,10 +236,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             }
         });
 
-        addReplay(viewHolder, replay);
+        addReplay(viewHolder, replay, master_id);
     }
 
-    private void addReplay(ViewHolder viewHolder, List<ShopBean.DataBean.ReplayBean> replay) {
+    private void addReplay(ViewHolder viewHolder, List<ShopBean.DataBean.ReplayBean> replay, final String master_id) {
         if (replay.size() == 0) {
             viewHolder.replay_message.removeAllViews();
             View item = View.inflate(context, R.layout.activity_board_replay_item, null);
@@ -256,6 +256,19 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             final String rName = "<font color=#00367a>" + replay.get(j).getUser_name() + "</font>";
             LogUtils.i(rText, rName);
             HuiFuItemText.setText(Html.fromHtml(rName + ":\t\t" + rText));
+
+
+            //点击评论跳转聊天
+            HuiFuItemText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //targetId - 目标id（群聊为群的id，私聊为对方id）
+                    Intent intent = new Intent(context, ChatDetailsActivity.class);
+                    intent.putExtra("id", master_id);
+                    intent.putExtra("type", IMConversation.TYPE_USER);
+                    MyUtils.startActivity(intent);
+                }
+            });
         }
     }
 
