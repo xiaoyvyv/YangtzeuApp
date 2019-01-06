@@ -1,55 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingStart="20dp"
-    android:paddingTop="10dp"
-    android:paddingEnd="20dp"
-    android:paddingBottom="20dp">
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/trip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#545454"
+        android:padding="@dimen/card_margin_10"
+        android:text="物理实验中心-用户登录"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#545454"
+        android:lineSpacingExtra="@dimen/margin_5"
+        android:paddingStart="@dimen/card_margin_10"
+        android:paddingTop="@dimen/margin_5"
+        android:paddingEnd="@dimen/card_margin_10"
+        android:paddingBottom="@dimen/card_margin_10"
+        android:text="初始密码为：12345678\n若您已经修完所有物理实验，请勿继续操作"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/card_margin_10"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_replay_bg">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/translate"
             android:digits="0123456789*#"
-            android:hint="请输入学号"
+            android:hint="@string/input_number"
             android:inputType="number"
+            android:padding="@dimen/margin_5"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mTextInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/card_margin_10"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_replay_bg">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="请输入密码-初始密码12345678"
+            android:background="@color/translate"
+            android:hint="@string/input_pass"
             android:inputType="textPassword"
+            android:padding="@dimen/margin_5"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/login"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="登录"
-        android:textColor="?attr/colorAccent" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/card_margin_10"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/exit"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.5"
+            android:background="@drawable/ic_replay_bg">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/verifyView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/translate"
+                android:hint="@string/input_verify"
+                android:inputType="textPassword"
+                android:padding="@dimen/margin_5"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/verifyImage"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/margin_5"
+            android:layout_weight="1"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@mipmap/holder" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="退出"
-        android:textColor="?attr/colorAccent" />
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        tools:ignore="ButtonStyle">
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/login"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/exit"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 </LinearLayout>

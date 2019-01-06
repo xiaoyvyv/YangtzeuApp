@@ -2,6 +2,7 @@ package com.yangtzeu.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -266,7 +267,10 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
                 break;
             case R.id.compass:
                 YangtzeuUtils.getOnClickTimes(tripCompass, timesCompass, true);
-                MyUtils.startActivity(CompassActivity.class);
+                Intent intent = new Intent(getActivity(), WebListActivity.class);
+                intent.putExtra("from_url", Url.Yangtzeu_All_Web_Soft);
+                intent.putExtra("title", getString(R.string.soft_list));
+                MyUtils.startActivity(intent);
                 break;
             case R.id.translate:
                 YangtzeuUtils.getOnClickTimes(tripTranslate, timesTranslate, true);

@@ -26,11 +26,13 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
@@ -49,6 +51,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.lib.subutil.ClipboardUtils;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.QbSdk;
 import com.yangtzeu.R;
@@ -59,6 +62,7 @@ import com.yangtzeu.ui.activity.LoginActivity;
 import com.yangtzeu.ui.activity.LoveActivity;
 import com.yangtzeu.ui.activity.LoveAddActivity;
 import com.yangtzeu.ui.activity.LoveDetailsActivity;
+import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.ui.activity.SplashActivity;
 import com.yangtzeu.ui.activity.WebActivity;
 
@@ -82,6 +86,8 @@ import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+
+import static com.mob.tools.utils.Strings.getString;
 
 /**
  * Created by 2016 on 2017/11/29.
@@ -562,23 +568,9 @@ public class MyUtils {
      * 复制内容到剪切板
      */
     public static void putStringToClipboard(Context context, String clipboard) {
-        ClipboardManager mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        Objects.requireNonNull(mClipboardManager).setPrimaryClip(ClipData.newPlainText(null, clipboard));
+        ClipboardUtils.copyText(clipboard);
     }
 
-    /**
-     * 复制内容到剪切板，定制弹出内容
-     *
-     * @param clipboard 复制内容
-     * @param context   上下文
-     * @param toast     弹出内容
-     */
-    public static void putStringToClipboard(Context context, String clipboard, String toast) {
-        ClipboardManager mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        Objects.requireNonNull(mClipboardManager).setPrimaryClip(ClipData.newPlainText(null, clipboard));
-        ToastUtils.showShort(toast);
-
-    }
 
     /**
      * 重写对话框关闭事件
@@ -903,6 +895,11 @@ public class MyUtils {
      * @param url 网页链接
      */
     public static void openUrl(Context context, String url) {
+        if (url.contains("c1x08894fliska9rxlrecb5")) {
+           showRedBag(context);
+            return;
+        }
+
         if (URLUtil.isNetworkUrl(url)) {
             context.startActivity(new Intent(context, WebActivity.class)
                     .putExtra("from_url", url));
@@ -1165,4 +1162,34 @@ public class MyUtils {
         return false;
     }
 
+    public static void showRedBag(final Context context) {
+        @SuppressLint("InflateParams") final View view = LayoutInflater.from(context).inflate(R.layout.view_red_dialog, null);
+        final TextView redBag = view.findViewById(R.id.gotoZFB);
+        final View close = view.findViewById(R.id.close);
+        final AlertDialog alert = new AlertDialog.Builder(context,R.style.translate_dialog)
+                .setView(view)
+                .create();
+        alert.show();
+        alert.setCanceledOnTouchOutside(false);
+        alert.setCancelable(false);
+        redBag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AlipayUtil.hasInstalledAlipayClient(context)) {
+                    MyUtils.putStringToClipboard(context, context.getString(R.string.apply_redbag_key));
+                    ToastUtils.showLong("请到搜索框粘贴后搜索，即可领红包！");
+                    AlipayUtil.startAlipayClient(context);
+                } else {
+                    ToastUtils.showLong(R.string.no_apply_app);
+                }
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.putStringToClipboard(context, context.getString(R.string.apply_redbag_key));
+                alert.dismiss();
+            }
+        });
+    }
 }

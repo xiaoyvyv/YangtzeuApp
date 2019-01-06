@@ -143,6 +143,15 @@
         <item name="android:scrollHorizontally">true</item>
     </style>
 
+    <style name="translate_dialog" parent="App">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@color/translate</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+    </style>
+
     <style name="lib_home_table">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>

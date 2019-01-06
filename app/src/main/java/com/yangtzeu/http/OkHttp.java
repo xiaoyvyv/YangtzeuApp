@@ -18,6 +18,7 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Proxy;
 import java.util.Objects;
@@ -26,7 +27,8 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
+import okhttp3.Headers;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -68,6 +70,7 @@ public class OkHttp {
             UIHandler = new Handler(context.getMainLooper());
         }
     }
+
 
     public static void do_Get(final String url, final OnResultStringListener onResultStringListener) {
         LogUtils.i("Get--加载链接：" + url);
@@ -247,14 +250,6 @@ public class OkHttp {
 
 
     public static void do_Post(final Request request, final OnResultStringListener onResultStringListener) {
-        FormBody body = (FormBody) request.body();
-        StringBuilder temp = new StringBuilder();
-        if (body != null) {
-            for (int i = 0; i < body.size(); i++) {
-                temp.append(body.name(i)).append(":").append(body.value(i)).append(";");
-            }
-        }
-
         if (!NetworkUtils.isConnected()) {
             if (onResultStringListener != null)
                 onResultStringListener.onFailure(OkhttpError.ERROR_NO_INTERNET);
@@ -299,7 +294,7 @@ public class OkHttp {
 
                             //返回成功结果
                             onResultStringListener.onResponse(string);
-                        }else {
+                        } else {
                             LogUtils.i("未设置网络请求监听---Url：" + request.url());
                         }
                     }
@@ -308,8 +303,7 @@ public class OkHttp {
         });
     }
 
-
-    public static PersistentCookieJar cookieJar() {
-        return cookieJar;
+        public static PersistentCookieJar cookieJar () {
+            return cookieJar;
+        }
     }
-}

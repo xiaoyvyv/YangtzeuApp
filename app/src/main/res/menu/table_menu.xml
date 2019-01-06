@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:icon="@drawable/ic_date"
+        android:id="@+id/choose_date"
+        android:orderInCategory="100"
+        android:title="@string/choose_date"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/web_table"
         android:icon="@drawable/ic_web"
         android:orderInCategory="100"
@@ -11,16 +17,6 @@
         android:id="@+id/table_bg_white"
         android:orderInCategory="100"
         android:title="@string/table_bg_white"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/table_bg1"
-        android:orderInCategory="100"
-        android:title="@string/table_bg1"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/table_bg2"
-        android:orderInCategory="100"
-        android:title="@string/table_bg2"
         app:showAsAction="never" />
     <item
         android:id="@+id/table_bg"

@@ -534,7 +534,8 @@ public class YangtzeuUtils {
             public void onResponse(String response) {
                 MessageBean messageBean = GsonUtils.fromJson(response, MessageBean.class);
                 String info = messageBean.getInfo();
-                if (info.contains(IMManager.getUser().getId())) {
+                String number = SPUtils.getInstance("user_info").getString("number", "000000");
+                if (ObjectUtils.isNotEmpty(info)&&info.contains(number)) {
                     //进程不同，用文件存储数据，以便时实更新
                     CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put("lock_time", "0");
                 }

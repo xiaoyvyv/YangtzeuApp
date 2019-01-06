@@ -210,7 +210,7 @@
     <string name="set_term">设置学期</string>
     <string name="clean_cache">清空缓存</string>
     <string name="more">更多</string>
-    <string name="exit">确定退出？</string>
+    <string name="is_exit">确定退出？</string>
     <string name="check_version">检查更新中，请稍等</string>
     <string name="clean_cache_success">缓存清理完成</string>
     <string name="app_web">软件官网</string>
@@ -227,8 +227,8 @@
     <string name="no_class">暂无课程安排</string>
     <string name="no_apply_app">没有检测到支付宝客户端!</string>
     <string name="red_url">https://qr.alipay.com/c1x08894fliska9rxlrecb5</string>
-    <string name="apply_redbag_code_key">c1x08894fliska9rxlrecb5</string>
-    <string name="apply_redbag_key">瑞丽虹琳芬I赫沃汇翰3创兰</string>
+    <string name="apply_redbag_code_key">523185</string>
+    <string name="apply_redbag_key">523185</string>
     <string name="apply_me_key">FKX090017A88JZT5T39YB8</string>
     <string name="replay_success_trip">回复成功，对方上线即可看见消息</string>
     <string name="exit_app">退出助手</string>
@@ -344,7 +344,7 @@
     <string name="cool_score">酷安评分</string>
     <string name="github_url">开源地址</string>
     <string name="about_app">软件相关</string>
-    <string name="cut_off_shop">打折商品</string>
+    <string name="cut_off_shop">购物券</string>
     <string name="love_wall">表白墙</string>
     <string name="shop_mall">跳蚤市场</string>
     <string name="calculator">科学计算器</string>
@@ -361,8 +361,8 @@
     <string name="ruler">尺子</string>
     <string name="rule">尺</string>
     <string name="trip_ruler">直尺-圆尺</string>
-    <string name="compass">指</string>
-    <string name="miui_compass">小米指南针</string>
+    <string name="compass">软</string>
+    <string name="miui_compass">电脑软件集</string>
     <string name="translate">译</string>
     <string name="input_translate">请输入翻译内容</string>
     <string name="please_translate">请先翻译出结果</string>
@@ -374,4 +374,8 @@
     <string name="kg">K歌音乐下载</string>
     <string name="K">K</string>
     <string name="kg_help">食用方法：\n1.打开朋友的全民k歌的歌曲详情页面\n2.点击分享\n3.点击复制链接，粘贴到这里\n5.点击播放后即可下载\n\n下载的音乐文件位于：\n内部存储/A_Tool/Download/Music/</string>
+    <string name="exit">退出</string>
+    <string name="input_verify">请输入验证码</string>
+    <string name="web_list">网址列表</string>
+    <string name="soft_list">常用软件大全</string>
 </resources>

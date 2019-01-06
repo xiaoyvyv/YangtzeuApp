@@ -16,7 +16,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "3.2"
+        versionName "3.3"
 /*
         splits {
             abi {
@@ -44,13 +44,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     //第三方依赖
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
@@ -66,7 +66,6 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.9.2'
     implementation 'co.lujun:androidtagview:1.0.3'
     implementation 'com.blankj:utilcode:1.20.3'
-    implementation 'com.qiniu:qiniu-android-sdk:7.3.12'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation files('libs/tbs_sdk_v3.2.0.jar')
 }

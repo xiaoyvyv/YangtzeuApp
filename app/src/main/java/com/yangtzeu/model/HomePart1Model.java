@@ -1,15 +1,12 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheDiskUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ObjectUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
@@ -31,7 +28,7 @@ public class HomePart1Model implements IHomePart1Model {
         OkHttp.do_Get(Url.Yangtzeu_JWC, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
-                analysisData(activity,view,response);
+                analysisData(activity, view, response);
             }
 
             @Override
@@ -64,7 +61,7 @@ public class HomePart1Model implements IHomePart1Model {
                 item.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.alpha_to1_750));
 
                 String time = elements_next.get(j).select("li span").text();
-                final String url = elements_next.get(j).select("li a").attr("href");
+                final String url = Url.Yangtzeu_JWC + elements_next.get(j).select("li a").attr("href");
                 String title = elements_next.get(j).select("li a").text();
 
                 TextView fragment_item_time = item.findViewById(R.id.notice_time);
@@ -75,7 +72,7 @@ public class HomePart1Model implements IHomePart1Model {
                 item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MyUtils.openUrl(activity,url);
+                        MyUtils.openUrl(activity, url);
                     }
                 });
                 switch (i) {

@@ -1,5 +1,7 @@
 package com.yangtzeu.ui.activity;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +9,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.model.SplashModel;

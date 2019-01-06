@@ -2,13 +2,17 @@ package com.yangtzeu.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -16,6 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
+import com.yangtzeu.http.OnResultBytesListener;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.adapter.FragmentAdapter;
@@ -77,7 +82,6 @@ public class PhysicalActivity extends BaseActivity {
         @SuppressLint("InflateParams")
         View view = getLayoutInflater().inflate(R.layout.activity_physical_dialog, null);
         final AlertDialog dialog = new AlertDialog.Builder(PhysicalActivity.this)
-                .setTitle("物理实验中心用户登录")
                 .setView(view)
                 .create();
         dialog.show();
@@ -87,6 +91,10 @@ public class PhysicalActivity extends BaseActivity {
         final TextInputEditText number = view.findViewById(R.id.number);
         number.setText(physical_number);
         final TextInputEditText password = view.findViewById(R.id.password);
+        final TextInputEditText verifyView = view.findViewById(R.id.verifyView);
+        final ImageView verifyImage = view.findViewById(R.id.verifyImage);
+
+
         password.setText(physical_password);
         Button login = view.findViewById(R.id.login);
         Button exit = view.findViewById(R.id.exit);
@@ -94,10 +102,19 @@ public class PhysicalActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-
                 PhysicalActivity.this.onBackPressed();
             }
         });
+
+        getVerifyImage(verifyImage);
+        verifyImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getVerifyImage(verifyImage);
+            }
+        });
+
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +131,15 @@ public class PhysicalActivity extends BaseActivity {
                     password.requestFocus();
                     return;
                 }
+
+                String verify = Objects.requireNonNull(verifyView.getText()).toString().trim();
+                if (verify.isEmpty()) {
+                    verifyView.setError("请输入验证码");
+                    verifyView.requestFocus();
+                    return;
+                }
+                KeyboardUtils.hideSoftInput(PhysicalActivity.this);
+
                 SPUtils.getInstance("user_info").put("physical_password", password_str);
 
                 RequestBody body = new FormBody.Builder()
@@ -121,6 +147,7 @@ public class PhysicalActivity extends BaseActivity {
                         .add("Submit", "立即登陆")
                         .add("userid", number_str)
                         .add("usertype", "student")
+                        .add("code", verify)
                         .build();
 
                 Request request = new Request.Builder()
@@ -147,6 +174,22 @@ public class PhysicalActivity extends BaseActivity {
                     }
                 });
 
+            }
+        });
+    }
+
+    //获取验证码
+    private void getVerifyImage(final ImageView verifyImage) {
+        OkHttp.do_Get(Url.Yangtzeu_Physical_Verify, new OnResultBytesListener() {
+            @Override
+            public void onResponse(byte[] bytes) {
+                Bitmap bitmap = ImageUtils.bytes2Bitmap(bytes);
+                verifyImage.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                ToastUtils.showShort(R.string.try_again);
             }
         });
     }

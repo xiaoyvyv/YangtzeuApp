@@ -42,6 +42,9 @@ import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -289,31 +292,34 @@ public class MineModel implements IMineModel {
             internet_state.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
             internet_state.setText("校园网检测中");
 
-            OkHttp.do_Get("http://10.10.240.250", new OnResultStringListener() {
+            OkHttp.do_Get("http://10.151.0.249/", new OnResultStringListener() {
                 @Override
                 public void onResponse(String response) {
-                    LogUtils.e(response);
-                    internet_state.setTextColor(Color.parseColor("#aa00ff00"));
-                    internet_state.setText("已连接到校园网");
+                    if (response.contains("已使用时间")) {
+                        internet_state.setTextColor(Color.parseColor("#aa00ff00"));
+                        internet_state.setText("已连接到校园网");
 
+                        physicalLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (NetworkUtils.isWifiAvailable()) {
+                                    MyUtils.startActivity(PhysicalActivity.class);
+                                } else showSchoolDialog(activity);
+                            }
+                        });
 
-                    physicalLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (NetworkUtils.isWifiAvailable()) {
-                                MyUtils.startActivity(PhysicalActivity.class);
-                            } else showSchoolDialog(activity);
-                        }
-                    });
-
-                    cardLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (NetworkUtils.isWifiAvailable()) {
-                                MyUtils.startActivity(CardCenterActivity.class);
-                            } else showSchoolDialog(activity);
-                        }
-                    });
+                        cardLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (NetworkUtils.isWifiAvailable()) {
+                                    MyUtils.startActivity(CardCenterActivity.class);
+                                } else showSchoolDialog(activity);
+                            }
+                        });
+                    } else {
+                        internet_state.setTextColor(Color.parseColor("#aaff0000"));
+                        internet_state.setText("未连接到校园网");
+                    }
                 }
 
                 @Override

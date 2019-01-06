@@ -199,7 +199,7 @@ public class CardCenterActivity extends BaseActivity implements View.OnClickList
                 if (ObjectUtils.isEmpty(__VIEWSTATE)) {
                     AlertDialog dialog = new AlertDialog.Builder(CardCenterActivity.this)
                             .setTitle("提示")
-                            .setMessage("数据出错，请链接到校园网后访问")
+                            .setMessage("数据出错，请链接到校园网后访问\n\nTrip：零点后服务器可能会关闭，可在正常工作时间内重新尝试该操作！")
                             .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -343,19 +343,23 @@ public class CardCenterActivity extends BaseActivity implements View.OnClickList
     }
 
     private void openRequestUrl(String url) {
-        String TempCookie = CardCenterCookie;
-        TempCookie = TempCookie.substring(TempCookie.indexOf("=") + 1, TempCookie.lastIndexOf(";"));
-        LogUtils.e(url + TempCookie);
-        x5web.loadUrl(url + TempCookie);
-        x5web.setX5LoadFinishListener(new X5LoadFinishListener() {
-            @Override
-            public void onLoadFinish(WebView webView, WebViewProgressBar progressBar, String s) {
-                if (!isFirst) {
-                    x5web.setVisibility(View.VISIBLE);
+        try {
+            String TempCookie = CardCenterCookie;
+            TempCookie = TempCookie.substring(TempCookie.indexOf("=") + 1, TempCookie.lastIndexOf(";"));
+            LogUtils.e(url + TempCookie);
+            x5web.loadUrl(url + TempCookie);
+            x5web.setX5LoadFinishListener(new X5LoadFinishListener() {
+                @Override
+                public void onLoadFinish(WebView webView, WebViewProgressBar progressBar, String s) {
+                    if (!isFirst) {
+                        x5web.setVisibility(View.VISIBLE);
+                    }
+                    isFirst = false;
                 }
-                isFirst = false;
-            }
-        });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getInfo() {

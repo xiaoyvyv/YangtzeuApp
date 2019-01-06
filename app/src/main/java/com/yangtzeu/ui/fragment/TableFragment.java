@@ -112,14 +112,6 @@ public class TableFragment extends BaseFragment implements TableView {
                         SPUtils.getInstance("app_info").put("table_bg", Url.Yangtzeu_Table_Background);
                         MyUtils.loadImage(activity, table_bg, Url.Yangtzeu_Table_Background);
                         break;
-                    case R.id.table_bg1:
-                        SPUtils.getInstance("app_info").put("table_bg", Url.Yangtzeu_Table_Background1);
-                        MyUtils.loadImage(activity, table_bg, Url.Yangtzeu_Table_Background1);
-                        break;
-                    case R.id.table_bg2:
-                        SPUtils.getInstance("app_info").put("table_bg", Url.Yangtzeu_Table_Background2);
-                        MyUtils.loadImage(activity, table_bg, Url.Yangtzeu_Table_Background2);
-                        break;
                     case R.id.table_bg:
                         Intent pickIntent = new Intent(Intent.ACTION_PICK);
                         pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");

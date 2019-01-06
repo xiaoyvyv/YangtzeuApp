@@ -206,12 +206,7 @@ public class SettingActivity extends PreferenceActivity {
         pay.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                MyUtils.putStringToClipboard(SettingActivity.this, getString(R.string.apply_redbag_key));
-                if (AlipayUtil.hasInstalledAlipayClient(SettingActivity.this)) {
-                    MyUtils.openUrl(SettingActivity.this, getString(R.string.red_url));
-                } else {
-                    ToastUtils.showLong(R.string.no_apply_app);
-                }
+                MyUtils.showRedBag(SettingActivity.this);
                 return true;
             }
         });

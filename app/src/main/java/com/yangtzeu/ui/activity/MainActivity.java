@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.FileUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -44,7 +43,6 @@ import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.AlipayUtil;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.PollingUtils;
-import com.yangtzeu.utils.UserUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.List;
@@ -312,7 +310,7 @@ public class MainActivity extends BaseActivity
             case R.id.exit:
                 AlertDialog dialog = new AlertDialog.Builder(this)
                         .setTitle(R.string.trip)
-                        .setMessage(R.string.exit)
+                        .setMessage(R.string.is_exit)
                         .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -325,9 +323,9 @@ public class MainActivity extends BaseActivity
                 dialog.show();
                 break;
             case R.id.red_bag:
-                MyUtils.putStringToClipboard(MainActivity.this, getString(R.string.apply_redbag_key));
                 if (AlipayUtil.hasInstalledAlipayClient(MainActivity.this)) {
-                    MyUtils.openUrl(MainActivity.this, getString(R.string.red_url), true);
+                    MyUtils.putStringToClipboard(MainActivity.this, getString(R.string.apply_redbag_key));
+                    MyUtils.showRedBag(MainActivity.this);
                 } else {
                     ToastUtils.showLong(R.string.no_apply_app);
                 }

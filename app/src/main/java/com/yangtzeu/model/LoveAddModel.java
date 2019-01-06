@@ -59,7 +59,7 @@ public class LoveAddModel implements ILoveAddModel {
         KeyboardUtils.hideSoftInput(activity);
 
 
-        UpLoadUtils.upLoadFile(path, new OnUpLoadListener() {
+        UpLoadUtils.upLoadFile(path, "image_love", new OnUpLoadListener() {
             @Override
             public void onUploading(int progress) {
                 view.getProgressView().setProgress(progress);
@@ -78,7 +78,7 @@ public class LoveAddModel implements ILoveAddModel {
                 dialog.show();
                 OkHttp.do_Post(request, new OnResultStringListener() {
                     @Override
-                    public void onResponse (String response){
+                    public void onResponse(String response) {
                         dialog.dismiss();
                         activity.onBackPressed();
                         MessageBean bean = GsonUtils.fromJson(response, MessageBean.class);
@@ -86,7 +86,7 @@ public class LoveAddModel implements ILoveAddModel {
                     }
 
                     @Override
-                    public void onFailure (String error){
+                    public void onFailure(String error) {
                         dialog.dismiss();
                         ToastUtils.showShort(R.string.send_error);
                     }

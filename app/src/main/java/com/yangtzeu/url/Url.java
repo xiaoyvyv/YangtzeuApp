@@ -97,10 +97,33 @@ public class Url {
     public static final String Yangtzeu_JXJB = "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/jxjb/";
     //长江大学网站
     public static final String Yangtzeu_All_Web = My_App_Home + "/yangtzeu/json/yz_web.json";
+    //软件集
+    public static final String Yangtzeu_All_Web_Soft = My_App_Home + "/yangtzeu/json/yz_web_soft.json";
     //长江大学学院网站
     public static final String Yangtzeu_XueYuanWeb = "http://www.yangtzeu.edu.cn/xndh/jxdw.htm";
     //缴纳网费
     public static final String Yangtzeu_Fee = "http://58.50.120.1:89/Self/dashboard";
+
+
+    /**
+     * 物理实验中心
+     */
+    //主页
+    public static String Yangtzeu_Physical_Home = "http://phylab.yangtzeu.edu.cn/jpkc/";
+    //登录
+    public static String Yangtzeu_Physical_Login = "http://10.10.16.16/index.php/Home/Index/login";
+    //列表
+    public static String Yangtzeu_Physical_List = "http://10.10.16.16/index.php/Home/Student/listexp";
+    //删除预约
+    public static String Yangtzeu_Physical_Delete = "http://10.10.16.16/index.php/Home/Student/delmyexp";
+    //我的预约
+    public static String Yangtzeu_Physical_Grade = "http://10.10.16.16/index.php/Home/Student/listmyexp";
+    //我的预约
+    public static String Yangtzeu_Physical_Add = "http://10.10.16.16/index.php/Home/Student/prelistexp";
+    //验证码
+    public static String Yangtzeu_Physical_Verify = "http://10.10.16.16/index.php/home/index/verify";
+
+
 
 
     /**
@@ -114,10 +137,6 @@ public class Url {
     public static final String Yangtzeu_Table_Background_White = My_App_Home + "/yangtzeu/image/white.jpg";
     //课表默认背景
     public static final String Yangtzeu_Table_Background = My_App_Home + "/yangtzeu/image/table_bg.jpg";
-    //课表默认背景
-    public static final String Yangtzeu_Table_Background1 = My_App_Home + "/yangtzeu/image/table_bg1.jpg";
-    //课表默认背景
-    public static final String Yangtzeu_Table_Background2 = My_App_Home + "/yangtzeu/image/table_bg2.jpg";
     //聊天背景
     public static final String Yangtzeu_Chat_Background = My_App_Home + "/image/chat_bg.jpeg";
     //爱心
@@ -126,7 +145,6 @@ public class Url {
     public static final String Yangtzeu_App_Online = My_App_Home + "/yangtzeu/api/yz_online.php";
     //当前在线人数
     public static final String Yangtzeu_App_Online_Show = My_App_Home + "/yangtzeu/api/yz_online_show.php";
-
     //长大App
     public static final String Yangtzeu_App_MyApp = My_App_Home + "/yangtzeu/json/yz_app.json";
     //功能页面滚动条通知
@@ -161,6 +179,18 @@ public class Url {
     public static String Yangtzeu_App_FeedBack = My_App_Home + "/yangtzeu/api/yz_feedback.php";
     //全民k歌解析
     public static String Url_Music_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
+    //上传图片
+    public static String Url_Upload = "http://ll.xyll520.top/image/upload.php";
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 旧版接口
@@ -363,40 +393,6 @@ public class Url {
     }
 
 
-    public static String Yangtzeu_Physical_Home = "http://phylab.yangtzeu.edu.cn/jpkc/";
-    /**
-     * "password\t12345678\n"+
-     * "Submit\t立即登陆\n"+
-     * "userid\t201703246\n"+
-     * "usertype\tstudent"
-     */
-
-
-    public static String Yangtzeu_Physical_Login = "http://10.10.16.16/index.php/Home/Index/login";
-    /**
-     * "expchoice\t10019\n"+
-     * "expclass\t0\n"+
-     * "expday\t0"
-     */
-    public static String Yangtzeu_Physical_List = "http://10.10.16.16/index.php/Home/Student/listexp";
-    /**
-     * "del_id[]\t1000103259956\n"+
-     * "Submit\t删除预约"
-     */
-    public static String Yangtzeu_Physical_Delete = "http://10.10.16.16/index.php/Home/Student/delmyexp";
-    //我的预约
-    public static String Yangtzeu_Physical_Grade = "http://10.10.16.16/index.php/Home/Student/listmyexp";
-    //我的预约
-    public static String Yangtzeu_Physical_Add = "http://10.10.16.16/index.php/Home/Student/prelistexp";
-
-
-    /**
-     * 七牛云图片
-     */
-    public static String DefeatName = "whysroom";
-    public static String DefeatAK = "m_xUqlJMur8sdyH7VCO_Fxkv57qCHBWZnwfAVNoW";
-    public static String DefeatSK = "48_CSjZ2nP-gu_pi3-JNNOs42m-GlyaWoX1AA9WY";
-    public static String DefeatUrl = "http://p04pfl7p6.bkt.clouddn.com/";
 
 
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.yangtzeu.R;
@@ -34,10 +35,21 @@ public class WebListActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private WebListAdapter webListAdapter;
     private ProgressDialog progressDialog;
+    private String from_url;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        from_url = getIntent().getStringExtra("from_url");
+        title = getIntent().getStringExtra("title");
+        if (StringUtils.isEmpty(from_url)) {
+            from_url = Url.Yangtzeu_All_Web;
+        }
+        if (StringUtils.isEmpty(title)) {
+            title = getString(R.string.yangtzeu_web_list);
+        }
+
         setContentView(R.layout.activity_list);
         init();
         MyUtils.setToolbarBackToHome(this, toolbar);
@@ -51,7 +63,8 @@ public class WebListActivity extends BaseActivity {
 
     @Override
     public void setEvents() {
-        toolbar.setTitle(R.string.yangtzeu_web_list);
+        toolbar.setTitle(title);
+
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         webListAdapter = new WebListAdapter(this);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -65,7 +78,7 @@ public class WebListActivity extends BaseActivity {
     }
 
     private void getAllWeb() {
-        OkHttp.do_Get(Url.Yangtzeu_All_Web, new OnResultStringListener() {
+        OkHttp.do_Get(from_url, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
@@ -117,6 +130,18 @@ public class WebListActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //若不为空，则不加载菜单
+        if (from_url != null) {
+            menu.add("帮助").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    MyUtils.getAlert(WebListActivity.this, "\n本资源来源于网络，请在下载后24小时内删除!\n\n需要指定软件请到【用户反馈】留言！", null)
+                            .show();
+                    return false;
+                }
+            }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            return super.onCreateOptionsMenu(menu);
+        }
         menu.add("常用网站").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

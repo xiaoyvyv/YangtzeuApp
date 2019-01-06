@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -60,7 +59,7 @@ public class ShopAddModel implements IShopAddModel {
         view.getSend().setText("宝贝发布中");
         KeyboardUtils.hideSoftInput(activity);
 
-        UpLoadUtils.upLoadFile( path, new OnUpLoadListener() {
+        UpLoadUtils.upLoadFile( path,"image_shop", new OnUpLoadListener() {
             @Override
             public void onUploading(int progress) {
                 view.getProgressView().setProgress(progress);

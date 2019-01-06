@@ -132,6 +132,7 @@ public class TableModel implements ITableModel {
     @Override
     public void loadTableDataStep2(final Activity activity, final TableView view) {
         String term_id = SPUtils.getInstance("user_info").getString("term_id", Url.Default_Term);
+
         if (!term_id.equals(Url.Default_Term)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle("提示");
@@ -339,10 +340,10 @@ public class TableModel implements ITableModel {
         if (params.length > 2) {
             tempTask = new String[params.length];
             tempTask = params;
-            LogUtils.v("课表数据大小：" + params.length, Arrays.deepToString(params));
+            LogUtils.i("课表数据大小：" + params.length, Arrays.deepToString(params));
         } else {
             params = tempTask;
-            LogUtils.v("重复课表数据大小：" + params.length, Arrays.deepToString(params));
+            LogUtils.i("重复课表数据大小：" + params.length, Arrays.deepToString(params));
         }
         for (int i = 0; i < params.length; i++) {
             String now = params[i];
