@@ -15,16 +15,15 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CacheDiskUtils;
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-import com.lib.mob.im.IMManager;
 import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.database.DatabaseUtils;
@@ -347,7 +346,7 @@ public class YangtzeuUtils {
             public void onResponse(String response) {
                 Document doc = Jsoup.parse(response);
                 if (doc.text().contains("学籍信息")) {
-                    LogUtils.e("学籍信息获取成功");
+                    Log.e("YangtzeuUtils", "getStudentInfo()--学籍信息获取成功");
                     try {
                         Elements studentInfoTb = doc.select("table#studentInfoTb tbody tr");
                         String studentInfoTb1 = studentInfoTb.get(1).text();
@@ -535,7 +534,7 @@ public class YangtzeuUtils {
                 MessageBean messageBean = GsonUtils.fromJson(response, MessageBean.class);
                 String info = messageBean.getInfo();
                 String number = SPUtils.getInstance("user_info").getString("number", "000000");
-                if (ObjectUtils.isNotEmpty(info)&&info.contains(number)) {
+                if (ObjectUtils.isNotEmpty(info) && info.contains(number)) {
                     //进程不同，用文件存储数据，以便时实更新
                     CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put("lock_time", "0");
                 }
@@ -549,14 +548,14 @@ public class YangtzeuUtils {
     }
 
     //获取统计点击数
-    public static void getOnClickTimes(TextView keyTextView, final TextView jiTextView,boolean isAdd) {
+    public static void getOnClickTimes(TextView keyTextView, final TextView jiTextView, boolean isAdd) {
         String name = keyTextView.getText().toString().trim();
         String key = EncryptUtils.encryptMD5ToString(name);
 
-        OkHttp.do_Get(Url.getTongJi(key, name,isAdd), new OnResultStringListener() {
+        OkHttp.do_Get(Url.getTongJi(key, name, isAdd), new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
-                MessageBean bean= GsonUtils.fromJson(response,MessageBean.class);
+                MessageBean bean = GsonUtils.fromJson(response, MessageBean.class);
                 jiTextView.setText(bean.getInfo());
             }
 
@@ -567,12 +566,51 @@ public class YangtzeuUtils {
         });
     }
 
+
+    //本学期当前的周数
+    public static int getStudyWeek() {
+        int study_week;
+        //本学期开始时间戳
+        long startMills = TimeUtils.string2Millis("2018-09-03 00:00:00");
+        //本学期结束时间戳
+        long endMills = TimeUtils.string2Millis("2019-01-21 00:00:00");
+        //本学期现在时间戳
+        long nowMills = TimeUtils.getNowMills();
+
+        //下面的情况则学期结束
+        if (nowMills >= endMills) {
+            study_week = 0;
+            SPUtils.getInstance("user_info").put("table_week", study_week);
+            return study_week;
+        }
+
+        //根据本学期过去天数计算周数
+        String past_day = ConvertUtils.millis2FitTimeSpan(nowMills - startMills, 1);
+        try {
+            int day = Integer.parseInt(past_day.replace("天", "").trim());
+            study_week = (day / 7) + 1;
+        } catch (NumberFormatException e) {
+            study_week = 0;
+        }
+
+        SPUtils.getInstance("user_info").put("table_week", study_week);
+        return study_week;
+    }
+
+
+    //获取当前时间段的作息内容
     public static String getStudyTimeSpan() {
         // 获取当前日期
         Calendar cal = Calendar.getInstance();
-        long fain = TimeUtils.string2Millis("2019-01-21 00:00:00");
-        long next_term = TimeUtils.string2Millis("2019-01-21 00:00:00");
-        if (fain < TimeUtils.getNowMills() && TimeUtils.getNowMills() < next_term) {
+
+        //新学期开始时间戳
+        long startMills = TimeUtils.string2Millis("2019-09-03 00:00:00");
+        //本学期结束时间戳
+        long endMills = TimeUtils.string2Millis("2019-01-21 00:00:00");
+        //本学期现在时间戳
+        long nowMills = TimeUtils.getNowMills();
+        //寒假时间
+        if (endMills < nowMills && nowMills < startMills) {
             return "现在是寒假时间，赶紧好好地的玩吧！";
         }
 

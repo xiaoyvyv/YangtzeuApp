@@ -53,7 +53,6 @@ public class ChangePassActivity extends BaseActivity implements ChangePassView {
 
     @Override
     public void setEvents() {
-        Glide.with(this).load(Url.Yangtzeu_Table_Background).into(default_bg);
 
         presenter = new ChangePassPresenter(this, this);
         String number = SPUtils.getInstance("user_info").getString("number");

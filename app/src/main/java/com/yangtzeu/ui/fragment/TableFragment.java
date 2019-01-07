@@ -108,6 +108,7 @@ public class TableFragment extends BaseFragment implements TableView {
                             public void onClick(DialogInterface dialog, int which) {
                                 SPUtils.getInstance("user_info").put("term_id", String.valueOf(which));
                                 SPUtils.getInstance("user_info").put("table_week", 1);
+
                                 tabLayout.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {

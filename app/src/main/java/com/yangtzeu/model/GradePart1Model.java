@@ -77,7 +77,9 @@ public class GradePart1Model implements IGradePart1Model {
                     } else {
                         final int now_term = Integer.parseInt(term_id);
                         int before = Integer.parseInt(term_id) - 1;
-                        if (before == 47) before = before - 1;
+
+                        if (before == 47) before = 46;
+                        if (before == 68) before = 49;
 
                         final int finalBefore = before;
                         AlertDialog dialog = new AlertDialog.Builder(activity)
@@ -86,6 +88,7 @@ public class GradePart1Model implements IGradePart1Model {
                                 .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+
                                         term_id = String.valueOf(finalBefore);
                                         if ((Integer.parseInt(Url.Default_Term) - finalBefore) > 2) {
                                             AlertDialog dialog1 = new AlertDialog.Builder(activity)

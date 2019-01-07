@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/trip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#545454"
+        android:padding="@dimen/card_margin_10"
+        android:text="校园一卡通-用户登录"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#545454"
+        android:lineSpacingExtra="@dimen/margin_5"
+        android:paddingStart="@dimen/card_margin_10"
+        android:paddingTop="@dimen/margin_5"
+        android:paddingEnd="@dimen/card_margin_10"
+        android:paddingBottom="@dimen/card_margin_10"
+        android:text="初始密码为身份证后六位"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/card_margin_10"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_replay_bg">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/translate"
+            android:digits="0123456789*#"
+            android:hint="@string/input_school_network_number"
+            android:inputType="number"
+            android:padding="@dimen/margin_5"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/card_margin_10"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ic_replay_bg">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/translate"
+            android:hint="@string/input_pass"
+            android:inputType="textPassword"
+            android:padding="@dimen/margin_5"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        tools:ignore="ButtonStyle">
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/login"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/exit"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

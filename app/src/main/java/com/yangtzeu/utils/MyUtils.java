@@ -24,6 +24,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,9 +48,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.lib.subutil.ClipboardUtils;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.QbSdk;
@@ -75,7 +73,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -165,22 +162,6 @@ public class MyUtils {
                 activity.setTheme(R.style.AppTheme_GaoDuanHei);
                 break;
         }
-    }
-
-    public static int getStudyWeek() {
-        int study_week;
-        long firstMills = TimeUtils.string2Millis("2018-09-03 00:00:00");
-        long nowMills = TimeUtils.getNowMills();
-        String past_day = ConvertUtils.millis2FitTimeSpan(nowMills - firstMills, 1);
-
-        if (MyUtils.isNumeric(past_day.replace("天", ""))) {
-            int day = Integer.parseInt(past_day.replace("天", ""));
-            study_week = (day / 7) + 1;
-            SPUtils.getInstance("user_info").put("table_week", study_week);
-        } else {
-            study_week = 0;
-        }
-        return study_week;
     }
 
     /**
@@ -378,7 +359,7 @@ public class MyUtils {
                     LogUtils.i("文件夹路径创建成功：" + path);
                 }
             } else {
-                LogUtils.v("文件夹路径已存在：" + path);
+                Log.i("MyUtils", "createSDCardDir()：文件夹路径已存在：" + path);
             }
         } else {
             LogUtils.e("文件夹创建失败：" + DirName, "可能未取得读写权限");

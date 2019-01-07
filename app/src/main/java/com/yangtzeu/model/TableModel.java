@@ -53,7 +53,10 @@ public class TableModel implements ITableModel {
             }
         }
 
-        week = SPUtils.getInstance("user_info").getInt("table_week", 10);
+        week = SPUtils.getInstance("user_info").getInt("table_week", 1);
+        //若week为0，则表示假期，TabLayout默认选中周次1
+        if (week==0) week = 1;
+
         final TabLayout tabLayout = view.getTabLayout();
 
         //添加标题
@@ -62,13 +65,6 @@ public class TableModel implements ITableModel {
             tab.setText("第" + (i + 1) + "周");
             tabLayout.addTab(tab);
         }
-
-        tabLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Objects.requireNonNull(tabLayout.getTabAt(week - 1)).select();
-            }
-        }, 100);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -93,6 +89,19 @@ public class TableModel implements ITableModel {
                 view.getRefreshLayout().autoRefresh();
             }
         });
+
+        //选中当前的周次
+        tabLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int term_id = Integer.parseInt(SPUtils.getInstance("user_info").getString("term_id", Url.Default_Term));
+                //若当前学期不等于默认学期则选中第一周，否则为本学期课表则选择当前周次
+                if (term_id != Integer.parseInt(Url.Default_Term)) {
+                    week = 1;
+                }
+                Objects.requireNonNull(tabLayout.getTabAt(week - 1)).select();
+            }
+        }, 100);
 
 
     }

@@ -378,4 +378,5 @@
     <string name="input_verify">请输入验证码</string>
     <string name="web_list">网址列表</string>
     <string name="soft_list">常用软件大全</string>
+    <string name="input_school_network_number">请输入校园网账号</string>
 </resources>

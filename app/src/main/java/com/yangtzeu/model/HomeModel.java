@@ -20,7 +20,6 @@ import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IHomeModel;
 import com.yangtzeu.ui.view.HomeView;
 import com.yangtzeu.url.Url;
-import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.Timer;
@@ -119,7 +118,7 @@ public class HomeModel implements IHomeModel {
             @Override
             public void onFailure(String error) {
                 String data = "2019-01-01 00:00:00";
-                String fitTimeSpan = ConvertUtils.millis2FitTimeSpan(TimeUtils.string2Millis(data)-TimeUtils.getNowMills(), 1);
+                String fitTimeSpan = ConvertUtils.millis2FitTimeSpan(TimeUtils.string2Millis(data) - TimeUtils.getNowMills(), 1);
                 view.getHoliday().setText("离最近的假期 元旦还有：" + fitTimeSpan);
                 LogUtils.e(error);
             }
@@ -129,21 +128,36 @@ public class HomeModel implements IHomeModel {
     @SuppressLint("SetTextI18n")
     @Override
     public void getWeather(Activity activity, final HomeView view) {
-        long firstMills = TimeUtils.string2Millis("2018-09-03 00:00:00");
+        long startMills = TimeUtils.string2Millis("2018-09-03 00:00:00");
         long nowMills = TimeUtils.getNowMills();
 
-        //开学了多少天了
-        String past_day = ConvertUtils.millis2FitTimeSpan(nowMills - firstMills, 1);
-        //周几
+        //本学期过去天数
+        int pass_day;
+        String s_pass_day = ConvertUtils.millis2FitTimeSpan(nowMills - startMills, 1);
+        try {
+            pass_day = Integer.parseInt(s_pass_day.replace("天", "").trim());
+        } catch (NumberFormatException e) {
+            pass_day = 0;
+        }
+
+        //在学期内则显示本学期已经过去了天数，否则显示假期过去天数
+        if (pass_day <= 140) {
+            view.getPass().setText("本学期已经过去了：" + pass_day + "/140天");
+        } else {
+            view.getPass().setText("寒假已经过去了：" + (pass_day - 140) + "/35天");
+        }
+
+        //获取周几
         String weekday = TimeUtils.getChineseWeek(TimeUtils.getNowMills());
-        //第几周
-        int study_week = MyUtils.getStudyWeek();
-        view.getWeek().setText("第" + study_week + "周 "+weekday);
-        view.getPass().setText("本学期已经过去了：" + past_day);
-        SPUtils.getInstance("user_info").put("table_week", study_week);
+        //获取当前是本学期第几周
+        int study_week = YangtzeuUtils.getStudyWeek();
+        if (study_week != 0) {
+            view.getWeek().setText("第" + study_week + "周 " + weekday);
+        } else {
+            view.getWeek().setText("假期时间 " + weekday);
+        }
 
-
-
+        //获取城市
         String city = SPUtils.getInstance("user_info").getString("city", "荆州");
         String url = Url.Yangtzeu_Weather + city;
         OkHttp.do_Get(url, new OnResultStringListener() {
@@ -167,6 +181,11 @@ public class HomeModel implements IHomeModel {
         });
     }
 
+
+    /**
+     * @param activity Activity
+     * @param view     HomeView
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public void setStudyTime(Activity activity, final HomeView view) {
@@ -176,7 +195,8 @@ public class HomeModel implements IHomeModel {
                 view.getStudyTime().setText(msg.obj.toString());
             }
         };
-        new Timer("开机计时器").scheduleAtFixedRate(new TimerTask() {
+
+        new Timer("计时器").scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Message msg = Message.obtain();

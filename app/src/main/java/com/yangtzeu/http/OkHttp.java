@@ -3,6 +3,7 @@ package com.yangtzeu.http;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.webkit.URLUtil;
 
 import com.blankj.utilcode.util.CacheDiskUtils;
@@ -73,7 +74,7 @@ public class OkHttp {
 
 
     public static void do_Get(final String url, final OnResultStringListener onResultStringListener) {
-        LogUtils.i("Get--加载链接：" + url);
+        Log.i("OkHttp-do_Get()", "Get--加载链接：OnResultStringListener：" + url);
 
         //缓存的Key
         final String cache_key = EncryptUtils.encryptMD5ToString("get:string" + url);
@@ -116,7 +117,6 @@ public class OkHttp {
                 UIHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        LogUtils.e(e);
                         if (onResultStringListener != null) {
                             onResultStringListener.onFailure(OkhttpError.ERROR_LOAD);
                         } else {
@@ -161,7 +161,7 @@ public class OkHttp {
     }
 
     public static void do_Get(final String url, final OnResultBytesListener onResultListener) {
-        LogUtils.i("Get--加载链接：" + url);
+        Log.i("OkHttp-do_Get()", "Get--加载链接：OnResultBytesListener：" + url);
 
         //缓存的Key
         final String cache_key = EncryptUtils.encryptMD5ToString("get:bytes" + url);

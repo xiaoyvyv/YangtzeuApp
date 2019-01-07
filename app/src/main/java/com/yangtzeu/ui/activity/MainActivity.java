@@ -112,34 +112,18 @@ public class MainActivity extends BaseActivity
         presenter.setBottomViewWithFragment();
         presenter.initEvents();
 
-
-
-        final Handler handler = new Handler(getMainLooper()) {
+        //更新一天课程完成信息
+        final Handler classPlanHandler = new Handler(getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 setClassPlan();
             }
         };
 
-        timer1.scheduleAtFixedRate(new TimerTask() {
+        //保持在线状态
+        final Handler keepHandler = new Handler(getMainLooper()) {
             @Override
-            public void run() {
-                Message msg = Message.obtain();
-                handler.sendMessage(msg);
-            }
-        }, 0, 5000L);
-
-        boolean is_hide_many_page = SPUtils.getInstance("app_info").getBoolean("is_hide_many_page", false);
-        if (is_hide_many_page) {
-            bottomNavigationView.inflateMenu(R.menu.main_bottom_menu_hide);
-        } else {
-            bottomNavigationView.inflateMenu(R.menu.main_bottom_menu);
-        }
-
-
-        timer2.schedule(new TimerTask() {
-            @Override
-            public void run() {
+            public void handleMessage(Message msg) {
                 //保持教务处服务器连接
                 YangtzeuUtils.getStudentInfo();
 
@@ -155,9 +139,32 @@ public class MainActivity extends BaseActivity
                         sendBroadcast(intent);
                     }
                 });
-
             }
-        }, 0, 10000);
+        };
+
+        timer1.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Message msg = Message.obtain();
+                classPlanHandler.sendMessage(msg);
+            }
+        }, 0, 5000L);
+
+        timer2.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Message msg = Message.obtain();
+                keepHandler.sendMessage(msg);
+            }
+        }, 0, 45000L);
+
+
+        boolean is_hide_many_page = SPUtils.getInstance("app_info").getBoolean("is_hide_many_page", false);
+        if (is_hide_many_page) {
+            bottomNavigationView.inflateMenu(R.menu.main_bottom_menu_hide);
+        } else {
+            bottomNavigationView.inflateMenu(R.menu.main_bottom_menu);
+        }
     }
 
     private void setClassPlan() {

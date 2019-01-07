@@ -84,6 +84,7 @@ public class WebListActivity extends BaseActivity {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 WebBean bean = gson.fromJson(response, WebBean.class);
+                webListAdapter.clear();
                 webListAdapter.setData(bean);
                 webListAdapter.notifyItemRangeChanged(0, webListAdapter.getItemCount());
                 progressDialog.dismiss();
@@ -116,6 +117,7 @@ public class WebListActivity extends BaseActivity {
                 WebBean bean = new WebBean();
                 bean.setWebList(listBeans);
 
+                webListAdapter.clear();
                 webListAdapter.setData(bean);
                 webListAdapter.notifyItemRangeChanged(0, webListAdapter.getItemCount());
                 progressDialog.dismiss();

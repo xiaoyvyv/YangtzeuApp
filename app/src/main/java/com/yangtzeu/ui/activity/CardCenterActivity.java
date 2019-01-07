@@ -140,6 +140,7 @@ public class CardCenterActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_card_center);
         init();
         MyUtils.setToolbarBackToHome(this, toolbar);
+
     }
 
 
@@ -236,23 +237,22 @@ public class CardCenterActivity extends BaseActivity implements View.OnClickList
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void showLogin(final String __VIEWSTATE) {
         final String number_str = SPUtils.getInstance("user_info").getString("number");
         final String password_str = SPUtils.getInstance("user_info").getString("card_password");
         @SuppressLint("InflateParams")
-        View view = getLayoutInflater().inflate(R.layout.activity_physical_dialog, null);
+        View view = getLayoutInflater().inflate(R.layout.activity_card_center_dialog, null);
         final AlertDialog dialog = new AlertDialog.Builder(CardCenterActivity.this)
-                .setTitle("校园卡服务平台登录")
                 .setView(view)
                 .create();
         dialog.show();
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         final TextInputEditText number = view.findViewById(R.id.number);
-        number.setText(number_str);
+        number.setText("yz"+number_str);
         final TextInputEditText password = view.findViewById(R.id.password);
-        final TextInputLayout mTextInputLayout = view.findViewById(R.id.mTextInputLayout);
-        mTextInputLayout.setHint("请输入密码-初始密码身份证后六位");
+
         password.setText(password_str);
         Button login = view.findViewById(R.id.login);
         Button exit = view.findViewById(R.id.exit);

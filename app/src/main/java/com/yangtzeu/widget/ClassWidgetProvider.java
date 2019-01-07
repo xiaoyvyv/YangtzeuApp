@@ -24,6 +24,7 @@ import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.ui.activity.SplashActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
+import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.io.File;
 import java.util.Objects;
@@ -55,7 +56,7 @@ public class ClassWidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.view_widget_layout);
 
-            String week = String.valueOf(MyUtils.getStudyWeek());
+            String week = String.valueOf(YangtzeuUtils.getStudyWeek());
             remoteViews.setTextViewText(R.id.now, "当前周次：" + week);
 
             Intent open = new Intent(context.getApplicationContext(), SplashActivity.class);
