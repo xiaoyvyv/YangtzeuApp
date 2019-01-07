@@ -12,14 +12,6 @@
         <item>年份2015–2016  学期1</item>
         <item>年份2014–2015  学期2</item>
         <item>年份2014–2015  学期1</item>
-        <item>年份2013–2014  学期2</item>
-        <item>年份2013–2014  学期1</item>
-        <item>年份2012–2013  学期2</item>
-        <item>年份2012–2013  学期1</item>
-        <item>年份2011–2012  学期2</item>
-        <item>年份2011–2012  学期1</item>
-        <item>年份2010–2011  学期2</item>
-        <item>年份2010–2011  学期1</item>
     </string-array>
 
     <string-array name="term_id">
@@ -33,14 +25,6 @@
         <item>42</item>
         <item>41</item>
         <item>40</item>
-        <item>39</item>
-        <item>38</item>
-        <item>37</item>
-        <item>36</item>
-        <item>35</item>
-        <item>34</item>
-        <item>33</item>
-        <item>32</item>
     </string-array>
 
     <string-array name="physical_day">

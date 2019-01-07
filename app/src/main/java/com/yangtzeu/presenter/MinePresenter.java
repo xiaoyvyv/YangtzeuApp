@@ -41,4 +41,8 @@ public class MinePresenter {
     public void showSchoolDialog() {
         model.showSchoolDialog(activity);
     }
+
+    public void loadDayTrip() {
+        model.loadDayTrip(activity, view);
+    }
 }

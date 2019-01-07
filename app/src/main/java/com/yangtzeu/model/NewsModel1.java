@@ -152,10 +152,10 @@ public class NewsModel1 implements INewsModel1 {
 
     @Override
     public void fitJwcGridView(final Activity activity, final NewsView1 view) {
-        final String[] jwc_url = {Url.Yangtzeu_JWTZ, Url.Yangtzeu_BZSW, Url.Yangtzeu_JXDT, Url.Yangtzeu_JXJB, "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/gjxx/",
-                "http://jwc.yangtzeu.edu.cn/jwnews/jwgl/xlcx/", "http://jwc.yangtzeu.edu.cn/jwnews/kwgl/", "http://jwc.yangtzeu.edu.cn/jwnews/sjcx/sjjx/",
-                "http://jwc.yangtzeu.edu.cn/jwnews/sjcx/xkjs/", "http://jwc.yangtzeu.edu.cn/jwnews/xzzx/xyxz/", "http://jwc.yangtzeu.edu.cn/jwnews/xzzx/jsxz/",
-                "http://jwc.yangtzeu.edu.cn/jwnews/xzzx/xsxz/"};
+        final String[] jwc_url = {Url.Yangtzeu_JWTZ, Url.Yangtzeu_BZSW, Url.Yangtzeu_JXDT, Url.Yangtzeu_JXJB, "http://jwc.yangtzeu.edu.cn/jwxw/gjxx.htm",
+                "http://jwc.yangtzeu.edu.cn/jwgl/xlcx.htm", "http://jwc.yangtzeu.edu.cn/kwgl/kwgl.htm", "http://jwc.yangtzeu.edu.cn/sjcx/sjjx.htm",
+                "http://jwc.yangtzeu.edu.cn/sjcx/xkjs.htm", "http://jwc.yangtzeu.edu.cn/xzzx/xyxz.htm", "http://jwc.yangtzeu.edu.cn/xzzx/jsxz.htm",
+                "http://jwc.yangtzeu.edu.cn/xzzx/xsxz.htm"};
         final String[] jwc_title = {"教务通知", "本周事务", "教学动态", "教学简报", "高教信息",
                 "校历查询", "考务管理", "实践教学", "科学竞赛", "学院下载", "教师下载", "学生下载"};
 

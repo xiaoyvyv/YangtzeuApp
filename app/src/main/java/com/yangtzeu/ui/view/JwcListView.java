@@ -13,7 +13,6 @@ public interface JwcListView {
 
     int getAllPage();
 
-
     SmartRefreshLayout getSmartRefreshLayout();
 
     String getUrl();
@@ -21,4 +20,7 @@ public interface JwcListView {
     void setAllPage(String all_page);
 
     String getKind();
+    String getUrlHeader();
+    int getStartIndex();
+    void setStartIndex(int start);
 }

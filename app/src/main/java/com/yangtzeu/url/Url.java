@@ -88,13 +88,13 @@ public class Url {
     //一卡通登录
     public static final String Yangtzeu_CenterCard_Login = Yangtzeu_Card_Home + "/Login.aspx";
     //教务通知
-    public static final String Yangtzeu_JWTZ = "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/jwtz/";
+    public static final String Yangtzeu_JWTZ = "http://jwc.yangtzeu.edu.cn/jwxw/jwtz.htm";
     //本周事务
-    public static final String Yangtzeu_BZSW = "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/bzsw/";
+    public static final String Yangtzeu_BZSW = "http://jwc.yangtzeu.edu.cn/jwxw/bzsw.htm";
     //教学动态
-    public static final String Yangtzeu_JXDT = "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/jxdt/";
+    public static final String Yangtzeu_JXDT = "http://jwc.yangtzeu.edu.cn/jwxw/jxdt.htm";
     //教学简报
-    public static final String Yangtzeu_JXJB = "http://jwc.yangtzeu.edu.cn/jwnews/jwxw/jxjb/";
+    public static final String Yangtzeu_JXJB = "http://jwc.yangtzeu.edu.cn/jwxw/jxjb.htm";
     //长江大学网站
     public static final String Yangtzeu_All_Web = My_App_Home + "/yangtzeu/json/yz_web.json";
     //软件集
@@ -181,6 +181,11 @@ public class Url {
     public static String Url_Music_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
     //上传图片
     public static String Url_Upload = "http://ll.xyll520.top/image/upload.php";
+    //一言
+    public static String Yangtzeu_App_YiYan = "https://api.uixsj.cn/hitokoto/w.php";
+    //必应
+    public static Object Yangtzeu_App_BiYin = "https://api.uixsj.cn/bing/bing.php";
+
 
 
 

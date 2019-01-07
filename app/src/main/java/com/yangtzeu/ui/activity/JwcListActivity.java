@@ -2,6 +2,7 @@ package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -20,18 +21,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class JwcListActivity extends BaseActivity implements JwcListView {
     private String from_url;
+    private String url_header;
     private RecyclerView recyclerView;
     private JwcListAdapter adapter;
     private JwcListPresenter president;
     private Toolbar toolbar;
     private SmartRefreshLayout refreshLayout;
     private int allPage = 0;
+    private int start = 0;
     private String title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         title = getIntent().getStringExtra("title");
         from_url = getIntent().getStringExtra("from_url");
+        url_header = from_url.substring(0, from_url.lastIndexOf(".")) + "/";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jwc_list);
         init();
@@ -66,14 +70,12 @@ public class JwcListActivity extends BaseActivity implements JwcListView {
                 allPage = allPage - 1;
                 if (allPage <= 0) {
                     ToastUtils.showShort(R.string.no_more);
+                    refreshLayout.finishLoadMore();
                     return;
                 }
-                if (from_url.contains("index")) {
-                    from_url = from_url.substring(0, from_url.lastIndexOf("_") + 1) + allPage + ".html";
-                } else {
-                    from_url = from_url + "index_" + allPage + ".html";
-                }
+                from_url = url_header + allPage + ".htm";
                 president.loadData();
+
             }
         });
         refreshLayout.autoRefresh();
@@ -114,4 +116,20 @@ public class JwcListActivity extends BaseActivity implements JwcListView {
     public String getKind() {
         return title;
     }
+
+    @Override
+    public String getUrlHeader() {
+        return url_header;
+    }
+
+    @Override
+    public int getStartIndex() {
+        return start;
+    }
+
+    @Override
+    public void setStartIndex(int start) {
+        this.start = start;
+    }
+
 }

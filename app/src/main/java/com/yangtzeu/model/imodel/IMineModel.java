@@ -23,4 +23,7 @@ public interface IMineModel {
     void checkInternetView(Activity activity, MineView view);
 
     void showSchoolDialog(Activity activity);
+
+    void loadDayTrip(Activity activity, MineView view);
+
 }

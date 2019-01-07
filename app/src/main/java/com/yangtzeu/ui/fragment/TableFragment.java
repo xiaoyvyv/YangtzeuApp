@@ -33,6 +33,7 @@ import com.yangtzeu.ui.view.TableView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.UriPathUtils;
+import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +102,21 @@ public class TableFragment extends BaseFragment implements TableView {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.choose_date:
+                        YangtzeuUtils.showChooseTerm(Objects.requireNonNull(getActivity()), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SPUtils.getInstance("user_info").put("term_id", String.valueOf(which));
+                                SPUtils.getInstance("user_info").put("table_week", 1);
+                                tabLayout.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Objects.requireNonNull(tabLayout.getTabAt(0)).select();
+                                    }
+                                }, 100);
+                            }
+                        });
+                        break;
                     case R.id.web_table:
                         MyUtils.openUrl(activity, Url.Yangtzeu_Table_Ids);
                         break;

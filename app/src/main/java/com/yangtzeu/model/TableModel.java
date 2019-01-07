@@ -49,7 +49,7 @@ public class TableModel implements ITableModel {
             TextView textView = (TextView) view.getWeekLayout().getChildAt(i);
             String text_week = textView.getText().toString().trim();
             if (StringUtils.equals(now_week_which, text_week)) {
-                textView.setBackgroundColor(activity.getResources().getColor(R.color.black_20));
+                textView.setBackground(activity.getResources().getDrawable(R.mipmap.now_week));
             }
         }
 
@@ -57,7 +57,7 @@ public class TableModel implements ITableModel {
         final TabLayout tabLayout = view.getTabLayout();
 
         //添加标题
-        for (int i = 0; i < 21; i++) {
+        for (int i = 0; i < 20; i++) {
             TabLayout.Tab tab = tabLayout.newTab();
             tab.setText("第" + (i + 1) + "周");
             tabLayout.addTab(tab);
@@ -132,24 +132,6 @@ public class TableModel implements ITableModel {
     @Override
     public void loadTableDataStep2(final Activity activity, final TableView view) {
         String term_id = SPUtils.getInstance("user_info").getString("term_id", Url.Default_Term);
-
-        if (!term_id.equals(Url.Default_Term)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.setTitle("提示");
-            builder.setMessage("检测到您当前所选择的学期不是本学期");
-            builder.setPositiveButton("恢复默认学期", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    SPUtils.getInstance("user_info").put("term_id", Url.Default_Term);
-                    view.getRefreshLayout().autoRefresh();
-                }
-            });
-            builder.setNegativeButton("取消", null);
-            AlertDialog dialog = builder.create();
-            dialog.show();
-            dialog.setCanceledOnTouchOutside(false);
-        }
-
         FormBody formBody = new FormBody.Builder()
                 .add("ignoreHead", "1")
                 .add("setting.kind", "std")

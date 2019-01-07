@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,6 +32,7 @@ import com.yangtzeu.R;
 import com.yangtzeu.entity.MessageBean;
 import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.http.OkHttp;
+import com.yangtzeu.http.OnResultBytesListener;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.model.imodel.IMineModel;
@@ -45,8 +47,10 @@ import com.yangtzeu.utils.YangtzeuUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import androidx.appcompat.widget.Toolbar;
@@ -349,5 +353,22 @@ public class MineModel implements IMineModel {
                 .create();
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
+    }
+
+    @Override
+    public void loadDayTrip(Activity activity, final MineView view) {
+        MyUtils.loadImageNoCache(activity, view.getDayTripImage(), Url.Yangtzeu_App_BiYin,
+                TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())));
+        OkHttp.do_Get(Url.Yangtzeu_App_YiYan, new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                view.getDayTrip().setText(response);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 }

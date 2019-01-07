@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,13 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.signature.ObjectKey;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.MinePresenter;
 import com.yangtzeu.ui.activity.BoardActivity;
@@ -35,6 +42,8 @@ import com.yangtzeu.utils.EmptyTableUtils;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.UserUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -54,13 +63,12 @@ public class MineFragment extends BaseFragment implements MineView {
     private TextView mClass;
     private ImageView userHeader;
     private ImageView image_bg;
+    private TextView day_trip;
     private Toolbar toolbar;
     private MinePresenter presenter;
     private SwipeRefreshLayout refreshLayout;
 
     private TextView online;
-    private TextView userCetView;
-    private TextView userTest;
     private TextView message;
     private TextView messageImage;
     private LinearLayout messageLayout;
@@ -102,12 +110,11 @@ public class MineFragment extends BaseFragment implements MineView {
         userHeader = rootView.findViewById(R.id.userHeader);
         refreshLayout = rootView.findViewById(R.id.refreshLayout);
         image_bg = rootView.findViewById(R.id.image_bg);
+        day_trip = rootView.findViewById(R.id.day_trip);
 
 
         online = rootView.findViewById(R.id.online);
         boardLayout = rootView.findViewById(R.id.boardLayout);
-        userCetView = rootView.findViewById(R.id.user_cet);
-        userTest = rootView.findViewById(R.id.user_test);
         message = rootView.findViewById(R.id.message);
         internet_state = rootView.findViewById(R.id.internet_state);
         messageLayout = rootView.findViewById(R.id.messageLayout);
@@ -146,7 +153,7 @@ public class MineFragment extends BaseFragment implements MineView {
         presenter = new MinePresenter(getActivity(), this);
         presenter.setToolbarEvent();
 
-
+        presenter.loadDayTrip();
         presenter.loadUserInfo();
         presenter.loadMessage();
         presenter.checkInternetView();
@@ -154,6 +161,7 @@ public class MineFragment extends BaseFragment implements MineView {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                presenter.loadDayTrip();
                 presenter.loadUserInfo();
                 presenter.loadMessage();
                 presenter.checkInternetView();
@@ -183,7 +191,6 @@ public class MineFragment extends BaseFragment implements MineView {
         });
 
 
-        
         image_bg.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -351,13 +358,8 @@ public class MineFragment extends BaseFragment implements MineView {
     }
 
     @Override
-    public TextView getUserCetView() {
-        return userCetView;
-    }
-
-    @Override
-    public TextView getEmailView() {
-        return userTest;
+    public TextView getDayTrip() {
+        return day_trip;
     }
 
     @Override
@@ -393,6 +395,11 @@ public class MineFragment extends BaseFragment implements MineView {
     @Override
     public TextView getInternetState() {
         return internet_state;
+    }
+
+    @Override
+    public ImageView getDayTripImage() {
+        return image_bg;
     }
 
     @Override

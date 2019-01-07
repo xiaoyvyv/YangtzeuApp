@@ -43,6 +43,7 @@ public class WebListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         from_url = getIntent().getStringExtra("from_url");
         title = getIntent().getStringExtra("title");
+
         if (StringUtils.isEmpty(from_url)) {
             from_url = Url.Yangtzeu_All_Web;
         }
@@ -131,7 +132,7 @@ public class WebListActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //若不为空，则不加载菜单
-        if (from_url != null) {
+        if (!from_url.equals(Url.Yangtzeu_All_Web)) {
             menu.add("帮助").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -142,6 +143,7 @@ public class WebListActivity extends BaseActivity {
             }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             return super.onCreateOptionsMenu(menu);
         }
+
         menu.add("常用网站").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

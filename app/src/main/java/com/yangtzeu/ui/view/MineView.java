@@ -19,9 +19,8 @@ public interface MineView {
 
     Toolbar getToolbar();
 
-    TextView getUserCetView();
 
-    TextView getEmailView();
+    TextView getDayTrip();
 
     TextView getMessageView();
 
@@ -34,4 +33,6 @@ public interface MineView {
     SwipeRefreshLayout getRefresh();
 
     TextView getInternetState();
+
+    ImageView getDayTripImage();
 }

@@ -5,8 +5,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,6 +46,7 @@ import com.blankj.utilcode.util.ZipUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -62,7 +61,6 @@ import com.yangtzeu.ui.activity.LoginActivity;
 import com.yangtzeu.ui.activity.LoveActivity;
 import com.yangtzeu.ui.activity.LoveAddActivity;
 import com.yangtzeu.ui.activity.LoveDetailsActivity;
-import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.ui.activity.SplashActivity;
 import com.yangtzeu.ui.activity.WebActivity;
 
@@ -86,8 +84,6 @@ import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
-
-import static com.mob.tools.utils.Strings.getString;
 
 /**
  * Created by 2016 on 2017/11/29.
@@ -740,9 +736,9 @@ public class MyUtils {
      * 加载图片,不缓存
      *
      * @param imageView 图片容器
-     * @param o         图片内容（链接、文件等等）
+     * @param url       图片内容（链接、文件等等）
      */
-    public static void loadImageNoCache(Context context, ImageView imageView, Object o) {
+    public static void loadImageNoCache(Context context, ImageView imageView, Object url) {
         if (ObjectUtils.isNotEmpty(context)) {
             if (context instanceof Activity) {
                 if (((Activity) context).isDestroyed()) {
@@ -751,42 +747,32 @@ public class MyUtils {
             }
             RequestOptions options = new RequestOptions()
                     .skipMemoryCache(true)
+                    .placeholder(R.mipmap.holder)
                     .diskCacheStrategy(DiskCacheStrategy.NONE);
-            Glide.with(context).load(o).apply(options).into(imageView);
+            Glide.with(context).load(url).apply(options).into(imageView);
         }
     }
 
     /**
-     * 图书馆相关方法
+     * 加载图片,不缓存
      *
-     * @param whichJson whichJson
-     * @param key       key
-     * @return getBookStateInfo
+     * @param imageView 图片容器
+     * @param url       图片内容（链接、文件等等）
+     * @param key       Key
      */
-    public static String getBookStateInfo(Context context, int whichJson, String key) {
-        switch (whichJson) {
-            case 0:
-                String Map0 = readAssetsFile(context, "LibState/BookState.json");
-                Map<String, String> Hash0 = parseData(Map0);
-                return Hash0.get(key);
-            case 1:
-                String Map1 = readAssetsFile(context, "LibState/WhereLib.json");
-                Map<String, String> Hash1 = parseData(Map1);
-                return Hash1.get(key);
-            case 2:
-                String Map2 = readAssetsFile(context, "LibState/WhichCollege.json");
-                Map<String, String> Hash2 = parseData(Map2);
-                return Hash2.get(key);
+    public static void loadImageNoCache(Context context, ImageView imageView, Object url, Object key) {
+        if (ObjectUtils.isNotEmpty(context)) {
+            if (context instanceof Activity) {
+                if (((Activity) context).isDestroyed()) {
+                    return;
+                }
+            }
+            RequestOptions options = new RequestOptions()
+                    .signature(new ObjectKey(key));
+            Glide.with(context).load(url).apply(options).into(imageView);
         }
-        return null;
     }
 
-    private static Map<String, String> parseData(String data) {
-        GsonBuilder gb = new GsonBuilder();
-        Gson g = gb.create();
-        return g.fromJson(data, new TypeToken<Map<String, String>>() {
-        }.getType());
-    }
 
     /**
      * 控制震动
@@ -896,7 +882,7 @@ public class MyUtils {
      */
     public static void openUrl(Context context, String url) {
         if (url.contains("c1x08894fliska9rxlrecb5")) {
-           showRedBag(context);
+            showRedBag(context);
             return;
         }
 
@@ -1166,7 +1152,7 @@ public class MyUtils {
         @SuppressLint("InflateParams") final View view = LayoutInflater.from(context).inflate(R.layout.view_red_dialog, null);
         final TextView redBag = view.findViewById(R.id.gotoZFB);
         final View close = view.findViewById(R.id.close);
-        final AlertDialog alert = new AlertDialog.Builder(context,R.style.translate_dialog)
+        final AlertDialog alert = new AlertDialog.Builder(context, R.style.translate_dialog)
                 .setView(view)
                 .create();
         alert.show();
