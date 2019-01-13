@@ -76,7 +76,7 @@ public class YangtzeuUtils {
                 }
                 LogUtils.i("首页Banner数量：" + elements.size());
 
-                MyOpenHelper helper = DatabaseUtils.getHelper(context, "banner.db");
+                MyOpenHelper helper = DatabaseUtils.getHelper( "banner.db");
                 if (helper.queryAll(YzBannerBean.class) != null) {
                     helper.clear(YzBannerBean.class);
                 }
@@ -208,7 +208,7 @@ public class YangtzeuUtils {
             public void onResponse(String response) {
                 BanBean banBean = GsonUtils.fromJson(response, BanBean.class);
 
-                MyOpenHelper helper = DatabaseUtils.getHelper(context, "ban_user.db");
+                MyOpenHelper helper = DatabaseUtils.getHelper( "ban_user.db");
                 if (helper.queryAll(BanBean.DataBean.class) != null) {
                     helper.clear(BanBean.DataBean.class);
                 }
@@ -238,9 +238,10 @@ public class YangtzeuUtils {
                 SPUtils.getInstance("app_info").put("update", "已经是最新版本！");
 
                 //当前版本
-                String oldVersion = AppUtils.getAppVersionName();
+                int oldCode = AppUtils.getAppVersionCode();
+                int newAppCode = upDateBean.getCode();
                 String newAppVersion = upDateBean.getVersion();
-                if (oldVersion.equals(newAppVersion)) {
+                if (newAppCode <= oldCode) {
                     ToastUtils.showShort("已经是最新版本");
                     return;
                 }
@@ -251,28 +252,15 @@ public class YangtzeuUtils {
                 String centerText = upDateBean.getCenterText();
                 String leftText = upDateBean.getLeftText();
                 String isForce = upDateBean.getForce();
+                final int minCode = upDateBean.getMinCode();
                 final String minVersion = upDateBean.getMinVersion();
                 final String rightUrl = upDateBean.getApkurl();
                 final String centerUrl = upDateBean.getBackurl();
                 final String leftUrl = upDateBean.getLeftUrl();
 
 
-                //当前版本
-                double old_v;
-                double min_v;
-                try {
-                    old_v = Double.parseDouble(AppUtils.getAppVersionName());
-                } catch (Exception e) {
-                    old_v = 2.8;
-                }
-                try {
-                    min_v = Double.parseDouble(minVersion);
-                } catch (Exception e) {
-                    min_v = 0;
-                }
-
                 //判断最低升级版本
-                if (old_v < min_v) {
+                if (oldCode < minCode) {
                     isForce = "true";
                     message = message + "\n*版本" + minVersion + "以下需要更新后才能使用";
                 }
@@ -371,7 +359,7 @@ public class YangtzeuUtils {
                         userBean.setNumber(number);
                         userBean.setPassowrd(password);
 
-                        DatabaseUtils.getHelper(ActivityUtils.getTopActivity(), "user.db").save(userBean);
+                        DatabaseUtils.getHelper( "user.db").save(userBean);
                     } catch (Exception e) {
                         LogUtils.e("学籍信息解析出错", e);
                     }
@@ -379,7 +367,9 @@ public class YangtzeuUtils {
                     //设置Cookie不可用
                     SPUtils.getInstance("user_info").put("online", false);
                     ActivityUtils.finishAllActivities();
-                    MyUtils.startActivity(LoginActivity.class);
+                    if (AppUtils.isAppForeground()) {
+                        MyUtils.startActivity(LoginActivity.class);
+                    }
                 } else {
                     LogUtils.e("学籍信息获取失败");
                 }
@@ -424,10 +414,41 @@ public class YangtzeuUtils {
         }
     }
 
+    //选择学期
+    public static void showChoosePlan(Activity activity, final DialogInterface.OnClickListener listener) {
+        final String[] term_trip = activity.getResources().getStringArray(R.array.plan_trip);
+        final String[] term_id = activity.getResources().getStringArray(R.array.plan_id);
+        @SuppressLint("InflateParams")
+        View view = activity.getLayoutInflater().inflate(R.layout.view_choose_term, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        LinearLayout layout = view.findViewById(R.id.container);
+        for (int i = 0; i < term_trip.length; i++) {
+            @SuppressLint("InflateParams")
+            View item = activity.getLayoutInflater().inflate(R.layout.view_choose_term_item, null);
+            TextView title = item.findViewById(R.id.title);
+            TextView bt = item.findViewById(R.id.bt);
+            title.setText(term_trip[i]);
+            final int finalI = i;
+            bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    ToastUtils.showLong("你选择了：" + term_trip[finalI]);
+                    int which = Integer.parseInt(term_id[finalI]);
+                    listener.onClick(null, which);
+                }
+            });
+            layout.addView(item);
+        }
+    }
+
     //检查当前是否有课程
     public static void checkHaveClassNow(Context context, OnClassListener listener) {
         List<Course> now_course = new ArrayList<>();
-        List<Course> courses = DatabaseUtils.getHelper(context, "table.db").queryAll(Course.class);
+        List<Course> courses = DatabaseUtils.getHelper( "table.db").queryAll(Course.class);
         if (ObjectUtils.isNotEmpty(courses)) {
             for (int i = 0; i < courses.size(); i++) {
                 int week_day = Integer.parseInt(courses.get(i).getWeek()) + 1;
@@ -534,10 +555,10 @@ public class YangtzeuUtils {
                 MessageBean messageBean = GsonUtils.fromJson(response, MessageBean.class);
                 String info = messageBean.getInfo();
                 String number = SPUtils.getInstance("user_info").getString("number", "000000");
-                if (ObjectUtils.isNotEmpty(info) && info.contains(number)) {
-                    //进程不同，用文件存储数据，以便时实更新
-                    CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put("lock_time", "0");
-                }
+                //进程不同，用文件存储数据，以便时实更新
+                if (ObjectUtils.isNotEmpty(info))
+                    if (info.contains(number))
+                        CacheDiskUtils.getInstance(MyUtils.geCacheDir()).put("lock_time", "0");
             }
 
             @Override

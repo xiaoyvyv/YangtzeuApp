@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/OnClick"
-    android:layout_width="match_parent"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
@@ -25,13 +25,6 @@
         android:textStyle="bold"
         android:tint="?attr/colorPrimary"
         tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/times"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="5sp"
-        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/title"

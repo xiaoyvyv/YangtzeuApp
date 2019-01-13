@@ -23,4 +23,8 @@ public class LoginPresenter {
     public void loadHistory() {
         model.loadHistory(activity, view);
     }
+
+    public void addUserToXyWeb() {
+        model.addUserToXyWeb(activity, view);
+    }
 }

@@ -14,4 +14,6 @@ public interface IChatModel {
     void removeGeneralReceiver(Activity activity, ChatView view);
 
     void getAllLocalConversations(Activity activity, ChatView view);
+
+    void loadAllGroupInfo(Activity activity, ChatView view);
 }

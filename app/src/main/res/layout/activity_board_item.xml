@@ -29,16 +29,25 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/StudentImg"
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:src="@drawable/ic_mine"
-                    app:civ_border_color="#a9ffffff"
-                    app:civ_border_width="0.5dp" />
+                    app:cardCornerRadius="@dimen/margin_5"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/studentHeader2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_mine"
+                        android:contentDescription="@string/app_name" />
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/Name"
@@ -46,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_margin="5dp"
-                    android:layout_toEndOf="@+id/StudentImg"
+                    android:layout_toEndOf="@+id/cardView"
                     android:alpha="0.9"
                     android:maxLength="5"
                     android:text="昵称"
@@ -63,7 +72,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_toEndOf="@+id/StudentImg"
+                    android:layout_toEndOf="@+id/cardView"
                     android:alpha="0.7"
                     android:text="12-27 12:25"
                     android:textColor="@color/black"
@@ -77,7 +86,7 @@
                     android:layout_below="@+id/Time"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_toEndOf="@+id/StudentImg"
+                    android:layout_toEndOf="@+id/cardView"
                     android:alpha="0.7"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -129,8 +138,8 @@
                 android:ellipsize="end"
                 android:lineSpacingExtra="4dp"
                 android:maxLines="10"
-                android:textIsSelectable="true"
                 android:textColor="#000000"
+                android:textIsSelectable="true"
                 android:textSize="17sp"
                 tools:ignore="HardcodedText" />
 

@@ -83,8 +83,6 @@ public class X5WebView extends WebView {
         this.x5LoadFinishListener = x5LoadFinishListener;
     }
     private void SetUp() {
-
-
         this.setWebViewClient(mWebViewClient);
         this.setWebChromeClient(mWebChromeClient);
 
@@ -289,7 +287,6 @@ public class X5WebView extends WebView {
         }
 
     }
-
 
     public void showFreeRoom() {
         X5WebView.this.loadUrl("javascript:__doPostBack('btFreeRoom','')");

@@ -14,7 +14,6 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.google.android.material.tabs.TabLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -33,7 +32,6 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.viewpager.widget.ViewPager;
 import okhttp3.Request;
 
 /**
@@ -48,7 +46,7 @@ public class TestFragment extends BaseFragment {
     private View rootView;
     private SmartRefreshLayout refresh;
     private LinearLayout container;
-    private String examBatch_id ;
+    private String examBatch_id;
     private String title;
 
     public static TestFragment newInstance(String title, String examBatch_id) {
@@ -99,7 +97,7 @@ public class TestFragment extends BaseFragment {
     }
 
     private void GetTable() {
-        String cookie = SPUtils.getInstance("user_info").getString("cookie","no_cookie");
+        String cookie = SPUtils.getInstance("user_info").getString("cookie", "no_cookie");
 
         Request request = new Request.Builder()
                 .url(Url.Yangtzeu_My_Details_Test + examBatch_id)
@@ -118,7 +116,7 @@ public class TestFragment extends BaseFragment {
                         final AlertDialog dialog = new AlertDialog.Builder(getActivity())
                                 .setTitle("提示")
                                 .setMessage("当前选择批次：" + title + "\n暂时没有考试安排\n\n恭喜你不需要参加考试")
-                                .setPositiveButton("知道了",null)
+                                .setPositiveButton("知道了", null)
                                 .create();
                         dialog.show();
                         dialog.setCanceledOnTouchOutside(false);
@@ -140,43 +138,45 @@ public class TestFragment extends BaseFragment {
                         }
                         String name = "";
                         try {
-                             name = tds.get(1).text();
+                            name = tds.get(1).text();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String kind= "";
+                        String kind = "";
                         try {
-                             kind = tds.get(2).text();
+                            kind = tds.get(2).text();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String data= "";
+                        String data = "";
                         try {
-                             data = tds.get(3).text();
+                            data = tds.get(3).text();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String plan= "";
+                        String plan = "";
                         try {
-                             plan = tds.get(4).text();
+                            plan = tds.get(4).text();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String local= "";
+                        String local = "";
+                        String local_url = "";
                         try {
-                             local = tds.get(5).text();
+                            local = tds.get(5).text();
+                            local_url = Url.Yangtzeu_Base_Url + tds.get(5).select("td a").attr("href");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String which= "";
+                        String which = "";
                         try {
-                             which = tds.get(6).text();
+                            which = tds.get(6).text();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String state= "";
+                        String state = "";
                         try {
-                             state = tds.get(7).text();
+                            state = tds.get(7).text();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -196,7 +196,7 @@ public class TestFragment extends BaseFragment {
                         st_data.setText("考试日期：" + data);
                         st_state.setText("考试情况：" + state);
                         st_local.setText("考试地点：" + local);
-                        st_which.setText("考试座次：" + which);
+                        st_which.setText("考试形式：" + which);
 
                         if (kind.contains("补考")) {
                             st_kind.setTextColor(Objects.requireNonNull(getActivity()).getResources().getColor(R.color.red));
@@ -207,10 +207,12 @@ public class TestFragment extends BaseFragment {
                                 + "\n考试安排：" + plan
                                 + "\n考试日期：" + data
                                 + "\n考试地点：" + local
-                                + "\n考试座次：" + which
+                                + "\n考试形式：" + which
                                 + "\n考试情况：" + state
                                 + "\n考试种类：" + kind;
 
+                        //座次表链接
+                        final String finalLocal_url = local_url;
                         onClick.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -221,8 +223,14 @@ public class TestFragment extends BaseFragment {
                                         .setNegativeButton(R.string.share_test, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                MyUtils.shareText(getActivity(),"给你看看我的考试噢" +
+                                                MyUtils.shareText(getActivity(), "给你看看我的考试噢" +
                                                         "!\n\n" + details + "\n\n数据来自：" + Url.AppDownUrl);
+                                            }
+                                        })
+                                        .setNeutralButton("查看座次表", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                MyUtils.openUrl(getActivity(), finalLocal_url, true);
                                             }
                                         })
                                         .create();

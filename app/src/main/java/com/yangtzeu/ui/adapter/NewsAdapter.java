@@ -6,6 +6,7 @@ package com.yangtzeu.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.NewsBean;
+import com.yangtzeu.ui.activity.NewsDetailsActivity;
+import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 
 import java.util.ArrayList;
@@ -60,8 +63,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         viewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogUtils.i(url);
-                MyUtils.openUrl(context, url);
+                if (url.contains(Url.Yangtzeu_JWC) || url.contains(Url.Yangtzeu_News)) {
+                    Intent intent = new Intent(context, NewsDetailsActivity.class);
+                    intent.putExtra("from_url", url);
+                    MyUtils.startActivity(intent);
+                } else {
+                    MyUtils.openUrl(context, url);
+                }
             }
         });
         viewHolder.mLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {

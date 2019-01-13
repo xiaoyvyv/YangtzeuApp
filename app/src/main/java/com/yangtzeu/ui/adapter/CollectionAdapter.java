@@ -98,7 +98,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     @Override
     public void onItemMiss(int position) {
         CollectionBean collectionBean = beans.get(position);
-        DatabaseUtils.getHelper(context,"collection.db").delete(collectionBean);
+        DatabaseUtils.getHelper("collection.db").delete(collectionBean);
         //移除数据
         beans.remove(position);
         notifyItemRemoved(position);

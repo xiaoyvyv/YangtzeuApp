@@ -15,17 +15,23 @@
         <ImageView
             android:id="@+id/adView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
             android:contentDescription="@string/app_name"
             android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/adTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/adView"
-            android:layout_gravity="start"
-            android:padding="@dimen/margin_5" />
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/card_margin_10"
+            android:alpha="0.5"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -45,7 +51,9 @@
             android:id="@+id/times"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_5"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/card_margin_10"
+            android:layout_marginBottom="@dimen/margin_5"
             android:gravity="center"
             android:text="@string/use_times"
             android:textSize="8sp"

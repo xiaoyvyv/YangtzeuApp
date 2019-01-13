@@ -1,20 +1,22 @@
 package com.yangtzeu.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.yangtzeu.R;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.adapter.FragmentAdapter;
 import com.yangtzeu.ui.fragment.LoveFragment;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.MediaPlayUtil;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
@@ -28,6 +30,7 @@ public class LoveActivity extends BaseActivity {
     private ViewPager viewPager;
     private FragmentAdapter adapter;
     private ImageView love_bg;
+    private FloatingActionButton stop;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class LoveActivity extends BaseActivity {
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
         love_bg = findViewById(R.id.love_bg);
+        stop = findViewById(R.id.stop);
     }
 
     @Override
@@ -60,6 +64,22 @@ public class LoveActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
 
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stop.hide();
+                MediaPlayUtil.getInstance().stop();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        boolean is_playing = MediaPlayUtil.getInstance().isPlaying();
+        if (is_playing) {
+            stop.show();
+        }
+        super.onResume();
     }
 
     @Override

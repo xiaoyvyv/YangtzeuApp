@@ -1,11 +1,17 @@
 package com.yangtzeu.database;
 
+import android.app.Application;
 import android.content.Context;
+
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.Utils;
+
 import java.util.HashMap;
 public class DatabaseUtils {
     private static HashMap<String,MyOpenHelper> dataMaps = new HashMap<>();
 
-    public static MyOpenHelper getHelper(Context context, String name) {
+    public static MyOpenHelper getHelper(String name) {
+        Application context = Utils.getApp();
         if (dataMaps.keySet().contains(name)) {
             if (dataMaps.get(name) == null) {
                 MyOpenHelper helper = new MyOpenHelper(context, name);

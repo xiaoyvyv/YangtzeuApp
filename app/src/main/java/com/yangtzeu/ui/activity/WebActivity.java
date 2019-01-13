@@ -27,9 +27,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.lib.x5web.WebViewProgressBar;
 import com.lib.x5web.X5JavaScriptFunction;
 import com.lib.x5web.X5LoadFinishListener;
@@ -59,7 +57,10 @@ public class WebActivity extends BaseActivity {
     private String cookie;
 
     private boolean isLoadingFinish = false;
+    //是否查询空教室
     private boolean isKJS = false;
+    //是否是评教页面
+    private boolean isPjFinish = false;
     private FrameLayout web_container;
     private boolean isNoTitle;
     private FloatingActionButton ic_close;
@@ -172,27 +173,7 @@ public class WebActivity extends BaseActivity {
         progress.setProgressColor(Color.GREEN);
         mWebView.setTitleAndProgressBar(toolbar, progress);
 
-        mWebView.addJavascriptInterface(new X5JavaScriptFunction() {
-            @Override
-            public void onJsFunctionCalled(String tag) {
-
-            }
-
-            @JavascriptInterface
-            public void openWebImage(final String ImgUrl) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtils.i("Web图片地址", ImgUrl);
-                        ImageActivity.Referer = "http://ms.csdn.net/";
-                        MyUtils.openImage(WebActivity.this, ImgUrl);
-                    }
-                });
-            }
-
-        }, "android");
-
-
+        mWebView.addJavascriptInterface(new X5JavaScriptFunction(WebActivity.this), "android");
 
         String cookie_list[] = cookie.split(";");
         CookieManager cookieManager = CookieManager.getInstance();
@@ -224,6 +205,23 @@ public class WebActivity extends BaseActivity {
                     isKJS = false;
                 }
 
+                //评教完成3s后，重新跳转评教页面
+                if (webView.getUrl().contains("stdEvaluate!innerIndex.action") && !isPjFinish) {
+                    final AlertDialog alert = new AlertDialog.Builder(WebActivity.this)
+                            .setMessage("评教完成，2s后跳转")
+                            .create();
+                    alert.show();
+                    webView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            alert.dismiss();
+                            Intent intent = new Intent(getApplicationContext(), PingJiaoActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                            MyUtils.startActivity(intent);
+                        }
+                    }, 2000);
+                    isPjFinish = true;
+                }
             }
         });
 
@@ -266,7 +264,7 @@ public class WebActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String s = edit.getText().toString().trim();
-                                if (s.isEmpty()||!URLUtil.isNetworkUrl(s)) {
+                                if (s.isEmpty() || !URLUtil.isNetworkUrl(s)) {
                                     ToastUtils.showShort("未输入或输入错误");
                                     return;
                                 }
@@ -283,7 +281,7 @@ public class WebActivity extends BaseActivity {
                     bean.setTime(TimeUtils.getNowString());
                     bean.setTitle(mWebView.getTitle());
                     bean.setUrl(mWebView.getUrl());
-                    DatabaseUtils.getHelper(this, "collection.db").save(bean);
+                    DatabaseUtils.getHelper("collection.db").save(bean);
                     ToastUtils.showShort(R.string.collection_right);
                 }
                 return true;

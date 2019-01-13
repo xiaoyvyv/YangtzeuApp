@@ -250,7 +250,7 @@ public class CardCenterActivity extends BaseActivity implements View.OnClickList
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         final TextInputEditText number = view.findViewById(R.id.number);
-        number.setText("yz"+number_str);
+        number.setText(number_str);
         final TextInputEditText password = view.findViewById(R.id.password);
 
         password.setText(password_str);

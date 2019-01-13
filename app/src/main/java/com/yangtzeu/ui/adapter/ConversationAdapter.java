@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.lib.mob.im.IMManager;
 import com.mob.imsdk.MobIM;
 import com.mob.imsdk.model.IMConversation;
 import com.mob.imsdk.model.IMGroup;
@@ -63,12 +66,14 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        IMConversation itemBean = imConversations.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        final IMConversation itemBean = imConversations.get(position);
+
         final int type = itemBean.getType();
         long createTime = itemBean.getCreateTime();
         int unreadMsgCount = itemBean.getUnreadMsgCount();
         IMMessage lastMessage = itemBean.getLastMessage();
+
         holder.message.setText(lastMessage.getBody());
         holder.time.setText(TimeUtils.millis2String(createTime));
 
@@ -105,12 +110,28 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             public void onClick(View v) {
                 //targetId - 目标id（群聊为群的id，私聊为对方id）
                 MobIM.getChatManager().markConversationAllMessageAsRead(finalTargetId, type);
-                Intent intent = new Intent(context, ChatDetailsActivity.class);
-                intent.putExtra("id", finalTargetId);
-                intent.putExtra("type", type);
-                MyUtils.startActivity(intent);
+
+                IMManager.chat(finalTargetId, type);
             }
         });
+
+        holder.mLinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                boolean b = MobIM.getChatManager().delConversation(finalTargetId, type);
+                boolean c = MobIM.getChatManager().clearConversationMessage(finalTargetId, type);
+                if (b||c) {
+                    ToastUtils.showShort("删除成功");
+                    imConversations.remove(position);
+                    ConversationAdapter.this.notifyItemRemoved(position);
+                    ConversationAdapter.this.notifyDataSetChanged();
+                } else {
+                    ToastUtils.showShort("删除失败");
+                }
+                return true;
+            }
+        });
+
     }
     @Override
     public long getItemId(int i) {

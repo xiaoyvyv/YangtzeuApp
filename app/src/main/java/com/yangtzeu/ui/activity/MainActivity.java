@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ServiceUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,6 +33,7 @@ import com.yangtzeu.listener.OnClassListener;
 import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.MainPresenter;
 import com.yangtzeu.receiver.LockReceiver;
+import com.yangtzeu.service.BackgroundService;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.fragment.GradeFragment;
 import com.yangtzeu.ui.fragment.HomeFragment;
@@ -63,7 +66,6 @@ public class MainActivity extends BaseActivity
     private FrameLayout container;
     private ManyFragment manyFragment;
     private HomeFragment homeFragment;
-    private Intent intent;
     private TableFragment tableFragment;
     private MineFragment mineFragment;
     private GradeFragment gradeFragment;
@@ -71,7 +73,6 @@ public class MainActivity extends BaseActivity
     private LinearLayout have_class;
     private LinearLayout not_have_class;
     private Timer timer1 = new Timer();
-    private Timer timer2 = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,6 @@ public class MainActivity extends BaseActivity
     @Override
     public void setEvents() {
         timer1 = new Timer();
-        timer2 = new Timer();
 
         leftNavigationView.setNavigationItemSelectedListener(this);
         homeFragment = new HomeFragment();
@@ -120,28 +120,6 @@ public class MainActivity extends BaseActivity
             }
         };
 
-        //保持在线状态
-        final Handler keepHandler = new Handler(getMainLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                //保持教务处服务器连接
-                YangtzeuUtils.getStudentInfo();
-
-                //保持App服务器连接
-                YangtzeuUtils.keepOnline(new OnResultListener<OnLineBean>() {
-                    @Override
-                    public void onResult(OnLineBean s) {
-                        int size = s.getSize();
-                        SPUtils.getInstance("app_info").put("online_size", size);
-                        Intent intent = new Intent();
-                        intent.setAction("Online_BroadcastReceiver");
-                        intent.putExtra("online_size", size);
-                        sendBroadcast(intent);
-                    }
-                });
-            }
-        };
-
         timer1.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -149,14 +127,6 @@ public class MainActivity extends BaseActivity
                 classPlanHandler.sendMessage(msg);
             }
         }, 0, 5000L);
-
-        timer2.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Message msg = Message.obtain();
-                keepHandler.sendMessage(msg);
-            }
-        }, 0, 45000L);
 
 
         boolean is_hide_many_page = SPUtils.getInstance("app_info").getBoolean("is_hide_many_page", false);
@@ -432,15 +402,9 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onDestroy() {
-        PollingUtils.stopPollingBroadcast(this, LockReceiver.class, LockReceiver.ACTION);
-        if (intent != null) {
-            stopService(intent);
-        }
+        BackgroundService.stop(this);
         if (timer1 != null) {
             timer1.cancel();
-        }
-        if (timer2 != null) {
-            timer2.cancel();
         }
         super.onDestroy();
     }

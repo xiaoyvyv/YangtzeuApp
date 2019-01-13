@@ -45,7 +45,7 @@ public class NewsModel1 implements INewsModel1 {
         List<String> title = new ArrayList<>();
         final List<String> url = new ArrayList<>();
         List<String> image = new ArrayList<>();
-        List<YzBannerBean> list = DatabaseUtils.getHelper(activity, "banner.db").queryAll(YzBannerBean.class);
+        List<YzBannerBean> list = DatabaseUtils.getHelper( "banner.db").queryAll(YzBannerBean.class);
         if (ObjectUtils.isNotEmpty(list)) {
             for (int i = 0; i < list.size(); i++) {
                 title.add(list.get(i).getTitle());

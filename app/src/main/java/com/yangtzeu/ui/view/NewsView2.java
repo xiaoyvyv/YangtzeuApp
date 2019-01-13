@@ -23,4 +23,12 @@ public interface NewsView2 {
     String getUrl();
 
     boolean isRefresh();
+
+    String getUrlHeader();
+
+    int getStartIndex();
+    int getAllPage();
+
+    void setStartIndex(int start);
+    void setAllPage(int page);
 }

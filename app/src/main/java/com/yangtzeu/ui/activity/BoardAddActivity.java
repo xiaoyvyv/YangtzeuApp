@@ -23,7 +23,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 public class BoardAddActivity extends BaseActivity {
-    private final static String TAG = "【BoardAddActivity】";
     private EditText mess_text;
     private String InputColor = "#ffffff";
     private String InputImg = "http://";
@@ -71,7 +70,7 @@ public class BoardAddActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //取出本地保存的路径
-                String qq = SPUtils.getInstance("user_info").getString("qq", "1223414335");
+                String qq = SPUtils.getInstance("user_info").getString("qq", "default_header");
                 String student_name = SPUtils.getInstance("user_info").getString("number");
                 String name = SPUtils.getInstance("user_info").getString("name");
                 String mClass = SPUtils.getInstance("user_info").getString("class");
@@ -102,8 +101,8 @@ public class BoardAddActivity extends BaseActivity {
 
 
     private void sendBoardMessage(String luiYanText, String niChen, String Class, String geQian, String headImg, String inputColor) {
-        String FootUrl = "?text=" + luiYanText + "&name=" + niChen + "&class=" + Class + "&geqian=" + geQian + "&image=" + headImg + "&background=" + inputColor;
-        String url = Url.Yangtzeu_App_Message + FootUrl;
+        String FootUrl = "&text=" + luiYanText + "&name=" + niChen + "&class=" + Class + "&geqian=" + geQian + "&image=" + headImg + "&background=" + inputColor;
+        String url = Url.Yangtzeu_App_Board + FootUrl;
         OkHttp.do_Get(url, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {

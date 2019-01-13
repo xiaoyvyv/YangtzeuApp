@@ -18,6 +18,8 @@ public class UpDateBean {
      * leftUrl : https://www.coolapk.com/apk/com.yangtzeu
      */
 
+    private int code;
+    private int minCode;
     private String version;
     private String title;
     private String message;
@@ -29,6 +31,22 @@ public class UpDateBean {
     private String apkurl;
     private String backurl;
     private String leftUrl;
+
+    public int getMinCode() {
+        return minCode;
+    }
+
+    public void setMinCode(int minCode) {
+        this.minCode = minCode;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     public String getVersion() {
         return version;

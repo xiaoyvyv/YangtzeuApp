@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:alpha="0.8"
         android:ellipsize="end"
         android:maxLines="1"
@@ -26,30 +26,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <TextView
-            android:textColor="#666666"
             android:id="@+id/notice_kind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="教务通知"
+            android:textColor="#666666"
             android:textSize="12sp" />
 
         <TextView
-            android:textColor="#888888"
             android:id="@+id/notice_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="2017-08-29"
+            android:textColor="#888888"
             android:textSize="12sp" />
     </RelativeLayout>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"

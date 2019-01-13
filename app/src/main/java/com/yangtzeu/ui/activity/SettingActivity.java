@@ -18,11 +18,13 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.yangtzeu.R;
+import com.yangtzeu.service.BackgroundService;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.AlipayUtil;
 import com.yangtzeu.utils.AppIconUtils;
@@ -75,6 +77,27 @@ public class SettingActivity extends PreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 MyUtils.startActivity(ChangePassActivity.class);
+                return true;
+            }
+        });
+
+        //恢复默认设置
+        Preference clean = findPreference("clean");
+        clean.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                MyUtils.getAlert(SettingActivity.this, "软件将恢复安装状态，需要重新打开", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        CleanUtils.cleanInternalCache();
+                        CleanUtils.cleanInternalSp();
+                        CleanUtils.cleanInternalDbs();
+                        CleanUtils.cleanInternalFiles();
+                        CleanUtils.cleanExternalCache();
+                        ActivityUtils.finishAllActivities();
+                        AppUtils.exitApp();
+                    }
+                }).show();
                 return true;
             }
         });
@@ -258,6 +281,7 @@ public class SettingActivity extends PreferenceActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        BackgroundService.stop(SettingActivity.this);
                         ActivityUtils.finishAllActivities();
                         AppUtils.exitApp();
                     }

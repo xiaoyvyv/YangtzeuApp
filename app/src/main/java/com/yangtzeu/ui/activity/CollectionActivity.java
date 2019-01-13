@@ -50,7 +50,7 @@ public class CollectionActivity extends BaseActivity {
     @Override
     public void setEvents() {
         toolbar.setTitle(R.string.my_collection);
-        List<CollectionBean> data = DatabaseUtils.getHelper(this, "collection.db").queryAll(CollectionBean.class);
+        List<CollectionBean> data = DatabaseUtils.getHelper( "collection.db").queryAll(CollectionBean.class);
         if (ObjectUtils.isEmpty(data)) {
             ToastUtils.showShort(R.string.no_data);
             return;

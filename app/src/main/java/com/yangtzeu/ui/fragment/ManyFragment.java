@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lib.calculator.calculator.CalculatorActivity;
 import com.lib.notice.NoticeView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ManyPresenter;
 import com.yangtzeu.ui.activity.ChatActivity;
@@ -55,22 +56,15 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
     private Toolbar toolbar;
     private SwipeRefreshLayout refresh;
     private BGABanner banner;
+
     private TextView tripLike;
-    private TextView timesLike;
     private TextView tripLock;
-    private TextView timesLock;
     private TextView tripQi;
-    private TextView timesQi;
     private TextView tripWeb;
-    private TextView timesWeb;
     private TextView tripRuler;
-    private TextView timesRuler;
     private TextView tripCompass;
-    private TextView timesCompass;
     private TextView tripTranslate;
-    private TextView timesTranslate;
     private TextView tripKg;
-    private TextView timesKg;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,41 +98,18 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
         rootView.findViewById(R.id.kg).setOnClickListener(this);
 
         tripLike = rootView.findViewById(R.id.tripLike);
-        timesLike = rootView.findViewById(R.id.timesLike);
-
         tripLock = rootView.findViewById(R.id.tripLock);
-        timesLock = rootView.findViewById(R.id.timesLock);
-
         tripQi = rootView.findViewById(R.id.tripQi);
-        timesQi = rootView.findViewById(R.id.timesQi);
-
         tripWeb = rootView.findViewById(R.id.tripWeb);
-        timesWeb = rootView.findViewById(R.id.timesWeb);
-
         tripRuler = rootView.findViewById(R.id.tripRuler);
-        timesRuler = rootView.findViewById(R.id.timesRuler);
-
         tripCompass = rootView.findViewById(R.id.tripCompass);
-        timesCompass = rootView.findViewById(R.id.timesCompass);
-
         tripTranslate = rootView.findViewById(R.id.tripTranslate);
-        timesTranslate = rootView.findViewById(R.id.timesTranslate);
-
         tripKg = rootView.findViewById(R.id.tripKg);
-        timesKg = rootView.findViewById(R.id.timesKg);
 
     }
 
     @Override
     public void setEvents() {
-        YangtzeuUtils.getOnClickTimes(tripLike, timesLike, false);
-        YangtzeuUtils.getOnClickTimes(tripLock, timesLock, false);
-        YangtzeuUtils.getOnClickTimes(tripQi, timesQi, false);
-        YangtzeuUtils.getOnClickTimes(tripWeb, timesWeb, false);
-        YangtzeuUtils.getOnClickTimes(tripRuler, timesRuler, false);
-        YangtzeuUtils.getOnClickTimes(tripCompass, timesCompass, false);
-        YangtzeuUtils.getOnClickTimes(tripTranslate, timesTranslate, false);
-        YangtzeuUtils.getOnClickTimes(tripKg, timesKg, false);
 
         refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         toolbar.inflateMenu(R.menu.fragment_many_menu);
@@ -171,19 +142,9 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
             @Override
             public void onRefresh() {
                 refresh.setRefreshing(false);
+                presenter.loadBanner();
                 presenter.loadMarqueeView();
                 presenter.fitAdapter();
-
-                //刷新统计
-                YangtzeuUtils.getOnClickTimes(tripLike, timesLike, false);
-                YangtzeuUtils.getOnClickTimes(tripLock, timesLock, false);
-                YangtzeuUtils.getOnClickTimes(tripQi, timesQi, false);
-                YangtzeuUtils.getOnClickTimes(tripWeb, timesWeb, false);
-                YangtzeuUtils.getOnClickTimes(tripRuler, timesRuler, false);
-                YangtzeuUtils.getOnClickTimes(tripCompass, timesCompass, false);
-                YangtzeuUtils.getOnClickTimes(tripTranslate, timesTranslate, false);
-                YangtzeuUtils.getOnClickTimes(tripKg, timesKg, false);
-
 
             }
         });
@@ -216,6 +177,11 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
     }
 
     @Override
+    public SwipeRefreshLayout getRefresh() {
+        return refresh;
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.shop:
@@ -232,11 +198,9 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
                 break;
             case R.id.ruler:
                 MyUtils.startActivity(RulerActivity.class);
-                YangtzeuUtils.getOnClickTimes(tripRuler, timesRuler, true);
                 break;
             case R.id.lock:
                 boolean isEnable = NotificationUtils.isNotificationEnabled(activity);
-                YangtzeuUtils.getOnClickTimes(tripLock, timesLock, true);
                 if (isEnable) {
                     MyUtils.startActivity(LockActivity.class);
                 } else {
@@ -254,30 +218,24 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
                 }
                 break;
             case R.id.like:
-                YangtzeuUtils.getOnClickTimes(tripLike, timesLike, true);
                 presenter.loadQQLikeEvents();
                 break;
             case R.id.web:
-                YangtzeuUtils.getOnClickTimes(tripWeb, timesWeb, true);
                 MyUtils.startActivity(WebListActivity.class);
                 break;
             case R.id.calculator:
-                YangtzeuUtils.getOnClickTimes(tripQi, timesQi, true);
                 MyUtils.startActivity(CalculatorActivity.class);
                 break;
             case R.id.compass:
-                YangtzeuUtils.getOnClickTimes(tripCompass, timesCompass, true);
                 Intent intent = new Intent(getActivity(), WebListActivity.class);
                 intent.putExtra("from_url", Url.Yangtzeu_All_Web_Soft);
                 intent.putExtra("title", getString(R.string.soft_list));
                 MyUtils.startActivity(intent);
                 break;
             case R.id.translate:
-                YangtzeuUtils.getOnClickTimes(tripTranslate, timesTranslate, true);
                 MyUtils.startActivity(TranslateActivity.class);
                 break;
             case R.id.kg:
-                YangtzeuUtils.getOnClickTimes(tripKg, timesKg, true);
                 MyUtils.startActivity(KgActivity.class);
                 break;
 

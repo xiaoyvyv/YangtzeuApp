@@ -203,10 +203,4 @@ public class LoveDetailsActivity extends BaseActivity {
         }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MediaPlayUtil.getInstance().stop();
-    }
 }

@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.UserBean;
+import com.yangtzeu.http.OkHttp;
+import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.ILoginModel;
 import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.ui.view.LoginView;
@@ -100,7 +103,7 @@ public class LoginModel implements ILoginModel {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                final List<UserBean> userBeans = DatabaseUtils.getHelper(activity, "user.db").queryAll(UserBean.class);
+                final List<UserBean> userBeans = DatabaseUtils.getHelper("user.db").queryAll(UserBean.class);
                 if (ObjectUtils.isNotEmpty(userBeans)) {
                     @SuppressLint("InflateParams")
                     View view = activity.getLayoutInflater().inflate(R.layout.view_user_history, null);
@@ -135,9 +138,9 @@ public class LoginModel implements ILoginModel {
                                     @Override
                                     public void onClick(DialogInterface d, int which) {
                                         dialog.dismiss();
-                                        UserBean userBean = DatabaseUtils.getHelper(ActivityUtils.getTopActivity(), "user.db")
+                                        UserBean userBean = DatabaseUtils.getHelper( "user.db")
                                                 .queryById(UserBean.class, userBeans.get(finalI).getNumber());
-                                        DatabaseUtils.getHelper(ActivityUtils.getTopActivity(), "user.db").delete(userBean);
+                                        DatabaseUtils.getHelper( "user.db").delete(userBean);
                                         ToastUtils.showShort(R.string.delete_success);
                                     }
                                 }).show();
@@ -215,5 +218,26 @@ public class LoginModel implements ILoginModel {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         dialog.setCancelable(false);
+
+        addUserToXyWeb(activity, view);
+    }
+
+    @Override
+    public void addUserToXyWeb(Activity activity, LoginView view) {
+        String number = SPUtils.getInstance("user_info").getString("number");
+        String name = SPUtils.getInstance("user_info").getString("name", "用户：" + number);
+        String url = "http://ll.xyll520.top/user_system/user.php?action=add_userinfo&submit=do&username=" + name
+                + "&nickname=yz" + number + "&mobile=" + number + "&email=email@qq.com&password=" + number;
+        OkHttp.do_Get(url, new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                LogUtils.i(response);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                LogUtils.e(error);
+            }
+        });
     }
 }

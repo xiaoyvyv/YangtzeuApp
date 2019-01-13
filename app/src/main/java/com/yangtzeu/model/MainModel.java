@@ -10,11 +10,13 @@ import android.view.MenuItem;
 
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ServiceUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.tabs.TabLayout;
 import com.yangtzeu.R;
 import com.yangtzeu.model.imodel.IMainModel;
+import com.yangtzeu.service.BackgroundService;
 import com.yangtzeu.ui.fragment.HomeFragment;
 import com.yangtzeu.ui.view.MainView;
 import com.yangtzeu.utils.YangtzeuUtils;
@@ -86,26 +88,10 @@ public class MainModel implements IMainModel {
 
     @Override
     public void initEvents(Activity activity, MainView view) {
-        YangtzeuUtils.getAlertNotice(activity);
         YangtzeuUtils.getTripInfo(activity, false);
         YangtzeuUtils.checkAppVersion(activity);
+        ServiceUtils.startService(BackgroundService.class);
     }
 
-    @Override
-    public void startPoll(final Activity activity, MainView view) {
-
-
-       /*
-        //获取AlarmManager系统服务
-        AlarmManager manager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
-        //包装需要执行Service的Intent
-        Intent intent = new Intent(activity, YangtzeuReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        if (manager != null) {
-            // 或者是指定时长
-            manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 30 * 1000, pendingIntent);
-        }
-        */
-    }
 
 }

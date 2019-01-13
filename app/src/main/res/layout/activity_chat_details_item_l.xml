@@ -9,14 +9,25 @@
     android:padding="@dimen/margin_5"
     tools:ignore="HardcodedText">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/margin_5"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher1"
+        app:civ_border_color="@color/black_20"
+        app:civ_border_width="1dp" />
+
     <TextView
-        android:visibility="gone"
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/icon"
         android:layout_alignStart="@+id/icon"
         android:layout_alignEnd="@+id/icon"
-        android:layout_marginTop="5dp"
         android:alpha="0.6"
         android:gravity="center_horizontal"
         android:maxLines="1"
@@ -25,23 +36,10 @@
         android:textColor="@color/black"
         android:textSize="12sp" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/icon"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/name"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/margin_5"
-        android:layout_marginStart="5dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher1"
-        app:civ_border_color="@color/black_20"
-        app:civ_border_width="1dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
         android:layout_margin="5dp"
         android:layout_toEndOf="@+id/icon"
         android:minWidth="220dp"

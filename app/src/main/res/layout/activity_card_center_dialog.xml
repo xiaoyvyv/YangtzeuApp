@@ -42,7 +42,7 @@
             android:layout_height="match_parent"
             android:background="@color/translate"
             android:digits="0123456789*#"
-            android:hint="@string/input_school_network_number"
+            android:hint="@string/input_number"
             android:inputType="number"
             android:padding="@dimen/margin_5"
             android:textSize="14sp" />

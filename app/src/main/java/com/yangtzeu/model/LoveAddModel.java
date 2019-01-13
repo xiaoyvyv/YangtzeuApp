@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -70,12 +71,13 @@ public class LoveAddModel implements ILoveAddModel {
                 ToastUtils.showShort("图片上传成功，即将发布表白");
                 String master = SPUtils.getInstance("user_info").getString("name");
                 String master_id = SPUtils.getInstance("user_info").getString("number");
-                String qq = SPUtils.getInstance("user_info").getString("qq", "1223414335");
+                String qq = SPUtils.getInstance("user_info").getString("qq", "default_header");
 
                 Request request = Url.getAddLoveUrl(nameTa, des, master, master_id, music, qqTa, qq, isHide, path);
 
                 final ProgressDialog dialog = MyUtils.getProgressDialog(activity, "表白发布中呢");
                 dialog.show();
+
                 OkHttp.do_Post(request, new OnResultStringListener() {
                     @Override
                     public void onResponse(String response) {
@@ -88,7 +90,9 @@ public class LoveAddModel implements ILoveAddModel {
                     @Override
                     public void onFailure(String error) {
                         dialog.dismiss();
-                        ToastUtils.showShort(R.string.send_error);
+                        view.getSend().setEnabled(true);
+                        view.getSend().setText("表白发布失败，重新发布");
+                        ToastUtils.showShort(error);
                     }
                 });
             }

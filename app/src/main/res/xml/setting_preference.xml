@@ -49,6 +49,10 @@
             android:summary="可解决网页加载排版错误的问题"
             android:title="X5内核调试" />
         <Preference
+            android:key="clean"
+            android:summary="清空所有数据"
+            android:title="恢复安装状态" />
+        <Preference
             android:key="Update"
             android:summary="已经是最新版本"
             android:title="检查更新" />

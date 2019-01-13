@@ -80,7 +80,8 @@ public class ChatViewAdapter extends RecyclerView.Adapter<ChatViewAdapter.ViewHo
 
         holder.name.setText(name);
         holder.time.setText(time);
-        Glide.with(context).load(icon).into(holder.icon);
+
+        MyUtils.loadImage(context, holder.icon, icon);
         holder.message.setText(message);
 
         holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {

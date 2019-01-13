@@ -35,6 +35,7 @@ public class SplashModel implements ISplashModel {
     private static final String READ_PHONE_STATE = Manifest.permission.READ_PHONE_STATE;//需要请求的权限
     private String[] permission = new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, READ_PHONE_STATE};
     private boolean[] canEnter = {false, false};
+    private long ad_time = 4000;
 
     @Override
     public void loadAdImage(final Activity activity, final SplashView view) {
@@ -63,6 +64,7 @@ public class SplashModel implements ISplashModel {
                 SPUtils.getInstance("app_info").put("ad_image", image);
 
                 view.getAdTitle().setText(title);
+                LogUtils.e(image);
                 MyUtils.loadImage(activity, view.getAdView(), image);
             }
 
@@ -78,7 +80,7 @@ public class SplashModel implements ISplashModel {
                 canEnter[0] = true;
                 checkCanIn();
             }
-        }, 3000);
+        }, ad_time);
     }
 
     private void checkCanIn() {
@@ -129,6 +131,7 @@ public class SplashModel implements ISplashModel {
         String number = SPUtils.getInstance("user_info").getString("number", "");
         String password = SPUtils.getInstance("user_info").getString("password", "");
 
+        //第一次进入App则跳转登录
         if (number.isEmpty() || password.isEmpty()) {
             new Handler(activity.getMainLooper()).postDelayed(new Runnable() {
                 @Override
@@ -136,7 +139,7 @@ public class SplashModel implements ISplashModel {
                     ActivityUtils.finishAllActivities();
                     MyUtils.startActivity(LoginActivity.class);
                 }
-            }, 2000);
+            }, ad_time);
             return;
         }
 

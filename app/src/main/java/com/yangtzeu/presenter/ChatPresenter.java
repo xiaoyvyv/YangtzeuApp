@@ -37,4 +37,8 @@ public class ChatPresenter {
     public void getAllLocalConversations() {
         mode.getAllLocalConversations(activity, view);
     }
+
+    public void loadAllGroupInfo() {
+        mode.loadAllGroupInfo(activity, view);
+    }
 }

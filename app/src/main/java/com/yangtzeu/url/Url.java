@@ -10,7 +10,7 @@ public class Url {
      * 基本配置参数
      */
     //App接口Host
-    public static final String My_App_Home = "http://ll.xyll520.top";
+    public static final String My_App_Home = "http://101.132.108.0";
     //App接口Host
     public static final String My_Home = "http://m.xyll520.top";
     //mob的Key secret
@@ -44,7 +44,7 @@ public class Url {
     //修改密码
     public static final String Yangtzeu_Change_Password = Yangtzeu_Base_Url + "/eams/security/my!save.action";
     //控制面板
-    public static final String Yangtzeu_Control = Yangtzeu_Base_Url + "/eams/security/my.action";
+    public static final String Yangtzeu_Control = Yangtzeu_Base_Url + "/eams/myPlan.action";
     //Cet查询
     public static final String Yangtzeu_Cet = Yangtzeu_Base_Url + "/eams/stdOtherExamSignUp.action";
     //Cet查询
@@ -79,6 +79,8 @@ public class Url {
     public static final String Yangtzeu_Grade_Export = Yangtzeu_Base_Url + "/eams/postgraduate/midterm/stdExamine!export.action";
     //长大校历
     public static final String Yangtzeu_School_Plan = My_App_Home + "/yangtzeu/time/index.html";
+    //长大新闻
+    public static final String Yangtzeu_News = "http://news.yangtzeu.edu.cn/";
     //长大新闻搜索
     public static final String Yangtzeu_News_Search = "http://news.yangtzeu.edu.cn/search_list.jsp?wbtreeid=1001&newskeycode2=6ICD56CU";
     //计算机二级成绩
@@ -138,7 +140,7 @@ public class Url {
     //课表默认背景
     public static final String Yangtzeu_Table_Background = My_App_Home + "/yangtzeu/image/table_bg.jpg";
     //聊天背景
-    public static final String Yangtzeu_Chat_Background = My_App_Home + "/image/chat_bg.jpeg";
+    public static final String Yangtzeu_Chat_Background = My_App_Home + "/image/chat_bg.jpg";
     //爱心
     public static final String Yangtzeu_App_Love = My_App_Home + "/yangtzeu/image/love.png";
     //当前在线人数
@@ -157,8 +159,10 @@ public class Url {
     public static final String AppDownUrl = "https://www.coolapk.com/apk/com.yangtzeu";
     //App更新地址
     public static final String Yangtzeu_AppUp_Url = My_App_Home + "/yangtzeu/json/yz_update.json";
-    //AppAlert通知地址
+    //AppAlertNotice通知地址
     public static final String Yangtzeu_AppAlertNotice = My_App_Home + "/yangtzeu/json/yz_main_alert.json";
+    //AppMainNotice通知地址
+    public static final String Yangtzeu_AppMainNotice = My_App_Home + "/yangtzeu/json/yz_main_notice.json";
     //封号相关
     public static final String Yangtzeu_FengHao = My_App_Home + "/yangtzeu/api/yz_ban.php?action=add_ban_user&submit=do";
     public static final String Yangtzeu_RemoveFengHao = My_App_Home + "/yangtzeu/api/yz_ban.php?action=delete_ban_user&submit=do&id=";
@@ -179,50 +183,24 @@ public class Url {
     public static String Yangtzeu_App_FeedBack = My_App_Home + "/yangtzeu/api/yz_feedback.php";
     //全民k歌解析
     public static String Url_Music_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
-    //上传图片
-    public static String Url_Upload = "http://ll.xyll520.top/image/upload.php";
     //一言
     public static String Yangtzeu_App_YiYan = "https://api.uixsj.cn/hitokoto/w.php";
     //必应
     public static Object Yangtzeu_App_BiYin = "https://api.uixsj.cn/bing/bing.php";
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * 旧版接口
-     */
-
-    //发邮件
-    public static String Yangtzeu_App_SendEmail = My_Home + "/php_mail/mail.php";
-    //反馈
-    public static String Yangtzeu_App_ShowFeedBack = My_Home + "/newyangtzeu/app_php/showfeedback.php";
-    //元素周期表
-    public static String Yangtzeu_Chem = My_Home + "/newyangtzeu/app_chm/index.html";
+    //OSS上传凭证
+    public static String Yangtzeu_App_STS = My_App_Home + "/sts-server/sts.php";
     //App留言板--发表
-    public static String Yangtzeu_App_Message = My_Home + "/newyangtzeu/app_php/message.php";
+    public static String Yangtzeu_App_Board = My_App_Home + "/yangtzeu/api/yz_board.php?action=add";
     //App留言板--展示
-    public static String Yangtzeu_App_ShowMessage = My_Home + "/newyangtzeu/app_php/showmessage.php?&which=30&start=";
+    public static String Yangtzeu_App_ShowMessage =My_App_Home + "/yangtzeu/api/yz_board.php?&which=30&start=";
     //App留言板--回复
-    public static String Yangtzeu_App_Reply_Message = My_Home + "/newyangtzeu/app_php/reply.php";
+    public static String Yangtzeu_App_Reply_Message = My_App_Home + "/yangtzeu/api/yz_board_replay.php";
+    //发邮件
+    public static String Yangtzeu_App_SendEmail = My_App_Home + "/user_system/php_mail/mail.php";
+    //群信息
+    public static  String Yangtzeu_Group_List = My_App_Home + "/yangtzeu/json/yz_group.json";
 
 
-    //失物招领
-    public static String Yangtzeu_Things_FaBu = My_Home + "/newyangtzeu/app_php/things.php";
-    //失物招领
-    public static String Yangtzeu_Things_Show = My_Home + "/newyangtzeu/app_php/showthings.php";
-    //失物招领 搜索
-    public static String Yangtzeu_Things_Search = My_Home + "/newyangtzeu/app_php/searchthing.php";
-    //删除物品
-    public static String Yangtzeu_RemoveThing = My_Home + "/newyangtzeu/app_php/rmthing.php";
 
 
     //获取通知消息

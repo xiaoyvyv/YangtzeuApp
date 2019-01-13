@@ -54,7 +54,12 @@ public class ChatDetailsActivity extends BaseActivity implements ChatDetailsView
         setContentView(R.layout.activity_chat_details);
         init();
         MyUtils.setToolbarBackToHome(this, toolbar);
-        toolbar.setTitle("用户：" + from_id);
+
+        if (from_id.equals("10000005")) {
+            toolbar.setTitle("新长大助手官方群");
+        } else {
+            toolbar.setTitle("用户：" + from_id);
+        }
     }
 
     @Override
@@ -80,7 +85,6 @@ public class ChatDetailsActivity extends BaseActivity implements ChatDetailsView
         MobIM.getChatManager().getMessageList(from_id, type, MESSAGE_SIZE, page, new MobIMCallback<List<IMMessage>>() {
             @Override
             public void onSuccess(List<IMMessage> imMessages) {
-                LogUtils.e(imMessages.size());
                 Collections.reverse(imMessages);
                 for (int i = 0; i < imMessages.size(); i++) {
                     president.addMsgToChatView(imMessages.get(i));
@@ -149,6 +153,11 @@ public class ChatDetailsActivity extends BaseActivity implements ChatDetailsView
     @Override
     public NestedScrollView getNestedScrollView() {
         return scrollView;
+    }
+
+    @Override
+    public int getType() {
+        return type;
     }
 
 

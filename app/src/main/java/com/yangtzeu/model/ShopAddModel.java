@@ -71,7 +71,7 @@ public class ShopAddModel implements IShopAddModel {
                 String master = SPUtils.getInstance("user_info").getString("name");
                 String master_id = SPUtils.getInstance("user_info").getString("number");
                 String wechat = SPUtils.getInstance("user_info").getString("wechat","whysbelief");
-                String qq = SPUtils.getInstance("user_info").getString("qq","1223414335");
+                String qq = SPUtils.getInstance("user_info").getString("qq", "default_header");
                 String phone = SPUtils.getInstance("user_info").getString("phone","0");
                 Request request = Url.getAddGoodsUrl(title, des, master, master_id, kind, price, phone, qq, wechat, path);
 

@@ -20,4 +20,8 @@ public class HomePart1Presenter {
     public void loadData() {
         model.loadData(activity,view);
     }
+
+    public void loadNotice() {
+        model.loadNotice(activity,view);
+    }
 }

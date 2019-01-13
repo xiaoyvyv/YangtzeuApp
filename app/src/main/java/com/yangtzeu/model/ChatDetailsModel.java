@@ -32,6 +32,14 @@ import java.util.Objects;
 public class ChatDetailsModel implements IChatDetailsModel {
     private MobIMMessageReceiver mobIMMessageReceiver;
 
+
+    /**
+     *
+     * 接收到消息，并添加到布局
+     *
+     * @param activity  activity
+     * @param view view
+     */
     @Override
     public void addMessageReceiver(final Activity activity, final ChatDetailsView view) {
         if (mobIMMessageReceiver == null) {
@@ -62,6 +70,13 @@ public class ChatDetailsModel implements IChatDetailsModel {
         }
     }
 
+    /**
+     *
+     * 发送消息
+     *
+     * @param activity activity
+     * @param view view
+     */
     @Override
     public void sendMessage(final Activity activity, final ChatDetailsView view) {
         String string = Objects.requireNonNull(view.getInputView().getText()).toString();
@@ -70,9 +85,9 @@ public class ChatDetailsModel implements IChatDetailsModel {
             return;
         }
         view.getInputView().setText("");
-
+        LogUtils.e("消息类型：" + view.getType());
         //向服务器发送消息
-        IMMessage message = MobIM.getChatManager().createTextMessage(view.getFromId(), string, IMMessage.TYPE_USER);
+        IMMessage message = MobIM.getChatManager().createTextMessage(view.getFromId(), string, view.getType());
         MobIM.getChatManager().sendMessage(message, new MobIMCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -88,6 +103,14 @@ public class ChatDetailsModel implements IChatDetailsModel {
         addMsgToChatView(activity, view, message);
     }
 
+
+    /**
+     *
+     * 设置双方的user
+     *
+     * @param activity activity
+     * @param view view
+     */
     @Override
     public void setUserInfo(final Activity activity, final ChatDetailsView view) {
         MobIM.getUserManager().getUserInfo(view.getFromId(), new MobIMCallback<IMUser>() {
@@ -100,6 +123,7 @@ public class ChatDetailsModel implements IChatDetailsModel {
                         view.getChatUser()[0] = s;
                     }
                 });
+
                 //设置我的 User
                 IMUser myUser = IMManager.getUser();
                 ChatViewUtils.IMUser2ChatUser(activity, myUser, new OnResultListener<ChatUser>() {
@@ -135,6 +159,14 @@ public class ChatDetailsModel implements IChatDetailsModel {
         }));
     }
 
+
+    /**
+     *
+     * 添加消息到消息布局
+     *
+     * @param activity activity
+     * @param view view
+     */
     @Override
     public void addMsgToChatView(final Activity activity, final ChatDetailsView view, final IMMessage imMessage) {
         ChatViewUtils.IMUser2ChatUser(activity, imMessage.getFromUserInfo(), new OnResultListener<ChatUser>() {

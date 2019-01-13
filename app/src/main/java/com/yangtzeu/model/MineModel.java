@@ -66,10 +66,14 @@ public class MineModel implements IMineModel {
         //班级
         String userClass = SPUtils.getInstance("user_info").getString("class");
         view.getClassView().setText(userClass);
-        String qq = SPUtils.getInstance("user_info").getString("qq", "2440888027");
-        String qqHeader = MyUtils.getQQHeader(qq);
 
-        Glide.with(activity).load(qqHeader).into(view.getHeader());
+        String qq = SPUtils.getInstance("user_info").getString("qq", "default_header");
+        if (!qq.equals("default_header")) {
+            String qqHeader = MyUtils.getQQHeader(qq);
+            MyUtils.loadImage(activity, view.getHeader(), qqHeader);
+        } else {
+            MyUtils.loadImage(activity, view.getHeader(), qq);
+        }
 
         YangtzeuUtils.keepOnline(new OnResultListener<OnLineBean>() {
             @Override

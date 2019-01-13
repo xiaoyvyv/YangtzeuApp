@@ -25,6 +25,7 @@ public class BoardModel implements IBoardModel {
                 view.getRefresh().finishRefresh();
                 view.getRefresh().finishLoadMore();
                 BoardBean mess = GsonUtils.fromJson(response, BoardBean.class);
+
                 if (!mess.getCode().equals("404")) {
                     if (!mess.getResult().isEmpty()) {
                         if (view.isRefresh()) {
@@ -32,11 +33,11 @@ public class BoardModel implements IBoardModel {
                             view.getAdapter().clear();
 
                             view.getBoardData().addAll(mess.getResult());
-                            view.getAdapter().SetDate(view.getBoardData());
+                            view.getAdapter().setDate(view.getBoardData());
                             view.getAdapter().notifyItemRangeChanged(0, view.getAdapter().getItemCount());
                         } else {
                             view.getBoardData().addAll(mess.getResult());
-                            view.getAdapter().SetDate(view.getBoardData());
+                            view.getAdapter().setDate(view.getBoardData());
                             view.getAdapter().notifyItemRangeChanged(old_page, view.getAdapter().getItemCount());
                         }
 

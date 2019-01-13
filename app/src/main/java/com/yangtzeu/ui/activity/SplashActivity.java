@@ -1,23 +1,19 @@
 package com.yangtzeu.ui.activity;
 
-import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
-import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.model.SplashModel;
 import com.yangtzeu.presenter.SplashPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.SplashView;
 import com.yangtzeu.utils.AppIconUtils;
 import com.yangtzeu.utils.MyUtils;
+import com.yangtzeu.utils.ALiOssUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 public class SplashActivity extends BaseActivity implements SplashView {
@@ -27,11 +23,11 @@ public class SplashActivity extends BaseActivity implements SplashView {
     private TextView adTitle;
     private TextView times;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         init();
     }
 
@@ -66,7 +62,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
         //总共打开次数
         TextView tv = new TextView(this);
         tv.setText(R.string.app_name);
-        YangtzeuUtils.getOnClickTimes(tv,times, true);
+        YangtzeuUtils.getOnClickTimes(tv, times, true);
     }
 
     @Override

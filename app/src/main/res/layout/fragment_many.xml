@@ -255,12 +255,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesLock"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripLock"
@@ -303,12 +297,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesLike"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripLike"
@@ -351,12 +339,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesWeb"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripWeb"
@@ -400,12 +382,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesQi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripQi"
@@ -455,12 +431,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesRuler"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripRuler"
@@ -503,12 +473,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesCompass"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripCompass"
@@ -551,12 +515,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesTranslate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripTranslate"
@@ -600,12 +558,6 @@
                             android:tint="?attr/colorPrimary"
                             tools:ignore="ContentDescription" />
 
-                        <TextView
-                            android:id="@+id/timesKg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5sp"
-                            tools:ignore="SmallSp" />
 
                         <TextView
                             android:id="@+id/tripKg"

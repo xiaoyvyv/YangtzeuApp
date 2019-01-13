@@ -9,4 +9,6 @@ public interface ILoginModel {
     void loadLoginEvent(Activity activity, LoginView view);
 
     void loadHistory(Activity activity, LoginView view);
+
+    void addUserToXyWeb(Activity activity, LoginView view);
 }

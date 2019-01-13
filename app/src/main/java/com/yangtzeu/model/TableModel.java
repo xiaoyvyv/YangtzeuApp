@@ -256,7 +256,7 @@ public class TableModel implements ITableModel {
     private void ShowCourse(Activity activity, TableView view) {
         view.getTableFragmentAdapter().clear();
 
-        MyOpenHelper helper = DatabaseUtils.getHelper(activity, "table.db");
+        MyOpenHelper helper = DatabaseUtils.getHelper("table.db");
         if (helper.queryAll(Course.class) != null) {
             helper.clear(Course.class);
         }

@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.lib.mob.im.IMManager;
 import com.lib.subutil.GsonUtils;
 import com.mob.imsdk.model.IMConversation;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -120,10 +121,7 @@ public class BoardActivity extends BaseActivity implements BoardView {
             @Override
             public void onClick(View v) {
                 //targetId - 目标id（群聊为群的id，私聊为对方id）
-                Intent intent = new Intent(BoardActivity.this, ChatDetailsActivity.class);
-                intent.putExtra("id", to_number);
-                intent.putExtra("type", IMConversation.TYPE_USER);
-                MyUtils.startActivity(intent);
+                IMManager.chat(to_number, IMConversation.TYPE_USER);
             }
         });
 

@@ -3,10 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.blankj.utilcode.util.RegexUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
-import com.yangtzeu.http.OnResultBytesListener;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.JwcListModel;
 import com.yangtzeu.ui.view.JwcListView;

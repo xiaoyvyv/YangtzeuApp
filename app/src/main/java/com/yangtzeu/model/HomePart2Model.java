@@ -16,30 +16,18 @@ import androidx.viewpager.widget.ViewPager;
 
 public class HomePart2Model implements IHomePart2Model {
 
-   /* private String[] title = {"长大要闻", "通知通告", "综合新闻", "缤纷校园", "校园热点",
+    private String[] title = {"长大要闻", "通知通告", "综合新闻", "缤纷校园", "校园热点",
             "专题学习", "学术信息", "文明创建", "媒体长大", "音画长大"};
     private String[] url = {"http://news.yangtzeu.edu.cn/zdyw.htm"
             , "http://news.yangtzeu.edu.cn/tzgg.htm"
-            ,"http://news.yangtzeu.edu.cn/zhxw.htm"
-            ,"http://news.yangtzeu.edu.cn/bfxy.htm"
-            ,"http://news.yangtzeu.edu.cn/xyrd.htm"
-            ,"http://news.yangtzeu.edu.cn/ztxx.htm"
-            ,"http://news.yangtzeu.edu.cn/xsxx.htm"
-            ,"http://news.yangtzeu.edu.cn/wmcj.htm"
-            ,"http://news.yangtzeu.edu.cn/mtzd.htm"
-            ,"http://news.yangtzeu.edu.cn/yhzd.htm"};
-*/
-    private String[] title = {"综合新闻","通知通告",
-            "媒体长大","长大要闻", "学在长大",
-            "校园热点","院系传真","学术信息"};
-    private String[] url = {"/news/zonghexinwen/list_3_",
-            "/news/tongzhitonggao/list_1_",
-            "/news/meitichangda/list_4_",
-            "/news/changdayaowen/list_2_",
-            "/news/binfenxiaoyuan/list_6_",
-            "/news/xiaoyuanredian/list_32_",
-            "/news/tupianbaodao/list_33_",
-            "/news/changdaxueshu/list_5_"};
+            , "http://news.yangtzeu.edu.cn/zhxw.htm"
+            , "http://news.yangtzeu.edu.cn/bfxy.htm"
+            , "http://news.yangtzeu.edu.cn/xyrd.htm"
+            , "http://news.yangtzeu.edu.cn/ztxx.htm"
+            , "http://news.yangtzeu.edu.cn/xsxx.htm"
+            , "http://news.yangtzeu.edu.cn/wmcj.htm"
+            , "http://news.yangtzeu.edu.cn/mtzd.htm"
+            , "http://news.yangtzeu.edu.cn/yhzd.htm"};
 
     @Override
     public void fitView(Activity activity, HomePartView2 view) {

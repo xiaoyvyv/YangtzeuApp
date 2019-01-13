@@ -66,11 +66,9 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 MyUtils.openUrl(context, url, true);
-                YangtzeuUtils.getOnClickTimes(holder.title, holder.times,true);
             }
         });
 
-        YangtzeuUtils.getOnClickTimes(holder.title, holder.times, false);
     }
 
     @Override

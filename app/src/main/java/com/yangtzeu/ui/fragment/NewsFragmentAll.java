@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
@@ -36,15 +37,18 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
     private boolean isLoadFinish = false;
     private SmartRefreshLayout refresh;
     private RecyclerView recyclerView;
-    private int page = 1;
     private String title;
     private NewsAdapter newsAdapter;
     private View rootView;
     private NewsPresenter2 presenter2;
+    private String guding_url;
     private String from_url;
-    private String url;
+    private String urlHeader;
     private List<NewsBean> beans = new ArrayList<>();
     private boolean isRefresh = true;
+    private int startIndex = 0;
+    private int allPage = 0;
+
 
     public NewsFragmentAll() {
 
@@ -63,7 +67,10 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
+            guding_url = bundle.getString("url");
             from_url = bundle.getString("url");
+            assert from_url != null;
+            urlHeader = from_url.substring(0, from_url.lastIndexOf(".")) + "/";
             title = bundle.getString("title");
         }
 
@@ -90,9 +97,10 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
         refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(com.scwang.smartrefresh.layout.api.RefreshLayout refreshLayout) {
-                page = 1;
-                url= getNewsUrl(page);
+                allPage = 0;
                 isRefresh = true;
+                newsAdapter.clearData();
+                from_url = guding_url;
                 presenter2.loadNewsData();
             }
         });
@@ -101,8 +109,15 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
         refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(com.scwang.smartrefresh.layout.api.RefreshLayout refreshLayout) {
-                page = page + 1;
-                url = getNewsUrl(page);
+                allPage = allPage - 1;
+                LogUtils.e(allPage);
+                if (allPage <= 0) {
+                    ToastUtils.showShort(R.string.no_more);
+                    refreshLayout.finishLoadMore();
+                    return;
+                }
+                from_url = urlHeader + allPage + ".htm";
+
                 isRefresh = false;
                 presenter2.loadNewsData();
             }
@@ -152,7 +167,7 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
 
     @Override
     public String getUrl() {
-        return url;
+        return from_url;
     }
 
     @Override
@@ -160,14 +175,29 @@ public class NewsFragmentAll extends BaseFragment implements NewsView2 {
         return isRefresh;
     }
 
-
-    private String getNewsUrl(int page) {
-        String URL;
-        if (from_url.contains("list")) {
-            URL =  "http://news2.yangtzeu.edu.cn" + from_url + page + ".html";
-        } else {
-            URL = "http://news2.yangtzeu.edu.cn" + from_url;
-        }
-        return URL;
+    @Override
+    public String getUrlHeader() {
+        return urlHeader;
     }
+
+    @Override
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    @Override
+    public int getAllPage() {
+        return allPage;
+    }
+
+    @Override
+    public void setStartIndex(int start) {
+        startIndex = start;
+    }
+
+    @Override
+    public void setAllPage(int page) {
+        allPage = page;
+    }
+
 }

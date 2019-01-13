@@ -5,7 +5,6 @@ package com.yangtzeu.ui.adapter;
  */
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,7 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.BoardBean;
 import com.yangtzeu.entity.ImageBean;
@@ -37,15 +39,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
     private Context context;
-    private Activity activity;
     private List<BoardBean.ResultBean> mBigList = new ArrayList<>();
 
     public BoardAdapter(Context context) {
         this.context = context;
-        activity = (Activity) context;
     }
 
-    public void SetDate(List<BoardBean.ResultBean> BigList) {
+    public void setDate(List<BoardBean.ResultBean> BigList) {
         mBigList = BigList;
     }
 
@@ -171,13 +171,15 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
     }
 
     //头像设置方法
-    private void SetHeadImg(ImageView StudentImg, String url) {
+    private void SetHeadImg(ImageView imageView, String url) {
         if (URLUtil.isNetworkUrl(url)) {
-            Glide.with(context).load(url.trim()).into(StudentImg);
+            Glide.with(Utils.getApp()).load(url.trim()).into(imageView);
         } else if (MyUtils.isNumeric(url)) {
-            Glide.with(context).load("http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=" + url + "&src_uin=www.qqjike.com&fid=blog&spec=100").into(StudentImg);
+            Glide.with(Utils.getApp()).load("http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=" + url + "&src_uin=www.qqjike.com&fid=blog&spec=100").into(imageView);
         } else {
-            Glide.with(context).load(R.mipmap.ic_launcher1).into(StudentImg);
+            RequestOptions option = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+            Glide.with(Utils.getApp()).load(R.mipmap.holder).apply(option).into(imageView);
         }
     }
 
@@ -228,7 +230,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
         ViewHolder(View ll_class) {
             super(ll_class);
             //绑定对应楼层楼主发布的内容控件StudentImg
-            LouZhuHeadImg = ll_class.findViewById(R.id.StudentImg);
+            LouZhuHeadImg = ll_class.findViewById(R.id.studentHeader2);
             //绑定对应楼层楼主发布的内容控件StudentImg
             LouZhuTextView = ll_class.findViewById(R.id.Text);
             //绑定留言楼层楼主昵称控件

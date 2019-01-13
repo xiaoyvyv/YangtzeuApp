@@ -1,6 +1,7 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
+import android.webkit.URLUtil;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -32,11 +33,22 @@ public class NewsModel2 implements INewsModel2 {
                 }
                 try {
                     Document document = Jsoup.parse(response);
-                    Elements li = document.select("div.content_c#content_list ul").get(0).select("ul li");
+                    Elements li = document.select("div.newsTwoTxt ul").get(0).select("ul li");
 
-                    for (int i = 0; i < li.size(); i++) {
+
+                    String now_page = document.select("span.p_no_d").text();
+                    //如果当前页面为第一页，则从0开始显示
+                    if (now_page.equals("1")) {
+                        view.setStartIndex(0);
+                    }
+
+                    for (int i = view.getStartIndex(); i < view.getStartIndex() + 30 && i < li.size(); i++) {
                         String title = li.get(i).select("li a").text();
-                        String url = "http://news2.yangtzeu.edu.cn" + li.get(i).select("li a").attr("href");
+                        String url = li.get(i).select("li a").attr("href");
+                        if (!URLUtil.isNetworkUrl(url)) {
+                            url = "http://news.yangtzeu.edu.cn/" + url;
+                        }
+
                         String time = li.get(i).select("li span").text();
 
                         NewsBean bean = new NewsBean();

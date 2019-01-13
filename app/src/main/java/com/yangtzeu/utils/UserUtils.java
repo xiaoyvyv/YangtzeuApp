@@ -11,12 +11,14 @@ import android.os.Handler;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ServiceUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.lib.mob.im.IMManager;
@@ -25,6 +27,7 @@ import com.yangtzeu.entity.BanBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OkhttpError;
 import com.yangtzeu.http.OnResultStringListener;
+import com.yangtzeu.service.BackgroundService;
 import com.yangtzeu.ui.activity.LoginActivity;
 import com.yangtzeu.url.Url;
 
@@ -57,7 +60,7 @@ public class UserUtils {
         final String userNumber = userInfo[0];
         final String userPassword = userInfo[1];
 
-        List<BanBean.DataBean> ban_user = DatabaseUtils.getHelper(context, "ban_user.db").queryAll(BanBean.DataBean.class);
+        List<BanBean.DataBean> ban_user = DatabaseUtils.getHelper( "ban_user.db").queryAll(BanBean.DataBean.class);
         if (ObjectUtils.isNotEmpty(ban_user)) {
             for (int i = 0; i < ban_user.size(); i++) {
                 if (ban_user.get(i).getNumber().equals(userNumber)) {
@@ -218,6 +221,8 @@ public class UserUtils {
     public static void do_Logout(final Activity activity) {
         final ProgressDialog progressDialog = MyUtils.getProgressDialog(activity, "注销中...");
         progressDialog.show();
+
+        BackgroundService.stop(activity);
 
         //设置密码空
         SPUtils.getInstance("user_info").remove("password");

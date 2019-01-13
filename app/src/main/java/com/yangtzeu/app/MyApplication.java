@@ -6,13 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.mob.MobApplication;
 import com.mob.imsdk.MobIM;
 import com.mob.imsdk.MobIMMessageReceiver;
+import com.mob.imsdk.model.IMConversation;
 import com.mob.imsdk.model.IMMessage;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -25,9 +28,10 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.smtt.sdk.QbSdk;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.ui.activity.ChatActivity;
+import com.yangtzeu.ui.activity.ChatDetailsActivity;
 import com.yangtzeu.ui.activity.LoginActivity;
-import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.ALiOssUtils;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.NotificationUtils;
 
@@ -75,6 +79,7 @@ public class MyApplication extends MobApplication {
         Utils.init(this);
         initX5Web(this);
         initMobReceiver();
+        ALiOssUtils.initOSSClient(this);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             CrashUtils.init("/sdcard/A_Tool/Yangtzeu_Crash/", new CrashUtils.OnCrashListener() {
@@ -89,18 +94,30 @@ public class MyApplication extends MobApplication {
 
     private void initMobReceiver() {
         MobIM.setOnlySaveOneUserInfo(true);
-
         MobIM.addMessageReceiver(new MobIMMessageReceiver() {
             @Override
             public void onMessageReceived(List<IMMessage> list) {
-                MyUtils.mVibrator(getApplicationContext(), 500);
                 for (IMMessage imMessage : list) {
+                    boolean isForbidden = SPUtils.getInstance("user_info").getBoolean("group_notice", false);
+                    int type = imMessage.getType();
+
+                    if (type == IMConversation.TYPE_GROUP && isForbidden) {
+                        return;
+                    }
+
                     String body = imMessage.getBody();
                     String from = imMessage.getFromUserInfo().getNickname();
+                    MyUtils.mVibrator(getApplicationContext(), 500);
                     NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+
                     Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                     notificationUtils.sendNotification(from, body, intent);
-                    ToastUtils.showLong(from + "给您发消息啦：\n" + body);
+
+                    boolean b = ActivityUtils.getTopActivity() instanceof ChatDetailsActivity;
+                    if (!b) {
+                        ToastUtils.showLong(from + "给您发消息啦：\n" + body);
+                    }
                 }
             }
 

@@ -12,6 +12,5 @@ public interface IMainModel {
 
     void initEvents(Activity activity, MainView view);
 
-    void startPoll(Activity activity, MainView view);
 
 }

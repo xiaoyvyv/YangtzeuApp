@@ -15,8 +15,8 @@ android {
         applicationId "com.yangtzeu"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "3.3"
+        versionCode 4
+        versionName "3.5"
 /*
         splits {
             abi {
@@ -51,7 +51,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
     //第三方依赖
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -67,5 +66,7 @@ dependencies {
     implementation 'co.lujun:androidtagview:1.0.3'
     implementation 'com.blankj:utilcode:1.20.3'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+    implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0'
     implementation files('libs/tbs_sdk_v3.2.0.jar')
+    implementation files('libs/animations.jar')
 }

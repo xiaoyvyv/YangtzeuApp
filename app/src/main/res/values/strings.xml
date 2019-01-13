@@ -379,4 +379,13 @@
     <string name="web_list">网址列表</string>
     <string name="soft_list">常用软件大全</string>
     <string name="input_school_network_number">请输入校园网账号</string>
+    <string name="app_notice">软件公告</string>
+    <string name="major_plan">培养计划</string>
+    <string name="bind_plan">绑定培养计划</string>
+    <string name="news_details">新闻详情</string>
+    <string name="share_error">分享失败</string>
+    <string name="app_group">长大助手官方群列表</string>
+    <string name="app_group_trip">详情请入群讨论</string>
+    <string name="input_friend_number">请输入好友的学号</string>
+    <string name="chat_friend">好友聊天-MobIm</string>
 </resources>

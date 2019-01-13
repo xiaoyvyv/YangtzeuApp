@@ -16,6 +16,6 @@ public interface ChatDetailsView {
     RecyclerView getChatView();
     EditText getInputView();
     Button getSendButton();
-
     NestedScrollView getNestedScrollView();
+    int getType();
 }

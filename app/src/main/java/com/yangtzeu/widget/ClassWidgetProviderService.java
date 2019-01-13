@@ -44,7 +44,7 @@ public class ClassWidgetProviderService extends RemoteViewsService {
                 booleans.put(i, courses);
             }
 
-            List<Course> courses = DatabaseUtils.getHelper(mContext, "table.db").queryAll(Course.class);
+            List<Course> courses = DatabaseUtils.getHelper( "table.db").queryAll(Course.class);
             if (ObjectUtils.isNotEmpty(courses)) {
                 for (int i = 0; i < courses.size(); i++) addCourse(courses.get(i));
             }

@@ -33,6 +33,8 @@ import com.yangtzeu.ui.activity.CetActivity;
 import com.yangtzeu.ui.activity.ChangePassActivity;
 import com.yangtzeu.ui.activity.ChooseClassActivity;
 import com.yangtzeu.ui.activity.FeedBackActivity;
+import com.yangtzeu.ui.activity.PingJiaoActivity;
+import com.yangtzeu.ui.activity.PlanActivity;
 import com.yangtzeu.ui.activity.ShopActivity;
 import com.yangtzeu.ui.activity.TestActivity;
 import com.yangtzeu.ui.activity.base.BaseFragment;
@@ -88,6 +90,8 @@ public class MineFragment extends BaseFragment implements MineView {
     private LinearLayout coolLayout;
     private LinearLayout githubLayout;
     private LinearLayout feeLayout;
+    private LinearLayout planLayout;
+
 
     private Activity activity;
     private OnlineBroadcastReceiver onlineBroadcastReceiver;
@@ -133,6 +137,7 @@ public class MineFragment extends BaseFragment implements MineView {
         githubLayout = rootView.findViewById(R.id.githubLayout);
         coolLayout = rootView.findViewById(R.id.coolLayout);
         feeLayout = rootView.findViewById(R.id.feeLayout);
+        planLayout = rootView.findViewById(R.id.planLayout);
 
 
     }
@@ -172,7 +177,7 @@ public class MineFragment extends BaseFragment implements MineView {
         online.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyUtils.openUrl(activity, Url.Yangtzeu_App_Online_Show);
+                MyUtils.openUrl(activity, Url.Yangtzeu_App_Online_Show, true);
             }
         });
 
@@ -280,7 +285,7 @@ public class MineFragment extends BaseFragment implements MineView {
         pingJiaoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_Teacher);
+                MyUtils.startActivity(PingJiaoActivity.class);
             }
         });
 
@@ -303,6 +308,13 @@ public class MineFragment extends BaseFragment implements MineView {
             @Override
             public void onClick(View v) {
                 MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_Fee, true);
+            }
+        });
+
+        planLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.startActivity(PlanActivity.class);
             }
         });
 

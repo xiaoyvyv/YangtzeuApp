@@ -88,7 +88,7 @@ public class ManyModel implements IManyModel {
     }
 
     @Override
-    public void fitAdapter(Activity activity, ManyView view) {
+    public void fitAdapter(Activity activity, final ManyView view) {
         final ManyAdapter adapter = new ManyAdapter(activity);
         view.getRecyclerView().setNestedScrollingEnabled(false);
         view.getRecyclerView().setAdapter(adapter);

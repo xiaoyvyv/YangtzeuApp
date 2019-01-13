@@ -14,6 +14,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -37,6 +41,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.PathUtils;
@@ -49,6 +54,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.lib.subutil.ClipboardUtils;
+import com.lib.x5web.X5WebView;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.QbSdk;
 import com.yangtzeu.R;
@@ -80,6 +86,7 @@ import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 /**
@@ -123,7 +130,7 @@ public class MyUtils {
             return;
         }
 
-        String theme = SPUtils.getInstance("app_info").getString("theme", "3");
+        String theme = SPUtils.getInstance("app_info").getString("theme", "0");
         switch (theme) {
             case "0":
                 activity.setTheme(R.style.AppTheme_NoActionBar);
@@ -532,6 +539,39 @@ public class MyUtils {
     }
 
     /**
+     * 截屏
+     *
+     * @param decorView
+     * @param mWebView  上下文
+     * @return Bitmap
+     */
+    public static Bitmap getScreenViewPicture(Context context,View decorView, X5WebView mWebView) {
+        // 这里的 mWebView 就是 X5 内核的 WebView ，代码中的 longImage 就是最后生成的长图
+        mWebView.measure(View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        mWebView.layout(0, 0, mWebView.getMeasuredWidth(), mWebView.getMeasuredHeight());
+        mWebView.setDrawingCacheEnabled(true);
+        mWebView.buildDrawingCache();
+        Bitmap longImage = Bitmap.createBitmap(mWebView.getMeasuredWidth(), mWebView.getMeasuredHeight() , Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(longImage); // 画布的宽高和 WebView 的网页保持一致
+        Paint paint = new Paint();
+        canvas.drawBitmap(longImage, 0, mWebView.getMeasuredHeight(), paint);
+
+        float scale = decorView.getResources().getDisplayMetrics().density;
+        Bitmap x5Bitmap = Bitmap.createBitmap(mWebView.getWidth(), mWebView.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas x5Canvas = new Canvas(x5Bitmap);
+        x5Canvas.drawColor(context.getResources().getColor(R.color.white));
+        mWebView.getX5WebViewExtension().snapshotWholePage(x5Canvas, false, false); // 少了这行代码就无法正常生成长图
+        Matrix matrix = new Matrix();
+        matrix.setScale(scale, scale);
+
+        return ImageUtils.addTextWatermark(x5Bitmap, "来自：新长大助手@酷安网@小玉",
+                ConvertUtils.dp2px(20), context.getResources().getColor(R.color.black_20), 50, x5Bitmap.getHeight() - 100);
+    }
+
+    /**
      * 将文件按时间降序排列
      */
     public static class FileComparator2 implements Comparator<File> {
@@ -634,7 +674,6 @@ public class MyUtils {
             int size = is.available();
             byte[] buffer = new byte[size];
             int read = is.read(buffer);
-            LogUtils.i(read);
             is.close();
             return new String(buffer, "utf-8");
         } catch (IOException e) {
@@ -703,11 +742,15 @@ public class MyUtils {
      * @param o         图片内容（链接、文件等等）
      */
     public static void loadImage(Context context, ImageView imageView, Object o) {
-        if (ObjectUtils.isNotEmpty(context)) {
+        if (ObjectUtils.isNotEmpty(o)) {
             if (context instanceof Activity) {
                 if (((Activity) context).isDestroyed()) {
                     return;
                 }
+            }
+            if (o.toString().equals("default_header")) {
+                Glide.with(context).load(R.mipmap.holder).into(imageView);
+                return;
             }
             Glide.with(context).load(o).into(imageView);
         }

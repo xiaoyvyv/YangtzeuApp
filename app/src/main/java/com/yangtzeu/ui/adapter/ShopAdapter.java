@@ -21,6 +21,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.lib.mob.im.IMManager;
 import com.lib.subutil.ClipboardUtils;
 import com.lib.subutil.GsonUtils;
 import com.mob.imsdk.model.IMConversation;
@@ -175,10 +176,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                     @Override
                     public void onClick(View v) {
                         //targetId - 目标id（群聊为群的id，私聊为对方id）
-                        Intent intent = new Intent(context, ChatDetailsActivity.class);
-                        intent.putExtra("id", master_id);
-                        intent.putExtra("type", IMConversation.TYPE_USER);
-                        MyUtils.startActivity(intent);
+                        IMManager.chat(master_id,IMConversation.TYPE_USER);
                     }
                 });
                 sendView.setOnClickListener(new View.OnClickListener() {
@@ -263,10 +261,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     //targetId - 目标id（群聊为群的id，私聊为对方id）
-                    Intent intent = new Intent(context, ChatDetailsActivity.class);
-                    intent.putExtra("id", master_id);
-                    intent.putExtra("type", IMConversation.TYPE_USER);
-                    MyUtils.startActivity(intent);
+                    IMManager.chat(master_id,IMConversation.TYPE_USER);
                 }
             });
         }

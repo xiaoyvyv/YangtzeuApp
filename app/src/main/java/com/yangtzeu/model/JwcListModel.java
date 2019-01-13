@@ -1,6 +1,7 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
+import android.webkit.URLUtil;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -46,7 +47,12 @@ public class JwcListModel implements IJwcListModel {
                 for (int i = view.getStartIndex(); i < view.getStartIndex() + 20 && i < list.size(); i++) {
                     String time = list.get(i).select("li span").text();
                     String title = list.get(i).select("li a").text();
-                    String url = Url.Yangtzeu_JWC + list.get(i).select("li a").attr("href");
+
+                    String url = list.get(i).select("li a").attr("href");
+                    if (!URLUtil.isNetworkUrl(url)) {
+                        url = Url.Yangtzeu_JWC + url;
+                    }
+
                     JwcListBean bean = new JwcListBean();
                     bean.setTime(time);
                     bean.setKind(view.getKind());

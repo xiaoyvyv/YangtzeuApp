@@ -27,6 +27,40 @@
         <item>40</item>
     </string-array>
 
+
+    <string-array name="plan_trip">
+        <item>大一上学期</item>
+        <item>大一下学期</item>
+        <item>大二上学期</item>
+        <item>大二下学期</item>
+        <item>大三上学期</item>
+        <item>大三下学期</item>
+        <item>大四上学期</item>
+        <item>大四下学期</item>
+        <item>大五上学期</item>
+        <item>大五下学期</item>
+        <item>大六上学期</item>
+        <item>大六下学期</item>
+    </string-array>
+
+    <string-array name="plan_id">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+
+
+
     <string-array name="physical_day">
         <item>任意时间</item>
         <item>星期一</item>

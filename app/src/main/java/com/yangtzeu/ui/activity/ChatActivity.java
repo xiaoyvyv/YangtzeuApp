@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.lib.mob.im.IMManager;
 import com.mob.imsdk.model.IMConversation;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -80,14 +81,14 @@ public class ChatActivity extends BaseActivity implements ChatView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add("添加").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        menu.add("好友").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 @SuppressLint("InflateParams")
                 View view = getLayoutInflater().inflate(R.layout.view_input_chat, null);
                 final TextInputEditText text = view.findViewById(R.id.text);
                 final TextView trip = view.findViewById(R.id.trip);
-                trip.setText("查询学号会话");
+                trip.setText("请文明交流");
                 AlertDialog dialog = new AlertDialog.Builder(ChatActivity.this)
                         .setView(view)
                         .setPositiveButton("开始聊天", new DialogInterface.OnClickListener() {
@@ -96,10 +97,7 @@ public class ChatActivity extends BaseActivity implements ChatView {
                                 String id = Objects.requireNonNull(text.getText()).toString().trim();
                                 if (MyUtils.isNumeric(id)) {
                                     //targetId - 目标id（群聊为群的id，私聊为对方id）
-                                    Intent intent = new Intent(ChatActivity.this, ChatDetailsActivity.class);
-                                    intent.putExtra("id", id);
-                                    intent.putExtra("type", IMConversation.TYPE_USER);
-                                    MyUtils.startActivity(intent);
+                                    IMManager.chat(id,  IMConversation.TYPE_USER);
                                 } else {
                                     ToastUtils.showShort(R.string.input_number);
                                 }
@@ -108,7 +106,15 @@ public class ChatActivity extends BaseActivity implements ChatView {
                 dialog.show();
                 return false;
             }
-        }).setIcon(R.drawable.ic_add_circle).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        menu.add("官方群").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                presenter.loadAllGroupInfo();
+                return false;
+            }
+        }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
 
