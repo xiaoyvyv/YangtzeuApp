@@ -11,4 +11,4 @@
     android:text="@string/no_replay"
     android:textColor="@color/black"
     android:textIsSelectable="true"
-    android:textSize="12sp" />
+    android:textSize="13sp" />

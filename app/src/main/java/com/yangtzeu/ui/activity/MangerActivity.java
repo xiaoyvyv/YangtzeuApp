@@ -3,15 +3,7 @@ package com.yangtzeu.ui.activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.lib.mob.im.IMManager;
-import com.mob.imsdk.MobIM;
-import com.mob.imsdk.MobIMCallback;
-import com.mob.imsdk.model.IMGroup;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -23,7 +15,6 @@ import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.adapter.FeedBackAdapter;
 import com.yangtzeu.ui.view.MangerView;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.UserUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,20 +77,8 @@ public class MangerActivity extends BaseActivity implements MangerView {
         refreshLayout.autoRefresh();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add("创建官方群").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                String[] members = new String[2];
-                members[0] = "201603246";
-                members[1] = "201602810";
-                IMManager.createGroup(members);
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
+
+
 
     @Override
     public RecyclerView getContainer() {

@@ -90,7 +90,6 @@ public class RulerView extends SurfaceView implements Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
         switch (event.getAction()) {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
@@ -229,7 +228,6 @@ public class RulerView extends SurfaceView implements Callback {
             lastX = left - UNIT_MM;
             drawDisplay(canvas);
         } catch (Exception e) {
-            // TODO: handle exception
         } finally {
             if (canvas != null) {
                 holder.unlockCanvasAndPost(canvas);
@@ -239,25 +237,21 @@ public class RulerView extends SurfaceView implements Callback {
 
     public RulerView(Context context) {
         super(context);
-        // TODO Auto-generated constructor stub
         init(context);
     }
 
     public RulerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // TODO Auto-generated constructor stub
         init(context);
     }
 
     public RulerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        // TODO Auto-generated constructor stub
         init(context);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        // TODO Auto-generated method stub
         new Thread() {
             public void run() {
                 draw();
@@ -268,13 +262,11 @@ public class RulerView extends SurfaceView implements Callback {
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // TODO Auto-generated method stub
 
     }
 

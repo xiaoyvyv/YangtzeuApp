@@ -10,6 +10,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
@@ -115,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/mClass"
-                    android:layout_margin="@dimen/card_margin_10"
+                    android:layout_margin="@dimen/margin_5"
                     app:cardCornerRadius="@dimen/card_radius">
 
                     <LinearLayout

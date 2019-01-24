@@ -14,11 +14,8 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lib.calculator.calculator.CalculatorActivity;
 import com.lib.notice.NoticeView;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ManyPresenter;
-import com.yangtzeu.ui.activity.ChatActivity;
-import com.yangtzeu.ui.activity.CompassActivity;
 import com.yangtzeu.ui.activity.KgActivity;
 import com.yangtzeu.ui.activity.LockActivity;
 import com.yangtzeu.ui.activity.LoveActivity;
@@ -31,7 +28,6 @@ import com.yangtzeu.ui.view.ManyView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.NotificationUtils;
-import com.yangtzeu.utils.YangtzeuUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -85,7 +81,7 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
 
         rootView.findViewById(R.id.lock).setOnClickListener(this);
         rootView.findViewById(R.id.shop).setOnClickListener(this);
-        rootView.findViewById(R.id.chat).setOnClickListener(this);
+        rootView.findViewById(R.id.answer).setOnClickListener(this);
         rootView.findViewById(R.id.love).setOnClickListener(this);
         rootView.findViewById(R.id.cut_off).setOnClickListener(this);
         rootView.findViewById(R.id.lock).setOnClickListener(this);
@@ -187,8 +183,9 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
             case R.id.shop:
                 MyUtils.startActivity(ShopActivity.class);
                 break;
-            case R.id.chat:
-                MyUtils.startActivity(ChatActivity.class);
+            case R.id.answer:
+                ToastUtils.showShort("开发中");
+                //TODO 开发在线联系
                 break;
             case R.id.love:
                 MyUtils.startActivity(LoveActivity.class);

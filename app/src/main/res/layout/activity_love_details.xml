@@ -133,12 +133,10 @@
                     android:layout_margin="@dimen/card_margin_10"
                     android:alpha="0.6"
                     android:ellipsize="end"
-                    android:maxLines="3"
                     android:shadowColor="@color/white"
                     android:shadowDx="-3"
                     android:shadowDy="3"
                     android:shadowRadius="2"
-                    android:text="手机使用了很长时间，确实不错。\n正品，续航不错，休系统操作不错，很漂亮，没有问题，特地表扬下客服周迅态度很不错"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

@@ -43,26 +43,27 @@ public class SplashActivity extends BaseActivity implements SplashView {
     public void setEvents() {
         new AppIconUtils().pmTest(this);
 
-        //进入窗口创建文件夹
-        MyUtils.createSDCardDir("A_Tool/");
-        MyUtils.createSDCardDir("A_Tool/Download/");
-        MyUtils.createSDCardDir(SPUtils.getInstance("app_info").getString("save_path", "A_Tool/Download/"));
-
         presenter = new SplashPresenter(this, this);
         presenter.loadPermission(new SplashModel.OnPermissionCallBack() {
             @Override
             public void OnGranted() {
+                //进入窗口创建文件夹
+                MyUtils.createSDCardDir("A_Tool/");
+                MyUtils.createSDCardDir("A_Tool/Download/");
+                MyUtils.createSDCardDir(SPUtils.getInstance("app_info").getString("save_path", "A_Tool/Download/"));
+
                 YangtzeuUtils.getBanUser(SplashActivity.this);
                 presenter.loadAdImage();
                 presenter.loadUser();
+
+
+                //总共打开次数
+                TextView tv = new TextView(SplashActivity.this);
+                tv.setText(R.string.app_name);
+                YangtzeuUtils.getOnClickTimes(tv, times, true);
             }
         });
 
-
-        //总共打开次数
-        TextView tv = new TextView(this);
-        tv.setText(R.string.app_name);
-        YangtzeuUtils.getOnClickTimes(tv, times, true);
     }
 
     @Override

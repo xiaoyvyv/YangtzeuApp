@@ -1,14 +1,5 @@
 apply plugin: 'com.android.application'
-// 添加插件
-apply plugin: 'com.mob.sdk'
 
-// 在MobSDK的扩展中注册MobIM的相关信息
-MobSDK {
-    appKey "20588bd8fbea0"
-    appSecret "95c6d889c855e82689609cd192cfc6c8"
-
-    MobIM {}
-}
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -17,7 +8,8 @@ android {
         targetSdkVersion 28
         versionCode 4
         versionName "3.5"
-/*
+
+
         splits {
             abi {
                 enable true
@@ -27,10 +19,9 @@ android {
             }
         }
 
-*/
         ndk {
-            abiFilters "armeabi", "x86", "armeabi-v7a", "mips", "arm64-v8a"
-        }
+           abiFilters "armeabi", "x86", "armeabi-v7a", "mips", "arm64-v8a"
+       }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

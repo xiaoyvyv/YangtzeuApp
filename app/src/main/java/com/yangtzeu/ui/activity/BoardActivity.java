@@ -1,7 +1,6 @@
 package com.yangtzeu.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,9 +13,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.lib.mob.im.IMManager;
 import com.lib.subutil.GsonUtils;
-import com.mob.imsdk.model.IMConversation;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -120,8 +117,8 @@ public class BoardActivity extends BaseActivity implements BoardView {
         chat_online.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //targetId - 目标id（群聊为群的id，私聊为对方id）
-                IMManager.chat(to_number, IMConversation.TYPE_USER);
+                ToastUtils.showShort("开发中");
+                //TODO 开发留言板在线联系
             }
         });
 

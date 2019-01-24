@@ -11,7 +11,6 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:visibility="gone"
             android:id="@+id/app_notice_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:layout_marginTop="@dimen/card_margin_10"
             android:layout_marginEnd="@dimen/margin_5"
             android:layout_marginBottom="@dimen/margin_5"
-            android:elevation="1dp"
+            android:visibility="gone"
             app:cardCornerRadius="2.5dp">
 
             <RelativeLayout
@@ -67,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:elevation="1dp"
             app:cardCornerRadius="2.5dp">
 
             <RelativeLayout
@@ -108,12 +106,12 @@
                     android:orientation="vertical">
 
                     <ProgressBar
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:indeterminate="true"
                         android:indeterminateTint="?attr/colorPrimary" />
                 </LinearLayout>
@@ -124,7 +122,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:elevation="1dp"
             app:cardCornerRadius="2.5dp">
 
             <RelativeLayout
@@ -165,12 +162,12 @@
                     android:orientation="vertical">
 
                     <ProgressBar
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:indeterminate="true"
                         android:indeterminateTint="?attr/colorPrimary" />
                 </LinearLayout>
@@ -181,7 +178,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:elevation="1dp"
             app:cardCornerRadius="2.5dp">
 
             <RelativeLayout
@@ -223,12 +219,12 @@
                     android:orientation="vertical">
 
                     <ProgressBar
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:indeterminate="true"
                         android:indeterminateTint="?attr/colorPrimary" />
                 </LinearLayout>
@@ -239,7 +235,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:elevation="1dp"
             app:cardCornerRadius="2.5dp">
 
             <RelativeLayout
@@ -280,12 +275,12 @@
                     android:orientation="vertical">
 
                     <ProgressBar
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:indeterminate="true"
                         android:indeterminateTint="?attr/colorPrimary" />
                 </LinearLayout>

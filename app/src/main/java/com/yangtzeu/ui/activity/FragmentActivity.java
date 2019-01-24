@@ -3,8 +3,8 @@ package com.yangtzeu.ui.activity;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.lib.mob.im.IMManager;
 import com.yangtzeu.R;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.fragment.LoveFragment;
@@ -44,12 +44,14 @@ public class FragmentActivity extends BaseActivity {
     @Override
     public void setEvents() {
         if (type == TYPE_LOVE) {
-            LoveFragment fragment = LoveFragment.newInstance("master_id", IMManager.getUser().getId(), true);
+            String number = SPUtils.getInstance("user_info").getString("number");
+            LoveFragment fragment = LoveFragment.newInstance("master_id",number, true);
             fragment.setUserVisibleHint(true);
             final FragmentManager manager = getSupportFragmentManager();
             FragmentUtils.add(manager, fragment, fragment_container.getId(), false);
         } else if (type == TYPE_SHOP) {
-            ShopFragment1 fragment = ShopFragment1.newInstance("master_id", IMManager.getUser().getId(), true);
+            String number = SPUtils.getInstance("user_info").getString("number");
+            ShopFragment1 fragment = ShopFragment1.newInstance("master_id", number, true);
             fragment.setUserVisibleHint(true);
             final FragmentManager manager = getSupportFragmentManager();
             FragmentUtils.add(manager, fragment, fragment_container.getId(), false);

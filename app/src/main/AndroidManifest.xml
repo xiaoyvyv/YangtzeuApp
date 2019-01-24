@@ -206,15 +206,8 @@
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme.NoStateBar" />
         <activity
-            android:name=".ui.activity.ChatDetailsActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
             android:name=".ui.activity.LockActivity"
             android:exported="true" />
-        <activity
-            android:name=".ui.activity.ChatActivity"
-            android:exported="true"
-            android:launchMode="singleTask" />
         <activity
             android:name=".ui.activity.WebActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />

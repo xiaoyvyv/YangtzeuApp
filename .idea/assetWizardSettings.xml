@@ -109,7 +109,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_tune_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_dvr_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -120,7 +120,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_choose" />
+                            <entry key="outputName" value="ic_answer" />
                             <entry key="sourceFile" value="C:\Users\XiaoYv" />
                           </map>
                         </option>

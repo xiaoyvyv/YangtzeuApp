@@ -28,7 +28,9 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
+import com.yangtzeu.entity.CiBaBean;
 import com.yangtzeu.entity.MessageBean;
 import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.http.OkHttp;
@@ -41,6 +43,7 @@ import com.yangtzeu.ui.activity.MessageActivity;
 import com.yangtzeu.ui.activity.PhysicalActivity;
 import com.yangtzeu.ui.view.MineView;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.MediaPlayUtil;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
@@ -360,15 +363,22 @@ public class MineModel implements IMineModel {
     }
 
     @Override
-    public void loadDayTrip(Activity activity, final MineView view) {
-        MyUtils.loadImageNoCache(activity, view.getDayTripImage(), Url.Yangtzeu_App_BiYin,
-                TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())));
-        OkHttp.do_Get(Url.Yangtzeu_App_YiYan, new OnResultStringListener() {
+    public void loadDayTrip(final Activity activity, final MineView view) {
+        OkHttp.do_Get(Url.Yangtzeu_App_CiBa, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
-                view.getDayTrip().setText(response);
+                final CiBaBean ciBaBean = GsonUtils.fromJson(response, CiBaBean.class);
+                MyUtils.loadImage(activity, view.getDayTripImage(), ciBaBean.getPicture2());
+                view.getDayTrip().setText(ciBaBean.getContent());
+                view.getDayTrip().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MediaPlayUtil playUtil = MediaPlayUtil.getInstance();
+                        playUtil.setLooping(false);
+                        playUtil.play(ciBaBean.getTts());
+                    }
+                });
             }
-
             @Override
             public void onFailure(String error) {
 

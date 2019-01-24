@@ -4,13 +4,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url "http://mvn.mob.com/android"
-        }
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'com.mob.sdk:MobSDK:+'
+        classpath 'com.android.tools.build:gradle:3.3.0'
     }
 }
 

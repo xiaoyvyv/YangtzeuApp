@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.google.android.material.tabs.TabLayout;
@@ -22,6 +23,7 @@ import com.yangtzeu.ui.view.HomeView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.YangtzeuUtils;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -164,14 +166,17 @@ public class HomeModel implements IHomeModel {
             @Override
             public void onResponse(String response) {
                 WeatherBean bean = GsonUtils.fromJson(response, WeatherBean.class);
-                WeatherBean.ResultBean resultBean = bean.getResult().get(0);
-                String city = resultBean.getCity();
-                String weather = resultBean.getWeather();
-                String temp = resultBean.getTemperature();
+                List<WeatherBean.ResultBean> resultBeans = bean.getResult();
+                WeatherBean.ResultBean resultBean = resultBeans.get(0);
+                if (ObjectUtils.isNotEmpty(resultBean)) {
+                    String city = resultBean.getCity();
+                    String weather = resultBean.getWeather();
+                    String temp = resultBean.getTemperature();
 
-                view.getWeather().setText(weather);
-                view.getTemp().setText(temp);
-                view.getCity().setText(city);
+                    view.getWeather().setText(weather);
+                    view.getTemp().setText(temp);
+                    view.getCity().setText(city);
+                }
             }
 
             @Override

@@ -10,7 +10,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,17 +19,12 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
-import com.lib.mob.im.IMManager;
 import com.lib.subutil.GsonUtils;
-import com.mob.imsdk.model.IMConversation;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.LoveBean;
 import com.yangtzeu.entity.MessageBean;
-import com.yangtzeu.entity.ShopBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
-import com.yangtzeu.ui.activity.ChatActivity;
-import com.yangtzeu.ui.activity.ChatDetailsActivity;
 import com.yangtzeu.ui.activity.LoveDetailsActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
@@ -96,15 +90,12 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
 
         if (hide) {
             viewHolder.name.setText("佚名表白者");
-            MyUtils.loadImage(context, viewHolder.header, R.mipmap.holder);
         } else {
-            viewHolder.name.setText(name);
-            MyUtils.loadImage(context, viewHolder.header, MyUtils.getQQHeader(qq));
+            viewHolder.name.setText("来自：" + name);
         }
-
+        MyUtils.loadImage(context, viewHolder.image, image);
         viewHolder.time.setText(time);
         viewHolder.des.setText(description);
-        MyUtils.loadImage(context, viewHolder.image, image);
 
 
         viewHolder.onclick.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +210,8 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     //targetId - 目标id（群聊为群的id，私聊为对方id）
-                    IMManager.chat(master_id,IMConversation.TYPE_USER);
+                    ToastUtils.showShort("开发中");
+                    //TODO 开发在线联系
                 }
             });
         }
@@ -247,7 +239,6 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
         LinearLayout replay_message;
         TextView des;
         ImageView image;
-        ImageView header;
         ImageView addReplay;
 
         ViewHolder(View ll_class) {
@@ -256,7 +247,6 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
             name = ll_class.findViewById(R.id.name);
             time = ll_class.findViewById(R.id.time);
             addReplay = ll_class.findViewById(R.id.addReplay);
-            header = ll_class.findViewById(R.id.header);
             des = ll_class.findViewById(R.id.des);
             image = ll_class.findViewById(R.id.image);
             onclick = ll_class.findViewById(R.id.onclick);

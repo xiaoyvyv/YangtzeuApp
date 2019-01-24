@@ -5,8 +5,7 @@ import android.os.Handler;
 import android.webkit.JavascriptInterface;
 
 import com.blankj.utilcode.util.StringUtils;
-import com.lib.mob.im.IMManager;
-import com.mob.imsdk.model.IMConversation;
+import com.blankj.utilcode.util.ToastUtils;
 
 public class X5JavaScriptFunction {
     private final Context context;
@@ -21,7 +20,8 @@ public class X5JavaScriptFunction {
             public void run() {
                 if (!StringUtils.isEmpty(number)) {
                     //targetId - 目标id（群聊为群的id，私聊为对方id）
-                    IMManager.chat(number,IMConversation.TYPE_USER);
+                    ToastUtils.showShort("开发中");
+                    // TODO X5JavaScriptFunction-在线联系
                 }
             }
         });

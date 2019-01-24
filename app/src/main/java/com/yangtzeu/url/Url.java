@@ -12,7 +12,7 @@ public class Url {
     //App接口Host
     public static final String My_App_Home = "http://101.132.108.0";
     //App接口Host
-    public static final String My_Home = "http://m.xyll520.top";
+    public static final String My_Home = "http://101.132.108.0";
     //mob的Key secret
     public static final String key = "20588bd8fbea0";
     public static final String secret = "95c6d889c855e82689609cd192cfc6c8";
@@ -183,10 +183,8 @@ public class Url {
     public static String Yangtzeu_App_FeedBack = My_App_Home + "/yangtzeu/api/yz_feedback.php";
     //全民k歌解析
     public static String Url_Music_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
-    //一言
-    public static String Yangtzeu_App_YiYan = "https://api.uixsj.cn/hitokoto/w.php";
-    //必应
-    public static Object Yangtzeu_App_BiYin = "https://api.uixsj.cn/bing/bing.php";
+    //词霸
+    public static String Yangtzeu_App_CiBa = "http://open.iciba.com/dsapi/";
     //OSS上传凭证
     public static String Yangtzeu_App_STS = My_App_Home + "/sts-server/sts.php";
     //App留言板--发表
@@ -197,8 +195,6 @@ public class Url {
     public static String Yangtzeu_App_Reply_Message = My_App_Home + "/yangtzeu/api/yz_board_replay.php";
     //发邮件
     public static String Yangtzeu_App_SendEmail = My_App_Home + "/user_system/php_mail/mail.php";
-    //群信息
-    public static  String Yangtzeu_Group_List = My_App_Home + "/yangtzeu/json/yz_group.json";
 
 
 
@@ -284,29 +280,19 @@ public class Url {
 
 
     //添加用户
-    public static String addUser(String master, String master_id, String mclass, String description, String wechat, String qq, String phone) {
-        return My_App_Home + "/yangtzeu/api/yz_user.php?action=add"
-                + "&master=" + master
-                + "&phone=" + phone
-                + "&class=" + mclass
-                + "&wechat=" + wechat
-                + "&description=" + description
-                + "&master_id=" + master_id
-                + "&qq=" + qq;
+    public static String addUser(String username, String nickname, String mobile, String email, String password) {
+        return My_App_Home + "/yangtzeu/api/yz_user.php?action=add_userinfo&submit=do"
+                + "&username=" + username
+                + "&nickname=" + nickname
+                + "&mobile=" + mobile
+                + "&email=" + email
+                + "&password=" + password;
     }
 
     //查询用户
-    public static String queryUser(String master_id) {
-        return My_App_Home + "/yangtzeu/api/yz_user.php?action=query"
-                + "&master_id=" + master_id;
-    }
-
-    public static String queryAllThings(String query_type, String query_text, int start) {
-        if (query_type == null || query_text == null) {
-            return My_App_Home + "/yangtzeu/api/yz_thing.php?action=query&page=" + start;
-        } else {
-            return My_App_Home + "/yangtzeu/api/yz_thing.php?action=query&query_type=" + query_type + "&query_text=" + query_text + "&page=" + start;
-        }
+    public static String queryUser(String mobile) {
+        return My_App_Home + "/yangtzeu/api/yz_user.php?action=query_userinfo"
+                + "&mobile=" + mobile;
     }
 
     //查询表白

@@ -72,7 +72,13 @@ public class ChartModel implements IChartModel {
         ArrayList<PointValue> values = new ArrayList<>();
         for (int i = 0; i < data1.size(); i++) {
             String grade = data1.get(i).getCourseZuiZhong();
-            values.add(new PointValue(i, Float.parseFloat(grade)));
+            float _grade = 0;
+            try {
+                _grade = Float.parseFloat(grade);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            values.add(new PointValue(i, _grade));
         }
 
         // 将点连成线

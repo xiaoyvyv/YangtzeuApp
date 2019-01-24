@@ -1,27 +1,20 @@
 package com.yangtzeu.utils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ServiceUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
-import com.lib.mob.im.IMManager;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.BanBean;
 import com.yangtzeu.http.OkHttp;
@@ -212,9 +205,7 @@ public class UserUtils {
 
         SPUtils.getInstance("user_info").put("online", true);
         SPUtils.getInstance("user_info").put("cookie", mCookie);
-        LogUtils.i("登录成功", "登录界面Cookie：" + mCookie);
 
-        IMManager.loginIM();
     }
 
 

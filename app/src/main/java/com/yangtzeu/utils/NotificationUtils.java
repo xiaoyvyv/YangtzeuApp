@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import static com.mob.tools.utils.DeviceHelper.getApplication;
 
 /**
  * Created by LaoZhao on 2017/11/19.

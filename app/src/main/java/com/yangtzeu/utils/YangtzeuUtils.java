@@ -334,7 +334,7 @@ public class YangtzeuUtils {
             public void onResponse(String response) {
                 Document doc = Jsoup.parse(response);
                 if (doc.text().contains("学籍信息")) {
-                    Log.e("YangtzeuUtils", "getStudentInfo()--学籍信息获取成功");
+                    Log.i("YangtzeuUtils", "getStudentInfo()--学籍信息获取成功");
                     try {
                         Elements studentInfoTb = doc.select("table#studentInfoTb tbody tr");
                         String studentInfoTb1 = studentInfoTb.get(1).text();
@@ -360,8 +360,11 @@ public class YangtzeuUtils {
                         userBean.setPassowrd(password);
 
                         DatabaseUtils.getHelper( "user.db").save(userBean);
+
+                        //添加用户到我的数据库
+                        YangtzeuUtils.addUserToMyWeb();
                     } catch (Exception e) {
-                        LogUtils.e("学籍信息解析出错", e);
+                        Log.e("YangtzeuUtils", "getStudentInfo()--学籍信息解析出错");
                     }
                 } else if (doc.text().contains("重复登录") || doc.text().contains("用户名")) {
                     //设置Cookie不可用
@@ -616,6 +619,26 @@ public class YangtzeuUtils {
 
         SPUtils.getInstance("user_info").put("table_week", study_week);
         return study_week;
+    }
+
+
+    private static void addUserToMyWeb() {
+        String name = SPUtils.getInstance("user_info").getString("name");
+        String number = SPUtils.getInstance("user_info").getString("number");
+        String qq = SPUtils.getInstance("user_info").getString("qq");
+
+        String url = Url.addUser(name, "用户：" + number, number, qq + "@qq.com", number);
+        OkHttp.do_Get(url, new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                LogUtils.i(response);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                LogUtils.e(error);
+            }
+        });
     }
 
 
