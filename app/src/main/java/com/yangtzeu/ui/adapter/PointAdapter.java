@@ -44,7 +44,7 @@ public class PointAdapter extends RecyclerView.Adapter<PointAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup view, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_grade_part2_item, view, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_grade_part3_item, view, false));
 
     }
 

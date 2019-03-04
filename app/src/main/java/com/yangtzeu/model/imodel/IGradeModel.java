@@ -6,4 +6,5 @@ import com.yangtzeu.ui.view.GradeView;
 
 public interface IGradeModel {
     void setViewPager(Activity activity, GradeView view);
+
 }

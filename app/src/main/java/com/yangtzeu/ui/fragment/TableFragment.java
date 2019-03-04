@@ -26,6 +26,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.Course;
+import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.TablePresenter;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.adapter.TableFragmentAdapter;
@@ -64,6 +65,8 @@ public class TableFragment extends BaseFragment implements TableView {
     private List<Course> courses = new ArrayList<>();
     private ImageView table_bg;
     private FragmentActivity activity;
+    private String index_url;
+    private String ids_url;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +90,10 @@ public class TableFragment extends BaseFragment implements TableView {
 
     @Override
     public void setEvents() {
+        index_url = Url.Yangtzeu_Table_Index1;
+        ids_url = Url.Yangtzeu_Table_Ids1;
+
+
         activity = getActivity();
         adapter = new TableFragmentAdapter(getActivity());
         presenter = new TablePresenter(getActivity(), this);
@@ -102,6 +109,29 @@ public class TableFragment extends BaseFragment implements TableView {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.change_type:
+                        if (getActivity() != null)
+                            YangtzeuUtils.showChooseModel( new OnResultListener<Integer>() {
+                                @Override
+                                public void onResult(Integer projectId) {
+                                    switch (projectId) {
+                                        case 1:
+                                            index_url = Url.Yangtzeu_Table_Index1;
+                                            ids_url = Url.Yangtzeu_Table_Ids1;
+                                            refreshLayout.autoRefresh();
+                                            break;
+                                        case 2:
+                                            index_url = Url.Yangtzeu_Table_Index2;
+                                            ids_url = Url.Yangtzeu_Table_Ids2;
+                                            refreshLayout.autoRefresh();
+                                            break;
+                                    }
+                                }
+                            });
+                        break;
+                    case R.id.web_table:
+                        MyUtils.openUrl(activity, ids_url);
+                        break;
                     case R.id.choose_date:
                         YangtzeuUtils.showChooseTerm(Objects.requireNonNull(getActivity()), new DialogInterface.OnClickListener() {
                             @Override
@@ -117,9 +147,6 @@ public class TableFragment extends BaseFragment implements TableView {
                                 }, 100);
                             }
                         });
-                        break;
-                    case R.id.web_table:
-                        MyUtils.openUrl(activity, Url.Yangtzeu_Table_Ids);
                         break;
                     case R.id.table_bg_white:
                         SPUtils.getInstance("app_info").put("table_bg", Url.Yangtzeu_Table_Background_White);
@@ -142,16 +169,20 @@ public class TableFragment extends BaseFragment implements TableView {
                         String alpha = SPUtils.getInstance("app_info").getString("table_alpha", "ff");
                         bar.setProgress(Integer.parseInt(alpha, 16));
 
-                        sample.setCardBackgroundColor(Color.parseColor("#"+alpha+"76b1e9"));
+                        sample.setCardBackgroundColor(Color.parseColor("#" + alpha + "76b1e9"));
                         bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                             @Override
                             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                                sample.setCardBackgroundColor(Color.parseColor("#"+MyUtils.formattingH(progress)+"76b1e9"));
+                                sample.setCardBackgroundColor(Color.parseColor("#" + MyUtils.formattingH(progress) + "76b1e9"));
                             }
+
                             @Override
-                            public void onStartTrackingTouch(SeekBar seekBar) { }
+                            public void onStartTrackingTouch(SeekBar seekBar) {
+                            }
+
                             @Override
-                            public void onStopTrackingTouch(SeekBar seekBar) { }
+                            public void onStopTrackingTouch(SeekBar seekBar) {
+                            }
                         });
 
                         AlertDialog alert = MyUtils.getAlert(getActivity(), null, new DialogInterface.OnClickListener() {
@@ -221,6 +252,16 @@ public class TableFragment extends BaseFragment implements TableView {
     @Override
     public ImageView getTableBackgroundView() {
         return table_bg;
+    }
+
+    @Override
+    public String getIdsUrl() {
+        return ids_url;
+    }
+
+    @Override
+    public String getIndexUrl() {
+        return index_url;
     }
 
 

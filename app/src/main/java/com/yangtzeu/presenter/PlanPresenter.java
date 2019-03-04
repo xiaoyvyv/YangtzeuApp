@@ -15,16 +15,7 @@ public class PlanPresenter {
         this.view = view;
         mode = new PlanModel();
     }
-
-    public void isPlanExist() {
-        mode.isPlanExist(activity, view);
-    }
-
-    public void showPlanList() {
-        mode.showPlanList(activity, view);
-    }
-
-    public void loadPlan() {
-        mode.loadPlan(activity, view);
+    public void getPlanInfo() {
+        mode.getPlanInfo(activity, view);
     }
 }

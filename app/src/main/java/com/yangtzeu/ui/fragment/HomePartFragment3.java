@@ -52,7 +52,7 @@ public class HomePartFragment3 extends BaseFragment implements HomePartView3 {
         mViewPager = rootView.findViewById(R.id.mViewPager);
         tabLayout = rootView.findViewById(R.id.tabLayout);
         progressView = rootView.findViewById(R.id.progressView);
-        container = rootView.findViewById(R.id.container);
+        container = rootView.findViewById(R.id.slow_container);
     }
 
     @Override

@@ -13,5 +13,4 @@ public interface IGradePart1Model {
 
     void parseGrade(Activity activity, GradePartView1 view, String data);
 
-    void getGradeXls(Activity activity, GradePartView1 view);
 }

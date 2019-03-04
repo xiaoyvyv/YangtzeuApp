@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#545454"
+            android:padding="@dimen/card_margin_10"
+            android:text="@string/change_learn_mode"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#545454"
+            android:paddingStart="@dimen/card_margin_10"
+            android:paddingTop="@dimen/margin_5"
+            android:paddingEnd="@dimen/card_margin_10"
+            android:paddingBottom="@dimen/card_margin_10"
+            android:text="@string/choose_table_mode"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/bk_model"
+                android:id="@+id/project1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_5"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:padding="@dimen/margin_5"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/project_bt1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/margin_5"
+                android:backgroundTint="?attr/colorPrimary"
+                android:text="@string/choose"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/slow_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/fx_model"
+                android:id="@+id/project2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_5"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:padding="@dimen/margin_5"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/project_bt2"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/margin_5"
+                android:backgroundTint="?attr/colorPrimary"
+                android:text="@string/choose"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

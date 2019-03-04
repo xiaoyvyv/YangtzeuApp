@@ -21,4 +21,5 @@ public class GradePresenter {
     public void setViewPager() {
         model.setViewPager(activity, view);
     }
+
 }

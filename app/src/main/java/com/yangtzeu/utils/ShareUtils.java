@@ -89,7 +89,7 @@ public class ShareUtils {
         Uri uri ;
         //判读版本是否在7.0以上
         if (Build.VERSION.SDK_INT >= 24) {
-            uri= FileProvider.getUriForFile(context, "com.yangtzeu",file);
+            uri= FileProvider.getUriForFile(context, "com.yangtzeu.fileProvider",file);
         } else {
             uri = Uri.fromFile(file);
         }

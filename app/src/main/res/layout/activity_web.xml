@@ -35,7 +35,8 @@
             android:layout_height="2dp" />
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.lib.touch.DragView
+        android:alpha="0.4"
         android:id="@+id/ic_close"
         android:visibility="invisible"
         android:layout_margin="15dp"
@@ -43,6 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_close"
-        app:fabSize="normal"/>
+        app:fabSize="mini"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

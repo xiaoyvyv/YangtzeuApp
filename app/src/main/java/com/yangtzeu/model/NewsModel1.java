@@ -3,8 +3,6 @@ package com.yangtzeu.model;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +13,22 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.lib.yun.UrlSafeBase64;
 import com.yangtzeu.R;
-import com.yangtzeu.database.DatabaseUtils;
-import com.yangtzeu.entity.YzBannerBean;
+import com.yangtzeu.http.OkHttp;
+import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.INewsModel1;
 import com.yangtzeu.ui.activity.JwcListActivity;
 import com.yangtzeu.ui.fragment.HomePartFragment2;
 import com.yangtzeu.ui.view.NewsView1;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.YangtzeuUtils;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,36 +40,46 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 public class NewsModel1 implements INewsModel1 {
 
     @Override
-    public void loadBanner(final Activity activity, NewsView1 view) {
-        //加载内存的Banner
-        List<String> title = new ArrayList<>();
-        final List<String> url = new ArrayList<>();
-        List<String> image = new ArrayList<>();
-        List<YzBannerBean> list = DatabaseUtils.getHelper( "banner.db").queryAll(YzBannerBean.class);
-        if (ObjectUtils.isNotEmpty(list)) {
-            for (int i = 0; i < list.size(); i++) {
-                title.add(list.get(i).getTitle());
-                url.add(list.get(i).getUrl());
-                image.add(list.get(i).getImage());
-            }
-            view.getBGABanner().setData(image, title);
-            view.getBGABanner().setAdapter(new BGABanner.Adapter<ImageView, String>() {
-                @Override
-                public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
-                    itemView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    MyUtils.loadImage(activity, itemView, model);
-                }
-            });
-            view.getBGABanner().setDelegate(new BGABanner.Delegate() {
-                @Override
-                public void onBannerItemClick(BGABanner banner, View itemView, Object model, int position) {
-                    MyUtils.openUrl(activity, url.get(position));
-                }
-            });
-        }
-        //获取最新的Banner
-        YangtzeuUtils.getBanner(activity);
+    public void loadBanner(final Activity activity, final NewsView1 view) {
+        OkHttp.do_Get(Url.Yangtzeu_Url, new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                List<String> title = new ArrayList<>();
+                final List<String> url = new ArrayList<>();
+                List<String> image = new ArrayList<>();
 
+                Document doc = Jsoup.parse(response);
+                Elements elements = doc.select("div.iban div.bd ul li");
+                for (int i = 0; i < elements.size(); i++) {
+                    String image_style = elements.get(i).attr("style");
+                    String image_url = Url.Yangtzeu_Url + image_style.substring(image_style.indexOf("(") + 1, image_style.indexOf(")"));
+                    String context_url = elements.get(i).select("li a").attr("href");
+                    title.add("长江大学热点资讯");
+                    image.add(image_url);
+                    url.add(context_url);
+                }
+
+                view.getBGABanner().setData(image, title);
+                view.getBGABanner().setAdapter(new BGABanner.Adapter<ImageView, String>() {
+                    @Override
+                    public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
+                        itemView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        MyUtils.loadImage(activity, itemView, model);
+                    }
+                });
+                view.getBGABanner().setDelegate(new BGABanner.Delegate() {
+                    @Override
+                    public void onBannerItemClick(BGABanner banner, View itemView, Object model, int position) {
+                        MyUtils.openUrl(activity, url.get(position));
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String error) {
+                LogUtils.e(error);
+            }
+        });
     }
 
     @Override

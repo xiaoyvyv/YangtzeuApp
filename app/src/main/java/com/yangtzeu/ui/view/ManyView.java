@@ -1,6 +1,8 @@
 package com.yangtzeu.ui.view;
 
 
+import android.view.View;
+
 import com.lib.notice.NoticeView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -13,4 +15,6 @@ public interface ManyView {
     BGABanner getBGABanner();
     RecyclerView getRecyclerView();
     SwipeRefreshLayout getRefresh();
+
+    BGABanner getBGABannerItem();
 }

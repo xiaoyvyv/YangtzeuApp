@@ -38,6 +38,7 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 保存对应的对象到数据库，该类的类名就是插入到数据库的表名
+     *
      * @param obj 插入到数据库的对象
      */
     @Override
@@ -51,10 +52,11 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
     }
 
     /**
-     *  保存数据的主要操作
-     * @param obj 数据库对象
+     * 保存数据的主要操作
+     *
+     * @param obj   数据库对象
      * @param table 对象类类型
-     * @param db 操作数据库
+     * @param db    操作数据库
      */
     private void save(Object obj, Class<?> table, SQLiteDatabase db) {
         //将一个对象中的所有字段添加到该数据集中
@@ -84,6 +86,7 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 这里是保存统一对象的多个数据，通过获取集合中的对象，来保存所有的数据
+     *
      * @param collection
      */
     @Override
@@ -110,8 +113,9 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 通过表名，查询所有的数据，表名对应于类名
+     *
      * @param table 类类型
-     * @param <T> 泛型参数，任意类型
+     * @param <T>   泛型参数，任意类型
      * @return
      */
     @Override
@@ -136,9 +140,10 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 通过指定的顺序返回所有查询的结果
-     * @param table 类类型
+     *
+     * @param table   类类型
      * @param orderBy 指定顺序
-     * @param <T> 泛型参数
+     * @param <T>     泛型参数
      * @return
      */
     @Override
@@ -155,9 +160,10 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 通过指定的顺序和查询多少页来查询所有的数据
-     * @param table 类类型
+     *
+     * @param table   类类型
      * @param orderBy 指定顺序
-     * @param limit 指定的页数
+     * @param limit   指定的页数
      * @param <T>
      * @return
      */
@@ -175,6 +181,7 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 通过id来查询对应的数据
+     *
      * @param table
      * @param id
      * @param <T>
@@ -182,16 +189,20 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
      */
     @Override
     public <T> T queryById(Class<T> table, Object id) {
+        if (!isTableExists(table)) {
+            return null;
+        }
+
         if (id == null) {
             id = "0";
         }
         //获取属性id
-        Field  idField = getFieldId(table);
+        Field idField = getFieldId(table);
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(table.getName().replaceAll("\\.", "_"),
-								 null,
-								 (idField == null ? "_id" : idField.getName()) + " = ?", //判断，如果对应的类中存在id，则通过该类中的id查找数据，如果不存在id就采用使用默认的_id来查询数据
-								 new String[]{String.valueOf(id)}, null, null, null);
+                null,
+                (idField == null ? "_id" : idField.getName()) + " = ?", //判断，如果对应的类中存在id，则通过该类中的id查找数据，如果不存在id就采用使用默认的_id来查询数据
+                new String[]{String.valueOf(id)}, null, null, null);
         List<T> list = initList(table, cursor);
 
         if (list.isEmpty()) {
@@ -203,16 +214,18 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 通过表名清空所有的数据
+     *
      * @param table 类类型
      */
     @Override
     public void clear(Class table) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(table.getName().replaceAll("\\.","_"), null, null);
+        db.delete(table.getName().replaceAll("\\.", "_"), null, null);
     }
 
     /**
      * 删除数据
+     *
      * @param obj 指定对象（表）中的数据
      */
     @Override
@@ -223,10 +236,11 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 主要删除操作，主要是通过id来删除，因为删除一条操作必须有一个唯一列项
+     *
      * @param obj 指定对象（表）中的数据
      * @param db
      */
-    private void delete(Object obj, SQLiteDatabase db){
+    private void delete(Object obj, SQLiteDatabase db) {
         //首先获取该类中的id，如果有就会获取到
         Field idField = getFieldId(obj.getClass());
         //如果不存在属性id，就不需要删除
@@ -234,8 +248,8 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
             idField.setAccessible(true);
             try {
                 db.delete(obj.getClass().getName().replaceAll("\\.", "_"),
-						  idField.getName() + " = ?",
-						  new String[]{idField.get(obj).toString()});
+                        idField.getName() + " = ?",
+                        new String[]{idField.get(obj).toString()});
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -244,6 +258,7 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 删除集合中所有的对象数据
+     *
      * @param collection
      */
     @Override
@@ -261,6 +276,7 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
      * 这个方法的主要功能是将数据中查询到的数据放到集合中。
      * 类似于我们查询到对应的数据重新封装到一个对象中，然后把这个对象
      * 放入集合中。这样就能拿到我们的数据集了
+     *
      * @param table
      * @param cursor
      * @param <T>
@@ -281,9 +297,9 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
                     //每次都去查找该类中有没有自带的id，如果没有，就不应该执行下面的语句
                     //因为下面获取属性名时，有一个异常抛出，要是找不到属性就会结束这个for循环
                     //后面的所有数据就拿不到了,只要检测到没有id，就不需要再检测了。
-                    if(flag){
+                    if (flag) {
                         Field fieldId = getFieldId(table);
-                        if(fieldId == null){
+                        if (fieldId == null) {
                             flag = !flag;
                             continue;
                         }
@@ -327,10 +343,11 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 判断表格是否存在
+     *
      * @param table
      * @return
      */
-    private boolean isTableExists(Class table) {
+    public boolean isTableExists(Class table) {
         SQLiteDatabase db = getReadableDatabase();
         //查询表是否存在
         Cursor cursor = db.query("sqlite_master", null, "type = 'table' and name = ?", new String[]{table.getName().replaceAll("\\.", "_")}, null, null, null);
@@ -341,9 +358,10 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 如果表格不存在就创建该表。如果存在就不创建
+     *
      * @param table
      */
-    private void createTableIfNotExists(Class table) {
+    public void createTableIfNotExists(Class table) {
         if (!isTableExists(table)) {
             SQLiteDatabase db = getWritableDatabase();
             StringBuilder builder = new StringBuilder();
@@ -370,6 +388,7 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
 
     /**
      * 获取对象属性中的id字段，如果有就获取，没有就不获取
+     *
      * @param table
      * @return
      */
@@ -381,7 +400,7 @@ public class MyOpenHelper extends SQLiteOpenHelper implements IOpenHelper {
                 table.getDeclaredField("_id");
             }
         } catch (NoSuchFieldException e) {
-           // Log.v(MyOpenHelper.this.getClass().getSimpleName(), "there is no id field in the table");
+            // Log.v(MyOpenHelper.this.getClass().getSimpleName(), "there is no id field in the table");
         }
         return fieldId;
     }

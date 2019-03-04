@@ -11,14 +11,12 @@ public interface IMineModel {
 
     void loadUserInfo(Activity activity, MineView view);
 
-    void showChangeHeaderView(Activity activity, MineView mineView);
 
     void loadMessage(Activity activity, MineView view);
 
 
     void setMessageRead(List<String> ids);
 
-    void setToolbarEvent(Activity activity, MineView view);
 
     void checkInternetView(Activity activity, MineView view);
 

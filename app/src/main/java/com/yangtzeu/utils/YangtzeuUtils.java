@@ -3,25 +3,28 @@ package com.yangtzeu.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CacheDiskUtils;
-import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.lib.subutil.GsonUtils;
@@ -36,7 +39,6 @@ import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.entity.TripBean;
 import com.yangtzeu.entity.UpDateBean;
 import com.yangtzeu.entity.UserBean;
-import com.yangtzeu.entity.YzBannerBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.listener.OnClassListener;
@@ -55,41 +57,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class YangtzeuUtils {
-
-    //长江大学官网Banner获取
-    public static void getBanner(final Context context) {
-        OkHttp.do_Get(Url.Yangtzeu_Url, new OnResultStringListener() {
-            @Override
-            public void onResponse(String response) {
-                List<YzBannerBean> list = new ArrayList<>();
-                Document doc = Jsoup.parse(response);
-                Elements elements = doc.select("div.iban div.bd ul li");
-                for (int i = 0; i < elements.size(); i++) {
-                    YzBannerBean yzBannerBean = new YzBannerBean();
-                    String image_style = elements.get(i).attr("style");
-                    String image_url = Url.Yangtzeu_Url + image_style.substring(image_style.indexOf("(") + 1, image_style.indexOf(")"));
-                    String context_url = elements.get(i).select("li a").attr("href");
-                    yzBannerBean.setImage(image_url);
-                    yzBannerBean.setUrl(context_url);
-                    yzBannerBean.setTitle(context.getString(R.string.yangtzeu_new_message));
-                    list.add(yzBannerBean);
-                }
-                LogUtils.i("首页Banner数量：" + elements.size());
-
-                MyOpenHelper helper = DatabaseUtils.getHelper( "banner.db");
-                if (helper.queryAll(YzBannerBean.class) != null) {
-                    helper.clear(YzBannerBean.class);
-                }
-                helper.saveAll(list);
-            }
-
-            @Override
-            public void onFailure(String error) {
-                LogUtils.e(error);
-            }
-        });
-    }
-
 
     //App导航消息获取
     public static void getTripInfo(final Context context, final boolean isForce) {
@@ -208,7 +175,7 @@ public class YangtzeuUtils {
             public void onResponse(String response) {
                 BanBean banBean = GsonUtils.fromJson(response, BanBean.class);
 
-                MyOpenHelper helper = DatabaseUtils.getHelper( "ban_user.db");
+                MyOpenHelper helper = DatabaseUtils.getHelper("ban_user.db");
                 if (helper.queryAll(BanBean.DataBean.class) != null) {
                     helper.clear(BanBean.DataBean.class);
                 }
@@ -329,7 +296,7 @@ public class YangtzeuUtils {
 
     //学生信息获取,可用于后台保持和服务器连接
     public static void getStudentInfo() {
-        OkHttp.do_Get(Url.Yangtzeu_XueJI, new OnResultStringListener() {
+        OkHttp.do_Get(Url.Yangtzeu_XueJI2, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
                 Document doc = Jsoup.parse(response);
@@ -359,10 +326,8 @@ public class YangtzeuUtils {
                         userBean.setNumber(number);
                         userBean.setPassowrd(password);
 
-                        DatabaseUtils.getHelper( "user.db").save(userBean);
+                        DatabaseUtils.getHelper("user.db").save(userBean);
 
-                        //添加用户到我的数据库
-                        YangtzeuUtils.addUserToMyWeb();
                     } catch (Exception e) {
                         Log.e("YangtzeuUtils", "getStudentInfo()--学籍信息解析出错");
                     }
@@ -374,7 +339,16 @@ public class YangtzeuUtils {
                         MyUtils.startActivity(LoginActivity.class);
                     }
                 } else {
-                    LogUtils.e("学籍信息获取失败");
+                    String li = doc.select("li").text();
+                    if (!StringUtils.isEmpty(li)) {
+                        if (li.contains("辅修")) {
+                           // LogUtils.e("辅修学生学籍信息", response);
+                        } else {
+                            LogUtils.e("学籍信息获取失败-未知网页信息", response);
+                        }
+                    } else {
+                        LogUtils.e("学籍信息获取失败-未知网页信息", response);
+                    }
                 }
             }
 
@@ -396,7 +370,7 @@ public class YangtzeuUtils {
         builder.setView(view);
         final AlertDialog dialog = builder.create();
         dialog.show();
-        LinearLayout layout = view.findViewById(R.id.container);
+        LinearLayout layout = view.findViewById(R.id.slow_container);
         for (int i = 0; i < term_trip.length; i++) {
             @SuppressLint("InflateParams")
             View item = activity.getLayoutInflater().inflate(R.layout.view_choose_term_item, null);
@@ -427,7 +401,7 @@ public class YangtzeuUtils {
         builder.setView(view);
         final AlertDialog dialog = builder.create();
         dialog.show();
-        LinearLayout layout = view.findViewById(R.id.container);
+        LinearLayout layout = view.findViewById(R.id.slow_container);
         for (int i = 0; i < term_trip.length; i++) {
             @SuppressLint("InflateParams")
             View item = activity.getLayoutInflater().inflate(R.layout.view_choose_term_item, null);
@@ -448,10 +422,38 @@ public class YangtzeuUtils {
         }
     }
 
+    public static void showChooseModel(final OnResultListener<Integer> listener) {
+        @SuppressLint("InflateParams")
+        View dialog_view = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.view_choose_table, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityUtils.getTopActivity());
+        builder.setView(dialog_view);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Button project_bt1 = dialog_view.findViewById(R.id.project_bt1);
+        Button project_bt2 = dialog_view.findViewById(R.id.project_bt2);
+        project_bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (listener != null)
+                    listener.onResult(1);
+            }
+        });
+        project_bt2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (listener != null)
+                    listener.onResult(2);
+            }
+        });
+    }
+
     //检查当前是否有课程
     public static void checkHaveClassNow(Context context, OnClassListener listener) {
         List<Course> now_course = new ArrayList<>();
-        List<Course> courses = DatabaseUtils.getHelper( "table.db").queryAll(Course.class);
+        List<Course> courses = DatabaseUtils.getHelper("table.db").queryAll(Course.class);
         if (ObjectUtils.isNotEmpty(courses)) {
             for (int i = 0; i < courses.size(); i++) {
                 int week_day = Integer.parseInt(courses.get(i).getWeek()) + 1;
@@ -469,7 +471,7 @@ public class YangtzeuUtils {
     //在线人数统计
     public static void keepOnline(final OnResultListener<OnLineBean> listener) {
         String name = SPUtils.getInstance("user_info").getString("name");
-        String number = SPUtils.getInstance("user_info").getString("number");
+        String number = SPUtils.getInstance("user_info").getString("number", "");
         String url = Url.Yangtzeu_App_Online + "?name=" + name + "&number=" + number;
         OkHttp.do_Get(url, new OnResultStringListener() {
             @Override
@@ -595,9 +597,11 @@ public class YangtzeuUtils {
     public static int getStudyWeek() {
         int study_week;
         //本学期开始时间戳
-        long startMills = TimeUtils.string2Millis("2018-09-03 00:00:00");
+        long startMills = TimeUtils.string2Millis("2019-02-25 00:00:00");
         //本学期结束时间戳
-        long endMills = TimeUtils.string2Millis("2019-01-21 00:00:00");
+        long endMills = TimeUtils.string2Millis("2019-07-14 24:00:00");
+
+
         //本学期现在时间戳
         long nowMills = TimeUtils.getNowMills();
 
@@ -609,11 +613,13 @@ public class YangtzeuUtils {
         }
 
         //根据本学期过去天数计算周数
-        String past_day = ConvertUtils.millis2FitTimeSpan(nowMills - startMills, 1);
-        try {
-            int day = Integer.parseInt(past_day.replace("天", "").trim());
-            study_week = (day / 7) + 1;
-        } catch (NumberFormatException e) {
+        //已经开学
+        if (nowMills > startMills) {
+            int pass_day = (int) ((nowMills - startMills) / (24 * 60 * 60 * 1000));
+            study_week = (pass_day / 7) + 1;
+        }
+        //假期，未开学
+        else {
             study_week = 0;
         }
 
@@ -622,8 +628,11 @@ public class YangtzeuUtils {
     }
 
 
-    private static void addUserToMyWeb() {
+    static void addUserToMyWeb() {
         String name = SPUtils.getInstance("user_info").getString("name");
+        if (StringUtils.isEmpty(name)) {
+            return;
+        }
         String number = SPUtils.getInstance("user_info").getString("number");
         String qq = SPUtils.getInstance("user_info").getString("qq");
 
@@ -647,15 +656,21 @@ public class YangtzeuUtils {
         // 获取当前日期
         Calendar cal = Calendar.getInstance();
 
-        //新学期开始时间戳
-        long startMills = TimeUtils.string2Millis("2019-09-03 00:00:00");
+        long startMills = TimeUtils.string2Millis("2019-02-25 00:00:00");
         //本学期结束时间戳
-        long endMills = TimeUtils.string2Millis("2019-01-21 00:00:00");
+        long endMills = TimeUtils.string2Millis("2019-07-14 24:00:00");
+
         //本学期现在时间戳
         long nowMills = TimeUtils.getNowMills();
+
         //寒假时间
-        if (endMills < nowMills && nowMills < startMills) {
+        if (nowMills < startMills) {
             return "现在是寒假时间，赶紧好好地的玩吧！";
+        }
+
+        //暑假时间
+        if (endMills < nowMills) {
+            return "现在是暑假时间，赶紧好好地的玩吧！";
         }
 
         // 获取当前小时

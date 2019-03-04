@@ -6,17 +6,18 @@ import com.yangtzeu.R;
 import com.yangtzeu.model.imodel.IGradeModel;
 import com.yangtzeu.ui.fragment.GradePartFragment1;
 import com.yangtzeu.ui.fragment.GradePartFragment2;
+import com.yangtzeu.ui.fragment.GradePartFragment3;
 import com.yangtzeu.ui.view.GradeView;
-import com.yangtzeu.url.Url;
 
 public class GradeModel implements IGradeModel {
 
     @Override
     public void setViewPager(Activity activity, GradeView view) {
-        GradePartFragment1 fragment1 = GradePartFragment1.newInstance(Url.Yangtzeu_Grade_Url);
-        GradePartFragment1 fragment2 = GradePartFragment1.newInstance(Url.Yangtzeu_AllGrade_Url + "&semesterId=");
-        GradePartFragment2 fragment3 = new GradePartFragment2();
+        view.getAdapter().clear();
 
+        GradePartFragment1 fragment1 = new GradePartFragment1();
+        GradePartFragment2 fragment2 = new GradePartFragment2();
+        GradePartFragment3 fragment3 = new GradePartFragment3();
 
         view.getAdapter().addFragment(activity.getString(R.string.term_grade), fragment1);
         view.getAdapter().addFragment(activity.getString(R.string.all_grade), fragment2);
@@ -26,7 +27,7 @@ public class GradeModel implements IGradeModel {
         view.getViewPager().setOffscreenPageLimit(2);
 
         view.getTabLayout().setupWithViewPager(view.getViewPager());
-    }
 
+    }
 
 }

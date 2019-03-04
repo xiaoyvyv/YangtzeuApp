@@ -88,7 +88,7 @@ public class ShopAddActivity extends BaseActivity implements ShopAddView {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShopAddActivity.this);
                 builder.setView(view).create();
                 final AlertDialog dialog = builder.show();
-                LinearLayout layout = view.findViewById(R.id.container);
+                LinearLayout layout = view.findViewById(R.id.slow_container);
                 for (int i = 1; i < ShopActivity.SHOP_KIND.length; i++) {
                     @SuppressLint("InflateParams")
                     View m_item = getLayoutInflater().inflate(R.layout.view_choose_term_item, null);

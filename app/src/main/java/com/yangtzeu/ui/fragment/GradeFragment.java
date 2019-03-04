@@ -1,5 +1,6 @@
 package com.yangtzeu.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -8,12 +9,14 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.yangtzeu.R;
+import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.GradePresenter;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.adapter.FragmentAdapter;
 import com.yangtzeu.ui.view.GradeView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
+import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.Objects;
 
@@ -32,7 +35,9 @@ public class GradeFragment extends BaseFragment implements GradeView {
     private ViewPager pager;
     private TabLayout tab;
     private FragmentAdapter fragmentAdapter;
-    private Toolbar toolbar;
+    @SuppressLint("StaticFieldLeak")
+    public static Toolbar toolbar;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,17 +50,18 @@ public class GradeFragment extends BaseFragment implements GradeView {
 
     @Override
     public void findViews() {
-        toolbar= rootView.findViewById(R.id.toolbar);
+        toolbar = rootView.findViewById(R.id.toolbar);
         pager = rootView.findViewById(R.id.pager);
         tab = rootView.findViewById(R.id.tab);
     }
 
     @Override
     public void setEvents() {
+
         //设置Fragment适配器
         fragmentAdapter = new FragmentAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
 
-        GradePresenter presenter = new GradePresenter(getActivity(), this);
+        final GradePresenter presenter = new GradePresenter(getActivity(), this);
         presenter.setViewPager();
 
 
@@ -65,12 +71,13 @@ public class GradeFragment extends BaseFragment implements GradeView {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.web_grade:
-                        MyUtils.openUrl(Objects.requireNonNull(getActivity()),Url.Yangtzeu_AllGrade_Url);
+                        MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_AllGrade_Url1);
                         break;
                 }
                 return false;
             }
         });
+
     }
 
     @Override
@@ -99,4 +106,10 @@ public class GradeFragment extends BaseFragment implements GradeView {
     public TabLayout getTabLayout() {
         return tab;
     }
+
+    @Override
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
 }

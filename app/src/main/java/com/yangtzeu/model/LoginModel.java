@@ -15,7 +15,10 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.lib.chat.common.UserManager;
+import com.xiaomi.mimc.MIMCUser;
 import com.yangtzeu.R;
+import com.yangtzeu.app.MyApplication;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.UserBean;
 import com.yangtzeu.http.OkHttp;
@@ -50,6 +53,11 @@ public class LoginModel implements ILoginModel {
                 ToastUtils.showShort("您未登录强制进入应用，将会导致大部分功能无法使用！");
                 MyUtils.startActivity(MainActivity.class);
                 activity.finish();
+
+                //通用监听
+                MyApplication.setMessListener();
+                MIMCUser mimcUser = UserManager.getInstance().newUser(null);
+                mimcUser.login();
                 return true;
             }
         });
@@ -112,7 +120,7 @@ public class LoginModel implements ILoginModel {
                     final AlertDialog dialog = builder.create();
                     dialog.show();
 
-                    LinearLayout layout = view.findViewById(R.id.container);
+                    LinearLayout layout = view.findViewById(R.id.slow_container);
                     for (int i = 0; i < userBeans.size(); i++) {
                         @SuppressLint("InflateParams")
                         View m_item = activity.getLayoutInflater().inflate(R.layout.view_user_history_item, null);
@@ -219,25 +227,5 @@ public class LoginModel implements ILoginModel {
         dialog.show();
         dialog.setCancelable(false);
 
-        addUserToXyWeb(activity, view);
-    }
-
-    @Override
-    public void addUserToXyWeb(Activity activity, LoginView view) {
-        String number = SPUtils.getInstance("user_info").getString("number");
-        String name = SPUtils.getInstance("user_info").getString("name", "用户：" + number);
-        String url = "http://ll.xyll520.top/user_system/user.php?action=add_userinfo&submit=do&username=" + name
-                + "&nickname=yz" + number + "&mobile=" + number + "&email=email@qq.com&password=" + number;
-        OkHttp.do_Get(url, new OnResultStringListener() {
-            @Override
-            public void onResponse(String response) {
-                LogUtils.i(response);
-            }
-
-            @Override
-            public void onFailure(String error) {
-                LogUtils.e(error);
-            }
-        });
     }
 }

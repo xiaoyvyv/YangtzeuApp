@@ -3,9 +3,12 @@ package com.yangtzeu.ui.view;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public interface ChooseClassView {
+import com.yangtzeu.ui.view.base.BaseView;
+
+public interface ChooseClassView extends BaseView {
 
     LinearLayout getContainer();
 
     TextView getTrip();
+
 }

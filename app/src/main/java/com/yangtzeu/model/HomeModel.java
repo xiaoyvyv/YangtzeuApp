@@ -21,6 +21,7 @@ import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IHomeModel;
 import com.yangtzeu.ui.view.HomeView;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.List;
@@ -122,7 +123,6 @@ public class HomeModel implements IHomeModel {
                 String data = "2019-01-01 00:00:00";
                 String fitTimeSpan = ConvertUtils.millis2FitTimeSpan(TimeUtils.string2Millis(data) - TimeUtils.getNowMills(), 1);
                 view.getHoliday().setText("离最近的假期 元旦还有：" + fitTimeSpan);
-                LogUtils.e(error);
             }
         });
     }
@@ -130,24 +130,27 @@ public class HomeModel implements IHomeModel {
     @SuppressLint("SetTextI18n")
     @Override
     public void getWeather(Activity activity, final HomeView view) {
-        long startMills = TimeUtils.string2Millis("2018-09-03 00:00:00");
+        long startMills = TimeUtils.string2Millis("2019-02-25 00:00:00");
         long nowMills = TimeUtils.getNowMills();
 
-        //本学期过去天数
-        int pass_day;
-        String s_pass_day = ConvertUtils.millis2FitTimeSpan(nowMills - startMills, 1);
-        try {
-            pass_day = Integer.parseInt(s_pass_day.replace("天", "").trim());
-        } catch (NumberFormatException e) {
-            pass_day = 0;
+        //已经开学
+        if (nowMills > startMills) {
+            double pass_day = MyUtils.getScale((nowMills - startMills) / (24 * 60 * 60 * 1000.0), 2);
+
+            //在学期内则显示本学期已经过去了天数，否则显示假期过去天数
+            if (pass_day <= 140) {
+                view.getPass().setText("本学期已经过去了：" + pass_day + "天/140天");
+            } else {
+                view.getPass().setText("暑假已经过去了：" + (pass_day - 140) + "天/35天");
+            }
+
+        }
+        //假期，未开学
+        else {
+            String s_pass_day = ConvertUtils.millis2FitTimeSpan(startMills - nowMills, 3);
+            view.getPass().setText("离寒假开学还有：" + s_pass_day);
         }
 
-        //在学期内则显示本学期已经过去了天数，否则显示假期过去天数
-        if (pass_day <= 140) {
-            view.getPass().setText("本学期已经过去了：" + pass_day + "/140天");
-        } else {
-            view.getPass().setText("寒假已经过去了：" + (pass_day - 140) + "/35天");
-        }
 
         //获取周几
         String weekday = TimeUtils.getChineseWeek(TimeUtils.getNowMills());

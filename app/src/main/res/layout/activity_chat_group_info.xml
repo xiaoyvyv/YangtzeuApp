@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.ChatGroupInfoActivity">
+
+
+    <com.lzy.widget.PullZoomView
+        android:id="@+id/pzv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/activity_chat_group_info_header" />
+
+            <LinearLayout
+                android:id="@+id/mineInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:tag="content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:alpha="0.7"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/group_owner"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/main_jwc_title"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ownerAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:alpha="0.7"
+                        android:gravity="start|center_vertical"
+                        android:padding="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/bulletin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:alpha="0.7"
+                        android:gravity="start|center_vertical"
+                        android:lineSpacingExtra="@dimen/margin_5"
+                        android:minHeight="40dp"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:alpha="0.7"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/group_action"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/main_jwc_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/invite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:alpha="0.7"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="start|center_vertical"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/invite"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:alpha="0.7"
+                        android:gravity="start|center_vertical"
+                        android:lineSpacingExtra="@dimen/margin_5"
+                        android:minHeight="40dp"
+                        android:padding="5dp"
+                        android:text="@string/disturb"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <Switch
+                        android:id="@+id/disturb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:alpha="0.7"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/group_user"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/main_jwc_title"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.lzy.widget.PullZoomView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/translate"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:clipToPadding="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/chat_group_info" />
+
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

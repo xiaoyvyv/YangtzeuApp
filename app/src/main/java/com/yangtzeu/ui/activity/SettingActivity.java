@@ -8,7 +8,6 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +29,7 @@ import com.yangtzeu.utils.AlipayUtil;
 import com.yangtzeu.utils.AppIconUtils;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.UserUtils;
+import com.yangtzeu.utils.WeChatUtil;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 import androidx.appcompat.widget.Toolbar;
@@ -196,7 +196,7 @@ public class SettingActivity extends PreferenceActivity {
                 builder.setView(view);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
-                LinearLayout layout = view.findViewById(R.id.container);
+                LinearLayout layout = view.findViewById(R.id.slow_container);
                 for (int i = 0; i < icons.length; i++) {
                     @SuppressLint("InflateParams")
                     View item = getLayoutInflater().inflate(R.layout.view_choose_icon_item, null);
@@ -239,15 +239,32 @@ public class SettingActivity extends PreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 MyUtils.putStringToClipboard(SettingActivity.this, getString(R.string.apply_redbag_key));
-                if (AlipayUtil.hasInstalledAlipayClient(SettingActivity.this)) {
-                    //第二个参数代表要给被支付的二维码code  可以在用草料二维码在线生成
-                    AlipayUtil.startAlipayClient(SettingActivity.this, getString(R.string.apply_me_key));
-                } else {
-                    ToastUtils.showLong(R.string.no_apply_app);
-                }
+                AlertDialog dialog = new AlertDialog.Builder(SettingActivity.this)
+                        .setTitle(R.string.donate)
+                        .setMessage("请选择捐赠方式：\n1.支付宝\n2.微信")
+                        .setPositiveButton("支付宝", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (AlipayUtil.hasInstalledAlipayClient(SettingActivity.this)) {
+                                    AlipayUtil.donateAlipay(SettingActivity.this);
+                                } else {
+                                    ToastUtils.showLong(R.string.no_apply_app);
+                                }
+                            }
+                        })
+                        .setNegativeButton("微信", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                WeChatUtil.donateWeiXin(SettingActivity.this);
+                            }
+                        })
+                        .create();
+                dialog.show();
                 return true;
             }
         });
+
+
         final Preference myApp = findPreference("myApp");
         myApp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -256,7 +273,6 @@ public class SettingActivity extends PreferenceActivity {
                 return true;
             }
         });
-
 
     }
 

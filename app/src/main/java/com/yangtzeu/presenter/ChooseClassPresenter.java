@@ -2,6 +2,10 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.yangtzeu.R;
+import com.yangtzeu.http.OkHttp;
+import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.ChangePassModel;
 import com.yangtzeu.model.ChooseClassModel;
 import com.yangtzeu.ui.view.ChangePassView;
@@ -19,7 +23,17 @@ public class ChooseClassPresenter {
     }
 
     public void getChooseClassInfo() {
-        model.getChooseClassInfo(activity, view);
+        OkHttp.do_Get(view.getIndexUrl(), new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                model.getChooseClassInfo(activity, view);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                ToastUtils.showShort(R.string.load_error);
+            }
+        });
 
     }
 }

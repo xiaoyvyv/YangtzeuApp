@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.widget.FrameLayout;
 
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.tabs.TabLayout;
@@ -41,18 +42,19 @@ public class TestModel implements ITestModel {
         String nowId = SPUtils.getInstance("user_info").getString("test_id",Url.Default_Term);
 
         FormBody formBody = new FormBody.Builder()
-                .add("project.id", "1")
                 .add("semester.id", nowId)
                 .build();
 
         Request request = new Request.Builder()
-                .url(Url.Yangtzeu_My_Test)
+                .url(view.getUrl())
                 .post(formBody)
                 .build();
 
         OkHttp.do_Post(request, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
+                LogUtils.e(response);
+
                 view.getProgressDialog().dismiss();
                 Document document = Jsoup.parse(response);
                 Elements options = document.select("#examBatchId>option");
@@ -83,7 +85,10 @@ public class TestModel implements ITestModel {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String nowId = SPUtils.getInstance("user_info").getString("test_id", Url.Default_Term);
-                    SPUtils.getInstance("user_info").put("test_id", String.valueOf(Integer.parseInt(nowId) - 1));
+                    int term = Integer.parseInt(nowId) - 1;
+                    if (term==68) term = 49;
+                    if (term==47) term = 46;
+                    SPUtils.getInstance("user_info").put("test_id", String.valueOf(term));
                     getTestInfo(activity, view);
                 }
             });
@@ -97,6 +102,8 @@ public class TestModel implements ITestModel {
 
         FrameLayout container = view.getContainer();
         FragmentManager manager = view.getManager();
+        FragmentUtils.removeAll(manager);
+
         final List<Fragment> fragments = view.getFragments();
         container.removeAllViews();
 

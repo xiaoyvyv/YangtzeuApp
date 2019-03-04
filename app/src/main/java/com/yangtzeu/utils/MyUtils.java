@@ -15,7 +15,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -30,7 +29,6 @@ import android.text.format.Formatter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
@@ -46,19 +44,26 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
 import com.blankj.utilcode.util.ZipUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.lib.chat.common.UserManager;
 import com.lib.subutil.ClipboardUtils;
 import com.lib.x5web.X5WebView;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.QbSdk;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.ImageBean;
+import com.yangtzeu.ui.activity.ADActivity;
+import com.yangtzeu.ui.activity.ChatGroupInfoActivity;
+import com.yangtzeu.ui.activity.InfoActivity;
+import com.yangtzeu.ui.activity.ChatOpenActivity;
 import com.yangtzeu.ui.activity.DownloadActivity;
 import com.yangtzeu.ui.activity.ImageActivity;
 import com.yangtzeu.ui.activity.LoginActivity;
@@ -86,7 +91,6 @@ import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 /**
@@ -121,7 +125,9 @@ public class MyUtils {
     }
 
     public static void setMyTheme(Activity activity) {
-        if (activity instanceof LoginActivity || activity instanceof ImageActivity || activity instanceof SplashActivity) {
+        if (activity instanceof LoginActivity || activity instanceof ImageActivity
+                || activity instanceof SplashActivity || activity instanceof InfoActivity
+                || activity instanceof ChatGroupInfoActivity) {
             activity.setTheme(R.style.AppTheme_NoStateBar);
             return;
         }
@@ -189,14 +195,23 @@ public class MyUtils {
     }
 
 
-    public static void startActivity(Class<? extends Activity> activity) {
-        ActivityUtils.startActivity(activity);
-        MyUtils.enterAnimation(ActivityUtils.getTopActivity());
+    public static void startActivity(Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Context context = ActivityUtils.getTopActivity();
+        if (context == null) {
+            context = Utils.getApp().getApplicationContext();
+        }
+        if (context == null) {
+            ActivityUtils.startActivity(intent);
+            return;
+        }
+        context.startActivity(intent);
+        enterAnimation(context);
     }
 
-    public static void startActivity(Intent intent) {
-        ActivityUtils.startActivity(intent);
-        MyUtils.enterAnimation(ActivityUtils.getTopActivity());
+    public static void startActivity(Class<? extends Activity> activity) {
+        Intent intent = new Intent(Utils.getApp().getApplicationContext(), activity);
+        startActivity(intent);
     }
 
     public static void startActivity(String cls) {
@@ -204,13 +219,11 @@ public class MyUtils {
             Intent intent = new Intent();
             //前名一个参数是应用程序的包名,后一个是这个应用程序的主Activity名
             intent.setComponent(new ComponentName(AppUtils.getAppPackageName(), cls));
-            ActivityUtils.startActivity(intent);
-            MyUtils.enterAnimation(ActivityUtils.getTopActivity());
+            startActivity(intent);
         } catch (Exception e) {
             ToastUtils.showShort(R.string.open_error);
         }
     }
-
 
     public static ProgressDialog getProgressDialog(Context context, String s) {
         ProgressDialog progressDialog;
@@ -392,14 +405,12 @@ public class MyUtils {
      * @param path 文件路径
      */
     public static void openFile(Context context, final String path) {
+
         if (path.endsWith(".zip")) {
             String zip_path = createSDCardDir("A_Tool/Download/Zip/");
             try {
-                LogUtils.i(path);
                 ZipUtils.unzipFile(path, zip_path);
                 boolean delete = new File(path).delete();
-                LogUtils.i(delete);
-
                 String activity = ActivityUtils.getTopActivity().getLocalClassName();
                 if (activity.contains("WebActivity")) {
                     ToastUtils.showShort("解压成功");
@@ -408,8 +419,8 @@ public class MyUtils {
                     ToastUtils.showShort("解压成功，请刷新");
                 }
             } catch (Exception e) {
-                ToastUtils.showShort("解压失败，不支持打开此文件");
-                e.printStackTrace();
+                ToastUtils.showShort("不支持打开此文件,请使用第三方工具打开");
+                openFileByPath(context, path);
             }
             return;
         }
@@ -446,26 +457,26 @@ public class MyUtils {
      */
 
     public static void openFileByPath(Context context, String path) {
-        LogUtils.e("尝试打开文件");
         try {
             File file = new File(path);
-            String url_type = getMimeType(file);
+            String mimeType = getMimeType(file);
+            LogUtils.e("尝试打开文件", path, mimeType);
 
-            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             Uri uri;
             //判读版本是否在7.0以上
             if (Build.VERSION.SDK_INT >= 24) {
-                uri = FileProvider.getUriForFile(context, "com.yangtzeu", file);
+                uri = FileProvider.getUriForFile(context, "com.yangtzeu.fileProvider", file);
             } else {
                 uri = Uri.fromFile(file);
             }
-            intent.setDataAndType(uri, url_type);
+            intent.setDataAndType(uri, mimeType);
 
             context.startActivity(intent);
         } catch (Exception e) {
@@ -545,14 +556,14 @@ public class MyUtils {
      * @param mWebView  上下文
      * @return Bitmap
      */
-    public static Bitmap getScreenViewPicture(Context context,View decorView, X5WebView mWebView) {
+    public static Bitmap getScreenViewPicture(Context context, View decorView, X5WebView mWebView) {
         // 这里的 mWebView 就是 X5 内核的 WebView ，代码中的 longImage 就是最后生成的长图
         mWebView.measure(View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         mWebView.layout(0, 0, mWebView.getMeasuredWidth(), mWebView.getMeasuredHeight());
         mWebView.setDrawingCacheEnabled(true);
         mWebView.buildDrawingCache();
-        Bitmap longImage = Bitmap.createBitmap(mWebView.getMeasuredWidth(), mWebView.getMeasuredHeight() , Bitmap.Config.ARGB_8888);
+        Bitmap longImage = Bitmap.createBitmap(mWebView.getMeasuredWidth(), mWebView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(longImage); // 画布的宽高和 WebView 的网页保持一致
         Paint paint = new Paint();
@@ -569,6 +580,45 @@ public class MyUtils {
 
         return ImageUtils.addTextWatermark(x5Bitmap, "来自：新长大助手@酷安网@小玉",
                 ConvertUtils.dp2px(20), context.getResources().getColor(R.color.black_20), 50, x5Bitmap.getHeight() - 100);
+    }
+
+    public static String getRandomString(int length) {
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(3);
+            long result = 0;
+            switch (number) {
+                case 0:
+                    result = Math.round(Math.random() * 25 + 65);
+                    sb.append(String.valueOf((char) result));
+                    break;
+                case 1:
+                    result = Math.round(Math.random() * 25 + 97);
+                    sb.append(String.valueOf((char) result));
+                    break;
+                case 2:
+                    sb.append(String.valueOf(new Random().nextInt(10)));
+                    break;
+            }
+        }
+        return sb.toString();
+    }
+
+    public static void chatOnline(Context context, String to_number, String userType) {
+        if (ObjectUtils.isEmpty(UserManager.getInstance().getStatus())) {
+            ToastUtils.showShort("当前处于离线状态，请稍后再试");
+            return;
+        }
+        if (StringUtils.equals(to_number, UserManager.getInstance().getAccount())) {
+            ToastUtils.showShort(R.string.cannt_chat_myself);
+            return;
+        }
+
+        Intent intent = new Intent(context, ChatOpenActivity.class);
+        intent.putExtra("type", userType);
+        intent.putExtra("id", to_number);
+        MyUtils.startActivity(intent);
     }
 
     /**
@@ -748,7 +798,7 @@ public class MyUtils {
                     return;
                 }
             }
-            if (o.toString().equals("default_header")) {
+            if (o.toString().contains("default_header")) {
                 Glide.with(context).load(R.mipmap.holder).into(imageView);
                 return;
             }
@@ -760,9 +810,9 @@ public class MyUtils {
      * 加载图片,不缓存
      *
      * @param imageView 图片容器
-     * @param url       图片内容（链接、文件等等）
+     * @param o         图片内容（链接、文件等等）
      */
-    public static void loadImageNoCache(Context context, ImageView imageView, Object url) {
+    public static void loadImageNoCache(Context context, ImageView imageView, Object o) {
         if (ObjectUtils.isNotEmpty(context)) {
             if (context instanceof Activity) {
                 if (((Activity) context).isDestroyed()) {
@@ -773,7 +823,7 @@ public class MyUtils {
                     .skipMemoryCache(true)
                     .placeholder(R.mipmap.holder)
                     .diskCacheStrategy(DiskCacheStrategy.NONE);
-            Glide.with(context).load(url).apply(options).into(imageView);
+            Glide.with(context).load(o).apply(options).into(imageView);
         }
     }
 
@@ -844,10 +894,8 @@ public class MyUtils {
      */
     public static void chatQQ(Context context, String qq) {
         String qq_str = "mqqwpa://im/chat?chat_type=wpa&uin=" + qq + "&version=1";
-        Uri uri = Uri.parse(qq_str); //设置要操作的路径
-        Intent intent = new Intent();
-        intent.setData(uri); //要设置的数据
-        context.startActivity(intent);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(qq_str));
+        MyUtils.startActivity(intent);
         enterAnimation(context);
     }
 
@@ -905,18 +953,55 @@ public class MyUtils {
      * @param url 网页链接
      */
     public static void openUrl(Context context, String url) {
-        if (url.contains("c1x08894fliska9rxlrecb5")) {
+        //浏览器中打开
+        if (url.endsWith("openBrowser")) {
+            openBrowser(context, url);
+            return;
+        }
+
+        //广告招租介绍
+        if (url.endsWith("ADActivity")) {
+            MyUtils.startActivity(ADActivity.class);
+            return;
+        }
+
+        //红包码
+        if (url.contains(context.getResources().getString(R.string.apply_redbag_key)) || url.contains("showRedBag")) {
             showRedBag(context);
             return;
         }
+
+        //支付宝二维码捐赠
+        if (url.contains(context.getResources().getString(R.string.apply_me_key)) || url.contains("donateAlipayByPic")) {
+            if (context instanceof Activity)
+                AlipayUtil.donateAlipayByPic(((Activity) context));
+            return;
+        }
+
+        //支付宝捐赠
+        if (url.contains(context.getResources().getString(R.string.apply_me_key)) || url.contains("donateAlipay")) {
+            if (context instanceof Activity)
+                AlipayUtil.donateAlipay(((Activity) context));
+            return;
+        }
+
+
+        //微信二维码捐赠
+        if (url.contains(context.getResources().getString(R.string.apply_me_key)) || url.contains("donateWeiXin")) {
+            if (context instanceof Activity)
+                WeChatUtil.donateWeiXin(((Activity) context));
+            return;
+        }
+
 
         if (URLUtil.isNetworkUrl(url)) {
             context.startActivity(new Intent(context, WebActivity.class)
                     .putExtra("from_url", url));
             enterAnimation(context);
-        } else {
-            startActivity(url);
+            return;
         }
+
+        startActivity(url);
     }
 
     /**
@@ -933,6 +1018,20 @@ public class MyUtils {
         } else {
             startActivity(url);
         }
+    }
+
+
+    /**
+     * 跳转网页
+     *
+     * @param url    网页链接
+     * @param cookie Cookie
+     */
+    public static void openUrl(Context context, String url, String cookie) {
+        context.startActivity(new Intent(context, WebActivity.class)
+                .putExtra("from_url", url)
+                .putExtra("cookie", cookie));
+        enterAnimation(context);
     }
 
     /**
@@ -965,18 +1064,6 @@ public class MyUtils {
         enterAnimation(context);
     }
 
-    /**
-     * 跳转网页
-     *
-     * @param url    网页链接
-     * @param cookie Cookie
-     */
-    public static void openUrl(Context context, String url, String cookie) {
-        context.startActivity(new Intent(context, WebActivity.class)
-                .putExtra("from_url", url)
-                .putExtra("cookie", cookie));
-        enterAnimation(context);
-    }
 
     /**
      * 打开图片
@@ -1047,68 +1134,12 @@ public class MyUtils {
 
     //获取QQ头像
     public static String getQQHeader(String qq) {
+        if (StringUtils.isEmpty(qq)) {
+            return "default_header";
+        }
         return "http://q1.qlogo.cn/g?b=qq&nk=" + qq + "&s=100";
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    public static void setMoveWidget(final View view, final View.OnClickListener listener) {
-        view.setClickable(true);
-        view.setOnTouchListener(new View.OnTouchListener() {
-            private int padding = 20;
-            private int right;
-            private int top;
-            private int bottom;
-            private int left;
-            private int startY;
-            private int startX;
-            private boolean isClick = false;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        //获取当前按下的坐标
-                        startX = (int) event.getRawX();
-                        startY = (int) event.getRawY();
-                        isClick = true;
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        right = 0;
-                        top = 0;
-                        bottom = 0;
-                        left = 0;
-
-                        //获取移动后的坐标
-                        int moveX = (int) event.getRawX();
-                        int moveY = (int) event.getRawY();
-                        //拿到手指移动距离的大小
-                        int move_bigX = moveX - startX;
-                        int move_bigY = moveY - startY;
-                        //拿到当前控件未移动的坐标
-                        left = view.getLeft();
-                        top = view.getTop();
-                        left += move_bigX;
-                        top += move_bigY;
-                        right = left + view.getWidth();
-                        bottom = top + view.getHeight();
-                        view.layout(left, top, right, bottom);
-                        startX = moveX;
-                        startY = moveY;
-                        isClick = false;
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        right = padding + view.getWidth();
-                        view.layout(padding, top, right, bottom);
-
-                        if (isClick && listener != null) {
-                            listener.onClick(v);
-                        }
-                        return true;
-                }
-                return true;
-            }
-        });
-    }
 
     /**
      * 跳转到应用市场app详情界面
@@ -1194,6 +1225,7 @@ public class MyUtils {
                 }
             }
         });
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

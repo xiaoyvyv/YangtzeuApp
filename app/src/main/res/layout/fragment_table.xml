@@ -211,6 +211,28 @@
                             android:text="21:05\n-\n22:40"
                             android:textSize="10sp"
                             tools:ignore="HardcodedText" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="午间课"
+                            android:textSize="10sp"
+                            tools:ignore="HardcodedText" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/table_section"
+                            android:layout_marginTop="@dimen/table_item_margin"
+                            android:layout_marginBottom="@dimen/table_item_margin"
+                            android:gravity="center"
+                            android:text="晚间课"
+                            android:textSize="10sp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView

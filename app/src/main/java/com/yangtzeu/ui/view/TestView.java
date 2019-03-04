@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.yangtzeu.ui.adapter.FragmentAdapter;
 import com.yangtzeu.ui.fragment.TestFragment;
+import com.yangtzeu.ui.view.base.BaseView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-public interface TestView {
+public interface TestView extends BaseView {
      Toolbar getToolbar();
      TabLayout  getTabLayout();
      FrameLayout getContainer();
-     FragmentAdapter  getFragmentAdapter();
      ProgressDialog  getProgressDialog();
      FragmentManager getManager();
 

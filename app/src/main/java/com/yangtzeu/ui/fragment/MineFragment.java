@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,24 +18,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.MediaStoreSignature;
-import com.bumptech.glide.signature.ObjectKey;
+import com.lib.chat.common.UserManager;
+import com.xiaomi.mimc.common.MIMCConstant;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.MinePresenter;
+import com.yangtzeu.ui.activity.ADActivity;
 import com.yangtzeu.ui.activity.BoardActivity;
 import com.yangtzeu.ui.activity.CetActivity;
 import com.yangtzeu.ui.activity.ChangePassActivity;
+import com.yangtzeu.ui.activity.ChatActivity;
+import com.yangtzeu.ui.activity.InfoActivity;
 import com.yangtzeu.ui.activity.ChooseClassActivity;
 import com.yangtzeu.ui.activity.FeedBackActivity;
 import com.yangtzeu.ui.activity.PingJiaoActivity;
 import com.yangtzeu.ui.activity.PlanActivity;
-import com.yangtzeu.ui.activity.ShopActivity;
 import com.yangtzeu.ui.activity.TestActivity;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.view.MineView;
@@ -44,12 +43,11 @@ import com.yangtzeu.utils.EmptyTableUtils;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.UserUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
@@ -65,12 +63,12 @@ public class MineFragment extends BaseFragment implements MineView {
     private TextView mClass;
     private ImageView userHeader;
     private ImageView image_bg;
-    private TextView day_trip;
     private Toolbar toolbar;
     private MinePresenter presenter;
     private SwipeRefreshLayout refreshLayout;
 
     private TextView online;
+    private TextView unReadView;
     private TextView message;
     private TextView messageImage;
     private LinearLayout messageLayout;
@@ -91,11 +89,17 @@ public class MineFragment extends BaseFragment implements MineView {
     private LinearLayout githubLayout;
     private LinearLayout feeLayout;
     private LinearLayout planLayout;
+    private LinearLayout adLayout;
 
 
     private Activity activity;
     private OnlineBroadcastReceiver onlineBroadcastReceiver;
+    private MIMCOnlineBroadcastReceiver mimcOnlineBroadcastReceiver;
+    private ReceiveMessageBroadcastReceiver receiveMessageBroadcastReceiver;
+
     private boolean isReceiver = false;
+    private TextView status_trip;
+    private CardView status;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -114,9 +118,11 @@ public class MineFragment extends BaseFragment implements MineView {
         userHeader = rootView.findViewById(R.id.userHeader);
         refreshLayout = rootView.findViewById(R.id.refreshLayout);
         image_bg = rootView.findViewById(R.id.image_bg);
-        day_trip = rootView.findViewById(R.id.day_trip);
+        status_trip = rootView.findViewById(R.id.status_trip);
+        status = rootView.findViewById(R.id.status);
 
 
+        unReadView = rootView.findViewById(R.id.unReadView);
         online = rootView.findViewById(R.id.online);
         boardLayout = rootView.findViewById(R.id.boardLayout);
         message = rootView.findViewById(R.id.message);
@@ -138,6 +144,7 @@ public class MineFragment extends BaseFragment implements MineView {
         coolLayout = rootView.findViewById(R.id.coolLayout);
         feeLayout = rootView.findViewById(R.id.feeLayout);
         planLayout = rootView.findViewById(R.id.planLayout);
+        adLayout = rootView.findViewById(R.id.adLayout);
 
 
     }
@@ -149,15 +156,28 @@ public class MineFragment extends BaseFragment implements MineView {
         int size = SPUtils.getInstance("app_info").getInt("online_size", 0);
         online.setText("online：" + size);
 
+        //在线人数统计
         IntentFilter filter = new IntentFilter();
         filter.addAction("Online_BroadcastReceiver");
         onlineBroadcastReceiver = new OnlineBroadcastReceiver();
         activity.registerReceiver(onlineBroadcastReceiver, filter);
+
+        //小米及时云消息在线状态广播接收器
+        IntentFilter filter1 = new IntentFilter();
+        filter1.addAction("MIMC_Online_BroadcastReceiver");
+        mimcOnlineBroadcastReceiver = new MIMCOnlineBroadcastReceiver();
+        activity.registerReceiver(mimcOnlineBroadcastReceiver, filter1);
+
+        //小米及时云接收消息来了的广播接收器
+        IntentFilter filter2 = new IntentFilter();
+        filter2.addAction("ReceiveMessage_BroadcastReceiver");
+        receiveMessageBroadcastReceiver = new ReceiveMessageBroadcastReceiver();
+        activity.registerReceiver(receiveMessageBroadcastReceiver, filter2);
+
+
         isReceiver = true;
 
         presenter = new MinePresenter(getActivity(), this);
-        presenter.setToolbarEvent();
-
         presenter.loadDayTrip();
         presenter.loadUserInfo();
         presenter.loadMessage();
@@ -184,7 +204,10 @@ public class MineFragment extends BaseFragment implements MineView {
         userHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.showChangeHeaderView();
+                Intent intent = new Intent(getActivity(), InfoActivity.class);
+                intent.putExtra("id", UserManager.getInstance().getAccount());
+                intent.putExtra("name", SPUtils.getInstance("user_info").getString("name"));
+                MyUtils.startActivity(intent);
             }
         });
 
@@ -196,11 +219,18 @@ public class MineFragment extends BaseFragment implements MineView {
         });
 
 
-        image_bg.setOnLongClickListener(new View.OnLongClickListener() {
+        image_bg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                MyUtils.startActivity(ShopActivity.class);
-                return true;
+            public void onClick(View v) {
+                if (ObjectUtils.isEmpty(UserManager.getInstance().getStatus())) {
+                    ToastUtils.showShort("当前处于离线状态，请稍后再试");
+                    return;
+                }
+                if (ObjectUtils.equals(UserManager.getInstance().getStatus(),MIMCConstant.OnlineStatus.OFFLINE )) {
+                    ToastUtils.showShort("当前处于离线状态，请稍后再试");
+                    return;
+                }
+                MyUtils.startActivity(ChatActivity.class);
             }
         });
 
@@ -215,7 +245,7 @@ public class MineFragment extends BaseFragment implements MineView {
         school_plan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_School_Plan);
+                MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_School_Plan, true);
             }
         });
 
@@ -289,7 +319,6 @@ public class MineFragment extends BaseFragment implements MineView {
             }
         });
 
-
         coolLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,10 +326,36 @@ public class MineFragment extends BaseFragment implements MineView {
             }
         });
 
+        adLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyUtils.startActivity(ADActivity.class);
+            }
+        });
+
         githubLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyUtils.openUrl(Objects.requireNonNull(getActivity()), Url.Yangtzeu_Github, true);
+                AlertDialog.Builder build = new AlertDialog.Builder(getActivity());
+                build.setTitle(R.string.trip);
+                build.setMessage("源码已经上传到Github，如果您也想学习此软件源码，请加群讨论！");
+                build.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyUtils.openUrl(getActivity(), Url.Yangtzeu_Join_Group,true);
+                    }
+                });
+                build.setNeutralButton("ReadMe.MD", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyUtils.openUrl(getActivity(), Url.Yangtzeu_Github,true);
+                    }
+                });
+                build.setNegativeButton(R.string.clear, null);
+                build.create();
+                AlertDialog dialog = build.create();
+                dialog.show();
+                dialog.setCanceledOnTouchOutside(false);
             }
         });
 
@@ -369,14 +424,20 @@ public class MineFragment extends BaseFragment implements MineView {
         return toolbar;
     }
 
-    @Override
-    public TextView getDayTrip() {
-        return day_trip;
-    }
 
     @Override
     public TextView getMessageView() {
         return message;
+    }
+
+    @Override
+    public CardView getStatusView() {
+        return status;
+    }
+
+    @Override
+    public TextView getStatusTextView() {
+        return status_trip;
     }
 
     @Override
@@ -410,23 +471,57 @@ public class MineFragment extends BaseFragment implements MineView {
     }
 
     @Override
-    public ImageView getDayTripImage() {
-        return image_bg;
-    }
-
-    @Override
     public void onDestroy() {
-        super.onDestroy();
         if (onlineBroadcastReceiver != null && isReceiver) {
             activity.unregisterReceiver(onlineBroadcastReceiver);
         }
+
+        if (mimcOnlineBroadcastReceiver != null && isReceiver) {
+            activity.unregisterReceiver(mimcOnlineBroadcastReceiver);
+        }
+
+        if (receiveMessageBroadcastReceiver != null && isReceiver) {
+            activity.unregisterReceiver(receiveMessageBroadcastReceiver);
+        }
+        super.onDestroy();
     }
 
+    //在线人数广播
     public class OnlineBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             int size = intent.getIntExtra("online_size", 0);
             online.setText("online：" + size);
+        }
+    }
+
+    //MIMC状态广播
+    public class MIMCOnlineBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean is_mimc_online = intent.getBooleanExtra("online_status", false);
+            if (is_mimc_online) {
+                status_trip.setText(activity.getString(R.string.online));
+                status.setCardBackgroundColor(Color.GREEN);
+            } else {
+                status_trip.setText(activity.getString(R.string.outline));
+                status.setCardBackgroundColor(Color.RED);
+            }
+        }
+    }
+
+    //接收到即时消息
+    public class ReceiveMessageBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long unRead = UserManager.getInstance().getAllUnRead();
+            if (unRead != 0) {
+                unReadView.setText(unRead + "条未读聊天消息");
+                unReadView.setTextColor(Color.RED);
+            } else {
+                unReadView.setText("点击进入聊天系统");
+                unReadView.setTextColor(Color.WHITE);
+            }
         }
     }
 }

@@ -24,17 +24,11 @@ public class MinePresenter {
         model.loadUserInfo(activity, view);
     }
 
-    public void showChangeHeaderView( ) {
-        model.showChangeHeaderView(activity,view);
-    }
 
     public void loadMessage() {
         model.loadMessage(activity,view);
     }
 
-    public void setToolbarEvent() {
-        model.setToolbarEvent(activity,view);
-    }
 
     public void checkInternetView() {
         model.checkInternetView(activity,view);

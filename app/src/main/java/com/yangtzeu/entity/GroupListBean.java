@@ -29,16 +29,26 @@ public class GroupListBean {
 
     public static class DataBean {
         /**
+         * author : 群主
          * id : 10000005
          * name : 新长大助手官方群
          * desc : 反馈学习交流群，禁止灌水！
          * create : 2019-01-12 15:42:21
          */
 
+        private String author;
         private String id;
         private String name;
         private String desc;
         private String create;
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
 
         public String getId() {
             return id;

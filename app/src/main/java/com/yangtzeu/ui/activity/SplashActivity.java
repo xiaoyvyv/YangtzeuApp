@@ -44,6 +44,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
         new AppIconUtils().pmTest(this);
 
         presenter = new SplashPresenter(this, this);
+        presenter.checkCopyRight();
+
         presenter.loadPermission(new SplashModel.OnPermissionCallBack() {
             @Override
             public void OnGranted() {

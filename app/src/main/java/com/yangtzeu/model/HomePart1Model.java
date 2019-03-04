@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.webkit.URLUtil;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -69,16 +70,18 @@ public class HomePart1Model implements IHomePart1Model {
                 item.setAnimation(AnimationUtils.loadAnimation(activity, R.anim.alpha_to1_750));
 
                 String time = elements_next.get(j).select("li span").text();
-                final String url = Url.Yangtzeu_JWC + elements_next.get(j).select("li a").attr("href");
+                final String url= elements_next.get(j).select("li a").attr("href");
+
                 String title = elements_next.get(j).select("li a").text();
 
-                TextView fragment_item_time = item.findViewById(R.id.notice_time);
+                final TextView fragment_item_time = item.findViewById(R.id.notice_time);
                 TextView fragment_item_title = item.findViewById(R.id.notice_title);
                 TextView fragment_item_kind = item.findViewById(R.id.notice_kind);
                 View fragment_item_view = item.findViewById(R.id.view);
 
                 fragment_item_time.setText(time);
                 fragment_item_title.setText(title);
+
                 item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -86,8 +89,12 @@ public class HomePart1Model implements IHomePart1Model {
                             Intent intent = new Intent(activity, NewsDetailsActivity.class);
                             intent.putExtra("from_url", url);
                             MyUtils.startActivity(intent);
-                        } else {
+                        } else if (URLUtil.isNetworkUrl(url)) {
                             MyUtils.openUrl(activity, url);
+                        } else {
+                            Intent intent = new Intent(activity, NewsDetailsActivity.class);
+                            intent.putExtra("from_url", Url.Yangtzeu_JWC + url);
+                            MyUtils.startActivity(intent);
                         }
                     }
                 });

@@ -1,8 +1,6 @@
 package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -37,7 +35,7 @@ public class MangerActivity extends BaseActivity implements MangerView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fmanger);
+        setContentView(R.layout.activity_manger);
         init();
         MyUtils.setToolbarBackToHome(this, toolbar);
     }
@@ -45,7 +43,7 @@ public class MangerActivity extends BaseActivity implements MangerView {
     @Override
     public void findViews() {
         toolbar = findViewById(R.id.toolbar);
-        container = findViewById(R.id.container);
+        container = findViewById(R.id.slow_container);
         refreshLayout = findViewById(R.id.refreshLayout);
     }
 

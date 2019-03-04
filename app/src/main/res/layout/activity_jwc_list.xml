@@ -26,9 +26,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:srlPrimaryColor="?attr/colorPrimary">
 
-        <com.scwang.smartrefresh.header.TaurusHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

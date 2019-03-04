@@ -1,6 +1,8 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -89,7 +91,13 @@ public class MainModel implements IMainModel {
     public void initEvents(Activity activity, MainView view) {
         YangtzeuUtils.getTripInfo(activity, false);
         YangtzeuUtils.checkAppVersion(activity);
-        ServiceUtils.startService(BackgroundService.class);
+
+        Intent intent = new Intent(activity, BackgroundService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            activity.startForegroundService(intent);
+        } else {
+            ServiceUtils.startService(BackgroundService.class);
+        }
     }
 
 

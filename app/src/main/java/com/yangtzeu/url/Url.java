@@ -11,16 +11,16 @@ public class Url {
      */
     //App接口Host
     public static final String My_App_Home = "http://101.132.108.0";
-    //App接口Host
-    public static final String My_Home = "http://101.132.108.0";
     //mob的Key secret
     public static final String key = "20588bd8fbea0";
-    public static final String secret = "95c6d889c855e82689609cd192cfc6c8";
 
     //长江大学主页
     public static final String Yangtzeu_Url = "http://www.yangtzeu.edu.cn/";
     //长江大学教务系统主页
     public static final String Yangtzeu_Base_Url = "http://jwc3.yangtzeu.edu.cn";
+    //长江大学教务系统主页
+    public static final String Yangtzeu_Base_Url_Ip = "http://221.233.24.23";
+
     //旧教务处主页
     public static final String Yangtzeu_JWC = "http://jwc.yangtzeu.edu.cn/";
 
@@ -28,51 +28,110 @@ public class Url {
      * 教务各类网址
      */
     //默认的学期期
-    public static final String Default_Term = "49";
+    public static final String Default_Term = "69";
     //登录接口
     public static final String Yangtzeu_Login_Path = Yangtzeu_Base_Url + "/eams/login.action";
     //验证码地址
     public static final String Yangtzeu_Login_Code = Yangtzeu_Base_Url + "/eams/captcha/image.action";
     //注销地址
     public static final String Yangtzeu_Out = Yangtzeu_Base_Url + "/eams/logout.action";
-    //学籍信息
-    public static final String Yangtzeu_XueJI = Yangtzeu_Base_Url + "/eams/stdDetail.action";
-    //学生成绩
-    public static final String Yangtzeu_Grade_Url = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!search.action?semesterId=";
-    //学生所有成绩
-    public static final String Yangtzeu_AllGrade_Url = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!historyCourseGrade.action?projectType=MAJOR";
+
+    //学籍信息（本科）
+    public static final String Yangtzeu_XueJI_Index1 = Yangtzeu_Base_Url + "/eams/stdDetail.action?projectId=1";
+    public static final String Yangtzeu_XueJI1 = Yangtzeu_Base_Url + "/eams/stdDetail!innerIndex.action?projectId=1";
+    //学籍信息（辅修）
+    public static final String Yangtzeu_XueJI_Index2 = Yangtzeu_Base_Url + "/eams/stdDetail!index.action?projectId=2";
+    public static final String Yangtzeu_XueJI2 = Yangtzeu_Base_Url + "/eams/stdDetail!innerIndex.action?projectId=2";
+
+
+    //学生成绩（本科）
+    public static final String Yangtzeu_Grade_Url_Index1 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!index.action?projectId=1";
+    public static final String Yangtzeu_Grade_Url1 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!search.action?semesterId=";
+    //学生成绩（辅修）
+    public static final String Yangtzeu_Grade_Url_Index2 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!index.action?projectId=2";
+    public static final String Yangtzeu_Grade_Url2 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!search.action?semesterId=";
+
+
+    //学生所有成绩（本科）
+    public static final String Yangtzeu_AllGrade_Url_Index1 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!index.action?projectId=1";
+    public static final String Yangtzeu_AllGrade_Url1 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!historyCourseGrade.action?projectType=MAJOR";
+    //学生所有成绩（辅修）
+    public static final String Yangtzeu_AllGrade_Url_Index2 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!index.action?projectId=2";
+    public static final String Yangtzeu_AllGrade_Url2 = Yangtzeu_Base_Url + "/eams/teach/grade/course/person!historyCourseGrade.action?projectType=MINOR";
+
     //修改密码
     public static final String Yangtzeu_Change_Password = Yangtzeu_Base_Url + "/eams/security/my!save.action";
     //控制面板
     public static final String Yangtzeu_Control = Yangtzeu_Base_Url + "/eams/myPlan.action";
-    //Cet查询
-    public static final String Yangtzeu_Cet = Yangtzeu_Base_Url + "/eams/stdOtherExamSignUp.action";
-    //Cet查询
-    public static final String Yangtzeu_Guan_Cet = "http://cet.etest.net.cn/";
+
+
+    //Cet教务系统查询（本科）
+    public static final String Yangtzeu_Cet_Index1 = Yangtzeu_Base_Url + "/eams/stdOtherExamSignUp!index.action?projectId=1";
+    public static final String Yangtzeu_Cet1 = Yangtzeu_Base_Url + "/eams/stdOtherExamSignUp!innerIndex.action?projectId=1";
+    //Cet教务系统查询（辅修）
+    public static final String Yangtzeu_Cet_Index2 = Yangtzeu_Base_Url + "/eams/stdOtherExamSignUp!index.action?projectId=2";
+    public static final String Yangtzeu_Cet2 = Yangtzeu_Base_Url + "/eams/stdOtherExamSignUp!innerIndex.action?projectId=2";
+
+
+
+
+    //Cet官方日期表单查询
+    public static final String Yangtzeu_Cet_Date = "http://cet.neea.edu.cn/cet/js/data.js";
+    //Cet官方报名
+    public static final String Yangtzeu_Guan_Cet = "https://passport.etest.net.cn/CETLogin";
+
+
     //Cet报名
     public static final String Yangtzeu_Cet_Add = Yangtzeu_Base_Url + "/eams/stdOtherExamSignUp!configList.action";
+    //Cet准考证查询验证码
+    public static final String Yangtzeu_Cet_Card_Yzm = "http://cet-bm.neea.edu.cn/Home/VerifyCodeImg";
+
+    //课表查询ids（本科）
+    public static final String Yangtzeu_Table_Index1 = Yangtzeu_Base_Url + "/eams/courseTableForStd!index.action?projectId=1";
+    public static final String Yangtzeu_Table_Ids1 = Yangtzeu_Base_Url + "/eams/courseTableForStd!innerIndex.action?projectId=1";
+    //课表查询ids（辅修）
+    public static final String Yangtzeu_Table_Index2 = Yangtzeu_Base_Url + "/eams/courseTableForStd!index.action?projectId=2";
+    public static final String Yangtzeu_Table_Ids2 = Yangtzeu_Base_Url + "/eams/courseTableForStd!innerIndex.action?projectId=2";
     //课表查询
     public static final String Yangtzeu_Table = Yangtzeu_Base_Url + "/eams/courseTableForStd!courseTable.action";
-    //课表查询ids
-    public static final String Yangtzeu_Table_Ids = Yangtzeu_Base_Url + "/eams/courseTableForStd.action";
-    //我的考试
-    public static final String Yangtzeu_My_Test = Yangtzeu_Base_Url + "/eams/stdExamTable.action";
+
+    //我的考试（本科）
+    public static final String Yangtzeu_My_Test1 = Yangtzeu_Base_Url + "/eams/stdExamTable!innerIndex.action?projectId=1";
+    //我的考试（辅修）
+    public static final String Yangtzeu_My_Test2 = Yangtzeu_Base_Url + "/eams/stdExamTable!innerIndex.action?projectId=2";
     //我的考试详情
     public static final String Yangtzeu_My_Details_Test = Yangtzeu_Base_Url + "/eams/stdExamTable!examTable.action?examBatch.id=";
-    //评教
-    public static final String Yangtzeu_Teacher = Yangtzeu_Base_Url + "/eams/quality/stdEvaluate.action";
-    //选课查询
-    public static final String Yangtzeu_ChooseClass = Yangtzeu_Base_Url + "/eams/stdElectCourse.action";
+
+    //评教（本科）
+    public static final String Yangtzeu_Teacher1 = Yangtzeu_Base_Url + "/eams/quality/stdEvaluate!innerIndex.action?projectId=1";
+    //评教（辅修）
+    public static final String Yangtzeu_Teacher2 = Yangtzeu_Base_Url + "/eams/quality/stdEvaluate!innerIndex.action?projectId=2";
+
+
+    //选课查询 （本科）
+    public static final String Yangtzeu_ChooseClass_Index1 = Yangtzeu_Base_Url + "/eams/stdElectCourse!index.action?projectId=1";
+    public static final String Yangtzeu_ChooseClass1 = Yangtzeu_Base_Url + "/eams/stdElectCourse!innerIndex.action?projectId=1";
+    //选课查询 （辅修）
+    public static final String Yangtzeu_ChooseClass_Index2 = Yangtzeu_Base_Url + "/eams/stdElectCourse!index.action?projectId=2";
+    public static final String Yangtzeu_ChooseClass2 = Yangtzeu_Base_Url + "/eams/stdElectCourse!innerIndex.action?projectId=2";
+
+
+
     //培养计划
     public static final String Yangtzeu_Personal_Plan = Yangtzeu_Base_Url + "/eams/myPlan.action";
-    //专业培养计划
-    public static final String Yangtzeu_Major_Mode = Yangtzeu_Base_Url + "/eams/stdMajorPlan!search.action";
-    //制定培养计划
-    public static final String Yangtzeu_Maker_Mode = Yangtzeu_Base_Url + "/eams/draftPersonalPlan.action";
-    //我的培养方案
-    public static final String Yangtzeu_Me_Mode = Yangtzeu_Base_Url + "/eams/myDraftPersonalPlan!search.action";
+
+
+    //专业培养计划 （本科）
+    public static final String Yangtzeu_Major_Mode_Index1 = Yangtzeu_Base_Url + "/eams/stdMajorPlan!index.action?projectId=1";
+    public static final String Yangtzeu_Major_Mode1 = Yangtzeu_Base_Url + "/eams/stdMajorPlan!search.action";
+    //专业培养计划 （辅修）
+    public static final String Yangtzeu_Major_Mode_Index2 = Yangtzeu_Base_Url + "/eams/stdMajorPlan!index.action?projectId=2";
+    public static final String Yangtzeu_Major_Mode2 = Yangtzeu_Base_Url + "/eams/stdMajorPlan!search.action";
+
+
     //我的培养方案详情
     public static final String Yangtzeu_Me_Mode_Details = Yangtzeu_Base_Url + "/eams/myDraftPersonalPlan!info.action";
+
     //站内消息
     public static final String Yangtzeu_ZhanNei = Yangtzeu_Base_Url + "/eams/systemMessageForStd!search.action";
     //成绩导出
@@ -126,6 +185,29 @@ public class Url {
     public static String Yangtzeu_Physical_Verify = "http://10.10.16.16/index.php/home/index/verify";
 
 
+    /**
+     * 答案相关
+     */
+    public static final String Yangtzeu_Answer_YY = My_App_Home + "/yangtzeu/html/answer/answer_yy/";
+    public static final String Yangtzeu_Answer_SX = My_App_Home + "/yangtzeu/html/answer/answer_sx/";
+    public static final String Yangtzeu_Answer_WL = My_App_Home + "/yangtzeu/html/answer/answer_wl/";
+    public static final String Yangtzeu_Answer_JK = My_App_Home + "/yangtzeu/html/answer/answer_jk/";
+    public static final String Yangtzeu_Answer_CJ = My_App_Home + "/yangtzeu/html/answer/answer_cj/";
+    public static final String Yangtzeu_Answer_HX = My_App_Home + "/yangtzeu/html/answer/answer_hx/";
+    public static final String Yangtzeu_Answer_ZT = My_App_Home + "/yangtzeu/html/answer/answer_zt/";
+    public static final String Yangtzeu_Answer_DL = My_App_Home + "/yangtzeu/html/answer/answer_dl/";
+    //答案页面Banner
+    public static final String Yangtzeu_App_Answer_Banner = My_App_Home + "/yangtzeu/json/yz_answer_banner.json";
+    //热门答案
+    public static final String Yangtzeu_App_Hot_Answer = My_App_Home + "/yangtzeu/json/yz_answer_hot.json";
+
+
+    //课表默认背景
+    public static final String Yangtzeu_Table_Background_White = "http://whysroom.oss-cn-beijing.aliyuncs.com/yangtzeu/normal/white.jpg";
+    //课表默认背景
+    public static final String Yangtzeu_Table_Background = "http://whysroom.oss-cn-beijing.aliyuncs.com/yangtzeu/normal/table_bg.jpg";
+    //爱心
+    public static final String Yangtzeu_App_Love = "http://whysroom.oss-cn-beijing.aliyuncs.com/yangtzeu/normal/love.png";
 
 
     /**
@@ -135,14 +217,6 @@ public class Url {
     public static final String Yangtzeu_Next_Holiday = "http://timor.tech/api/holiday/tts/next";
     //天气查询
     public static final String Yangtzeu_Weather = "http://apicloud.mob.com/v1/weather/query?key=" + key + "&province=湖北&city=";
-    //课表默认背景
-    public static final String Yangtzeu_Table_Background_White = My_App_Home + "/yangtzeu/image/white.jpg";
-    //课表默认背景
-    public static final String Yangtzeu_Table_Background = My_App_Home + "/yangtzeu/image/table_bg.jpg";
-    //聊天背景
-    public static final String Yangtzeu_Chat_Background = My_App_Home + "/image/chat_bg.jpg";
-    //爱心
-    public static final String Yangtzeu_App_Love = My_App_Home + "/yangtzeu/image/love.png";
     //当前在线人数
     public static final String Yangtzeu_App_Online = My_App_Home + "/yangtzeu/api/yz_online.php";
     //当前在线人数
@@ -171,6 +245,8 @@ public class Url {
     public static final String Yangtzeu_Many_Item = My_App_Home + "/yangtzeu/json/yz_many.json";
     //导航界面
     public static final String Yangtzeu_AppTripInfo = My_App_Home + "/yangtzeu/json/yz_trip.json";
+    //游戏
+    public static final String Yangtzeu_App_Game = My_App_Home + "/yangtzeu/json/yz_game.json";
     //锁屏白名单
     public static final String Yangtzeu_App_Lock_White = My_App_Home + "/yangtzeu/json/yz_lock_white.json";
     //开源地址
@@ -180,21 +256,33 @@ public class Url {
     //X5内核调试
     public static final String Yangtzeu_Debug_X5 = "http://debugtbs.qq.com";
     //App反馈地址
-    public static String Yangtzeu_App_FeedBack = My_App_Home + "/yangtzeu/api/yz_feedback.php";
+    public static final String Yangtzeu_App_FeedBack = My_App_Home + "/yangtzeu/api/yz_feedback.php";
     //全民k歌解析
-    public static String Url_Music_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
+    public static final String Yangtzeu_App_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
     //词霸
-    public static String Yangtzeu_App_CiBa = "http://open.iciba.com/dsapi/";
+    public static final String Yangtzeu_App_CiBa = "http://open.iciba.com/dsapi/";
     //OSS上传凭证
-    public static String Yangtzeu_App_STS = My_App_Home + "/sts-server/sts.php";
+    public static final String Yangtzeu_App_STS = My_App_Home + "/sts-server/sts.php";
     //App留言板--发表
-    public static String Yangtzeu_App_Board = My_App_Home + "/yangtzeu/api/yz_board.php?action=add";
+    public static final String Yangtzeu_App_Board = My_App_Home + "/yangtzeu/api/yz_board.php?action=add";
     //App留言板--展示
-    public static String Yangtzeu_App_ShowMessage =My_App_Home + "/yangtzeu/api/yz_board.php?&which=30&start=";
+    public static final String Yangtzeu_App_ShowMessage = My_App_Home + "/yangtzeu/api/yz_board.php?&which=30&start=";
     //App留言板--回复
-    public static String Yangtzeu_App_Reply_Message = My_App_Home + "/yangtzeu/api/yz_board_replay.php";
+    public static final String Yangtzeu_App_Reply_Message = My_App_Home + "/yangtzeu/api/yz_board_replay.php";
     //发邮件
-    public static String Yangtzeu_App_SendEmail = My_App_Home + "/user_system/php_mail/mail.php";
+    public static final String Yangtzeu_App_SendEmail = My_App_Home + "/user_system/php_mail/mail.php";
+    //优惠券
+    public static final String Yangtzeu_App_Quan = My_App_Home + "/fun_web/quan/index.php";
+    //优惠券
+    public static final String Yangtzeu_Group_List = My_App_Home + "/yangtzeu/json/yz_group.json";
+    //我的官方群
+    public static final String Yangtzeu_Join_Group = "http://qm.qq.com/cgi-bin/qm/qr?k=dezJxL7E5dTPk0-q5Is6tKA8mPHgIfxy";
+
+
+    /**
+     * Voa听力
+     */
+    public static final String Yangtzeu_Voa_Home = "http://www.51voa.com/";
 
 
 
@@ -360,8 +448,4 @@ public class Url {
                     + "&name=" + name;
         }
     }
-
-
-
-
 }

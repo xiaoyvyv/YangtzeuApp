@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.lib.chat.common.Constant;
 import com.lib.subutil.ClipboardUtils;
 import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
@@ -117,6 +118,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                                     MessageBean messageBean = GsonUtils.fromJson(response, MessageBean.class);
                                     ToastUtils.showShort(messageBean.getInfo());
                                 }
+
                                 @Override
                                 public void onFailure(String error) {
                                     ToastUtils.showShort(R.string.delete_error);
@@ -170,9 +172,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                 onlineView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //targetId - 目标id（群聊为群的id，私聊为对方id）
-                        ToastUtils.showShort("开发中");
-                        //TODO 开发跳蚤市场在线联系
+                        MyUtils.chatOnline(context, master_id, Constant.USER_TYPE_USER);
                     }
                 });
                 sendView.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +184,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                         } else {
                             ShopBean.DataBean.ReplayBean replayBean = new ShopBean.DataBean.ReplayBean();
                             String my_name = SPUtils.getInstance("user_info").getString("name");
-                            String my_number= SPUtils.getInstance("user_info").getString("number");
+                            String my_number = SPUtils.getInstance("user_info").getString("number");
                             replayBean.setUser_name(my_name);
                             replayBean.setContent(input);
                             replay.add(replayBean);
@@ -202,6 +202,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                                     replay_dialog.dismiss();
                                     ToastUtils.showShort(R.string.replay_success);
                                 }
+
                                 @Override
                                 public void onFailure(String error) {
                                     replay.remove(replay.size() - 1);
@@ -218,6 +219,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                         MyUtils.call(context, phone);
                     }
                 });
+
                 qqView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -256,8 +258,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             HuiFuItemText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.showShort("开发中");
-                    //TODO 开发跳蚤市场在线联系
+                    MyUtils.chatOnline(context, master_id, Constant.USER_TYPE_USER);
                 }
             });
         }

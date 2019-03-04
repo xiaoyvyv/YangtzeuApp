@@ -29,4 +29,9 @@ public interface TableView {
     TableFragmentAdapter getTableFragmentAdapter();
 
     ImageView getTableBackgroundView();
+
+
+    String getIdsUrl();
+
+    String getIndexUrl();
 }

@@ -28,6 +28,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.lib.touch.DragView;
 import com.lib.x5web.WebViewProgressBar;
 import com.lib.x5web.X5JavaScriptFunction;
 import com.lib.x5web.X5LoadFinishListener;
@@ -63,7 +64,7 @@ public class WebActivity extends BaseActivity {
     private boolean isPjFinish = false;
     private FrameLayout web_container;
     private boolean isNoTitle;
-    private FloatingActionButton ic_close;
+    private DragView ic_close;
     private String base_html;
     private String base_url;
     private String base_title;
@@ -98,6 +99,9 @@ public class WebActivity extends BaseActivity {
         LogUtils.i("网页加载的Cookie:" + cookie + "\n");
 
         super.onCreate(savedInstanceState);
+        if (from_url.equals(Url.Yangtzeu_Fee)) {
+            setTheme(R.style.AppTheme_ShuiYaQing);
+        }
         setContentView(R.layout.activity_web);
         init();
 
@@ -157,8 +161,8 @@ public class WebActivity extends BaseActivity {
             ic_close.setVisibility(View.VISIBLE);
         }
 
-        //设置按钮可移动
-        MyUtils.setMoveWidget(ic_close, new View.OnClickListener() {
+        ic_close.setPadding(ConvertUtils.dp2px(15));
+        ic_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WebActivity.this.finish();

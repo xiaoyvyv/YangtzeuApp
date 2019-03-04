@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/value"
+        android:title="行列式值" />
+    <item
+        android:id="@+id/ni"
+        android:title="矩阵求逆" />
+    <item
+        android:id="@+id/zhuanzhi"
+        android:title="转置矩阵" />
+    <item
+        android:id="@+id/zhi"
+        android:title="矩阵的秩" />
+    <item
+        android:id="@+id/norm"
+        android:title="矩阵的范式" />
+    <item
+        android:id="@+id/cond"
+        android:title="矩阵的条件数" />
+    <item
+        android:id="@+id/eig"
+        android:title="矩阵的特征值" />
+    <item
+        android:id="@+id/plus"
+        android:title="两矩阵的加法" />
+    <item
+        android:id="@+id/minus"
+        android:title="两矩阵的减法" />
+    <item
+        android:id="@+id/times"
+        android:title="两矩阵的乘法" />
+    <item
+        android:id="@+id/d_times"
+        android:title="数和矩阵乘法" />
+    <item
+        android:id="@+id/left_div"
+        android:title="矩阵的左除法" />
+    <item
+        android:id="@+id/right_div"
+        android:title="矩阵的右除法" />
+</menu>

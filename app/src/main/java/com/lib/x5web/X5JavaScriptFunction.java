@@ -6,6 +6,9 @@ import android.webkit.JavascriptInterface;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.lib.chat.common.Constant;
+import com.yangtzeu.ui.activity.BoardActivity;
+import com.yangtzeu.utils.MyUtils;
 
 public class X5JavaScriptFunction {
     private final Context context;
@@ -19,9 +22,7 @@ public class X5JavaScriptFunction {
             @Override
             public void run() {
                 if (!StringUtils.isEmpty(number)) {
-                    //targetId - 目标id（群聊为群的id，私聊为对方id）
-                    ToastUtils.showShort("开发中");
-                    // TODO X5JavaScriptFunction-在线联系
+                    MyUtils.chatOnline(context,number, Constant.USER_TYPE_USER);
                 }
             }
         });

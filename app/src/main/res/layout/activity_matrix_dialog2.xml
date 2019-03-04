@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:alpha="0.7"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:text="矩阵名称"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:alpha="0.6"
+            android:textColor="@color/black"
+            android:hint="A"
+            android:textSize="15sp"
+            android:inputType="textEmailAddress"
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:alpha="0.7"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:text="矩阵宽度"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:alpha="0.6"
+                android:textColor="@color/black"
+                android:hint="3"
+                android:textSize="15sp"
+                android:id="@+id/width"
+                android:maxLength="1"
+                android:digits="123456789"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:alpha="0.7"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:text="矩阵高度"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:alpha="0.6"
+                android:textColor="@color/black"
+                android:hint="3"
+                android:textSize="15sp"
+                android:id="@+id/height"
+                android:maxLength="1"
+                android:digits="123456789"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

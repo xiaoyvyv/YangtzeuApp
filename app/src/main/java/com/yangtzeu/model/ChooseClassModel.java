@@ -3,7 +3,6 @@ package com.yangtzeu.model;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -20,7 +20,6 @@ import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IChooseClassModel;
-import com.yangtzeu.ui.activity.ChooseClassActivity;
 import com.yangtzeu.ui.activity.LoginActivity;
 import com.yangtzeu.ui.view.ChooseClassView;
 import com.yangtzeu.utils.MyUtils;
@@ -29,13 +28,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import static com.yangtzeu.url.Url.Yangtzeu_ChooseClass;
-
 public class ChooseClassModel implements IChooseClassModel {
 
     @Override
     public void getChooseClassInfo(final Activity activity, final ChooseClassView view) {
-        OkHttp.do_Get(Yangtzeu_ChooseClass, new OnResultStringListener() {
+        OkHttp.do_Get(view.getUrl(), new OnResultStringListener() {
             @Override
             public void onFailure(String error) {
                 if (view.getTrip() != null)

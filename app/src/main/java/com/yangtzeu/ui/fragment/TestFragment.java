@@ -78,7 +78,7 @@ public class TestFragment extends BaseFragment {
     public void findViews() {
 
         refresh = rootView.findViewById(R.id.refresh);
-        container = rootView.findViewById(R.id.container);
+        container = rootView.findViewById(R.id.slow_container);
         refresh = rootView.findViewById(R.id.refresh);
 
     }

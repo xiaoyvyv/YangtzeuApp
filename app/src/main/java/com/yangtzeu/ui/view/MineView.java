@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
@@ -19,10 +20,12 @@ public interface MineView {
 
     Toolbar getToolbar();
 
-
-    TextView getDayTrip();
-
     TextView getMessageView();
+
+
+    CardView getStatusView();
+
+    TextView getStatusTextView();
 
     LinearLayout getMessageLayout();
     LinearLayout getPhysicalLayout();
@@ -34,5 +37,4 @@ public interface MineView {
 
     TextView getInternetState();
 
-    ImageView getDayTripImage();
 }

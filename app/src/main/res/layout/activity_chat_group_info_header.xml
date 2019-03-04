@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:tag="header"
+    tools:showIn="@layout/activity_chat_group_info">
+
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:tag="zoom"
+        app:banner_indicatorGravity="right"
+        app:banner_isNumberIndicator="false"
+        app:banner_numberIndicatorTextSize="12sp"
+        app:banner_pointAutoPlayAble="true"
+        app:banner_pointAutoPlayInterval="2500"
+        app:banner_pointContainerBackground="#00000000"
+        app:banner_tipTextColor="@color/white_d"
+        app:banner_tipTextSize="12sp"
+        app:banner_transitionEffect="depth" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="start"
+        android:orientation="vertical"
+        android:tag="zoom">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="start"
+            android:textColor="#ffffff"
+            android:textIsSelectable="true"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

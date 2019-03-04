@@ -2,6 +2,7 @@ package com.yangtzeu.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.lib.chat.common.Constant;
 import com.lib.subutil.GsonUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -117,8 +119,7 @@ public class BoardActivity extends BaseActivity implements BoardView {
         chat_online.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShort("开发中");
-                //TODO 开发留言板在线联系
+                MyUtils.chatOnline(BoardActivity.this,to_number, Constant.USER_TYPE_USER);
             }
         });
 

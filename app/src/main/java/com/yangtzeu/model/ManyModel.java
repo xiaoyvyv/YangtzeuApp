@@ -1,17 +1,23 @@
 package com.yangtzeu.model;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.lib.calculator.calculator.CalculatorActivity;
+import com.lib.chat.common.UserManager;
 import com.lib.subutil.GsonUtils;
+import com.xiaomi.mimc.common.MIMCConstant;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.BannerBean;
 import com.yangtzeu.entity.ManyBean;
@@ -20,17 +26,34 @@ import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IManyModel;
 import com.yangtzeu.service.qq.QQService;
+import com.yangtzeu.ui.activity.AnswerActivity;
+import com.yangtzeu.ui.activity.ChatActivity;
+import com.yangtzeu.ui.activity.GameActivity;
+import com.yangtzeu.ui.activity.KgActivity;
+import com.yangtzeu.ui.activity.LockActivity;
+import com.yangtzeu.ui.activity.LoveActivity;
+import com.yangtzeu.ui.activity.MatrixActivity;
+import com.yangtzeu.ui.activity.RulerActivity;
+import com.yangtzeu.ui.activity.ShopActivity;
+import com.yangtzeu.ui.activity.TranslateActivity;
+import com.yangtzeu.ui.activity.VoaActivity;
+import com.yangtzeu.ui.activity.WebListActivity;
 import com.yangtzeu.ui.adapter.ManyAdapter;
 import com.yangtzeu.ui.view.ManyView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
+import com.yangtzeu.utils.NotificationUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 
-public class ManyModel implements IManyModel {
+public class ManyModel implements IManyModel, View.OnClickListener {
+    private Activity activity;
+    private ManyView view;
+
     @Override
     public void loadMarqueeView(final Activity activity, final ManyView view) {
         OkHttp.do_Get(Url.Yangtzeu_App_Many_Notice, new OnResultStringListener() {
@@ -65,16 +88,24 @@ public class ManyModel implements IManyModel {
             public void onResponse(String response) {
                 BannerBean beans = GsonUtils.fromJson(response, BannerBean.class);
                 final List<BannerBean.DataBean> info = beans.getData();
+                //随机广告顺序排序
+                Collections.shuffle(info);
                 final List<String> info_str = new ArrayList<>();
                 for (int i = 0; i < info.size(); i++) {
                     info_str.add(info.get(i).getTitle());
                 }
                 view.getBGABanner().setData(info, info_str);
-                view.getBGABanner().setAdapter(new BGABanner.Adapter<ImageView,BannerBean.DataBean>() {
+                view.getBGABanner().setAdapter(new BGABanner.Adapter<ImageView, BannerBean.DataBean>() {
                     @Override
                     public void fillBannerItem(BGABanner banner, ImageView itemView, BannerBean.DataBean model, int position) {
                         itemView.setScaleType(ImageView.ScaleType.FIT_XY);
                         Glide.with(activity).load(model.getImage()).into(itemView);
+                    }
+                });
+                view.getBGABanner().setDelegate(new BGABanner.Delegate() {
+                    @Override
+                    public void onBannerItemClick(BGABanner banner, View itemView, Object model, int position) {
+                        MyUtils.openUrl(activity, info.get(position).getUrl());
                     }
                 });
             }
@@ -110,10 +141,10 @@ public class ManyModel implements IManyModel {
 
     @Override
     public void loadQQLikeEvents(final Activity activity, ManyView view) {
-        if (MyUtils.isAccessibilitySettingsOn(activity,QQService.class)) {
+        if (MyUtils.isAccessibilitySettingsOn(activity, QQService.class)) {
             ToastUtils.showShort(R.string.please_open_friend);
             try {
-                Intent intent =activity.getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
+                Intent intent = activity.getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
                 activity.startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -136,6 +167,112 @@ public class ManyModel implements IManyModel {
                     .create();
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
+        }
+    }
+
+    @Override
+    @SuppressLint("InflateParams")
+    public void loadBannerItem(Activity activity, ManyView view) {
+        this.activity = activity;
+        this.view = view;
+        View rootView1 = LayoutInflater.from(activity).inflate(R.layout.fragment_many_banner_item1, null);
+        View rootView2 = LayoutInflater.from(activity).inflate(R.layout.fragment_many_banner_item2, null);
+        List<View> views = new ArrayList<>();
+        views.add(rootView1);
+        views.add(rootView2);
+        BGABanner bgaBanner = view.getBGABannerItem();
+        bgaBanner.setData(views);
+
+        rootView1.findViewById(R.id.lock).setOnClickListener(this);
+        rootView1.findViewById(R.id.shop).setOnClickListener(this);
+        rootView1.findViewById(R.id.answer).setOnClickListener(this);
+        rootView1.findViewById(R.id.love).setOnClickListener(this);
+        rootView1.findViewById(R.id.cut_off).setOnClickListener(this);
+        rootView1.findViewById(R.id.like).setOnClickListener(this);
+        rootView1.findViewById(R.id.web).setOnClickListener(this);
+        rootView1.findViewById(R.id.calculator).setOnClickListener(this);
+
+        rootView2.findViewById(R.id.ruler).setOnClickListener(this);
+        rootView2.findViewById(R.id.compass).setOnClickListener(this);
+        rootView2.findViewById(R.id.translate).setOnClickListener(this);
+        rootView2.findViewById(R.id.kg).setOnClickListener(this);
+        rootView2.findViewById(R.id.game).setOnClickListener(this);
+
+        rootView2.findViewById(R.id.matrix).setOnClickListener(this);
+        rootView2.findViewById(R.id.voa).setOnClickListener(this);
+        rootView2.findViewById(R.id.chat).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.shop:
+                MyUtils.startActivity(ShopActivity.class);
+                break;
+            case R.id.answer:
+                MyUtils.startActivity(AnswerActivity.class);
+                break;
+            case R.id.love:
+                MyUtils.startActivity(LoveActivity.class);
+                break;
+            case R.id.cut_off:
+                MyUtils.openUrl(activity, Url.Yangtzeu_App_Quan, true);
+                break;
+            case R.id.lock:
+                boolean isEnable = NotificationUtils.isNotificationEnabled(activity);
+                if (isEnable) {
+                    MyUtils.startActivity(LockActivity.class);
+                } else {
+                    MyUtils.getAlert(activity, "检测到您未允许本App的锁屏通知权限，建议您允许！\n\n请勾选允许锁屏通知\n\n权限用于在锁屏界面显示手机锁定剩余时间\n\n若不需要显示请点击取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            NotificationUtils.toNotificationSetting(activity);
+                        }
+                    }, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MyUtils.startActivity(LockActivity.class);
+                        }
+                    }).show();
+                }
+                break;
+            case R.id.like:
+                loadQQLikeEvents(activity, view);
+                break;
+            case R.id.web:
+                MyUtils.startActivity(WebListActivity.class);
+                break;
+            case R.id.calculator:
+                MyUtils.startActivity(CalculatorActivity.class);
+                break;
+            case R.id.compass:
+                Intent intent = new Intent(activity, WebListActivity.class);
+                intent.putExtra("from_url", Url.Yangtzeu_All_Web_Soft);
+                intent.putExtra("title", activity.getString(R.string.soft_list));
+                MyUtils.startActivity(intent);
+                break;
+            case R.id.translate:
+                MyUtils.startActivity(TranslateActivity.class);
+                break;
+            case R.id.kg:
+                MyUtils.startActivity(KgActivity.class);
+                break;
+            case R.id.ruler:
+                MyUtils.startActivity(RulerActivity.class);
+                break;
+            case R.id.game:
+                MyUtils.startActivity(GameActivity.class);
+                break;
+
+            case R.id.matrix:
+                MyUtils.startActivity(MatrixActivity.class);
+                break;
+            case R.id.voa:
+                MyUtils.startActivity(VoaActivity.class);
+                break;
+            case R.id.chat:
+                ToastUtils.showShort("开发中");
+                break;
         }
     }
 }

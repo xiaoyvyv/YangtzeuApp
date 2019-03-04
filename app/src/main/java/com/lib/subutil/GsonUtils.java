@@ -1,6 +1,7 @@
 package com.lib.subutil;
 
 
+import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -80,13 +81,12 @@ public final class GsonUtils {
         try {
             t = GSON.fromJson(json, type);
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            LogUtils.i("json is bad", json);
             try {
                 Class typeClass=Class.forName(type.getName());
                 Object o=typeClass.newInstance();
                 t = (T) o;
-            } catch (Exception e1) {
-                e1.printStackTrace();
+            } catch (Exception ignored) {
             }
         }
         return t;

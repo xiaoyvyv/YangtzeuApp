@@ -72,7 +72,7 @@ public class PhysicalFragment extends BaseFragment {
 
     @Override
     public void findViews() {
-        container = InflateView.findViewById(R.id.container);
+        container = InflateView.findViewById(R.id.slow_container);
         refresh = InflateView.findViewById(R.id.refresh);
 
 

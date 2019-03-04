@@ -19,7 +19,6 @@ import com.lib.subutil.ClipboardUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
-import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.model.imodel.IKGMode;
 import com.yangtzeu.ui.view.KGView;
 import com.yangtzeu.url.Url;
@@ -46,7 +45,7 @@ public class KGModel implements IKGMode {
 
         Request request = new Request.Builder()
                 .addHeader("Referer", "http://3g.gljlw.com/diy/kge.php")
-                .url(Url.Url_Music_Kg+text)
+                .url(Url.Yangtzeu_App_Kg +text)
                 .build();
         OkHttp.do_Post(request, new OnResultStringListener() {
             @SuppressLint("SetTextI18n")
@@ -127,7 +126,7 @@ public class KGModel implements IKGMode {
 
             Request request = new Request.Builder()
                     .addHeader("Referer", "http://3g.gljlw.com/diy/kge.php")
-                    .url(Url.Url_Music_Kg+text)
+                    .url(Url.Yangtzeu_App_Kg +text)
                     .build();
             OkHttp.do_Post(request, new OnResultStringListener() {
                 @SuppressLint("SetTextI18n")

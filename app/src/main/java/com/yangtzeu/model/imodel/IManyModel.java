@@ -13,4 +13,5 @@ public interface IManyModel {
 
     void loadQQLikeEvents(Activity activity, ManyView view);
 
+    void loadBannerItem(Activity activity, ManyView view);
 }

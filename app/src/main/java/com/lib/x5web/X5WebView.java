@@ -71,7 +71,7 @@ public class X5WebView extends WebView {
         this.getView().setClickable(true);
         SetUp();
         initWebViewSettings();
-      //  WebStorage webStorage = WebStorage.getInstance();
+        //  WebStorage webStorage = WebStorage.getInstance();
     }
 
     public void setTitleAndProgressBar(Toolbar toolbar, WebViewProgressBar progressBar) {
@@ -82,6 +82,7 @@ public class X5WebView extends WebView {
     public void setX5LoadFinishListener(X5LoadFinishListener x5LoadFinishListener) {
         this.x5LoadFinishListener = x5LoadFinishListener;
     }
+
     private void SetUp() {
         this.setWebViewClient(mWebViewClient);
         this.setWebChromeClient(mWebChromeClient);
@@ -132,7 +133,7 @@ public class X5WebView extends WebView {
                             dialog.show();
                             dialog.setCanceledOnTouchOutside(false);
                         } else {
-                            MyUtils.openImage(context,longClickUrl);
+                            MyUtils.openImage(context, longClickUrl);
                         }
                         return true;
                     } else return false;
@@ -154,11 +155,11 @@ public class X5WebView extends WebView {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 boolean isInstall = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
                 if (isInstall) {
-                    ToastUtils.showShort( R.string.open_app);
+                    ToastUtils.showShort(R.string.open_app);
                     context.startActivity(intent);
                     return false;
                 } else {
-                    ToastUtils.showShort( R.string.no_open_app);
+                    ToastUtils.showShort(R.string.no_open_app);
                     return true;
                 }
             }
@@ -167,21 +168,21 @@ public class X5WebView extends WebView {
             extraHeaders.put("Referer", getUrl());
             view.loadUrl(Url, extraHeaders);
 
-            return super.shouldOverrideUrlLoading(view,Url);
+            return super.shouldOverrideUrlLoading(view, Url);
         }
-
 
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            if (progressBar!=null)
-            progressBar.setVisibility(View.VISIBLE);
+            if (progressBar != null)
+                progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onPageFinished(WebView webView, String url) {
-            x5LoadFinishListener.onLoadFinish( webView,progressBar, url);
+            if (x5LoadFinishListener != null)
+                x5LoadFinishListener.onLoadFinish(webView, progressBar, url);
         }
 
         @Override
@@ -219,11 +220,12 @@ public class X5WebView extends WebView {
     };
 
     public final static int CHOOSE_FILE = 120;
+
     private void chooseFiles() {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
         i.setType("*/*");
-        ((Activity)context).startActivityForResult(Intent.createChooser(i, "File Chooser"), CHOOSE_FILE);
+        ((Activity) context).startActivityForResult(Intent.createChooser(i, "File Chooser"), CHOOSE_FILE);
     }
 
     private void setProgress(int progress) {
@@ -244,7 +246,7 @@ public class X5WebView extends WebView {
         WebSettings webSetting = this.getSettings();
         webSetting.setJavaScriptEnabled(true);
 
-       webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
 
         // 设置自适应屏幕，两者合用
         webSetting.setUseWideViewPort(true); //将图片调整到适合WebView的大小
@@ -267,9 +269,9 @@ public class X5WebView extends WebView {
         webSetting.setSavePassword(true);
         webSetting.setSaveFormData(true);
         webSetting.setAppCacheEnabled(true);
-        webSetting.setAppCachePath(MyUtils.rootPath()+"A_Tool/WebCache/"); //设置  Application Caches 缓存目录
+        webSetting.setAppCachePath(MyUtils.rootPath() + "A_Tool/WebCache/"); //设置  Application Caches 缓存目录
         webSetting.setDatabaseEnabled(true);
-        webSetting.setDatabasePath(MyUtils.rootPath()+"A_Tool/WebCache/");
+        webSetting.setDatabasePath(MyUtils.rootPath() + "A_Tool/WebCache/");
         webSetting.setDomStorageEnabled(true);
         webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
         webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);

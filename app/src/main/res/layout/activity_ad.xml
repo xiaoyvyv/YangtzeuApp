@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white_fa"
+    tools:context=".ui.activity.ADActivity"
+    tools:ignore="HardcodedText">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/ad_details" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="合作联系人：小玉"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:onClick="chatWeChat"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="微信：whysbelief"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:onClick="chatQQ"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="企鹅：1223414335"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:autoLink="all"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="邮箱：1223414335@qq.com"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="广告价位表："
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="开屏页面：2元/天（打开软件就显示，暂不接单）"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="功能页面：1.5元/天（一个横幅Banner，共四个广告位，每次进入第一个显示的广告都会变，四个广告随机显示）"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="答案页面：1元/天（广告方式同功能页面）"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="广告效果说明："
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="开屏页面：4000+次展示量/天（2019-03-01的数据，且有增长趋势，下同）"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="功能：4000+次展示量/天"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="答案页面：1000+次展示量/天（由于答案数据还未完整，以后这个页面有很大的流量）"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="广告投放素材："
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="图片*1    规格（长：宽 = 2：1）"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="链接*1    用于用户点击后跳转（没有默认跳转到广告图片的地址）"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="声明*1    广告非法，涉及黄赌毒一概不予合作，严重者将给予封号处分"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="声明："
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_jwc_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:alpha="0.7"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:lineSpacingExtra="5dp"
+                android:minHeight="40dp"
+                android:padding="5dp"
+                android:text="开发维护此软件耗时耗力，从头到尾的开发工作全部由我一人完成，没有得到过任何投资！由于本人学生党，为了让软件发展下去，方便同学们的日常使用，所以在不影响软件的美观和使用的前提下，采取了以投放广告的方式来维持服务器的费用！"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

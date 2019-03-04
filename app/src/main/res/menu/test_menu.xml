@@ -4,10 +4,16 @@
 
 
     <item
+        android:icon="@drawable/ic_change"
+        android:id="@+id/change"
+        android:orderInCategory="100"
+        android:title="@string/change_learn_mode"
+        app:showAsAction="always" />
+    <item
         android:icon="@drawable/ic_date"
         android:id="@+id/choose_date"
         android:orderInCategory="100"
         android:title="@string/choose_date"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

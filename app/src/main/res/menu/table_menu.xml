@@ -2,17 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:icon="@drawable/ic_date"
+        android:id="@+id/change_type"
+        android:icon="@drawable/ic_change"
+        android:orderInCategory="100"
+        android:title="@string/change_type"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/choose_date"
+        android:icon="@drawable/ic_date"
         android:orderInCategory="100"
         android:title="@string/choose_date"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/web_table"
         android:icon="@drawable/ic_web"
         android:orderInCategory="100"
         android:title="@string/open_web_table"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/table_bg_white"
         android:orderInCategory="100"

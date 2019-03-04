@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.lib.chat.common.Constant;
 import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.LoveBean;
@@ -187,7 +188,7 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
         });
     }
 
-    public static void addReplay(final Context context, LinearLayout container, List<LoveBean.DataBean.ReplayBean> replay, final String master_id) {
+    public static void addReplay(final Context context, LinearLayout container, final List<LoveBean.DataBean.ReplayBean> replay, final String master_id) {
         if (replay.size() == 0) {
             container.removeAllViews();
             View item = View.inflate(context, R.layout.activity_board_replay_item, null);
@@ -205,13 +206,12 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
             LogUtils.i(rText, rName);
             HuiFuItemText.setText(Html.fromHtml(rName + ":\t\t" + rText));
 
+            final String user_id = replay.get(j).getUser_id();
             //点击评论跳转聊天
             HuiFuItemText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //targetId - 目标id（群聊为群的id，私聊为对方id）
-                    ToastUtils.showShort("开发中");
-                    //TODO 开发在线联系
+                    MyUtils.chatOnline(context,user_id, Constant.USER_TYPE_USER);
                 }
             });
         }

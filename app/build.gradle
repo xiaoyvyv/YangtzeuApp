@@ -6,10 +6,9 @@ android {
         applicationId "com.yangtzeu"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 4
-        versionName "3.5"
-
-
+        versionCode 8
+        versionName "3.7"
+/*
         splits {
             abi {
                 enable true
@@ -18,11 +17,19 @@ android {
                 universalApk true
             }
         }
+*/
 
         ndk {
-           abiFilters "armeabi", "x86", "armeabi-v7a", "mips", "arm64-v8a"
-       }
+            abiFilters "armeabi", "x86", "armeabi-v7a", "mips", "arm64-v8a"
+        }
 
+       //添加多 dex分包支持
+        /*
+        multiDexEnabled true
+        dexOptions{
+            preDexLibraries = false
+        }
+        */
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -55,9 +62,15 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'org.jsoup:jsoup:1.9.2'
     implementation 'co.lujun:androidtagview:1.0.3'
+    implementation 'com.lzy.widget:view-core:0.2.2'
     implementation 'com.blankj:utilcode:1.20.3'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0'
+    implementation 'com.github.zhengken:LyricViewDemo:v1.2'
+    //implementation 'com.android.support:multidex:1.0.3'
     implementation files('libs/tbs_sdk_v3.2.0.jar')
     implementation files('libs/animations.jar')
+    implementation files('libs/jama-1.0.3.jar')
+    implementation files('libs/xmd-transceiver-1.0.2.26-SNAPSHOT.jar')
+    implementation files('libs/mimc-java-sdk-1.2.3-SNAPSHOT.jar')
 }

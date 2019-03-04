@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <external-path name="A_Tool" path="A_Tool"/>
-    <external-path name="Root" path="."/>
-</paths>
+<resources>
+    <paths>
+        <external-path
+            name="A_Tool"
+            path="." />
+        <root-path
+            name="A_Tool"
+            path="." />
+    </paths>
+</resources>

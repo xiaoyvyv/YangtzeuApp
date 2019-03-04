@@ -13,6 +13,7 @@ import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 import android.os.Build;
 
+import com.blankj.utilcode.util.Utils;
 import com.yangtzeu.R;
 
 import java.lang.reflect.Field;
@@ -29,8 +30,8 @@ import androidx.core.app.NotificationCompat;
 public class NotificationUtils extends ContextWrapper {
 
     private NotificationManager manager;
-    public static final String id = "channel_1";
-    public static final String name = "新长大助手提示通知（重要）";
+    public String id = "channel_1";
+    public String name = "新长大助手提示通知（重要）";
 
     public NotificationUtils(Context context) {
         super(context);
@@ -42,7 +43,7 @@ public class NotificationUtils extends ContextWrapper {
         getManager().createNotificationChannel(channel);
     }
 
-    private NotificationManager getManager() {
+    public NotificationManager getManager() {
         if (manager == null) {
             manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
@@ -55,11 +56,11 @@ public class NotificationUtils extends ContextWrapper {
                 .setContentTitle(title)
                 .setContentText(content)
                 .setWhen(System.currentTimeMillis())
-                .setPriority(Notification.PRIORITY_HIGH)
+                .setPriority(Notification.PRIORITY_LOW)
                 .setSmallIcon(R.drawable.ic_message)
-                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setDefaults(Notification.DEFAULT_LIGHTS)
                 .setCategory(Notification.CATEGORY_MESSAGE)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setVisibility(Notification.VISIBILITY_PRIVATE)
                 .setAutoCancel(true);
         if (intent != null) {
             builder.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, intent, 0));
@@ -84,14 +85,26 @@ public class NotificationUtils extends ContextWrapper {
         return builder;
     }
 
+    public Notification getNotification(String title, String content, Intent intent) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            return getChannelNotification(title, content, intent).build();
+        } else {
+            return getNotification_25(title, content, intent).build();
+        }
+    }
+
     public void sendNotification(String title, String content, Intent intent) {
         if (Build.VERSION.SDK_INT >= 26) {
             createNotificationChannel();
             Notification notification = getChannelNotification(title, content, intent).build();
             getManager().notify(1, notification);
+            MyUtils.mVibrator(Utils.getApp(), 300);
+
         } else {
             Notification notification = getNotification_25(title, content, intent).build();
             getManager().notify(1, notification);
+            MyUtils.mVibrator(Utils.getApp(), 300);
+
         }
     }
 
@@ -103,7 +116,7 @@ public class NotificationUtils extends ContextWrapper {
         Intent localIntent = new Intent();
         localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-        localIntent.setData(Uri.fromParts("package",context.getPackageName(), null));
+        localIntent.setData(Uri.fromParts("package", context.getPackageName(), null));
         context.startActivity(localIntent);
     }
 

@@ -41,26 +41,18 @@ import cn.bingoogolapple.bgabanner.BGABanner;
  */
 
 @SuppressLint("SetTextI18n")
-public class ManyFragment extends BaseFragment implements ManyView, View.OnClickListener {
+public class ManyFragment extends BaseFragment implements ManyView{
     private RecyclerView mRecyclerView;
     // 标志位，标志已经初始化完成。
     private boolean isPrepared = false;
     private View rootView;
-    private FragmentActivity activity;
     private ManyPresenter presenter;
     private NoticeView noticeView;
     private Toolbar toolbar;
     private SwipeRefreshLayout refresh;
     private BGABanner banner;
+    private BGABanner banner_item;
 
-    private TextView tripLike;
-    private TextView tripLock;
-    private TextView tripQi;
-    private TextView tripWeb;
-    private TextView tripRuler;
-    private TextView tripCompass;
-    private TextView tripTranslate;
-    private TextView tripKg;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,31 +68,9 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
         toolbar = rootView.findViewById(R.id.toolbar);
         noticeView = rootView.findViewById(R.id.noticeView);
         banner = rootView.findViewById(R.id.banner);
+        banner_item = rootView.findViewById(R.id.banner_item);
         mRecyclerView = rootView.findViewById(R.id.mRecyclerView);
         refresh = rootView.findViewById(R.id.refresh);
-
-        rootView.findViewById(R.id.lock).setOnClickListener(this);
-        rootView.findViewById(R.id.shop).setOnClickListener(this);
-        rootView.findViewById(R.id.answer).setOnClickListener(this);
-        rootView.findViewById(R.id.love).setOnClickListener(this);
-        rootView.findViewById(R.id.cut_off).setOnClickListener(this);
-        rootView.findViewById(R.id.lock).setOnClickListener(this);
-        rootView.findViewById(R.id.like).setOnClickListener(this);
-        rootView.findViewById(R.id.web).setOnClickListener(this);
-        rootView.findViewById(R.id.calculator).setOnClickListener(this);
-        rootView.findViewById(R.id.ruler).setOnClickListener(this);
-        rootView.findViewById(R.id.compass).setOnClickListener(this);
-        rootView.findViewById(R.id.translate).setOnClickListener(this);
-        rootView.findViewById(R.id.kg).setOnClickListener(this);
-
-        tripLike = rootView.findViewById(R.id.tripLike);
-        tripLock = rootView.findViewById(R.id.tripLock);
-        tripQi = rootView.findViewById(R.id.tripQi);
-        tripWeb = rootView.findViewById(R.id.tripWeb);
-        tripRuler = rootView.findViewById(R.id.tripRuler);
-        tripCompass = rootView.findViewById(R.id.tripCompass);
-        tripTranslate = rootView.findViewById(R.id.tripTranslate);
-        tripKg = rootView.findViewById(R.id.tripKg);
 
     }
 
@@ -127,11 +97,11 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
             }
         });
 
-        activity = getActivity();
-        presenter = new ManyPresenter(activity, this);
+        presenter = new ManyPresenter(getActivity(), this);
         presenter.loadMarqueeView();
         presenter.fitAdapter();
         presenter.loadBanner();
+        presenter.loadBannerItem();
 
 
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -178,64 +148,8 @@ public class ManyFragment extends BaseFragment implements ManyView, View.OnClick
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.shop:
-                MyUtils.startActivity(ShopActivity.class);
-                break;
-            case R.id.answer:
-                ToastUtils.showShort("开发中");
-                //TODO 开发在线联系
-                break;
-            case R.id.love:
-                MyUtils.startActivity(LoveActivity.class);
-                break;
-            case R.id.cut_off:
-                MyUtils.openUrl(activity, Url.My_Home, true);
-                break;
-            case R.id.ruler:
-                MyUtils.startActivity(RulerActivity.class);
-                break;
-            case R.id.lock:
-                boolean isEnable = NotificationUtils.isNotificationEnabled(activity);
-                if (isEnable) {
-                    MyUtils.startActivity(LockActivity.class);
-                } else {
-                    MyUtils.getAlert(activity, "检测到您未允许本App的锁屏通知权限，建议您允许！\n\n请勾选允许锁屏通知\n\n权限用于在锁屏界面显示手机锁定剩余时间\n\n若不需要显示请点击取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            NotificationUtils.toNotificationSetting(activity);
-                        }
-                    }, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            MyUtils.startActivity(LockActivity.class);
-                        }
-                    }).show();
-                }
-                break;
-            case R.id.like:
-                presenter.loadQQLikeEvents();
-                break;
-            case R.id.web:
-                MyUtils.startActivity(WebListActivity.class);
-                break;
-            case R.id.calculator:
-                MyUtils.startActivity(CalculatorActivity.class);
-                break;
-            case R.id.compass:
-                Intent intent = new Intent(getActivity(), WebListActivity.class);
-                intent.putExtra("from_url", Url.Yangtzeu_All_Web_Soft);
-                intent.putExtra("title", getString(R.string.soft_list));
-                MyUtils.startActivity(intent);
-                break;
-            case R.id.translate:
-                MyUtils.startActivity(TranslateActivity.class);
-                break;
-            case R.id.kg:
-                MyUtils.startActivity(KgActivity.class);
-                break;
-
-        }
+    public BGABanner getBGABannerItem() {
+        return banner_item;
     }
+
 }

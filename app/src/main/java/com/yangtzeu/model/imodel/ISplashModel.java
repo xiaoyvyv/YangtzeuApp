@@ -12,4 +12,7 @@ public interface ISplashModel {
     void loadPermission(Activity activity, SplashModel.OnPermissionCallBack callBack);
 
     void loadUser(Activity activity, SplashView view);
+
+    void checkCopyRight(Activity activity, SplashView view);
+
 }

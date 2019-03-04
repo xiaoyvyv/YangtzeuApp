@@ -41,7 +41,7 @@ public class PingJiaoModel implements IPingJiaoModel {
                 .build();
         Request request = new Request.Builder()
                 .post(formBody)
-                .url(Url.Yangtzeu_Teacher)
+                .url(view.getUrl())
                 .build();
 
         OkHttp.do_Post(request, new OnResultStringListener() {
@@ -65,7 +65,7 @@ public class PingJiaoModel implements IPingJiaoModel {
                             .setNegativeButton("网页查看", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    MyUtils.openUrl(activity, Url.Yangtzeu_Teacher);
+                                    MyUtils.openUrl(activity, view.getUrl());
                                     activity.finish();
                                 }
                             })

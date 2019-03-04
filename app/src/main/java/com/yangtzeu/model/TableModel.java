@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.yangtzeu.R;
 import com.yangtzeu.database.DatabaseUtils;
@@ -55,7 +56,7 @@ public class TableModel implements ITableModel {
 
         week = SPUtils.getInstance("user_info").getInt("table_week", 1);
         //若week为0，则表示假期，TabLayout默认选中周次1
-        if (week==0) week = 1;
+        if (week == 0) week = 1;
 
         final TabLayout tabLayout = view.getTabLayout();
 
@@ -108,7 +109,16 @@ public class TableModel implements ITableModel {
 
     @Override
     public void loadTableDataStep1(final Activity activity, final TableView view) {
-        OkHttp.do_Get(Url.Yangtzeu_Table_Ids, new OnResultStringListener() {
+        String term = SPUtils.getInstance("user_info").getString("term_id", Url.Default_Term);
+        final String[] term_trip = activity.getResources().getStringArray(R.array.term_trip);
+        final String[] term_id = activity.getResources().getStringArray(R.array.term_id);
+        for (int i = 0; i < term_id.length; i++) {
+            if (term.equals(term_id[i])) {
+                view.getToolbar().setTitle(term_trip[i]);
+            }
+        }
+
+        OkHttp.do_Get(view.getIdsUrl(), new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -123,9 +133,10 @@ public class TableModel implements ITableModel {
                     temp = temp.substring(temp.indexOf("\"") + 1, temp.lastIndexOf("\""));
                     table_ids = temp;
                     LogUtils.i("用户IDS", table_ids);
-
                     loadTableDataStep2(activity, view);
                 } catch (Exception e) {
+                    table_ids = "";
+                    LogUtils.i("用户IDS", table_ids);
                     view.getRefreshLayout().finishRefresh();
                 }
             }
@@ -173,32 +184,7 @@ public class TableModel implements ITableModel {
                     String[] s = Class_Script.split(regex);
 
                     if (s.length < 2) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                        builder.setTitle("提示");
-                        builder.setMessage("未获取到课表数据，可能原因：\n\n1.学期选择错误\n2.周次超出课程安排\n3.数据请求出错\n4.没有课程安排");
-                        builder.setPositiveButton("重新获取", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                view.getRefreshLayout().autoRefresh();
-                            }
-                        });
-                        builder.setNegativeButton("恢复默认学期", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SPUtils.getInstance("user_info").put("term_id", Url.Default_Term);
-                                view.getRefreshLayout().autoRefresh();
-                            }
-                        });
-                        if (week != 1)
-                            builder.setNeutralButton("上一周", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Objects.requireNonNull(view.getTabLayout().getTabAt(week - 2)).select();
-                                }
-                            });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        ToastUtils.showLong(activity.getString(R.string.get_table_error));
                     }
 
                     for (int i = 0; i < s.length - 1; i++) {
@@ -206,14 +192,17 @@ public class TableModel implements ITableModel {
                         String[] weeks = regexWeekAndSection(s[i]);
                         course.setWeek(weeks[0]);
                         course.setSection(weeks[1]);
+
                         //LogUtils.e(weeks[0],weeks[1]);
 
                         String[] tasks = regexTask(s[i]);
+
                         course.setMid(tasks[0]);
                         course.setName(tasks[1]);
                         course.setRoom_id(tasks[2]);
                         course.setRoom(tasks[3]);
                         course.setAll_week(tasks[4]);
+
                         //LogUtils.e(tasks[0],tasks[1],tasks[2],tasks[3],tasks[4]);
 
                         String[] teacher = getTeacher(s[i]);
@@ -223,7 +212,7 @@ public class TableModel implements ITableModel {
                         view.getCourse().add(course);
                     }
 
-                    ShowCourse(activity, view);
+                    ShowCourse(view);
                 } catch (Exception e) {
                     LogUtils.e(e);
                     SPUtils.getInstance("user_info").put("online", false);
@@ -253,21 +242,22 @@ public class TableModel implements ITableModel {
         }
     }
 
-    private void ShowCourse(Activity activity, TableView view) {
+    private void ShowCourse(TableView view) {
         view.getTableFragmentAdapter().clear();
 
         MyOpenHelper helper = DatabaseUtils.getHelper("table.db");
         if (helper.queryAll(Course.class) != null) {
             helper.clear(Course.class);
         }
+
         for (Course course : view.getCourse()) {
             view.getTableFragmentAdapter().addCourse(course);
-            if (week == SPUtils.getInstance("user_info").getInt("table_week")){
+            if (week == SPUtils.getInstance("user_info").getInt("table_week")) {
                 helper.save(course);
             }
         }
 
-        view.getTableFragmentAdapter().notifyItemRangeChanged(0, 42);
+        view.getTableFragmentAdapter().notifyItemRangeChanged(0, 56);
     }
 
 
@@ -302,8 +292,19 @@ public class TableModel implements ITableModel {
             String str1 = MyUtils.getSubUtil(s, regex0).get(0);
             String str2 = str1.substring(str1.indexOf(":"), str1.lastIndexOf(","));
 
-            teacher_id = str2.substring(0, str2.lastIndexOf(","));
+            teacher_id = str2.substring(0, str2.indexOf(","));
             teacher_name = str2.substring(str2.indexOf("\"") + 1, str2.lastIndexOf("\""));
+
+            //两个老师特殊情况
+            if (teacher_name.contains("\"")) teacher_name = teacher_name.replace("\"", "");
+            if (teacher_name.contains(",")) teacher_name = teacher_name.replace(",", "");
+            if (teacher_name.contains("}")) teacher_name = teacher_name.replace("}", "");
+            if (teacher_name.contains("{")) teacher_name = teacher_name.replace("{", "\n");
+            if (teacher_name.contains("lab:false"))
+                teacher_name = teacher_name.replace("lab:false", "");
+            if (teacher_name.contains("name:")) teacher_name = teacher_name.replace("name:", "-");
+            if (teacher_name.contains("id:")) teacher_name = teacher_name.replace("id:", "");
+
 
             teacher[0] = teacher_id;
             teacher[1] = teacher_name;
@@ -328,6 +329,7 @@ public class TableModel implements ITableModel {
             Str.append(w);
         }
         String[] params = Str.toString().split(",");
+
         if (params.length > 2) {
             tempTask = new String[params.length];
             tempTask = params;
@@ -336,6 +338,7 @@ public class TableModel implements ITableModel {
             params = tempTask;
             LogUtils.i("重复课表数据大小：" + params.length, Arrays.deepToString(params));
         }
+
         for (int i = 0; i < params.length; i++) {
             String now = params[i];
             switch (i) {

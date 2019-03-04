@@ -70,6 +70,9 @@ public class AboutActivity extends BaseActivity {
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.setCancelable(false);
                 break;
+            case R.id.ad_info:
+                MyUtils.startActivity(ADActivity.class);
+                break;
         }
     }
 }

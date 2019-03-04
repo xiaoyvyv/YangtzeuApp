@@ -2,8 +2,8 @@ package com.yangtzeu.ui.view;
 
 import android.widget.LinearLayout;
 
-public interface PingJiaoView {
+import com.yangtzeu.ui.view.base.BaseView;
 
-
+public interface PingJiaoView extends BaseView {
     LinearLayout getContainer();
 }

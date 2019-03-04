@@ -9,8 +9,7 @@
     </style>
 
 
-
-    <style name="AppTheme.NoStateBar"  parent="App">
+    <style name="AppTheme.NoStateBar" parent="App">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -93,14 +92,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Love"  parent="App">
+    <style name="Love" parent="App">
         <item name="colorPrimaryDark">@color/love</item>
         <item name="colorPrimary">@color/love</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="TabLayoutTextStyle">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="CollapsingToolbarLayout">
@@ -173,5 +172,10 @@
     <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.NoActionBar.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 </resources>

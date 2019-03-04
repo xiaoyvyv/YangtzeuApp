@@ -1,7 +1,6 @@
 package com.yangtzeu.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +18,8 @@ import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.ui.activity.base.BaseActivity;
-import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MediaPlayUtil;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.Objects;
 
@@ -50,7 +47,7 @@ public class MusicActivity extends BaseActivity {
         toolbar = findViewById(R.id.toolbar);
         music_name = findViewById(R.id.music_name);
         link = findViewById(R.id.link);
-        container = findViewById(R.id.container);
+        container = findViewById(R.id.slow_container);
 
     }
 

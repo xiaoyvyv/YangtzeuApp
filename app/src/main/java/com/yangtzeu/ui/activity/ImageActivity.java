@@ -75,7 +75,7 @@ public class ImageActivity extends BaseActivity implements MyImageView {
                 toolbar.setSubtitle(TimeUtils.getNowString());
                 LogUtils.i(title,object);
 
-                Glide.with(ImageActivity.this).load(object).into(imageView);
+                MyUtils.loadImageNoCache(ImageActivity.this, imageView, object);
 
                 imageView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override

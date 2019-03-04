@@ -148,6 +148,11 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
                 viewHolder.onclick.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (i >= 42) {
+                            ToastUtils.showShort("不支持自定义午间晚间课表");
+                            return;
+                        }
+
                         @SuppressLint("InflateParams")
                         View view = activity.getLayoutInflater().inflate(R.layout.view_table_dialog, null);
                         final TextInputEditText start = view.findViewById(R.id.start);
@@ -260,20 +265,25 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
                 @Override
                 public void onClick(View v) {
 
-                    final String details = "课程名称：" + finalName
+                     String details = "课程名称：" + finalName
                             + "\n课程周次：星期" + (Integer.parseInt(week) + 1)
                             + "\n课程节次：" + "第" + (Integer.parseInt(section) + 1) + "大节"
                             + "\n课程老师：" + teacher
                             + "\n课程教室：" + finalRoom;
 
+                    if (i >= 42) {
+                        details = details + "\n\n备注：此课程时间为午间或晚间课";
+                    }
+
+                    final String finalDetails = details;
                     AlertDialog dialog = new AlertDialog.Builder(context)
                             .setTitle("课程详情")
-                            .setMessage(details)
+                            .setMessage(finalDetails)
                             .setPositiveButton("知道了", null)
                             .setNegativeButton("分享课程", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    MyUtils.shareText(context, "给你看看我的课程噢!\n\n" + details + "\n\n数据来自：" + Url.AppDownUrl);
+                                    MyUtils.shareText(context, "给你看看我的课程噢!\n\n" + finalDetails + "\n\n数据来自：" + Url.AppDownUrl);
                                 }
                             })
                             .create();
@@ -293,7 +303,7 @@ public class TableFragmentAdapter extends RecyclerView.Adapter<TableFragmentAdap
 
     @Override
     public int getItemCount() {
-        return 42;
+        return 56;
     }
 
 

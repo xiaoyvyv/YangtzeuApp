@@ -58,7 +58,7 @@ public class NewsDetailsActivity extends BaseActivity implements NewsDetailsView
 
     @Override
     public void findViews() {
-        container = findViewById(R.id.container);
+        container = findViewById(R.id.slow_container);
         loading = findViewById(R.id.loading);
         toolbar = findViewById(R.id.toolbar);
         image = findViewById(R.id.image);

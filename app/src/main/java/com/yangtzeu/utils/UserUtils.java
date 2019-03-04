@@ -15,6 +15,9 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.lib.chat.common.UserManager;
+import com.xiaomi.mimc.MIMCUser;
+import com.yangtzeu.app.MyApplication;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.BanBean;
 import com.yangtzeu.http.OkHttp;
@@ -53,7 +56,7 @@ public class UserUtils {
         final String userNumber = userInfo[0];
         final String userPassword = userInfo[1];
 
-        List<BanBean.DataBean> ban_user = DatabaseUtils.getHelper( "ban_user.db").queryAll(BanBean.DataBean.class);
+        List<BanBean.DataBean> ban_user = DatabaseUtils.getHelper("ban_user.db").queryAll(BanBean.DataBean.class);
         if (ObjectUtils.isNotEmpty(ban_user)) {
             for (int i = 0; i < ban_user.size(); i++) {
                 if (ban_user.get(i).getNumber().equals(userNumber)) {
@@ -205,6 +208,20 @@ public class UserUtils {
 
         SPUtils.getInstance("user_info").put("online", true);
         SPUtils.getInstance("user_info").put("cookie", mCookie);
+
+        String name = SPUtils.getInstance("user_info").getString("number");
+
+
+        //聊天系统注册
+        UserManager instance = UserManager.getInstance();
+        //通用监听
+        MyApplication.setMessListener();
+
+        MIMCUser mimcUser = instance.newUser(name);
+        mimcUser.login();
+
+        //添加用户到我的数据库
+        YangtzeuUtils.addUserToMyWeb();
 
     }
 

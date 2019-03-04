@@ -39,6 +39,11 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    public long getItemId(int position) {
+        return mFragments.hashCode();
+    }
+
+    @Override
     public int getCount() {
         return mFragments.size();
     }

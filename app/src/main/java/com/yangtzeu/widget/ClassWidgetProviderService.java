@@ -28,7 +28,7 @@ public class ClassWidgetProviderService extends RemoteViewsService {
         int mAppWidgetId;
         @SuppressLint("UseSparseArrays")
         private HashMap<Integer, Course[]> booleans = new HashMap<>();
-        private int count = 42;
+        private int count = 56;
 
         GridRemoteViewsFactory(Context context, Intent intent) {
             mContext = context;
@@ -51,24 +51,28 @@ public class ClassWidgetProviderService extends RemoteViewsService {
         }
 
         private void addCourse(Course course) {
-            int week = 0;
-            int section = 0;
-            Course courses[] = new Course[2];
-            if (!course.getWeek().isEmpty()) {
-                week = Integer.parseInt(course.getWeek());
-            }
-            if (!course.getSection().isEmpty()) {
-                section = Integer.parseInt(course.getSection());
-            }
-            int where = GetPositionByWhichAndSection(week + 1, section + 1);
-            if (Objects.requireNonNull(booleans.get(where))[0] == null) {
-                courses[0] = course;
-                booleans.put(where, courses);
-            } else {
-                LogUtils.e();
-                courses[0] = Objects.requireNonNull(booleans.get(where))[0];
-                courses[1] = course;
-                booleans.put(where, courses);
+            try {
+                int week = 0;
+                int section = 0;
+                Course courses[] = new Course[2];
+                if (!course.getWeek().isEmpty()) {
+                    week = Integer.parseInt(course.getWeek());
+                }
+                if (!course.getSection().isEmpty()) {
+                    section = Integer.parseInt(course.getSection());
+                }
+                int where = GetPositionByWhichAndSection(week + 1, section + 1);
+                if (Objects.requireNonNull(booleans.get(where))[0] == null) {
+                    courses[0] = course;
+                    booleans.put(where, courses);
+                } else {
+                    LogUtils.e();
+                    courses[0] = Objects.requireNonNull(booleans.get(where))[0];
+                    courses[1] = course;
+                    booleans.put(where, courses);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

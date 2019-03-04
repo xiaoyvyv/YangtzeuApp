@@ -2,6 +2,10 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.yangtzeu.R;
+import com.yangtzeu.http.OkHttp;
+import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.GradePart1Model;
 import com.yangtzeu.model.HomePart1Model;
 import com.yangtzeu.ui.view.GradePartView1;
@@ -19,10 +23,17 @@ public class GradePart1Presenter {
     }
 
     public void loadGradeData() {
-        model.loadGradeData(activity, view);
+        OkHttp.do_Get(view.getIndexUrl(), new OnResultStringListener() {
+            @Override
+            public void onResponse(String response) {
+                model.loadGradeData(activity, view);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                ToastUtils.showShort(R.string.try_again);
+            }
+        });
     }
 
-    public void getGradeXls() {
-        model.getGradeXls(activity, view);
-    }
 }

@@ -7,7 +7,11 @@ import com.yangtzeu.ui.view.GradePartView1;
 import com.yangtzeu.ui.view.GradePartView2;
 
 public interface IGradePart2Model {
-    void loadPointData(Activity activity, GradePartView2 view);
+    void loadGradeData(Activity activity, GradePartView2 view);
 
-    void parseAllGrade(Activity activity, GradePartView2 view, String result);
+    void requestGradeData(Activity activity, GradePartView2 view);
+
+    void parseGrade(Activity activity, GradePartView2 view, String data);
+
+    void getGradeXls(Activity activity, GradePartView2 view);
 }

@@ -7,34 +7,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.provider.Settings;
-import android.text.InputType;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-import com.lib.subutil.GsonUtils;
+import com.lib.chat.common.UserManager;
+import com.lib.chat.listener.handler.MessageHandler;
+import com.xiaomi.mimc.common.MIMCConstant;
 import com.yangtzeu.R;
-import com.yangtzeu.entity.CiBaBean;
 import com.yangtzeu.entity.MessageBean;
 import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.http.OkHttp;
-import com.yangtzeu.http.OnResultBytesListener;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.model.imodel.IMineModel;
@@ -43,20 +32,13 @@ import com.yangtzeu.ui.activity.MessageActivity;
 import com.yangtzeu.ui.activity.PhysicalActivity;
 import com.yangtzeu.ui.view.MineView;
 import com.yangtzeu.url.Url;
-import com.yangtzeu.utils.MediaPlayUtil;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
-import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 public class MineModel implements IMineModel {
 
@@ -85,99 +67,10 @@ public class MineModel implements IMineModel {
                 SPUtils.getInstance("app_info").put("online_size", size);
                 Intent intent = new Intent();
                 intent.setAction("Online_BroadcastReceiver");
-                intent.putExtra("online_size",size);
+                intent.putExtra("online_size", size);
                 activity.sendBroadcast(intent);
             }
         });
-
-    }
-
-
-    @Override
-    public void showChangeHeaderView(final Activity activity, final MineView mineView) {
-
-        LayoutInflater inflater = LayoutInflater.from(activity);
-        @SuppressLint("InflateParams")
-        View MeDialog = inflater.inflate(R.layout.view_change_header, null);
-
-        final AlertDialog dialog = new AlertDialog.Builder(activity, R.style.style_dialog)
-                .setView(MeDialog)
-                .create();
-        dialog.show();
-
-        TextView QQ_Head = MeDialog.findViewById(R.id.QQ_Head);
-        QQ_Head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                dialog.dismiss();
-
-                @SuppressLint("InflateParams") final View view = activity.getLayoutInflater().inflate(R.layout.view_input_qq, null);
-                final TextInputEditText inputEditText = view.findViewById(R.id.text);
-                TextView textView = view.findViewById(R.id.trip);
-                textView.setText(R.string.input_qq);
-
-                String qq = SPUtils.getInstance("user_info").getString("qq");
-                inputEditText.setTextSize(15);
-                inputEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                inputEditText.setText(qq);
-                inputEditText.setSelectAllOnFocus(true);
-                inputEditText.setFocusable(true);
-
-                AlertDialog dialog = new AlertDialog.Builder(activity)
-                        .setView(view)
-                        .setNegativeButton(R.string.clear, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                MyUtils.canCloseDialog(dialogInterface, true);
-                            }
-                        })
-                        .setNeutralButton(R.string.clean, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //自动弹出键盘
-                                KeyboardUtils.showSoftInput(inputEditText);
-                                inputEditText.setText(null);
-                                MyUtils.canCloseDialog(dialogInterface, false);
-                            }
-                        })
-                        .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String qq = Objects.requireNonNull(inputEditText.getText()).toString().trim();
-                                if (!qq.isEmpty()) {
-
-                                    KeyboardUtils.hideSoftInput(activity);
-                                    SPUtils.getInstance("user_info").put("qq", qq);
-                                    MyUtils.canCloseDialog(dialogInterface, true);
-
-                                    Glide.with(activity).load(MyUtils.getQQHeader(qq)).into(mineView.getHeader());
-                                } else {
-                                    MyUtils.canCloseDialog(dialogInterface, false);
-                                    ToastUtils.showShort(R.string.input_qq);
-                                }
-                            }
-                        }).create();
-                dialog.show();
-
-            }
-        });
-        TextView Clear = MeDialog.findViewById(R.id.clear);
-        Clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        Window window = dialog.getWindow();
-        Objects.requireNonNull(window).setGravity(Gravity.BOTTOM);  //此处可以设置dialog显示的位置
-        window.getDecorView().setPadding(0, 0, 0, 0);
-        window.setWindowAnimations(R.style.BottomToBottom);  //添加动画
-        WindowManager windowManager = activity.getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-        lp.width = display.getWidth(); //设置宽度
-        dialog.getWindow().setAttributes(lp);
 
     }
 
@@ -257,6 +150,9 @@ public class MineModel implements IMineModel {
                 ToastUtils.showShort(R.string.load_error);
             }
         });
+
+        //刷新即时消息的未读数目
+        MessageHandler.sendReceiveMessageBroadcast();
     }
 
     @Override
@@ -275,23 +171,6 @@ public class MineModel implements IMineModel {
             });
 
         }
-    }
-
-    @Override
-    public void setToolbarEvent(final Activity activity, MineView view) {
-        view.getToolbar().inflateMenu(R.menu.mine_menu);
-        view.getToolbar().setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.me_info:
-                        MyUtils.openUrl(activity, Url.Yangtzeu_XueJI);
-                        break;
-                }
-                return false;
-            }
-        });
-
     }
 
     @Override
@@ -364,24 +243,23 @@ public class MineModel implements IMineModel {
 
     @Override
     public void loadDayTrip(final Activity activity, final MineView view) {
-        OkHttp.do_Get(Url.Yangtzeu_App_CiBa, new OnResultStringListener() {
-            @Override
-            public void onResponse(String response) {
-                final CiBaBean ciBaBean = GsonUtils.fromJson(response, CiBaBean.class);
-                MyUtils.loadImage(activity, view.getDayTripImage(), ciBaBean.getPicture2());
-                view.getDayTrip().setText(ciBaBean.getContent());
-                view.getDayTrip().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        MediaPlayUtil playUtil = MediaPlayUtil.getInstance();
-                        playUtil.setLooping(false);
-                        playUtil.play(ciBaBean.getTts());
-                    }
-                });
-            }
-            @Override
-            public void onFailure(String error) {
+        //ImageView dayTripImage = view.getDayTripImage();
+        final TextView statusTextView = view.getStatusTextView();
+        final CardView statusView = view.getStatusView();
 
+        MIMCConstant.OnlineStatus status = UserManager.getInstance().getStatus();
+        if (status == MIMCConstant.OnlineStatus.ONLINE) {
+            statusTextView.setText(activity.getString(R.string.online));
+            statusView.setCardBackgroundColor(Color.GREEN);
+        } else {
+            statusTextView.setText(activity.getString(R.string.outline));
+            statusView.setCardBackgroundColor(Color.RED);
+        }
+
+        statusView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showShort("聊天系统状态：" + statusTextView.getText());
             }
         });
     }

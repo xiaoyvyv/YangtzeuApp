@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -36,7 +37,9 @@ public class JwcListActivity extends BaseActivity implements JwcListView {
         title = getIntent().getStringExtra("title");
         from_url = getIntent().getStringExtra("from_url");
         url_header = from_url.substring(0, from_url.lastIndexOf(".")) + "/";
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_jwc_list);
         init();
         MyUtils.setToolbarBackToHome(this, toolbar);
@@ -55,6 +58,7 @@ public class JwcListActivity extends BaseActivity implements JwcListView {
         president = new JwcListPresenter(this, this);
         adapter = new JwcListAdapter(this);
         recyclerView.setAdapter(adapter);
+        refreshLayout.setRefreshHeader(new MaterialHeader(this));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {

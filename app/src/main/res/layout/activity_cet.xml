@@ -31,19 +31,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:text="Cet成绩查询"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/CX"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
@@ -52,6 +44,150 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/black_20"
+                        android:gravity="start|center_vertical"
+                        android:padding="@dimen/margin_5"
+                        android:text="@string/cet_test_card"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:text="@string/name"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+
+                        <EditText
+                            android:id="@+id/card_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/translate"
+                            android:gravity="center_vertical"
+                            android:hint="@string/input_name"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:text="@string/id_card_number"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+
+                        <EditText
+                            android:id="@+id/card_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/translate"
+                            android:gravity="center_vertical"
+                            android:hint="请输入身份证号码"
+                            android:maxLines="1"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/card_yzm_image"
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="4dp"
+                            android:scaleType="fitXY" />
+
+
+                        <EditText
+                            android:id="@+id/card_yzm"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/translate"
+                            android:hint="请输入验证码"
+                            android:maxLength="5"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/black_20" />
+
+                    <Button
+                        android:id="@+id/query_cet_card"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="@string/query" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cet_grade_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/black_20"
+                        android:gravity="start|center_vertical"
+                        android:padding="@dimen/margin_5"
+                        android:text="@string/cet_test_grade"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -82,7 +218,6 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:gravity="start|center_vertical"
-                                android:onClick="setCet4"
                                 android:paddingStart="8dp"
                                 android:paddingEnd="8dp"
                                 android:text="英语四级"
@@ -98,7 +233,6 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:gravity="start|center_vertical"
-                                android:onClick="setCet6"
                                 android:paddingStart="8dp"
                                 android:paddingEnd="8dp"
                                 android:text="英语六级"
@@ -194,64 +328,69 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/translate"
-                            android:hint="请输入验证码"
+                            android:hint="@string/input_yzm"
+                            android:maxLength="5"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/black_20" />
+
                     <Button
+                        android:id="@+id/query_cet_grade"
                         style="@style/Widget.AppCompat.Button.Borderless.Colored"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:onClick="getCet"
-                        android:text="查询" />
+                        android:layout_height="40dp"
+                        android:text="@string/query" />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+
             <androidx.cardview.widget.CardView
-                android:id="@+id/Show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:text="Cet历史成绩"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/Cet_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:ignore="UselessLeaf">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="100dp"
-                    android:src="@mipmap/holder"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/trip"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:lineSpacingExtra="10dp"
-                    android:text="玩命加载中...\n请稍等!"
-                    android:textSize="13sp"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/black_20"
+                        android:gravity="start|center_vertical"
+                        android:padding="@dimen/margin_5"
+                        android:text="@string/cet_test_history_grade"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/cet_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <com.lib.loading.LVBlock
+                            android:id="@+id/loading"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="50dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

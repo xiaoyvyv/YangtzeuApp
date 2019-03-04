@@ -3,7 +3,6 @@ package com.yangtzeu.ui.activity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,10 +15,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.CleanUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ServiceUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,11 +25,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.lib.x5web.X5WebView;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.Course;
-import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.listener.OnClassListener;
-import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.MainPresenter;
-import com.yangtzeu.receiver.LockReceiver;
 import com.yangtzeu.service.BackgroundService;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.fragment.GradeFragment;
@@ -45,7 +39,6 @@ import com.yangtzeu.ui.view.MainView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.AlipayUtil;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.PollingUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.List;
@@ -87,7 +80,7 @@ public class MainActivity extends BaseActivity
         leftNavigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer_layout);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        container = findViewById(R.id.container);
+        container = findViewById(R.id.slow_container);
 
         View headerView = leftNavigationView.getHeaderView(0);
         class_info = headerView.findViewById(R.id.class_info);
@@ -233,7 +226,7 @@ public class MainActivity extends BaseActivity
                 });
                 builder.setNegativeButton(R.string.clear, null);
                 builder.setView(view).show();
-                LinearLayout layout = view.findViewById(R.id.container);
+                LinearLayout layout = view.findViewById(R.id.slow_container);
                 for (int i = 0; i < ThemeColor.length; i++) {
                     @SuppressLint("InflateParams")
                     View m_item = getLayoutInflater().inflate(R.layout.view_choose_term_item, null);
@@ -353,8 +346,8 @@ public class MainActivity extends BaseActivity
             }.sendEmptyMessageDelayed(0, 2000); // 利用handler延迟发送更改状态信息
         } else {
             ActivityUtils.finishAllActivities();
+            android.os.Process.killProcess(android.os.Process.myPid());
             AppUtils.exitApp();
-            android.os.Process.killProcess(android.os.Process.myPid());//再此之前可以做些退出等操作
         }
     }
 

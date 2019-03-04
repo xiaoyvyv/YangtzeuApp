@@ -32,10 +32,12 @@ public class BannerBean {
         /**
          * title : 测试1
          * image : http://img.ivsky.com/img/bizhi/co/201806/28/liuhaoran.jpg
+         * url : http://img.ivsky.com/img/bizhi/co/201806/28/liuhaoran.jpg
          */
 
         private String title;
         private String image;
+        private String url;
 
         public String getTitle() {
             return title;
@@ -51,6 +53,14 @@ public class BannerBean {
 
         public void setImage(String image) {
             this.image = image;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 }

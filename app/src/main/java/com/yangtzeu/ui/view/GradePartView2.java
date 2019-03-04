@@ -1,28 +1,51 @@
 package com.yangtzeu.ui.view;
-
 import android.widget.TextView;
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.yangtzeu.entity.PointBean;
-import com.yangtzeu.ui.adapter.PointAdapter;
-
 import java.util.List;
-
 import androidx.recyclerview.widget.RecyclerView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import com.yangtzeu.entity.GradeBean;
+import com.yangtzeu.ui.adapter.GradeAdapter;
+
+
 
 public interface GradePartView2 {
 
-    SmartRefreshLayout getRefresh();
-
     RecyclerView getRecyclerView();
 
-    PointAdapter getPointAdapter();
 
-    TextView getAllNumberView();
+    SmartRefreshLayout getRefresh();
 
-    TextView getAllScoreView();
+    GradeAdapter getAdapter();
 
-    TextView getAllPointView();
 
-    List<PointBean> getGradeBeans();
+    TextView public_choose_score_tv();
+
+    TextView major_choose_score_tv();
+
+    TextView major_score_tv();
+
+    TextView practice_score_tv();
+
+    CardView all_score_container();
+
+    List<Double> public_choose_scores();
+
+    List<Double> major_choose_scores();
+
+    List<Double> major_scores();
+
+    List<Double> practice_scores();
+
+    //成绩容器
+    List<GradeBean> getGradeBeans();
+
+    Toolbar getToolbar();
+
+    String getUrl();
+
+    String getIndexUrl();
+
 }

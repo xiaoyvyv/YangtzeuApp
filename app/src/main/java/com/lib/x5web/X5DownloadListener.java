@@ -54,14 +54,14 @@ public class X5DownloadListener implements DownloadListener {
     @Override
     public void onDownloadStart(final String s, String s1, final String s2, String s3, long l) {
         // s 下载地址,s1 UA ,s2 文件名字 l文件大小
-        String FileName = s2.substring(s2.lastIndexOf("=") + 1, s2.length());
+        String FileName = s2.substring(s2.lastIndexOf("=") + 1);
         try {
             fileName = URLDecoder.decode(FileName, "utf-8");
             fileName = fileName.replace("\"", "");
         } catch (Exception ignored) {}
 
         if (fileName.isEmpty()) {
-            fileName = s.substring(s.lastIndexOf("/") + 1, s.length());
+            fileName = s.substring(s.lastIndexOf("/") + 1);
         }
         if (fileName.contains("?")) {
             fileName = fileName.substring(0, fileName.lastIndexOf("?"));
@@ -69,6 +69,17 @@ public class X5DownloadListener implements DownloadListener {
         if (fileName.endsWith(".cn")) {
             fileName = fileName.replace(".cn", ".jpg");
         }
+
+        if (fileName.endsWith(";")) {
+            fileName = fileName.replace(";", "");
+        }
+
+        if (fileName.contains("utf-8")) {
+            fileName = fileName.replace("utf-8", "");
+        }
+
+
+
         @SuppressLint("InflateParams")
         View view = ((Activity) context).getLayoutInflater().inflate(R.layout.activity_web_down, null);
         final AlertDialog dialog = new AlertDialog.Builder(context, R.style.style_dialog)

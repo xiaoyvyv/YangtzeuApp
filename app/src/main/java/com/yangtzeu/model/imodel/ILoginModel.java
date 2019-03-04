@@ -10,5 +10,4 @@ public interface ILoginModel {
 
     void loadHistory(Activity activity, LoginView view);
 
-    void addUserToXyWeb(Activity activity, LoginView view);
 }
