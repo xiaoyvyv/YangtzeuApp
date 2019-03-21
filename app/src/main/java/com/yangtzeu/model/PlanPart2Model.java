@@ -2,15 +2,10 @@ package com.yangtzeu.model;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -22,7 +17,6 @@ import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IPlanPart2Model;
 import com.yangtzeu.ui.activity.PlanActivity;
 import com.yangtzeu.ui.view.PlanPartView2;
-import com.yangtzeu.url.Url;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

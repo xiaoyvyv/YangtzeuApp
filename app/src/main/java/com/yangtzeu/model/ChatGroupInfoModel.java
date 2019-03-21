@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +39,6 @@ import com.yangtzeu.model.imodel.IChatGroupInfoModel;
 import com.yangtzeu.ui.activity.ChatActivity;
 import com.yangtzeu.ui.fragment.ChatFragment3;
 import com.yangtzeu.ui.view.ChatGroupInfoView;
-import com.yangtzeu.ui.view.ChatView;
 import com.yangtzeu.utils.MyUtils;
 
 import java.util.ArrayList;

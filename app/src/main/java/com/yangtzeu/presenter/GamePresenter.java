@@ -2,9 +2,7 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
-import com.yangtzeu.model.CetModel;
 import com.yangtzeu.model.GameModel;
-import com.yangtzeu.ui.view.CetView;
 import com.yangtzeu.ui.view.GameView;
 
 public class GamePresenter {

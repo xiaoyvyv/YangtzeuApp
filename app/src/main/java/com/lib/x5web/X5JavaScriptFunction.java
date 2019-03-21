@@ -5,9 +5,7 @@ import android.os.Handler;
 import android.webkit.JavascriptInterface;
 
 import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.lib.chat.common.Constant;
-import com.yangtzeu.ui.activity.BoardActivity;
 import com.yangtzeu.utils.MyUtils;
 
 public class X5JavaScriptFunction {

@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.activity.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/elevation">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -36,101 +38,91 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:elevation="1dp"
-                    app:cardCornerRadius="2.5dp">
+                    android:orientation="vertical"
+                    tools:ignore="DisableBaselineAlignment">
 
-                    <LinearLayout
+                    <cn.bingoogolapple.bgabanner.BGABanner
+                        android:id="@+id/banner"
                         android:layout_width="match_parent"
+                        android:layout_height="165dp"
+                        android:fitsSystemWindows="true"
+                        app:banner_indicatorGravity="center_horizontal"
+                        app:banner_isNumberIndicator="false"
+                        app:banner_numberIndicatorTextSize="12sp"
+                        app:banner_pointAutoPlayAble="true"
+                        app:banner_pointAutoPlayInterval="2500"
+                        app:banner_pointContainerBackground="@color/translate"
+                        app:banner_pointDrawable="@drawable/ic_banner_point"
+                        app:banner_tipTextColor="@color/translate"
+                        app:banner_tipTextSize="12sp"
+                        app:banner_transitionEffect="defaultEffect" />
+
+                    <include layout="@layout/fragment_many_banner_item1" />
+
+
+                    <cn.bingoogolapple.bgabanner.BGABanner
+                        android:layout_width="match_parent"
+                        android:layout_height="165dp"
+                        android:visibility="gone"
+                        app:banner_indicatorGravity="center_horizontal"
+                        app:banner_isNumberIndicator="false"
+                        app:banner_pointAutoPlayAble="true"
+                        app:banner_pointAutoPlayInterval="5000"
+                        app:banner_pointContainerBackground="@color/translate"
+                        app:banner_transitionEffect="defaultEffect" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:background="@color/white_fa" />
+
+                </LinearLayout>
+
+
+                <com.lib.notice.NoticeView
+                    android:id="@+id/noticeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/translate"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    app:nvDuration="1000"
+                    app:nvIcon="@drawable/ic_message"
+                    app:nvIconPadding="10dp"
+                    app:nvIconTint="?attr/colorPrimary"
+                    app:nvInterval="3000"
+                    app:nvTextColor="#aa000000"
+                    app:nvTextGravity="left"
+                    app:nvTextMaxLines="1"
+                    app:nvTextSize="15sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/card_margin_10"
+                        android:text="@string/online_tool"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/mRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
-                        tools:ignore="DisableBaselineAlignment">
-
-                        <cn.bingoogolapple.bgabanner.BGABanner
-                            android:id="@+id/banner"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:fitsSystemWindows="true"
-                            app:banner_indicatorGravity="right"
-                            app:banner_isNumberIndicator="true"
-                            app:banner_numberIndicatorTextSize="12sp"
-                            app:banner_pointAutoPlayAble="true"
-                            app:banner_pointAutoPlayInterval="2500"
-                            app:banner_pointContainerBackground="#20000000"
-                            app:banner_tipTextColor="@color/white_d"
-                            app:banner_tipTextSize="12sp"
-                            app:banner_transitionEffect="depth" />
-
-                        <com.lib.notice.NoticeView
-                            android:id="@+id/noticeView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/translate"
-                            android:padding="10dp"
-                            app:nvDuration="1000"
-                            app:nvIcon="@drawable/ic_message"
-                            app:nvIconPadding="10dp"
-                            app:nvIconTint="?attr/colorPrimary"
-                            app:nvInterval="3000"
-                            app:nvTextColor="#aa000000"
-                            app:nvTextGravity="left"
-                            app:nvTextMaxLines="1"
-                            app:nvTextSize="15sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/black_20" />
-
-
-                        <cn.bingoogolapple.bgabanner.BGABanner
-                            android:id="@+id/banner_item"
-                            android:layout_width="match_parent"
-                            android:layout_height="165dp"
-                            app:banner_pointContainerBackground="@color/translate"
-                            android:fitsSystemWindows="true"
-                            app:banner_indicatorGravity="center_horizontal"
-                            app:banner_isNumberIndicator="false"
-                            app:banner_pointAutoPlayAble="true"
-                            app:banner_pointAutoPlayInterval="5000"
-                            app:banner_transitionEffect="defaultEffect"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:elevation="1dp"
-                    app:cardCornerRadius="2.5dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/card_margin_10"
-                            android:text="@string/online_tool"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/mRecyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                            app:spanCount="4" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:spanCount="4" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

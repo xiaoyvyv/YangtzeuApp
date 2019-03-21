@@ -2,10 +2,8 @@ package com.yangtzeu.model;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -14,10 +12,7 @@ import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IVoaDetailsModel;
-import com.yangtzeu.ui.activity.VoaListActivity;
 import com.yangtzeu.ui.view.VoaDetailsView;
-import com.yangtzeu.url.Url;
-import com.yangtzeu.utils.MyUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

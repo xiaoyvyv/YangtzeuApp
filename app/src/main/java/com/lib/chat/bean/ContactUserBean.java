@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.TimeUtils;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 import androidx.annotation.NonNull;

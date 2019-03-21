@@ -10,7 +10,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/elevation">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -154,12 +155,12 @@
                     android:textSize="16sp" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/mClass"
                     android:layout_margin="@dimen/margin_5"
-                    app:cardCornerRadius="@dimen/card_radius">
+                    app:cardCornerRadius="@dimen/card_radius"
+                    app:cardElevation="@dimen/elevation">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -918,7 +919,6 @@
                                 android:background="@color/black_20" />
 
                             <TextView
-                                android:id="@+id/change_password"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/fragment4_height"
                                 android:layout_marginStart="10dp"
@@ -970,6 +970,7 @@
                                 android:background="@color/black_20" />
 
                             <TextView
+                                android:id="@+id/exit_text"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/fragment4_height"
                                 android:layout_marginStart="10dp"
@@ -1102,6 +1103,7 @@
                                 android:src="@drawable/ic_right"
                                 android:tint="?attr/colorPrimary" />
                         </LinearLayout>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"

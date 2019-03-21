@@ -2,12 +2,12 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/RootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.DownloadActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        app:elevation="@dimen/elevation"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

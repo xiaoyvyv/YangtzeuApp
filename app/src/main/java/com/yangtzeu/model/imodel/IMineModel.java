@@ -2,7 +2,6 @@ package com.yangtzeu.model.imodel;
 
 import android.app.Activity;
 
-import com.yangtzeu.entity.MessageBean;
 import com.yangtzeu.ui.view.MineView;
 
 import java.util.List;

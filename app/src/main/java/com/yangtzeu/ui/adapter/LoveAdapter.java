@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -203,7 +202,6 @@ public class LoveAdapter extends RecyclerView.Adapter<LoveAdapter.ViewHolder> {
             TextView HuiFuItemText = HuiFuItem.findViewById(R.id.HuiFuText);
             final String rText = replay.get(j).getContent();
             final String rName = "<font color=#00367a>" + replay.get(j).getUser_name() + "</font>";
-            LogUtils.i(rText, rName);
             HuiFuItemText.setText(Html.fromHtml(rName + ":\t\t" + rText));
 
             final String user_id = replay.get(j).getUser_id();

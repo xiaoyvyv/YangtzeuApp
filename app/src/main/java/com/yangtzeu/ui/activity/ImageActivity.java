@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
-import com.bumptech.glide.Glide;
 import com.lib.touch.TouchImageView;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.ImageBean;

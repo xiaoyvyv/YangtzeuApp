@@ -52,27 +52,46 @@ public class X5WebView extends WebView {
 
     public static ValueCallback<Uri> uploadFile;
     public static ValueCallback<Uri[]> uploadFiles;
-    private ImageView imageView;
     private AlertDialog dialog;
 
 
     public X5WebView(Context context) {
         super(context);
         this.context = context;
+        init();
+    }
+
+    public X5WebView(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.context = context;
+        init();
+    }
+
+    public X5WebView(Context context, AttributeSet attributeSet, int i) {
+        super(context, attributeSet, i);
+        this.context = context;
+        init();
+    }
+
+    public X5WebView(Context context, AttributeSet attributeSet, int i, boolean b) {
+        super(context, attributeSet, i, b);
+        this.context = context;
+        init();
+    }
+
+    public X5WebView(Context context, AttributeSet attributeSet, int i, Map<String, Object> map, boolean b) {
+        super(context, attributeSet, i, map, b);
+        this.context = context;
+        init();
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    public void init() {
         this.getView().setClickable(true);
         SetUp();
         initWebViewSettings();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    public X5WebView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.context = context;
-        this.getView().setClickable(true);
-        SetUp();
-        initWebViewSettings();
-        //  WebStorage webStorage = WebStorage.getInstance();
-    }
 
     public void setTitleAndProgressBar(Toolbar toolbar, WebViewProgressBar progressBar) {
         this.toolbar = toolbar;

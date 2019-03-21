@@ -1,25 +1,26 @@
 package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
-import com.lib.x5web.WebViewProgressBar;
-import com.lib.x5web.X5WebView;
-import com.lib.yun.StringUtils;
+import com.miui.zeus.mimo.sdk.ad.IAdWorker;
 import com.yangtzeu.R;
+import com.yangtzeu.presenter.AnswerListPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
+import com.yangtzeu.ui.view.AnswerListView;
 import com.yangtzeu.utils.MyUtils;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-public class AnswerListActivity extends BaseActivity {
-    private Toolbar toolbar;
+public class AnswerListActivity extends BaseActivity implements AnswerListView {
     private String from_url;
-    private FrameLayout container;
-    private X5WebView webView;
-    private WebViewProgressBar progress;
+    private LinearLayout container;
+    private SwipeRefreshLayout refreshLayout;
+    private Toolbar toolbar;
+    private AnswerListPresenter presenter;
+    private IAdWorker adWorker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +36,57 @@ public class AnswerListActivity extends BaseActivity {
     public void findViews() {
         toolbar = findViewById(R.id.toolbar);
         container = findViewById(R.id.slow_container);
-        progress = findViewById(R.id.progress);
+        refreshLayout = findViewById(R.id.refreshLayout);
     }
 
 
     @Override
     public void setEvents() {
-        webView = new X5WebView(this);
-        container.addView(webView, 0);
-        webView.setTitleAndProgressBar(toolbar, progress);
-        webView.setOnLongClickListener(null);
-        if (StringUtils.isNotEmpty(from_url))
-            webView.loadUrl(from_url);
-    }
+        presenter = new AnswerListPresenter(this, this);
+        presenter.loadAnswer();
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.loadAnswer();
+                refreshLayout.setRefreshing(false);
+            }
+        });
 
-    @Override
-    public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
     protected void onDestroy() {
-        if (webView != null) {
-            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            webView.clearHistory();
-
-            ((ViewGroup) webView.getParent()).removeView(webView);
-            webView.destroy();
-            webView = null;
+        try {
+            adWorker.recycle();
+            super.onDestroy();
+        } catch (Exception e) {
+            super.onDestroy();
         }
-        super.onDestroy();
     }
+
+    @Override
+    public String getFromUrl() {
+        return from_url;
+    }
+
+    @Override
+    public LinearLayout getContainer() {
+        return container;
+    }
+
+    @Override
+    public SwipeRefreshLayout getRefresh() {
+        return refreshLayout;
+    }
+
+    @Override
+    public IAdWorker getAdWorker() {
+        return adWorker;
+    }
+
+    @Override
+    public void setAdWorker(IAdWorker adWorker) {
+        this.adWorker = adWorker;
+    }
+
 }

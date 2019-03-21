@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.lib.chat.adapter.ContactAdapter;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ChatPart1Presenter;
@@ -14,8 +13,6 @@ import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.view.ChatPartView1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 

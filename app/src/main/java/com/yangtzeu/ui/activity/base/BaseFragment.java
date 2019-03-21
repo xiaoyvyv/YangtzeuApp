@@ -1,8 +1,6 @@
 package com.yangtzeu.ui.activity.base;
 
 
-import android.view.View;
-
 import com.yangtzeu.model.imodel.IBaseMode;
 
 import androidx.fragment.app.Fragment;

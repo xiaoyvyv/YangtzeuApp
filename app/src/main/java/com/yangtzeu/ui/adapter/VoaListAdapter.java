@@ -6,15 +6,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.yangtzeu.R;
-import com.yangtzeu.entity.AppBean;
 import com.yangtzeu.ui.activity.VoaDetailsActivity;
-import com.yangtzeu.ui.activity.VoaListActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 

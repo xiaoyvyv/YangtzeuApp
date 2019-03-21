@@ -1,9 +1,7 @@
 package com.lib.chat.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +9,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.lib.chat.bean.CreateGroupBean;
-import com.lib.chat.bean.MessagesBean;
-import com.lib.chat.bean.PayLoadBean;
 import com.lib.chat.common.Constant;
-import com.lib.chat.common.UserManager;
-import com.lib.yun.Base64;
 import com.yangtzeu.R;
 import com.yangtzeu.utils.MyUtils;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GroupInnerUserAdapter extends RecyclerView.Adapter<GroupInnerUserAdapter.ViewHolder> {

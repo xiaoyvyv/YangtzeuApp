@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
+import com.ad.OnAdListener;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -15,10 +16,13 @@ import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.lib.subutil.GsonUtils;
+import com.miui.zeus.mimo.sdk.ad.AdWorkerFactory;
+import com.miui.zeus.mimo.sdk.ad.IAdWorker;
+import com.xiaomi.ad.common.pojo.AdType;
 import com.yangtzeu.R;
+import com.yangtzeu.app.MyApplication;
 import com.yangtzeu.entity.AdBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
@@ -40,7 +44,8 @@ public class SplashModel implements ISplashModel {
     private static final String AppDebugSignatureMD5 = "03:C2:04:3B:BF:74:83:AB:DC:D7:7B:B5:97:C6:A5:F3";
     private static final String AppReleaseSignatureMD5 = "AD:3B:5A:F3:92:92:8D:27:BE:C9:1A:60:AB:42:3B:7F";
     private boolean[] canEnter = {false, false};
-    private long ad_time = 3000;
+    private long ad_time = 4000;
+    private static IAdWorker myAdWorker;
 
     @Override
     public void loadAdImage(final Activity activity, final SplashView view) {
@@ -169,9 +174,9 @@ public class SplashModel implements ISplashModel {
     @Override
     public void checkCopyRight(Activity activity, SplashView view) {
         String signatureMD5 = AppUtils.getAppSignatureMD5();
-        if (StringUtils.equals(signatureMD5,AppDebugSignatureMD5)) {
+        if (StringUtils.equals(signatureMD5, AppDebugSignatureMD5)) {
             ToastUtils.showShort("当前版本为内测版");
-        } else if (StringUtils.equals(signatureMD5,AppReleaseSignatureMD5)) {
+        } else if (StringUtils.equals(signatureMD5, AppReleaseSignatureMD5)) {
             LogUtils.v("正版授权");
         } else {
             ToastUtils.showLong("你当前使用的版本问非官方版，即将退出！");
@@ -183,6 +188,35 @@ public class SplashModel implements ISplashModel {
             }, 2000);
         }
     }
+
+
+    @Override
+    public void loadMIAD(Activity activity, SplashView view) throws Exception {
+        myAdWorker = AdWorkerFactory.getAdWorker(activity, view.getAdContainer(), new OnAdListener() {
+            @Override
+            public void onResultListener(int state, Object info) {
+                LogUtils.e(state,info);
+                switch (state) {
+                    case OnAdListener.AdPresent:
+                        break;
+                    case OnAdListener.AdFailed:
+                        break;
+                }
+            }
+        }, AdType.AD_SPLASH);
+        myAdWorker.loadAndShow(MyApplication.PORTRAIT_SPLASH_POSITION_ID);
+    }
+
+    @Override
+    public void onDestroy(Activity activity, SplashView view) {
+        try {
+            if (myAdWorker != null)
+                myAdWorker.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public interface OnPermissionCallBack {
         void OnGranted();

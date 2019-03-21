@@ -214,7 +214,7 @@ public class Url {
      * App各类接口相关
      */
     //最近节日
-    public static final String Yangtzeu_Next_Holiday = "http://timor.tech/api/holiday/tts/next";
+    public static final String Yangtzeu_Next_Holiday =My_App_Home +  "/fun_web/holiday.php";
     //天气查询
     public static final String Yangtzeu_Weather = "http://apicloud.mob.com/v1/weather/query?key=" + key + "&province=湖北&city=";
     //当前在线人数
@@ -277,6 +277,8 @@ public class Url {
     public static final String Yangtzeu_Group_List = My_App_Home + "/yangtzeu/json/yz_group.json";
     //我的官方群
     public static final String Yangtzeu_Join_Group = "http://qm.qq.com/cgi-bin/qm/qr?k=dezJxL7E5dTPk0-q5Is6tKA8mPHgIfxy";
+    //Vip视频
+    public static final String Yangtzeu_App_Vip_Video = My_App_Home + "/yangtzeu/json/yz_vipvideo.json";
 
 
     /**

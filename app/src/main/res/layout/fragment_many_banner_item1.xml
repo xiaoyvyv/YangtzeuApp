@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:ignore="DisableBaselineAlignment">
 
     <LinearLayout
@@ -24,18 +26,17 @@
             android:padding="@dimen/margin_5">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="5dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_shop"
-                android:tint="#00BCD4" />
+                android:src="@mipmap/shop" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:gravity="start|center_vertical"
                 android:text="@string/shop_mall"
                 android:textColor="@color/black"
@@ -47,6 +48,8 @@
             android:id="@+id/answer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
@@ -56,19 +59,18 @@
             android:padding="@dimen/margin_5">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:contentDescription="@string/app_name"
-                android:padding="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_answer"
-                android:tint="#00c853" />
+                android:src="@mipmap/answer" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:text="@string/my_answer"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
@@ -79,6 +81,7 @@
             android:id="@+id/love"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
@@ -88,19 +91,18 @@
             android:padding="@dimen/margin_5">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:contentDescription="@string/app_name"
-                android:padding="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_heart"
-                android:tint="#E91E63" />
+                android:src="@mipmap/wall" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:text="@string/love_wall"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
@@ -118,20 +120,20 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="@dimen/margin_5">
+
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:contentDescription="@string/app_name"
-                android:padding="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_cut_off"
-                android:tint="#FF5722" />
+                android:src="@mipmap/money" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:text="@string/cut_off_shop"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
@@ -157,19 +159,18 @@
             android:padding="@dimen/margin_5">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="5dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_phone"
-                android:tint="#56686B" />
+                android:src="@mipmap/time" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:gravity="start|center_vertical"
                 android:text="@string/locke_phone_new"
                 android:textColor="@color/black"
@@ -180,6 +181,8 @@
             android:id="@+id/like"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
@@ -189,18 +192,17 @@
             android:padding="@dimen/margin_5">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="5dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_like"
-                android:tint="#DC2DFB" />
+                android:src="@mipmap/click" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:gravity="start|center_vertical"
                 android:text="@string/q_like"
                 android:textColor="@color/black"
@@ -211,6 +213,7 @@
             android:id="@+id/web"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
@@ -220,19 +223,18 @@
             android:padding="@dimen/margin_5">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="5dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_web"
-                android:tint="#397BEE" />
+                android:src="@mipmap/website" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:gravity="start|center_vertical"
                 android:text="长大网站集"
                 android:textColor="@color/black"
@@ -252,19 +254,18 @@
             android:padding="@dimen/margin_5">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="5dp"
+                android:layout_width="@dimen/many_img_size"
+                android:layout_height="@dimen/many_img_size"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_jsq"
-                android:tint="#512DA8" />
+                android:src="@mipmap/chart" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:layout_marginBottom="5dp"
-                android:alpha="0.6"
+                android:alpha="0.7"
                 android:gravity="start|center_vertical"
                 android:text="@string/calculator"
                 android:textColor="@color/black"

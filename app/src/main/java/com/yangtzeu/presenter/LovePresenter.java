@@ -3,9 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.yangtzeu.model.LoveModel;
-import com.yangtzeu.model.ShopModel;
 import com.yangtzeu.ui.view.LoveView;
-import com.yangtzeu.ui.view.ShopView;
 
 
 public class LovePresenter {

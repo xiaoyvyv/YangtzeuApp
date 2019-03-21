@@ -15,7 +15,7 @@
         android:layout_margin="@dimen/table_item_margin"
         app:cardBackgroundColor="@color/translate"
         app:cardCornerRadius="2.5dp"
-        app:cardElevation="0dp">
+        app:cardElevation="@dimen/elevation">
 
         <TextView
             android:id="@+id/mClass"

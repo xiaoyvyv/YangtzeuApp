@@ -2,25 +2,11 @@ package com.yangtzeu.utils;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.service.quicksettings.TileService;
 import android.widget.Toast;
 
-import com.lib.yun.StringUtils;
-import com.yangtzeu.R;
-
-import java.net.URISyntaxException;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 /**
  * Created by didikee on 2017/7/28.

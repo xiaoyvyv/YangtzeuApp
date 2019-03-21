@@ -8,7 +8,6 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -19,7 +18,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.yangtzeu.R;
 
 import java.util.ArrayList;

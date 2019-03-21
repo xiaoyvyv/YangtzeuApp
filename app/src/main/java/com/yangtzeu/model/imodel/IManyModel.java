@@ -11,7 +11,6 @@ public interface IManyModel {
 
     void fitAdapter(Activity activity, ManyView view);
 
-    void loadQQLikeEvents(Activity activity, ManyView view);
 
-    void loadBannerItem(Activity activity, ManyView view);
+    void loadItemLayout(Activity activity, ManyView view);
 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.lib.chat.adapter.ContactUserAdapter;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ChatPart2Presenter;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.yangtzeu.ui.activity.JwcListActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
@@ -20,7 +19,6 @@ public class HomePart1Listener {
 
         @Override
         public void onClick(View view) {
-            LogUtils.e("测试");
             Intent intent = new Intent(context, JwcListActivity.class);
             intent.putExtra("title", "教务通知");
             intent.putExtra("from_url", Url.Yangtzeu_JWTZ);

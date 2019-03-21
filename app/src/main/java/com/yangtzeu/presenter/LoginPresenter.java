@@ -24,4 +24,7 @@ public class LoginPresenter {
         model.loadHistory(activity, view);
     }
 
+    public void loadBanner() {
+        model.loadBanner(activity, view);
+    }
 }

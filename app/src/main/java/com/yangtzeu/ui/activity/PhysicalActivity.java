@@ -20,12 +20,12 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
-import com.yangtzeu.http.OnResultBytesListener;
 import com.yangtzeu.http.OnResultStringListener;
+import com.yangtzeu.http.callback.ByteCallBack;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.adapter.FragmentAdapter;
-import com.yangtzeu.ui.fragment.PhysicalFragment;
 import com.yangtzeu.ui.fragment.PhysicalAddFragment;
+import com.yangtzeu.ui.fragment.PhysicalFragment;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 
@@ -35,6 +35,7 @@ import java.util.Objects;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+import okhttp3.Call;
 import okhttp3.Cookie;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -115,7 +116,6 @@ public class PhysicalActivity extends BaseActivity {
         });
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,19 +180,21 @@ public class PhysicalActivity extends BaseActivity {
 
     //获取验证码
     private void getVerifyImage(final ImageView verifyImage) {
-        OkHttp.do_Get(Url.Yangtzeu_Physical_Verify, new OnResultBytesListener() {
-            @Override
-            public void onResponse(byte[] bytes) {
-                Bitmap bitmap = ImageUtils.bytes2Bitmap(bytes);
-                verifyImage.setImageBitmap(bitmap);
-            }
-
-            @Override
-            public void onFailure(String error) {
-                ToastUtils.showShort(R.string.try_again);
-            }
-        });
+        OkHttp.getInstance()
+                .newCall(OkHttp.getRequest(Url.Yangtzeu_Physical_Verify))
+                .enqueue(new ByteCallBack() {
+                    @Override
+                    public void onFinish(Call call, byte[] response, boolean isResponseExist, boolean isCacheResponse) {
+                        if (isCacheResponse) {
+                            Bitmap bitmap = ImageUtils.bytes2Bitmap(response);
+                            verifyImage.setImageBitmap(bitmap);
+                        } else {
+                            ToastUtils.showShort(R.string.try_again);
+                        }
+                    }
+                });
     }
+
 
     private void getData() {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
@@ -231,7 +233,7 @@ public class PhysicalActivity extends BaseActivity {
                 String physical_cookie = builder.toString();
                 LogUtils.i("物理实验Cookie：" + physical_cookie);
 
-                SPUtils.getInstance("user_info").put("physical_cookie",physical_cookie);
+                SPUtils.getInstance("user_info").put("physical_cookie", physical_cookie);
                 MyUtils.openUrl(PhysicalActivity.this, "http://10.10.16.16/index.php/Home/Student/exproom", physical_cookie);
                 return false;
             }

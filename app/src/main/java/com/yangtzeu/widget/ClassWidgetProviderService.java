@@ -9,10 +9,10 @@ import android.widget.RemoteViewsService;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.Course;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;

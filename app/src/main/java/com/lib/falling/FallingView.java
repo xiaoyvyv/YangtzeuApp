@@ -23,7 +23,6 @@ import androidx.annotation.Nullable;
  */
 
 public class FallingView extends View {
-    private AttributeSet mAttrs;
 
     private List<FallObject> fallObjects;
 
@@ -41,7 +40,6 @@ public class FallingView extends View {
 
     public FallingView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mAttrs = attrs;
         init();
     }
 

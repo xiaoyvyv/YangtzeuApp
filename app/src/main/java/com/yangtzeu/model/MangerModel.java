@@ -1,15 +1,12 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
-import android.widget.FrameLayout;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.FeedBackBean;
-import com.yangtzeu.entity.LoveBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IMangerModel;

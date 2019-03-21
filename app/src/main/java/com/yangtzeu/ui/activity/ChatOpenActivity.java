@@ -7,7 +7,6 @@ import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -18,14 +17,11 @@ import com.lib.chat.adapter.ChatAdapter;
 import com.lib.chat.common.Constant;
 import com.lib.chat.common.UserManager;
 import com.yangtzeu.R;
-import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.ChatOpenPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.fragment.ChatFragment1;
 import com.yangtzeu.ui.view.ChatOpenView;
-import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.YangtzeuUtils;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;

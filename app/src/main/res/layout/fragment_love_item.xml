@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="2.5dp">
+        app:cardCornerRadius="2.5dp"
+        app:cardElevation="@dimen/elevation">
 
         <LinearLayout
             android:id="@+id/onclick"
@@ -20,10 +21,8 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/header_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/black_20">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/name"
@@ -36,7 +35,7 @@
                     android:shadowDy="3"
                     android:shadowRadius="2"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -47,7 +46,7 @@
                     android:layout_margin="10dp"
                     android:alpha="0.5"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 

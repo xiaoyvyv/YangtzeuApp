@@ -13,7 +13,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/elevation">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -47,7 +48,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:onClick="chatWeChat"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
@@ -56,6 +56,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start|center_vertical"
+                android:onClick="chatWeChat"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:text="微信：whysbelief"
@@ -63,7 +64,6 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:onClick="chatQQ"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
@@ -72,6 +72,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start|center_vertical"
+                android:onClick="chatQQ"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:text="企鹅：1223414335"
@@ -79,11 +80,11 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:autoLink="all"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:alpha="0.7"
+                android:autoLink="all"
                 android:background="?selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
@@ -210,6 +211,7 @@
                 android:text="答案页面：1000+次展示量/天（由于答案数据还未完整，以后这个页面有很大的流量）"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -220,6 +222,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_jwc_title"
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -235,6 +238,7 @@
                 android:text="图片*1    规格（长：宽 = 2：1）"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

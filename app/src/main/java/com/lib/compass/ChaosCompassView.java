@@ -25,12 +25,10 @@ import androidx.annotation.Nullable;
 public class ChaosCompassView extends View{
     private int textColor = Color.BLACK;
     private Canvas mCanvas;
-    private Context mContext;
     //View矩形的宽度
     private int width;
     //指南针圆心点坐标
     private int mCenterX;
-    private int mCenterY;
     //外圆半径
     private int mOutSideRadius;
     //外接圆半径
@@ -123,7 +121,6 @@ public class ChaosCompassView extends View{
 
     public ChaosCompassView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
 
         mDarkRedPaint = new Paint();
         mDarkRedPaint.setStyle(Paint.Style.STROKE);
@@ -437,7 +434,6 @@ public class ChaosCompassView extends View{
         mTextHeight = width/3;
         //设置圆心点坐标
         mCenterX = width/2;
-        mCenterY = width/2+mTextHeight;
         //外部圆的外径
         mOutSideRadius = width*3/8;
         //外接圆的半径

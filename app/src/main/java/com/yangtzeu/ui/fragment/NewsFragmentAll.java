@@ -17,7 +17,6 @@ import com.yangtzeu.presenter.NewsPresenter2;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.adapter.NewsAdapter;
 import com.yangtzeu.ui.view.NewsView2;
-import com.yangtzeu.url.Url;
 
 import java.util.ArrayList;
 import java.util.List;

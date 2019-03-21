@@ -2,9 +2,7 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
-import com.yangtzeu.model.ChatPart2Model;
 import com.yangtzeu.model.ChatPart3Model;
-import com.yangtzeu.ui.view.ChatPartView2;
 import com.yangtzeu.ui.view.ChatPartView3;
 
 public class ChatPart3Presenter {

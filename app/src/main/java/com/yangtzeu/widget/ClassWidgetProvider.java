@@ -6,30 +6,16 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.webkit.URLUtil;
-import android.widget.ImageView;
 import android.widget.RemoteViews;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.yangtzeu.R;
 import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.ui.activity.SplashActivity;
-import com.yangtzeu.url.Url;
-import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
-import java.io.File;
 import java.util.Objects;
-
-import androidx.annotation.NonNull;
 
 /**
  * Created by Administrator on 2018/2/26.

@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -250,9 +249,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             TextView HuiFuItemText = HuiFuItem.findViewById(R.id.HuiFuText);
             final String rText = replay.get(j).getContent();
             final String rName = "<font color=#00367a>" + replay.get(j).getUser_name() + "</font>";
-            LogUtils.i(rText, rName);
             HuiFuItemText.setText(Html.fromHtml(rName + ":\t\t" + rText));
-
 
             //点击评论跳转聊天
             HuiFuItemText.setOnClickListener(new View.OnClickListener() {

@@ -7,7 +7,6 @@ import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.GradePart3Model;
-import com.yangtzeu.ui.view.GradePartView2;
 import com.yangtzeu.ui.view.GradePartView3;
 
 public class GradePart3Presenter {
@@ -31,6 +30,7 @@ public class GradePart3Presenter {
             @Override
             public void onFailure(String error) {
                 ToastUtils.showShort(R.string.try_again);
+                view.getRefresh().finishRefresh();
             }
         });
     }

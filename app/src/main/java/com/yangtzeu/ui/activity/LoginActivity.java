@@ -13,11 +13,12 @@ import com.yangtzeu.R;
 import com.yangtzeu.presenter.LoginPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.LoginView;
-import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.PostUtils;
+import com.yangtzeu.utils.YangtzeuUtils;
 
 import androidx.annotation.Nullable;
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class LoginActivity extends BaseActivity implements LoginView {
     private Button loginButton;
@@ -25,6 +26,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
     private TextInputEditText numberView;
     private TextView belong;
     private TextView history;
+    private Button offButton;
+    private BGABanner banner;
+    private TextView update;
 
 
     @Override
@@ -37,10 +41,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void findViews() {
         loginButton = findViewById(R.id.loginButton);
+        offButton = findViewById(R.id.offButton);
         passwordView = findViewById(R.id.passwordView);
         numberView = findViewById(R.id.numberView);
         belong = findViewById(R.id.belong);
         history = findViewById(R.id.history);
+        banner = findViewById(R.id.banner);
+        
     }
 
     @Override
@@ -56,10 +63,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
         }
 
         LoginPresenter presenter = new LoginPresenter(this, this);
+        presenter.loadBanner();
         presenter.loadLoginEvent();
         presenter.loadHistory();
 
         belong.setText(Html.fromHtml(getString(R.string.belong_xy)));
+
+        YangtzeuUtils.checkAppVersion(LoginActivity.this);
     }
 
     @Override
@@ -82,10 +92,20 @@ public class LoginActivity extends BaseActivity implements LoginView {
         return history;
     }
 
+    @Override
+    public BGABanner getBanner() {
+        return banner;
+    }
+
+    @Override
+    public Button getOfflineLoginButton() {
+        return offButton;
+    }
+
     public void onClickLogin(View view) {
         switch (view.getId()) {
-            case R.id.yangtzeu_web:
-                MyUtils.openUrl(this, Url.Yangtzeu_Base_Url);
+            case R.id.update:
+                YangtzeuUtils.checkAppVersion(LoginActivity.this);
                 break;
             case R.id.forget_pass:
                 ToastUtils.showShort(R.string.deal_forget_pass);

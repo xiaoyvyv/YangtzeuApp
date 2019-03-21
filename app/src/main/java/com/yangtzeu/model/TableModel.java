@@ -1,8 +1,6 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +29,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -76,7 +73,7 @@ public class TableModel implements ITableModel {
                 view.getCourse().clear();
                 view.getTableFragmentAdapter().clear();
 
-                loadTableDataStep1(activity, view);
+                view.getRefreshLayout().autoRefresh();
             }
 
             @Override
@@ -333,10 +330,10 @@ public class TableModel implements ITableModel {
         if (params.length > 2) {
             tempTask = new String[params.length];
             tempTask = params;
-            LogUtils.i("课表数据大小：" + params.length, Arrays.deepToString(params));
+            //LogUtils.i("课表数据大小：" + params.length, Arrays.deepToString(params));
         } else {
             params = tempTask;
-            LogUtils.i("重复课表数据大小：" + params.length, Arrays.deepToString(params));
+            //LogUtils.i("重复课表数据大小：" + params.length, Arrays.deepToString(params));
         }
 
         for (int i = 0; i < params.length; i++) {

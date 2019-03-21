@@ -25,10 +25,10 @@ public class ManyPresenter {
         model.loadBanner(activity, view);
     }
 
-    public void loadBannerItem() {
-        model.loadBannerItem(activity, view);
-
+    public void loadItemLayout() {
+        model.loadItemLayout(activity, view);
     }
+
     public void fitAdapter() {
         model.fitAdapter(activity, view);
     }

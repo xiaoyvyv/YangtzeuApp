@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/white_fa"
-    tools:context=".ui.activity.AboutActivity">
+    tools:context=".ui.activity.PlanActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
+        app:elevation="@dimen/elevation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">

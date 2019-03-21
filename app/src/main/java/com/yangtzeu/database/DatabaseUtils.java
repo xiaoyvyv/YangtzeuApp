@@ -1,9 +1,7 @@
 package com.yangtzeu.database;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.Utils;
 
 import java.util.HashMap;

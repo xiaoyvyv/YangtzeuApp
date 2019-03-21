@@ -2,6 +2,7 @@ package com.yangtzeu.utils;
 
 import android.graphics.Bitmap;
 
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.ImageUtils;
@@ -22,7 +23,7 @@ public class UpLoadUtils {
         }
         String key = file_header + "/" + FileUtils.getFileMD5ToString(path) + "." + FileUtils.getFileExtension(path);
 
-        ALiOssUtils.upLoadFile(key, path, loadListener);
+        OSSAsyncTask ossAsyncTask = ALiOssUtils.upLoadFile(key, path, loadListener);
 
     }
 

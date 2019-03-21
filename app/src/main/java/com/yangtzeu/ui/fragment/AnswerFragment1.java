@@ -28,7 +28,6 @@ public class AnswerFragment1 extends BaseFragment implements AnswerLayout1View, 
     // 标志位，标志已经初始化完成。
     public boolean isPrepared = false;
     public View rootView;
-    private AnswerLayout1Presenter presenter;
     private BGABanner banner;
     private LinearLayout container;
     private LVBlock loading;
@@ -60,7 +59,7 @@ public class AnswerFragment1 extends BaseFragment implements AnswerLayout1View, 
         rootView.findViewById(R.id.answer_zt).setOnClickListener(this);
         rootView.findViewById(R.id.answer_dl).setOnClickListener(this);
 
-        presenter = new AnswerLayout1Presenter(getActivity(), this);
+        AnswerLayout1Presenter presenter = new AnswerLayout1Presenter(getActivity(), this);
         presenter.loadBanner();
         presenter.loadHotAnswer();
 

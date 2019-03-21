@@ -18,7 +18,7 @@ import com.yangtzeu.entity.HotAnswerBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IAnswerLayout1Model;
-import com.yangtzeu.ui.activity.AnswerListActivity;
+import com.yangtzeu.ui.activity.WebActivity;
 import com.yangtzeu.ui.view.AnswerLayout1View;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
@@ -96,8 +96,10 @@ public class AnswerLayout1Model implements IAnswerLayout1Model {
                     onClick.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(activity, AnswerListActivity.class);
+                            Intent intent = new Intent(activity, WebActivity.class);
                             intent.putExtra("from_url", url);
+                            intent.putExtra("isNoTitle", true);
+                            intent.putExtra("isAnswer", true);
                             MyUtils.startActivity(intent);
                         }
                     });

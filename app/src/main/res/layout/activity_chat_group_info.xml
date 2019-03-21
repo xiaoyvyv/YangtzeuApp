@@ -8,7 +8,6 @@
 
 
     <com.lzy.widget.PullZoomView
-        android:id="@+id/pzv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

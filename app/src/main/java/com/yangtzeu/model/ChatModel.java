@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -14,16 +13,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
-import com.lib.chat.bean.ChatInfoBean;
 import com.lib.chat.bean.ContactGroupBean;
-import com.lib.chat.bean.ContactUserBean;
 import com.lib.chat.bean.CreateGroupBean;
 import com.lib.chat.bean.PayLoadBean;
 import com.lib.chat.common.Constant;
@@ -40,10 +33,8 @@ import com.yangtzeu.model.imodel.IChatModel;
 import com.yangtzeu.ui.fragment.ChatFragment3;
 import com.yangtzeu.ui.view.ChatView;
 import com.yangtzeu.url.Url;
-import com.yangtzeu.utils.MyUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ChatModel implements IChatModel {
     final UserManager instance;

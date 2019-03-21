@@ -2,16 +2,12 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.CetModel;
-import com.yangtzeu.model.ChartModel;
 import com.yangtzeu.ui.view.CetView;
-import com.yangtzeu.ui.view.ChartView;
-import com.yangtzeu.url.Url;
 
 public class CetPresenter {
     private Activity activity;

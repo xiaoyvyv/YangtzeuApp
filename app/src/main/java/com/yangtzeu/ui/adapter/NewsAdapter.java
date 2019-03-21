@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.NewsBean;
 import com.yangtzeu.ui.activity.NewsDetailsActivity;

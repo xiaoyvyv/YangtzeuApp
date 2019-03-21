@@ -3,17 +3,11 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 import android.content.DialogInterface;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.yangtzeu.model.SplashModel;
 import com.yangtzeu.ui.view.SplashView;
 import com.yangtzeu.utils.MyUtils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.BitSet;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class SplashPresenter {
     private SplashModel model;
@@ -56,5 +50,13 @@ public class SplashPresenter {
 
     public void checkCopyRight() {
         model.checkCopyRight(activity, view);
+    }
+
+    public void loadMIAD() throws Exception {
+        model.loadMIAD(activity, view);
+    }
+
+    public void onDestroy() {
+        model.onDestroy(activity, view);
     }
 }

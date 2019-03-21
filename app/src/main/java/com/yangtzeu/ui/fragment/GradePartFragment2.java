@@ -1,6 +1,5 @@
 package com.yangtzeu.ui.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -18,12 +16,10 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.GradeBean;
 import com.yangtzeu.listener.OnResultListener;
-import com.yangtzeu.presenter.GradePart1Presenter;
 import com.yangtzeu.presenter.GradePart2Presenter;
 import com.yangtzeu.ui.activity.ChartActivity;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.adapter.GradeAdapter;
-import com.yangtzeu.ui.view.GradePartView1;
 import com.yangtzeu.ui.view.GradePartView2;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
@@ -31,7 +27,6 @@ import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;

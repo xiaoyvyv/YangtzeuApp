@@ -2,9 +2,7 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
-import com.yangtzeu.model.ChartModel;
 import com.yangtzeu.model.FeedBackModel;
-import com.yangtzeu.ui.view.ChartView;
 import com.yangtzeu.ui.view.FeedBackView;
 
 public class FeedBackPresenter {

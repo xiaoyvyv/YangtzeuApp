@@ -6,9 +6,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
-import com.yangtzeu.model.GradePart1Model;
 import com.yangtzeu.model.GradePart2Model;
-import com.yangtzeu.ui.view.GradePartView1;
 import com.yangtzeu.ui.view.GradePartView2;
 
 public class GradePart2Presenter {
@@ -31,6 +29,7 @@ public class GradePart2Presenter {
             @Override
             public void onFailure(String error) {
                 ToastUtils.showShort(R.string.try_again);
+                view.getRefresh().finishRefresh();
             }
         });
     }

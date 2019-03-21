@@ -16,7 +16,6 @@ import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IGradePart2Model;
 import com.yangtzeu.ui.activity.DownloadActivity;
 import com.yangtzeu.ui.activity.LoginActivity;
-import com.yangtzeu.ui.view.GradePartView1;
 import com.yangtzeu.ui.view.GradePartView2;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.DownloadUtils;

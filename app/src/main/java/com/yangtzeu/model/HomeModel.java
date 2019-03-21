@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -106,23 +107,40 @@ public class HomeModel implements IHomeModel {
     @Override
     public void getHoliday(final Activity activity, final HomeView view) {
         OkHttp.do_Get(Url.Yangtzeu_Next_Holiday, new OnResultStringListener() {
+            private final TextView holidayView = view.getHoliday();
+
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(String response) {
                 HolidayNextBean bean = GsonUtils.fromJson(response, HolidayNextBean.class);
-                if (bean.getCode() == 0) {
-                    String str = bean.getTts();
-                    str = str.substring(0, str.indexOf("。"));
-                    view.getHoliday().setText(str);
+                if (bean != null) {
+                    HolidayNextBean.HolidayBean near = null;
+                    List<HolidayNextBean.HolidayBean> holiday = bean.getHoliday();
+                    for (HolidayNextBean.HolidayBean holidayBean : holiday) {
+                        long festival = holidayBean.getFestival();
+                        if (festival > TimeUtils.getNowMills()) {
+                            near = holidayBean;
+                            break;
+                        }
+                    }
+
+                    double countdown = MyUtils.getScale(bean.getCountdown(), 1);
+                    if (near != null) {
+                        String span = ConvertUtils.millis2FitTimeSpan(near.getFestival() - TimeUtils.getNowMills(), 1);
+                        holidayView.setText("离" + near.getName()+"（" +near.getDays()+ "天假期）还有：" + span + "，考研倒计时：" + countdown+"天");
+                    } else {
+                        holidayView.setText("离2019年考研还有：" + countdown+"天");
+                    }
+                } else {
+                    onFailure(response);
                 }
             }
-
             @SuppressLint("SetTextI18n")
             @Override
             public void onFailure(String error) {
-                String data = "2019-01-01 00:00:00";
-                String fitTimeSpan = ConvertUtils.millis2FitTimeSpan(TimeUtils.string2Millis(data) - TimeUtils.getNowMills(), 1);
-                view.getHoliday().setText("离最近的假期 元旦还有：" + fitTimeSpan);
+                long millis = TimeUtils.string2Millis("2019-12-22 10:00:00");
+                String span = ConvertUtils.millis2FitTimeSpan(millis - TimeUtils.getNowMills(), 2);
+                holidayView.setText("离2019年考研还有：" + span);
             }
         });
     }

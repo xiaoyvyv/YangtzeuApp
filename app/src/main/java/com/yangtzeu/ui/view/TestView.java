@@ -4,11 +4,8 @@ import android.app.ProgressDialog;
 import android.widget.FrameLayout;
 
 import com.google.android.material.tabs.TabLayout;
-import com.yangtzeu.ui.adapter.FragmentAdapter;
-import com.yangtzeu.ui.fragment.TestFragment;
 import com.yangtzeu.ui.view.base.BaseView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;

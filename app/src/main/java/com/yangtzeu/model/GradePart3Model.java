@@ -15,7 +15,6 @@ import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IGradePart3Model;
 import com.yangtzeu.ui.activity.LoginActivity;
-import com.yangtzeu.ui.view.GradePartView2;
 import com.yangtzeu.ui.view.GradePartView3;
 import com.yangtzeu.utils.MyUtils;
 

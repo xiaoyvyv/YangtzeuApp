@@ -7,6 +7,7 @@
     tools:context=".ui.activity.MessageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        app:elevation="@dimen/elevation"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_5"
-                app:cardCornerRadius="@dimen/card_radius">
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/elevation">
 
                 <com.skyfishjy.library.RippleBackground
                     android:id="@+id/content"
@@ -70,7 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_5"
-                app:cardCornerRadius="@dimen/card_radius">
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/elevation">
 
                 <TextView
                     android:layout_width="wrap_content"

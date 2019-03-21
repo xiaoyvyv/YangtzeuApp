@@ -43,7 +43,6 @@ public class CalculatorActivity extends BaseActivity {
     @SuppressLint("StaticFieldLeak")
     public static CalculatorActivity activity;
     private Context context;
-    private Toolbar toolbar;
     private EditText inText;
     private TextView stateText;
     private TextView outText;
@@ -51,8 +50,6 @@ public class CalculatorActivity extends BaseActivity {
     private DrawerLayout drawer;
     private ArrayList<View> drawerPageList;
     public FrameLayout delete;
-    private TextView close;
-    private TextView clear;
 
     private static final int[] XX = {1, 3, 1, 3};
     private static final int[] YY = {6, 4, 5, 5};
@@ -179,8 +176,8 @@ public class CalculatorActivity extends BaseActivity {
 
     private void initDrawer() {
         drawer = findViewById(R.id.drawer_main);
-        close = findViewById(R.id.close);
-        clear = findViewById(R.id.clear);
+        TextView close = findViewById(R.id.close);
+        TextView clear = findViewById(R.id.clear);
 
         findViewById(R.id.drawer_right).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -460,7 +457,7 @@ public class CalculatorActivity extends BaseActivity {
     }
 
     private void initToolBar() {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("科学计算");
         setSupportActionBar(toolbar);
 

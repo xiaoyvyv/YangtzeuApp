@@ -21,11 +21,9 @@ import java.util.List;
 
 public class ChatPart1Model implements IChatPart1Model {
     private UserManager instance;
-    private MIMCUser user;
 
     public ChatPart1Model() {
         instance = UserManager.getInstance();
-        user = instance.getUser();
     }
 
     @Override

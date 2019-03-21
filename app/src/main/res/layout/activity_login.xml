@@ -7,22 +7,26 @@
     android:orientation="vertical"
     tools:context=".ui.activity.LoginActivity">
 
-    <ImageView
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/banner"
+        android:background="@mipmap/login_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitXY"
-        android:src="@mipmap/login_bg" />
+        android:layout_height="200dp"
+        app:banner_indicatorGravity="center_horizontal"
+        app:banner_isNumberIndicator="false"
+        app:banner_numberIndicatorTextColor="@color/translate"
+        app:banner_pointContainerBackground="@color/translate"
+        app:banner_pointDrawable="@drawable/ic_banner_point"
+        app:banner_tipTextColor="@color/translate" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-20dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="5dp"
-        app:cardElevation="2.5dp">
+        app:cardElevation="@dimen/elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,15 +85,15 @@
         android:layout_marginEnd="20dp">
 
         <TextView
-            android:id="@+id/yangtzeu_web"
+            android:onClick="onClickLogin"
+            android:id="@+id/update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="onClickLogin"
             android:padding="5dp"
-            android:text="@string/yangtzeu_web"
+            android:text="@string/update_app"
             android:textSize="13sp" />
 
         <TextView
@@ -105,11 +109,12 @@
             android:text="@string/forget_pass"
             android:textSize="13sp"
             tools:ignore="RelativeOverlap" />
+
         <TextView
-            android:layout_toStartOf="@+id/forget_pass"
             android:id="@+id/history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/forget_pass"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -121,15 +126,26 @@
     </RelativeLayout>
 
     <Button
-        android:textColor="@color/white"
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="?attr/colorPrimary"
-        android:text="@string/login" />
+        android:text="@string/normal_login"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/offButton"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="@string/off_login"
+        android:textColor="@color/white" />
 
 
     <RelativeLayout

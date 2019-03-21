@@ -21,6 +21,7 @@ import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.ShopAddView;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.UriPathUtils;
+
 import java.util.Objects;
 
 import androidx.annotation.Nullable;

@@ -3,9 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.yangtzeu.model.ChangePassModel;
-import com.yangtzeu.model.LoginModel;
 import com.yangtzeu.ui.view.ChangePassView;
-import com.yangtzeu.ui.view.LoginView;
 
 public class ChangePassPresenter {
     private ChangePassModel model;

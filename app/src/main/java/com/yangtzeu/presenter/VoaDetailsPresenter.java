@@ -3,9 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.yangtzeu.model.VoaDetailsModel;
-import com.yangtzeu.model.VoaModel;
 import com.yangtzeu.ui.view.VoaDetailsView;
-import com.yangtzeu.ui.view.VoaView;
 
 public class VoaDetailsPresenter {
     private Activity activity;

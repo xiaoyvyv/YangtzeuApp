@@ -58,9 +58,6 @@
         <item>12</item>
     </string-array>
 
-
-
-
     <string-array name="physical_day">
         <item>任意时间</item>
         <item>星期一</item>
@@ -80,4 +77,7 @@
         <item>第四大节</item>
         <item>第五大节</item>
     </string-array>
+
+
+
 </resources>

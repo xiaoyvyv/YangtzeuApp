@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="1dp"
-        app:cardCornerRadius="2.5dp">
+        app:cardCornerRadius="2.5dp"
+        app:cardElevation="@dimen/elevation">
 
         <LinearLayout
             android:id="@+id/onClick"
@@ -103,8 +104,8 @@
                         android:layout_marginTop="5dp"
                         android:alpha="0.7"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="点击评教"
+                        android:textColor="@color/black"
                         android:textSize="15sp"
                         tools:ignore="HardcodedText" />
 

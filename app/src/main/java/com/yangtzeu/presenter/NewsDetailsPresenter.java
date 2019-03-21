@@ -3,9 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.yangtzeu.model.NewsDetailsModel;
-import com.yangtzeu.model.PlanModel;
 import com.yangtzeu.ui.view.NewsDetailsView;
-import com.yangtzeu.ui.view.PlanView;
 
 public class NewsDetailsPresenter {
     private Activity activity;

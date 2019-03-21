@@ -85,7 +85,7 @@ public class DownLoadAdapter extends RecyclerView.Adapter<DownLoadAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.download_activity_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_download_item, parent, false));
     }
 
     @Override

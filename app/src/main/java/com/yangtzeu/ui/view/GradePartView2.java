@@ -1,13 +1,16 @@
 package com.yangtzeu.ui.view;
+
 import android.widget.TextView;
+
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.yangtzeu.entity.GradeBean;
+import com.yangtzeu.ui.adapter.GradeAdapter;
+
 import java.util.List;
-import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import com.yangtzeu.entity.GradeBean;
-import com.yangtzeu.ui.adapter.GradeAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 

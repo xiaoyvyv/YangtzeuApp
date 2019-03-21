@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/OnClick"
-    android:layout_width="100dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="5dp"
-        android:shadowColor="@color/black_20"
-        android:shadowDx="-10"
-        android:shadowDy="10"
-        android:shadowRadius="1"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:tint="?attr/colorPrimary"
-        tools:ignore="ContentDescription" />
+        app:cardCornerRadius="5dp"
+        app:cardElevation="@dimen/elevation">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:alpha="0.5"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:singleLine="true"
-        android:text="更多..."
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        tools:ignore="HardcodedText" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/holder" />
+
+
+        <TextView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:shadowColor="@color/black_20"
+            android:shadowDx="-10"
+            android:shadowDy="10"
+            android:shadowRadius="1"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:tint="?attr/colorPrimary"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_margin="10dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="更多..."
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+    </androidx.cardview.widget.CardView>
+
 </LinearLayout>

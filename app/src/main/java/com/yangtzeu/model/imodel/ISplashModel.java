@@ -15,4 +15,7 @@ public interface ISplashModel {
 
     void checkCopyRight(Activity activity, SplashView view);
 
+    void loadMIAD(Activity activity, SplashView view) throws Exception;
+
+    void onDestroy(Activity activity, SplashView view);
 }

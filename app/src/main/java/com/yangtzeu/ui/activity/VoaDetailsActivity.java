@@ -4,16 +4,13 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.VoaDetailsPresenter;
-import com.yangtzeu.presenter.VoaPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.VoaDetailsView;
-import com.yangtzeu.ui.view.VoaView;
 import com.yangtzeu.utils.MediaPlayUtil;
 import com.yangtzeu.utils.MyUtils;
 

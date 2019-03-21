@@ -16,7 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
+import android.view.WindowManager;
 import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -27,7 +27,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lib.touch.DragView;
 import com.lib.x5web.WebViewProgressBar;
 import com.lib.x5web.X5JavaScriptFunction;
@@ -38,6 +37,7 @@ import com.tencent.smtt.sdk.WebView;
 import com.yangtzeu.R;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.CollectionBean;
+import com.yangtzeu.model.AnswerListModel;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
@@ -68,17 +68,17 @@ public class WebActivity extends BaseActivity {
     private String base_html;
     private String base_url;
     private String base_title;
+    private boolean isAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        if (isNoTitle) ScreenUtils.setFullScreen(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         try {
             if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11) {
-                getWindow()
-                        .setFlags(
-                                android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
-                                android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+                getWindow().setFlags(
+                        android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                        android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
             }
         } catch (Exception ignored) {
         }
@@ -89,6 +89,7 @@ public class WebActivity extends BaseActivity {
         from_url = getIntent().getStringExtra("from_url");
         cookie = getIntent().getStringExtra("cookie");
         isKJS = getIntent().getBooleanExtra("isKJS", false);
+        isAnswer = getIntent().getBooleanExtra("isAnswer", false);
         isNoTitle = getIntent().getBooleanExtra("isNoTitle", false);
 
         if (cookie == null) {
@@ -99,6 +100,11 @@ public class WebActivity extends BaseActivity {
         LogUtils.i("网页加载的Cookie:" + cookie + "\n");
 
         super.onCreate(savedInstanceState);
+        if (isNoTitle) {
+            setTheme(R.style.AppTheme_NoStateBar);
+            ScreenUtils.setFullScreen(this);
+        }
+
         if (from_url.equals(Url.Yangtzeu_Fee)) {
             setTheme(R.style.AppTheme_ShuiYaQing);
         }
@@ -159,6 +165,10 @@ public class WebActivity extends BaseActivity {
         if (isNoTitle) {
             toolbar.setVisibility(View.GONE);
             ic_close.setVisibility(View.VISIBLE);
+        }
+
+        if (isAnswer) {
+            mWebView.getSettings().setUserAgent(AnswerListModel.getAnswerKey());
         }
 
         ic_close.setPadding(ConvertUtils.dp2px(15));

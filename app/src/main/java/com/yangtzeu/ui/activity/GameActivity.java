@@ -2,21 +2,15 @@ package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
-
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.GamePresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.adapter.GameAdapter;
 import com.yangtzeu.ui.view.GameView;
 import com.yangtzeu.utils.MyUtils;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class GameActivity extends BaseActivity implements GameView {
 

@@ -11,6 +11,7 @@ public class ManyBean {
      * data : [{"title":"科学上网","url":"https://g.vvvip.top/","icon":""},{"title":"科学上网","url":"https://g.vvvip.top/","icon":""}]
      */
 
+    private int spanCount;
     private String info;
     private List<DataBean> data= new ArrayList<>();
 
@@ -30,6 +31,14 @@ public class ManyBean {
         this.data = data;
     }
 
+    public int getSpanCount() {
+        return spanCount;
+    }
+
+    public void setSpanCount(int spanCount) {
+        this.spanCount = spanCount;
+    }
+
     public static class DataBean {
         /**
          * title : 科学上网
@@ -40,6 +49,16 @@ public class ManyBean {
         private String title;
         private String url;
         private String icon;
+        private String image;
+        private int font;
+
+        public int getFont() {
+            return font;
+        }
+
+        public void setFont(int font) {
+            this.font = font;
+        }
 
         public String getTitle() {
             return title;
@@ -64,6 +83,14 @@ public class ManyBean {
 
         public void setIcon(String icon) {
             this.icon = icon;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
         }
     }
 }

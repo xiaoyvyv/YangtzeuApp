@@ -10,4 +10,5 @@ public interface ILoginModel {
 
     void loadHistory(Activity activity, LoginView view);
 
+    void loadBanner(Activity activity, LoginView view);
 }

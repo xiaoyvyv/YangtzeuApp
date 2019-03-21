@@ -2,8 +2,6 @@ package com.yangtzeu.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -12,11 +10,9 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.VoaListPresenter;
-import com.yangtzeu.presenter.VoaPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.adapter.VoaListAdapter;
 import com.yangtzeu.ui.view.VoaListView;
-import com.yangtzeu.ui.view.VoaView;
 import com.yangtzeu.utils.MyUtils;
 
 import androidx.appcompat.widget.Toolbar;

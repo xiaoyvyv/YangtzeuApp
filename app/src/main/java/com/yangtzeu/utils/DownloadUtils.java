@@ -1,8 +1,7 @@
 package com.yangtzeu.utils;
+
 import android.os.Environment;
 import android.os.Handler;
-
-import com.yangtzeu.http.OkHttp;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,7 +23,6 @@ import okhttp3.Response;
  * @explain DownloadUtils
  */
 public class DownloadUtils {
-
     private static DownloadUtils downloadUtils;
     private OkHttpClient okHttpClient;
 
@@ -36,7 +34,7 @@ public class DownloadUtils {
     }
 
     private DownloadUtils() {
-        okHttpClient = OkHttp.okHttpClient;
+        okHttpClient = new OkHttpClient.Builder().build();
     }
 
     /**

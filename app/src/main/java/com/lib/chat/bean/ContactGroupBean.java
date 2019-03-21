@@ -3,12 +3,6 @@ package com.lib.chat.bean;
 
 import android.annotation.SuppressLint;
 
-import com.blankj.utilcode.util.TimeUtils;
-
-import java.text.SimpleDateFormat;
-
-import androidx.annotation.NonNull;
-
 @SuppressLint("SimpleDateFormat")
 public class ContactGroupBean {
     /**

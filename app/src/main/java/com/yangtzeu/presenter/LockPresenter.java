@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 
-import com.yangtzeu.model.ChartModel;
 import com.yangtzeu.model.LockModel;
-import com.yangtzeu.ui.view.ChartView;
 import com.yangtzeu.ui.view.LockView;
 
 public class LockPresenter {

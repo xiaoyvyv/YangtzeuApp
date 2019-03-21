@@ -1,16 +1,12 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lib.chat.bean.ContactGroupBean;
-import com.lib.chat.bean.ContactUserBean;
 import com.lib.chat.bean.QueryGroupBean;
 import com.lib.chat.common.UserManager;
 import com.lib.subutil.GsonUtils;

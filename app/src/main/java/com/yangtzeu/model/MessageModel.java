@@ -1,9 +1,7 @@
 package com.yangtzeu.model;
 
 import android.app.Activity;
-import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -13,14 +11,8 @@ import com.yangtzeu.entity.MessageBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IMessageModel;
-import com.yangtzeu.ui.activity.MessageActivity;
 import com.yangtzeu.ui.view.MessageView;
-import com.yangtzeu.ui.view.MineView;
 import com.yangtzeu.url.Url;
-import com.yangtzeu.utils.MyUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MessageModel implements IMessageModel {
 

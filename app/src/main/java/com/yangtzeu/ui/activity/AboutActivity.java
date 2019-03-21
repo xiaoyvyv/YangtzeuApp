@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.yangtzeu.R;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class AboutActivity extends BaseActivity {

@@ -6,13 +6,15 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    tools:ignore="HardcodedText">
+    tools:ignore="HardcodedText"
+    tools:keep="@layout/activity_conversation_item">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="2.5dp">
+        app:cardCornerRadius="2.5dp"
+        app:cardElevation="@dimen/elevation">
 
         <LinearLayout
             android:id="@+id/mLinearLayout"
@@ -65,7 +67,6 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/unRead"
                         android:layout_width="25dp"
                         android:layout_height="15dp"
                         android:layout_marginEnd="@dimen/card_margin_10"

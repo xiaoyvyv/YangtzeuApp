@@ -6,9 +6,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
-import com.yangtzeu.model.ChangePassModel;
 import com.yangtzeu.model.ChooseClassModel;
-import com.yangtzeu.ui.view.ChangePassView;
 import com.yangtzeu.ui.view.ChooseClassView;
 
 public class ChooseClassPresenter {

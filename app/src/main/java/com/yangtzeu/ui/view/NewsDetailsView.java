@@ -1,6 +1,5 @@
 package com.yangtzeu.ui.view;
 
-import android.app.Dialog;
 import android.widget.RelativeLayout;
 
 import com.lib.loading.LVBlock;

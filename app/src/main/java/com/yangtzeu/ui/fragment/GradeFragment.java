@@ -9,14 +9,12 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.yangtzeu.R;
-import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.GradePresenter;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.adapter.FragmentAdapter;
 import com.yangtzeu.ui.view.GradeView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.YangtzeuUtils;
 
 import java.util.Objects;
 

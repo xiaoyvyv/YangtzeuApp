@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.Utils;
 import com.yangtzeu.R;
 import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.PingJiaoPresenter;

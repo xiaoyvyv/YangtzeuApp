@@ -2,7 +2,6 @@ package com.yangtzeu.model;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.view.View;
 
@@ -14,23 +13,15 @@ import com.yangtzeu.entity.GradeBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IGradePart1Model;
-import com.yangtzeu.ui.activity.DownloadActivity;
 import com.yangtzeu.ui.activity.LoginActivity;
-import com.yangtzeu.ui.fragment.GradeFragment;
 import com.yangtzeu.ui.view.GradePartView1;
-import com.yangtzeu.ui.view.GradePartView2;
 import com.yangtzeu.url.Url;
-import com.yangtzeu.utils.DownloadUtils;
 import com.yangtzeu.utils.MyUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.util.List;
-import okhttp3.FormBody;
-import okhttp3.Request;
 
 
 public class GradePart1Model implements IGradePart1Model {

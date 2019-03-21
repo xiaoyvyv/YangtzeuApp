@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2.5dp"
         app:cardCornerRadius="2.5dp"
-        app:cardElevation="0dp">
+        app:cardElevation="@dimen/elevation">
 
         <LinearLayout
             android:id="@+id/onClick"

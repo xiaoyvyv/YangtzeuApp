@@ -67,7 +67,7 @@ public class UserUtils {
                     return;
                 }
             }
-            LogUtils.e("封号用户数量：" + ban_user.size());
+            LogUtils.i("封号用户数量：" + ban_user.size());
         }
 
         OkHttp.do_Get(Url.Yangtzeu_Login_Path, new OnResultStringListener() {
@@ -80,14 +80,23 @@ public class UserUtils {
                 } else if (response.contains("用户名") && response.contains("密码")) {
                     Document document = Jsoup.parse(response);
                     Elements scripts = document.select("script");
-                    String last_scripts = scripts.get(scripts.size() - 1).toString();
-                    String str = last_scripts.substring(last_scripts.indexOf("+") - 50, last_scripts.lastIndexOf("+"));
-                    String login_key = str.substring(str.indexOf("'") + 1, str.lastIndexOf("'"));
-                    String login_encode_pass = EncryptUtils.encryptSHA1ToString(login_key + userPassword).toLowerCase();
-                    LogUtils.i("密码加密前缀：" + login_key, "密码加密完成：" + login_encode_pass);
-                    login(userNumber, login_encode_pass, logResultListener);
+                    String scripts_text = scripts.toString();
+
+                    String regex0 = "CryptoJS.SHA1[(]\'(.*?)\'";
+                    List<String> key_list = MyUtils.getSubUtil(scripts_text, regex0);
+                    if (!ObjectUtils.isEmpty(key_list)) {
+                        //tring login_key = key_list.get(0).substring(key_list.indexOf("'") + 1, key_list.lastIndexOf("'"));
+                        String login_key = key_list.get(0);
+                        String login_encode_pass = EncryptUtils.encryptSHA1ToString(login_key + userPassword).toLowerCase();
+                        LogUtils.i("密码加密前缀：" + login_key, "密码加密完成：" + login_encode_pass);
+                        login(userNumber, login_encode_pass, logResultListener);
+                    } else {
+                        LogUtils.e(scripts_text);
+                        logResultListener.onFailure("初始化登录参数错误，请等待软件更新");
+                    }
                 } else {
                     LogUtils.e(response);
+                    logResultListener.onFailure(response);
                 }
             }
 
@@ -171,6 +180,7 @@ public class UserUtils {
 
             @Override
             public void onFailure(String error) {
+                LogUtils.e(error);
                 if (onLoginResultListener != null)
                     onLoginResultListener.onFailure("教务处网络过载，请稍后再试");
             }
@@ -245,7 +255,6 @@ public class UserUtils {
         //设置Cookie失效
         SPUtils.getInstance("user_info").put("online", false);
 
-        FileUtils.deleteAllInDir(MyUtils.rootPath() + "A_Tool/Cache/");
 
         OkHttp.do_Get(Url.Yangtzeu_Out, new OnResultStringListener() {
             @Override

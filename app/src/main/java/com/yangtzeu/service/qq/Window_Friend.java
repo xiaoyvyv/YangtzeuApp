@@ -1,7 +1,6 @@
 package com.yangtzeu.service.qq;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.blankj.utilcode.util.LogUtils;

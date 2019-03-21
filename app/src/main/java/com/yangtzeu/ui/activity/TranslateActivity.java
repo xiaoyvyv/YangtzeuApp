@@ -8,25 +8,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lib.subutil.ClipboardUtils;
 import com.yangtzeu.R;
-import com.yangtzeu.entity.GradeBean;
-import com.yangtzeu.presenter.ChartPresenter;
 import com.yangtzeu.presenter.TranslatePresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
-import com.yangtzeu.ui.view.ChartView;
 import com.yangtzeu.ui.view.TranslateView;
 import com.yangtzeu.utils.MediaPlayUtil;
 import com.yangtzeu.utils.MyUtils;
 
-import java.util.List;
-
 import androidx.appcompat.widget.Toolbar;
-import lecho.lib.hellocharts.view.LineChartView;
 
 
 public class TranslateActivity extends BaseActivity implements TranslateView {

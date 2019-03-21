@@ -4,12 +4,10 @@ import android.Manifest;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.PermissionUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.model.LockModel;
 import com.yangtzeu.model.imodel.IBaseMode;
-import com.yangtzeu.ui.view.base.BaseView;
 import com.yangtzeu.utils.MyUtils;
 
 import androidx.annotation.Nullable;

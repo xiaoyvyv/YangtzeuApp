@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 
-import com.blankj.utilcode.util.ConvertUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DragView extends FloatingActionButton {

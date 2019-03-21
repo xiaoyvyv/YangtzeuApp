@@ -13,7 +13,6 @@ import com.yangtzeu.utils.MyUtils;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
-import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
 
 

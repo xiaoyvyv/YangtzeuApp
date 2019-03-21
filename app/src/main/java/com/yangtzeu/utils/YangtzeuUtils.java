@@ -3,7 +3,6 @@ package com.yangtzeu.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,7 +23,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.lib.subutil.GsonUtils;
@@ -296,7 +294,7 @@ public class YangtzeuUtils {
 
     //学生信息获取,可用于后台保持和服务器连接
     public static void getStudentInfo() {
-        OkHttp.do_Get(Url.Yangtzeu_XueJI2, new OnResultStringListener() {
+        OkHttp.do_Get(Url.Yangtzeu_XueJI1, new OnResultStringListener() {
             @Override
             public void onResponse(String response) {
                 Document doc = Jsoup.parse(response);
@@ -339,16 +337,7 @@ public class YangtzeuUtils {
                         MyUtils.startActivity(LoginActivity.class);
                     }
                 } else {
-                    String li = doc.select("li").text();
-                    if (!StringUtils.isEmpty(li)) {
-                        if (li.contains("辅修")) {
-                           // LogUtils.e("辅修学生学籍信息", response);
-                        } else {
-                            LogUtils.e("学籍信息获取失败-未知网页信息", response);
-                        }
-                    } else {
-                        LogUtils.e("学籍信息获取失败-未知网页信息", response);
-                    }
+                    LogUtils.e("学籍信息获取失败-未知网页信息", response);
                 }
             }
 
@@ -637,17 +626,8 @@ public class YangtzeuUtils {
         String qq = SPUtils.getInstance("user_info").getString("qq");
 
         String url = Url.addUser(name, "用户：" + number, number, qq + "@qq.com", number);
-        OkHttp.do_Get(url, new OnResultStringListener() {
-            @Override
-            public void onResponse(String response) {
-                LogUtils.i(response);
-            }
 
-            @Override
-            public void onFailure(String error) {
-                LogUtils.e(error);
-            }
-        });
+        OkHttp.do_Get(url, null);
     }
 
 
@@ -768,6 +748,7 @@ public class YangtzeuUtils {
 
 
     }
+
 
     public static class StudyTimeTable {
         public static final int Time_Get_Up = 6 * 60 + 30;

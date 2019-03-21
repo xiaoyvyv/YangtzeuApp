@@ -13,14 +13,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lib.subutil.ClipboardUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.WebBean;
-import com.yangtzeu.http.OkHttp;
-import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.utils.MyUtils;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;

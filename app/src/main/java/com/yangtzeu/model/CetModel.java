@@ -24,8 +24,8 @@ import com.yangtzeu.R;
 import com.yangtzeu.entity.CetCardBean;
 import com.yangtzeu.entity.CetDateBean;
 import com.yangtzeu.http.OkHttp;
-import com.yangtzeu.http.OnResultBytesListener;
 import com.yangtzeu.http.OnResultStringListener;
+import com.yangtzeu.http.callback.ByteCallBack;
 import com.yangtzeu.model.imodel.ICetModel;
 import com.yangtzeu.ui.view.CetView;
 import com.yangtzeu.url.Url;
@@ -38,6 +38,7 @@ import org.jsoup.select.Elements;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -379,17 +380,20 @@ public class CetModel implements ICetModel {
         String name = SPUtils.getInstance("user_info").getString("cet_name");
         view.getCardName().setText(name);
 
-        OkHttp.do_Get(Url.Yangtzeu_Cet_Card_Yzm, new OnResultBytesListener() {
-            @Override
-            public void onResponse(byte[] bytes) {
-                Glide.with(activity).load(bytes).into(view.getCardYzmImage());
-            }
 
-            @Override
-            public void onFailure(String error) {
 
-            }
-        });
+        OkHttp.getInstance()
+                .newCall(OkHttp.getRequest(Url.Yangtzeu_Cet_Card_Yzm))
+                .enqueue(new ByteCallBack() {
+                    @Override
+                    public void onFinish(Call call, byte[] response, boolean isResponseExist, boolean isCacheResponse) {
+                        if (isResponseExist) {
+                            Glide.with(activity).load(response).into(view.getCardYzmImage());
+                        } else {
+                            ToastUtils.showShort(R.string.try_again);
+                        }
+                    }
+                });
     }
 
     @Override

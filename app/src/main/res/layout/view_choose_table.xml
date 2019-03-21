@@ -36,7 +36,6 @@
 
             <TextView
                 android:text="@string/bk_model"
-                android:id="@+id/project1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/margin_5"
@@ -64,7 +63,6 @@
 
             <TextView
                 android:text="@string/fx_model"
-                android:id="@+id/project2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/margin_5"

@@ -7,13 +7,13 @@
     tools:context=".ui.activity.ShopActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        app:elevation="@dimen/elevation"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             app:contentScrim="?attr/colorPrimary"

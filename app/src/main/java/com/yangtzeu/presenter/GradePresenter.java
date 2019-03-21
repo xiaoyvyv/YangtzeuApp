@@ -3,9 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.yangtzeu.model.GradeModel;
-import com.yangtzeu.model.HomeModel;
 import com.yangtzeu.ui.view.GradeView;
-import com.yangtzeu.ui.view.HomeView;
 
 public class GradePresenter {
     private GradeModel model;

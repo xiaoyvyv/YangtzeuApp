@@ -2,22 +2,18 @@ package com.yangtzeu.model;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.Settings;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.lib.calculator.calculator.CalculatorActivity;
-import com.lib.chat.common.UserManager;
 import com.lib.subutil.GsonUtils;
-import com.xiaomi.mimc.common.MIMCConstant;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.BannerBean;
 import com.yangtzeu.entity.ManyBean;
@@ -25,18 +21,11 @@ import com.yangtzeu.entity.MarqueeBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
 import com.yangtzeu.model.imodel.IManyModel;
-import com.yangtzeu.service.qq.QQService;
 import com.yangtzeu.ui.activity.AnswerActivity;
-import com.yangtzeu.ui.activity.ChatActivity;
-import com.yangtzeu.ui.activity.GameActivity;
-import com.yangtzeu.ui.activity.KgActivity;
 import com.yangtzeu.ui.activity.LockActivity;
 import com.yangtzeu.ui.activity.LoveActivity;
-import com.yangtzeu.ui.activity.MatrixActivity;
-import com.yangtzeu.ui.activity.RulerActivity;
 import com.yangtzeu.ui.activity.ShopActivity;
-import com.yangtzeu.ui.activity.TranslateActivity;
-import com.yangtzeu.ui.activity.VoaActivity;
+import com.yangtzeu.ui.activity.ToolActivity;
 import com.yangtzeu.ui.activity.WebListActivity;
 import com.yangtzeu.ui.adapter.ManyAdapter;
 import com.yangtzeu.ui.view.ManyView;
@@ -48,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class ManyModel implements IManyModel, View.OnClickListener {
@@ -119,7 +109,7 @@ public class ManyModel implements IManyModel, View.OnClickListener {
     }
 
     @Override
-    public void fitAdapter(Activity activity, final ManyView view) {
+    public void fitAdapter(final Activity activity, final ManyView view) {
         final ManyAdapter adapter = new ManyAdapter(activity);
         view.getRecyclerView().setNestedScrollingEnabled(false);
         view.getRecyclerView().setAdapter(adapter);
@@ -128,6 +118,9 @@ public class ManyModel implements IManyModel, View.OnClickListener {
             @Override
             public void onResponse(String response) {
                 ManyBean bean = GsonUtils.fromJson(response, ManyBean.class);
+                int spanCount = bean.getSpanCount();
+                view.getRecyclerView().setLayoutManager(new StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL));
+                adapter.setSpanCount(spanCount);
                 adapter.setData(bean);
                 adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             }
@@ -140,48 +133,12 @@ public class ManyModel implements IManyModel, View.OnClickListener {
     }
 
     @Override
-    public void loadQQLikeEvents(final Activity activity, ManyView view) {
-        if (MyUtils.isAccessibilitySettingsOn(activity, QQService.class)) {
-            ToastUtils.showShort(R.string.please_open_friend);
-            try {
-                Intent intent = activity.getPackageManager().getLaunchIntentForPackage("com.tencent.mobileqq");
-                activity.startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
-                ToastUtils.showShort(R.string.no_qq_app);
-            }
-        } else {
-            ToastUtils.showShort(R.string.qq_like_permission_error);
-            AlertDialog dialog = new AlertDialog.Builder(activity)
-                    .setTitle(R.string.trip)
-                    .setMessage(R.string.need_accessibility)
-                    .setPositiveButton("打开", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                            activity.startActivity(intent);
-                            activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                        }
-                    })
-                    .setNegativeButton(R.string.clear, null)
-                    .create();
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.show();
-        }
-    }
-
-    @Override
     @SuppressLint("InflateParams")
-    public void loadBannerItem(Activity activity, ManyView view) {
+    public void loadItemLayout(Activity activity, ManyView view) {
         this.activity = activity;
         this.view = view;
-        View rootView1 = LayoutInflater.from(activity).inflate(R.layout.fragment_many_banner_item1, null);
-        View rootView2 = LayoutInflater.from(activity).inflate(R.layout.fragment_many_banner_item2, null);
-        List<View> views = new ArrayList<>();
-        views.add(rootView1);
-        views.add(rootView2);
-        BGABanner bgaBanner = view.getBGABannerItem();
-        bgaBanner.setData(views);
+
+        View rootView1 = view.getItemLayout();
 
         rootView1.findViewById(R.id.lock).setOnClickListener(this);
         rootView1.findViewById(R.id.shop).setOnClickListener(this);
@@ -192,15 +149,18 @@ public class ManyModel implements IManyModel, View.OnClickListener {
         rootView1.findViewById(R.id.web).setOnClickListener(this);
         rootView1.findViewById(R.id.calculator).setOnClickListener(this);
 
+
+        /*
+        View rootView2 = LayoutInflater.from(activity).inflate(R.layout.fragment_many_banner_item2, null);
         rootView2.findViewById(R.id.ruler).setOnClickListener(this);
         rootView2.findViewById(R.id.compass).setOnClickListener(this);
         rootView2.findViewById(R.id.translate).setOnClickListener(this);
         rootView2.findViewById(R.id.kg).setOnClickListener(this);
         rootView2.findViewById(R.id.game).setOnClickListener(this);
-
         rootView2.findViewById(R.id.matrix).setOnClickListener(this);
         rootView2.findViewById(R.id.voa).setOnClickListener(this);
         rootView2.findViewById(R.id.chat).setOnClickListener(this);
+        */
     }
 
     @Override
@@ -237,19 +197,34 @@ public class ManyModel implements IManyModel, View.OnClickListener {
                 }
                 break;
             case R.id.like:
-                loadQQLikeEvents(activity, view);
+                MyUtils.startActivity(ToolActivity.class);
                 break;
             case R.id.web:
-                MyUtils.startActivity(WebListActivity.class);
+                PopupMenu menu = new PopupMenu(activity, v);
+                menu.getMenu().add("长大网站集").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        MyUtils.startActivity(WebListActivity.class);
+                        return true;
+                    }
+                });
+                menu.getMenu().add("电脑软件集").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent = new Intent(activity, WebListActivity.class);
+                        intent.putExtra("from_url", Url.Yangtzeu_All_Web_Soft);
+                        intent.putExtra("title", activity.getString(R.string.soft_list));
+                        MyUtils.startActivity(intent);
+                        return true;
+                    }
+                });
+                menu.show();
                 break;
             case R.id.calculator:
                 MyUtils.startActivity(CalculatorActivity.class);
                 break;
-            case R.id.compass:
-                Intent intent = new Intent(activity, WebListActivity.class);
-                intent.putExtra("from_url", Url.Yangtzeu_All_Web_Soft);
-                intent.putExtra("title", activity.getString(R.string.soft_list));
-                MyUtils.startActivity(intent);
+
+            /*case R.id.compass:
                 break;
             case R.id.translate:
                 MyUtils.startActivity(TranslateActivity.class);
@@ -263,16 +238,12 @@ public class ManyModel implements IManyModel, View.OnClickListener {
             case R.id.game:
                 MyUtils.startActivity(GameActivity.class);
                 break;
-
             case R.id.matrix:
                 MyUtils.startActivity(MatrixActivity.class);
                 break;
             case R.id.voa:
                 MyUtils.startActivity(VoaActivity.class);
-                break;
-            case R.id.chat:
-                ToastUtils.showShort("开发中");
-                break;
+                break;*/
         }
     }
 }

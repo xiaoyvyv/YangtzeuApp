@@ -1,7 +1,7 @@
 package com.yangtzeu.ui.activity;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ChangePassPresenter;
@@ -30,7 +29,6 @@ public class ChangePassActivity extends BaseActivity implements ChangePassView {
     private TextInputEditText PassDone;
     private Button ChangeBtn;
     private ChangePassPresenter presenter;
-    private ImageView default_bg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class ChangePassActivity extends BaseActivity implements ChangePassView {
         PassNew =  findViewById(R.id.txt2);
         PassDone =  findViewById(R.id.txt3);
         ChangeBtn =  findViewById(R.id.ChangeBtn);
-        default_bg = findViewById(R.id.default_bg);
+        ImageView default_bg = findViewById(R.id.default_bg);
     }
 
     @Override

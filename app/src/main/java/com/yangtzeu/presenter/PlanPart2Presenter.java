@@ -6,9 +6,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
-import com.yangtzeu.model.PlanPart1Model;
 import com.yangtzeu.model.PlanPart2Model;
-import com.yangtzeu.ui.view.PlanPartView1;
 import com.yangtzeu.ui.view.PlanPartView2;
 
 public class PlanPart2Presenter {

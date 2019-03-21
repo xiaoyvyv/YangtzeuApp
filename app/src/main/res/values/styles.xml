@@ -112,26 +112,10 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--页面设置主题-->
-    <style name="Theme.Settings" parent="@style/App">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="toolbarStyle">@style/Widget.Toolbar</item>
-    </style>
-
-    <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:navigationIcon">?attr/homeAsUpIndicator</item>
-        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
-    </style>
 
     <style name="BottomToBottom" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/in_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/out_to_bottom</item>
-    </style>
-
-    <style name="TopToTop" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/in_from_top</item>
-        <item name="android:windowExitAnimation">@anim/out_to_top</item>
     </style>
 
     <style name="style_dialog" parent="App">
@@ -149,11 +133,6 @@
         <item name="android:windowNoTitle">true</item><!--无标题-->
         <item name="android:windowBackground">@color/translate</item><!--背景透明-->
         <item name="android:backgroundDimEnabled">true</item><!--模糊-->
-    </style>
-
-    <style name="lib_home_table">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="lib_toolbar">

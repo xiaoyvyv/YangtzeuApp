@@ -5,24 +5,22 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.lib.chat.common.UserManager;
-import com.xiaomi.mimc.MIMCUser;
 import com.yangtzeu.R;
-import com.yangtzeu.app.MyApplication;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.UserBean;
 import com.yangtzeu.http.OkHttp;
-import com.yangtzeu.http.OnResultStringListener;
+import com.yangtzeu.http.callback.StringCallBack;
 import com.yangtzeu.model.imodel.ILoginModel;
 import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.ui.view.LoginView;
@@ -32,10 +30,17 @@ import com.yangtzeu.utils.UserUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import cn.bingoogolapple.bgabanner.BGABanner;
+import okhttp3.Call;
 
 public class LoginModel implements ILoginModel {
 
@@ -47,18 +52,49 @@ public class LoginModel implements ILoginModel {
         view.getPassWordView().setText(password);
 
 
-        view.getLoginButton().setOnLongClickListener(new View.OnLongClickListener() {
+        view.getOfflineLoginButton().setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                ToastUtils.showShort("您未登录强制进入应用，将会导致大部分功能无法使用！");
-                MyUtils.startActivity(MainActivity.class);
-                activity.finish();
+            public void onClick(View v) {
+                final List<UserBean> userBeans = DatabaseUtils.getHelper("user.db").queryAll(UserBean.class);
+                if (ObjectUtils.isEmpty(userBeans)) {
+                    ToastUtils.showShort("未检测到用户记录,无法启用离线模式");
+                    return;
+                }
+                MyUtils.getAlert(activity, "请你花20s看完以下内容，否则影响你的正常使用！"
+                                + "\n\n离线模式：是指在无网或者教务处访问速度很慢（响应时间>5s）的情况下，不用登录获取最新数据，直接加载所有本地已经加载过的数据进行显示"
+                                + "\n\n例如：我之前在正常登录的情况下，加载过第三周的课表，但是现在教务处网络无法访问了，一直卡登录界面，而我需要马上查课表，就可以通过离线进入查看第三周的课表"
+                                + "\n\n同理：只要你正常登录的情况下，使用的所有功能，在网络不通或不好的情况下都可以正常展示，如成绩，绩点，课表，留言板等等"
+                                + "\n\n注意：离线模式所有数据必须之前加载过才会有，离线模式不支持浏览器打开的界面"
+                                + "\n\n退出：在《我的》栏目退出到登录界面后，点击正常登录即可关闭离线模式",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String user_number = Objects.requireNonNull(view.getNumberView().getText()).toString().trim();
+                                String user_password = Objects.requireNonNull(view.getPassWordView().getText()).toString().trim();
+                                if (user_number.isEmpty() || user_password.isEmpty()) {
+                                    ToastUtils.showShort("请选择一个登录历史记录进入");
+                                    return;
+                                }
+                                UserBean userBean = DatabaseUtils.getHelper("user.db").queryById(UserBean.class, user_number);
+                                if (ObjectUtils.isEmpty(userBean)) {
+                                    ToastUtils.showShort("你选择用户记录账户学号被修改,无法启用离线模式");
+                                    return;
+                                }
+                                if (!user_password.equals(userBean.getPassowrd())) {
+                                    ToastUtils.showShort("你选择用户记录账户密码被修改,无法启用离线模式");
+                                    return;
+                                }
 
-                //通用监听
-                MyApplication.setMessListener();
-                MIMCUser mimcUser = UserManager.getInstance().newUser(null);
-                mimcUser.login();
-                return true;
+
+                                //开启离线模式
+                                SPUtils.getInstance("user_info").put("offline_mode", true);
+                                SPUtils.getInstance("user_info").put("number", user_number);
+                                SPUtils.getInstance("user_info").put("password", user_password);
+
+                                MyUtils.startActivity(MainActivity.class);
+                                activity.finish();
+                            }
+                        }).show();
             }
         });
 
@@ -79,6 +115,8 @@ public class LoginModel implements ILoginModel {
 
                 KeyboardUtils.hideSoftInput(view.getPassWordView());
 
+                //关闭离线模式
+                SPUtils.getInstance("user_info").put("offline_mode", false);
                 SPUtils.getInstance("user_info").put("number", user_number);
                 SPUtils.getInstance("user_info").put("password", user_password);
 
@@ -146,9 +184,9 @@ public class LoginModel implements ILoginModel {
                                     @Override
                                     public void onClick(DialogInterface d, int which) {
                                         dialog.dismiss();
-                                        UserBean userBean = DatabaseUtils.getHelper( "user.db")
+                                        UserBean userBean = DatabaseUtils.getHelper("user.db")
                                                 .queryById(UserBean.class, userBeans.get(finalI).getNumber());
-                                        DatabaseUtils.getHelper( "user.db").delete(userBean);
+                                        DatabaseUtils.getHelper("user.db").delete(userBean);
                                         ToastUtils.showShort(R.string.delete_success);
                                     }
                                 }).show();
@@ -226,6 +264,30 @@ public class LoginModel implements ILoginModel {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         dialog.setCancelable(false);
+    }
 
+    @Override
+    public void loadBanner(final Activity activity, final LoginView view) {
+        OkHttp.getInstance().newCall(OkHttp.getRequest(Url.Yangtzeu_Login_Path)).enqueue(new StringCallBack() {
+            @Override
+            public void onFinish(Call call, String response, boolean isResponseExist, boolean isCacheResponse) {
+                Document document = Jsoup.parse(response);
+                Elements pics = document.select(".picImg>img");
+                List<String> images = new ArrayList<>();
+                for (Element element : pics) {
+                    images.add(Url.Yangtzeu_Base_Url + element.attr("src") + "?time="
+                            + TimeUtils.getNowString(new SimpleDateFormat("mm-dd", Locale.CHINA)));
+                }
+                view.getBanner().setData(images, null);
+                view.getBanner().setAdapter(new BGABanner.Adapter<ImageView, String>() {
+                    @Override
+                    public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
+                        itemView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        MyUtils.loadImage(activity, itemView, model);
+                    }
+                });
+
+            }
+        });
     }
 }

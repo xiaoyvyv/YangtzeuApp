@@ -62,10 +62,10 @@ import com.yangtzeu.R;
 import com.yangtzeu.entity.ImageBean;
 import com.yangtzeu.ui.activity.ADActivity;
 import com.yangtzeu.ui.activity.ChatGroupInfoActivity;
-import com.yangtzeu.ui.activity.InfoActivity;
 import com.yangtzeu.ui.activity.ChatOpenActivity;
 import com.yangtzeu.ui.activity.DownloadActivity;
 import com.yangtzeu.ui.activity.ImageActivity;
+import com.yangtzeu.ui.activity.InfoActivity;
 import com.yangtzeu.ui.activity.LoginActivity;
 import com.yangtzeu.ui.activity.LoveActivity;
 import com.yangtzeu.ui.activity.LoveAddActivity;
@@ -79,6 +79,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -127,7 +128,7 @@ public class MyUtils {
     public static void setMyTheme(Activity activity) {
         if (activity instanceof LoginActivity || activity instanceof ImageActivity
                 || activity instanceof SplashActivity || activity instanceof InfoActivity
-                || activity instanceof ChatGroupInfoActivity) {
+                || activity instanceof ChatGroupInfoActivity ) {
             activity.setTheme(R.style.AppTheme_NoStateBar);
             return;
         }
@@ -472,7 +473,7 @@ public class MyUtils {
             Uri uri;
             //判读版本是否在7.0以上
             if (Build.VERSION.SDK_INT >= 24) {
-                uri = FileProvider.getUriForFile(context, "com.yangtzeu.fileProvider", file);
+                uri = FileProvider.getUriForFile(context, "com.yangtzeu.fileprovider", file);
             } else {
                 uri = Uri.fromFile(file);
             }
@@ -725,7 +726,7 @@ public class MyUtils {
             byte[] buffer = new byte[size];
             int read = is.read(buffer);
             is.close();
-            return new String(buffer, "utf-8");
+            return new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1172,7 +1173,7 @@ public class MyUtils {
         LogUtils.i("service:" + service);
         // com.z.buildingaccessibilityservices/android.accessibilityservice.AccessibilityService
         try {
-            accessibilityEnabled = Settings.Secure.getInt(mContext.getApplicationContext().getContentResolver(),
+            accessibilityEnabled = Settings.Secure.getInt(mContext.getContentResolver(),
                     android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
             LogUtils.i("accessibilityEnabled = " + accessibilityEnabled);
         } catch (Settings.SettingNotFoundException e) {
@@ -1182,7 +1183,7 @@ public class MyUtils {
 
         if (accessibilityEnabled == 1) {
             LogUtils.i("***ACCESSIBILITY IS ENABLED*** -----------------");
-            String settingValue = Settings.Secure.getString(mContext.getApplicationContext().getContentResolver(),
+            String settingValue = Settings.Secure.getString(mContext.getContentResolver(),
                     Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
             // com.z.buildingaccessibilityservices/com.z.buildingaccessibilityservices.TestService
             if (settingValue != null) {

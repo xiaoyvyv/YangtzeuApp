@@ -1,13 +1,9 @@
 package com.yangtzeu.ui.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
-import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
@@ -16,7 +12,6 @@ import com.yangtzeu.entity.CollectionBean;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.adapter.CollectionAdapter;
 import com.yangtzeu.utils.MyUtils;
-import com.yangtzeu.utils.PostUtils;
 
 import java.util.List;
 

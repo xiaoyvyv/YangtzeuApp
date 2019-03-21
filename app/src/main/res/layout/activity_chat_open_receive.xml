@@ -45,7 +45,7 @@
         android:layout_toEndOf="@+id/header"
         android:minWidth="220dp"
         app:cardCornerRadius="5dp"
-        app:cardElevation="0dp">
+        app:cardElevation="@dimen/elevation">
 
         <LinearLayout
             android:id="@+id/onClick"

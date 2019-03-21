@@ -3,9 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.yangtzeu.model.AnswerLayout1Model;
-import com.yangtzeu.model.CetModel;
 import com.yangtzeu.ui.view.AnswerLayout1View;
-import com.yangtzeu.ui.view.CetView;
 
 public class AnswerLayout1Presenter {
     private Activity activity;

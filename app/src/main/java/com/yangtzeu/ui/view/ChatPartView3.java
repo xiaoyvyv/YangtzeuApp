@@ -1,7 +1,6 @@
 package com.yangtzeu.ui.view;
 
 import com.lib.chat.adapter.ContactGroupAdapter;
-import com.lib.chat.adapter.ContactUserAdapter;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 

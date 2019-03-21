@@ -2,9 +2,7 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
-import com.yangtzeu.model.BoardModel;
 import com.yangtzeu.model.VoaListModel;
-import com.yangtzeu.ui.view.BoardView;
 import com.yangtzeu.ui.view.VoaListView;
 
 public class VoaListPresenter {

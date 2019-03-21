@@ -6,14 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.lib.chat.adapter.ContactGroupAdapter;
-import com.lib.chat.adapter.ContactUserAdapter;
 import com.yangtzeu.R;
-import com.yangtzeu.presenter.ChatPart2Presenter;
 import com.yangtzeu.presenter.ChatPart3Presenter;
 import com.yangtzeu.ui.activity.base.BaseFragment;
-import com.yangtzeu.ui.view.ChatPartView2;
 import com.yangtzeu.ui.view.ChatPartView3;
 
 import androidx.annotation.NonNull;

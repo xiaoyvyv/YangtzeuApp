@@ -2,7 +2,6 @@ package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

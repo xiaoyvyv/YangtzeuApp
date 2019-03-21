@@ -3,7 +3,6 @@ package com.yangtzeu.model;
 import android.app.Activity;
 import android.webkit.URLUtil;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.JwcListBean;

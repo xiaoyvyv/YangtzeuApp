@@ -3,37 +3,51 @@ package com.yangtzeu.service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.FileObserver;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ServiceUtils;
-import com.blankj.utilcode.util.Utils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.OnLineBean;
 import com.yangtzeu.listener.OnResultListener;
-import com.yangtzeu.ui.activity.MainActivity;
+import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
 
 public class BackgroundService extends Service {
     private Timer timer;
     private Timer timer1;
+    private static String filePath = MyUtils.rootPath() + "tencent/MobileQQ/diskcache/";
+    public static FileObserver fileObserver = new FileObserver(filePath, FileObserver.MOVED_TO) {
+        @Override
+        public void onEvent(int i, @Nullable String path) {
+            boolean b = SPUtils.getInstance("app_info").getBoolean("listen_qq", true);
+            if (path != null && b) {
+                File oldFile = new File(filePath + path);
+                if (oldFile.length() > 1024 * 10) {
+                    String sdCardDir = MyUtils.createSDCardDir("A_Tool/QQ_Cache/");
+                    File newFile = new File(sdCardDir + path);
+                    FileUtils.copyFile(oldFile.getAbsolutePath(), newFile.getAbsolutePath());
+                }
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -45,6 +59,8 @@ public class BackgroundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        //QQ图片监听
+        fileObserver.startWatching();
 
         timer = new Timer();
         //保持教务处服务器连接
@@ -93,6 +109,7 @@ public class BackgroundService extends Service {
                 }
             }
         }, 0, 60000L);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -124,9 +141,9 @@ public class BackgroundService extends Service {
         //用户可以看到的通知渠道的描述
         String description = service.getString(R.string.background_server_description);
 
-        NotificationChannel mChannel ;
+        NotificationChannel mChannel;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int  importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             mChannel = new NotificationChannel(id, name, importance);
             //配置通知渠道的属性
             mChannel.setDescription(description);

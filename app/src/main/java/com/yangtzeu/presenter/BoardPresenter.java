@@ -3,9 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 
 import com.yangtzeu.model.BoardModel;
-import com.yangtzeu.model.MessageModel;
 import com.yangtzeu.ui.view.BoardView;
-import com.yangtzeu.ui.view.MessageView;
 
 public class BoardPresenter {
     private Activity activity;

@@ -61,10 +61,12 @@ public class ALiOssUtils {
     public static OSSAsyncTask upLoadFile(final String key, String file_path, final OnUpLoadListener loadListener) {
         if (ObjectUtils.isEmpty(key)) {
             loadListener.onFailure("未设置文件的key");
+            LogUtils.e("未设置文件的key");
             return null;
         }
         if (ObjectUtils.isEmpty(new File(file_path)) || ObjectUtils.isEmpty(file_path)) {
             loadListener.onFailure("未选择文件");
+            LogUtils.e("未选择文件");
             return null;
         }
 
@@ -87,7 +89,7 @@ public class ALiOssUtils {
                 }
             }
         });
-        @SuppressWarnings("rawtypes")
+        LogUtils.e("开始上传");
         OSSAsyncTask ossAsyncTask = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {

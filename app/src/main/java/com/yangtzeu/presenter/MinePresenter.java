@@ -2,12 +2,8 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
-import com.yangtzeu.model.HomeModel;
 import com.yangtzeu.model.MineModel;
-import com.yangtzeu.ui.activity.CardCenterActivity;
-import com.yangtzeu.ui.view.HomeView;
 import com.yangtzeu.ui.view.MineView;
-import com.yangtzeu.utils.MyUtils;
 
 public class MinePresenter {
     private MineModel model;

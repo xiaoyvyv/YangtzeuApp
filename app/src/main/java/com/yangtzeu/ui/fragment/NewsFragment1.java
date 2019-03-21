@@ -11,7 +11,6 @@ import com.yangtzeu.R;
 import com.yangtzeu.presenter.NewsPresenter1;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.view.NewsView1;
-import com.yangtzeu.url.Url;
 
 import androidx.annotation.NonNull;
 import cn.bingoogolapple.bgabanner.BGABanner;

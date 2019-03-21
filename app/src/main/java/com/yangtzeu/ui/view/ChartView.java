@@ -4,7 +4,6 @@ import com.yangtzeu.entity.GradeBean;
 
 import java.util.List;
 
-import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
 
 public interface ChartView {

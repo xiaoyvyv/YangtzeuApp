@@ -30,9 +30,9 @@ import com.yangtzeu.ui.activity.BoardActivity;
 import com.yangtzeu.ui.activity.CetActivity;
 import com.yangtzeu.ui.activity.ChangePassActivity;
 import com.yangtzeu.ui.activity.ChatActivity;
-import com.yangtzeu.ui.activity.InfoActivity;
 import com.yangtzeu.ui.activity.ChooseClassActivity;
 import com.yangtzeu.ui.activity.FeedBackActivity;
+import com.yangtzeu.ui.activity.InfoActivity;
 import com.yangtzeu.ui.activity.PingJiaoActivity;
 import com.yangtzeu.ui.activity.PlanActivity;
 import com.yangtzeu.ui.activity.TestActivity;
@@ -99,6 +99,7 @@ public class MineFragment extends BaseFragment implements MineView {
 
     private boolean isReceiver = false;
     private TextView status_trip;
+    private TextView exit_text;
     private CardView status;
 
     @Override
@@ -120,6 +121,7 @@ public class MineFragment extends BaseFragment implements MineView {
         image_bg = rootView.findViewById(R.id.image_bg);
         status_trip = rootView.findViewById(R.id.status_trip);
         status = rootView.findViewById(R.id.status);
+        exit_text = rootView.findViewById(R.id.exit_text);
 
 
         unReadView = rootView.findViewById(R.id.unReadView);
@@ -373,23 +375,49 @@ public class MineFragment extends BaseFragment implements MineView {
             }
         });
 
-        logoutLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.trip)
-                        .setMessage(R.string.is_logout)
-                        .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                UserUtils.do_Logout(getActivity());
-                            }
-                        })
-                        .setNegativeButton(R.string.clear, null)
-                        .create();
-                dialog.show();
-            }
-        });
+
+        boolean is_offline_mode = SPUtils.getInstance("user_info").getBoolean("offline_mode", false);
+        if (is_offline_mode) {
+            exit_text.setTextColor(Color.RED);
+            exit_text.setText("退出离线模式");
+            logoutLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                            .setTitle(R.string.trip)
+                            .setMessage(R.string.is_logout_offmode)
+                            .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    UserUtils.do_Logout(getActivity());
+                                    SPUtils.getInstance("user_info").put("offline_mode", false);
+                                }
+                            })
+                            .setNegativeButton(R.string.clear, null)
+                            .create();
+                    dialog.show();
+                }
+            });
+        } else {
+            exit_text.setText("退出登录");
+            logoutLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                            .setTitle(R.string.trip)
+                            .setMessage(R.string.is_logout)
+                            .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    UserUtils.do_Logout(getActivity());
+                                }
+                            })
+                            .setNegativeButton(R.string.clear, null)
+                            .create();
+                    dialog.show();
+                }
+            });
+        }
     }
 
     @Override

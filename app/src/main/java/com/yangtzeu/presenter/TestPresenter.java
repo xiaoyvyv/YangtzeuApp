@@ -2,14 +2,7 @@ package com.yangtzeu.presenter;
 
 import android.app.Activity;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.yangtzeu.R;
-import com.yangtzeu.http.OkHttp;
-import com.yangtzeu.http.OnResultStringListener;
-import com.yangtzeu.model.ChartModel;
 import com.yangtzeu.model.TestModel;
-import com.yangtzeu.ui.view.ChartView;
 import com.yangtzeu.ui.view.TestView;
 
 public class TestPresenter {
