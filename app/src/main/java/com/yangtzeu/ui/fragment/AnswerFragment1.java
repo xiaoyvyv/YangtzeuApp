@@ -7,7 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+
 import com.blankj.utilcode.util.Utils;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.lib.loading.LVBlock;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.AnswerLayout1Presenter;
@@ -15,9 +19,9 @@ import com.yangtzeu.ui.activity.AnswerListActivity;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.view.AnswerLayout1View;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MyUtils;
 
-import androidx.annotation.NonNull;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 /**
@@ -31,6 +35,8 @@ public class AnswerFragment1 extends BaseFragment implements AnswerLayout1View, 
     private BGABanner banner;
     private LinearLayout container;
     private LVBlock loading;
+    private LinearLayout googleView;
+    private LinearLayout bottomViewContainer;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +51,9 @@ public class AnswerFragment1 extends BaseFragment implements AnswerLayout1View, 
     public void findViews() {
         banner = rootView.findViewById(R.id.banner);
         container = rootView.findViewById(R.id.slow_container);
+        googleView = rootView.findViewById(R.id.googleView);
         loading = rootView.findViewById(R.id.loading);
+        bottomViewContainer = rootView.findViewById(R.id.bottomViewContainer);
     }
 
     @Override
@@ -65,6 +73,13 @@ public class AnswerFragment1 extends BaseFragment implements AnswerLayout1View, 
 
         loading.startAnim();
         loading.setViewColor(Utils.getApp().getResources().getColor(R.color.colorPrimary));
+
+        AdView adView1 = GoogleUtils.newBannerView(getActivity(), AdSize.LARGE_BANNER);
+        adView1.loadAd(GoogleUtils.getRequest());
+        AdView adView2 = GoogleUtils.newBannerView(getActivity(), AdSize.LARGE_BANNER);
+        adView2.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView1);
+        googleView.addView(adView2);
     }
 
     @Override
@@ -118,6 +133,11 @@ public class AnswerFragment1 extends BaseFragment implements AnswerLayout1View, 
     @Override
     public LinearLayout getContainer() {
         return container;
+    }
+
+    @Override
+    public LinearLayout getBottomContainer() {
+        return bottomViewContainer;
     }
 
 }

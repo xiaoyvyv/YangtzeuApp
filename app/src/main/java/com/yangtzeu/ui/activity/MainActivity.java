@@ -13,6 +13,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.FileUtils;
@@ -45,10 +49,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainView {
@@ -197,12 +197,12 @@ public class MainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private String Theme[] = {"默认", "酷安绿",
+    private String[] Theme = {"默认", "酷安绿",
             "姨妈红", "哔哩粉", "颐堤蓝",
             "水鸭青", "伊藤橙", "基佬紫",
             "知乎蓝", "古铜棕", "低调灰",
             "高端黒"};
-    private int ThemeColor[] = {R.color.colorPrimary, R.color.colorPrimary_KuAnLv, R.color.colorPrimary_YiMaHong,
+    private int[] ThemeColor = {R.color.colorPrimary, R.color.colorPrimary_KuAnLv, R.color.colorPrimary_YiMaHong,
             R.color.colorPrimary_BiLiFen, R.color.colorPrimary_YiDiLan, R.color.colorPrimary_ShuiYaQing,
             R.color.colorPrimary_YiTengCheng, R.color.colorPrimary_JiLaoZi, R.color.colorPrimary_ZhiHuLan,
             R.color.colorPrimary_GuTongZong, R.color.colorPrimary_DiDiaoHui, R.color.colorPrimary_GaoDuanHei};
@@ -322,7 +322,7 @@ public class MainActivity extends BaseActivity
             if (!item2.isSelected()) {
                 item2.select();
             }
-        } else if (item0 != null && !item0.isSelected()) {
+        } else if (!item0.isSelected()) {
             item0.select();
         } else {
             onClick();
@@ -345,9 +345,11 @@ public class MainActivity extends BaseActivity
                 }
             }.sendEmptyMessageDelayed(0, 2000); // 利用handler延迟发送更改状态信息
         } else {
+            moveTaskToBack(true);
+            /*
             ActivityUtils.finishAllActivities();
             android.os.Process.killProcess(android.os.Process.myPid());
-            AppUtils.exitApp();
+            AppUtils.exitApp();*/
         }
     }
 

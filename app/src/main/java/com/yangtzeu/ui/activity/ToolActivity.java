@@ -3,27 +3,25 @@ package com.yangtzeu.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Switch;
-
-import com.ad.OnAdListener;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.miui.zeus.mimo.sdk.ad.AdWorkerFactory;
-import com.miui.zeus.mimo.sdk.ad.IAdWorker;
-import com.xiaomi.ad.common.pojo.AdType;
-import com.yangtzeu.R;
-import com.yangtzeu.app.MyApplication;
-import com.yangtzeu.presenter.ToolPresenter;
-import com.yangtzeu.ui.activity.base.BaseActivity;
-import com.yangtzeu.ui.adapter.ToolAdapter;
-import com.yangtzeu.ui.view.ToolView;
-import com.yangtzeu.utils.MyUtils;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.yangtzeu.R;
+import com.yangtzeu.listener.OnResultListener;
+import com.yangtzeu.presenter.ToolPresenter;
+import com.yangtzeu.ui.activity.base.BaseActivity;
+import com.yangtzeu.ui.adapter.ToolAdapter;
+import com.yangtzeu.ui.view.ToolView;
+import com.yangtzeu.utils.GoogleUtils;
+import com.yangtzeu.utils.MyUtils;
 
 public class ToolActivity extends BaseActivity implements ToolView {
 
@@ -32,8 +30,7 @@ public class ToolActivity extends BaseActivity implements ToolView {
     private ToolPresenter presenter;
     private ToolAdapter adapter;
     private Switch switchBtn;
-    private FrameLayout ad_container;
-    private IAdWorker mAdWorker;
+    private LinearLayout googleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +45,13 @@ public class ToolActivity extends BaseActivity implements ToolView {
         recyclerView = findViewById(R.id.recyclerView);
         toolbar = findViewById(R.id.toolbar);
         switchBtn = findViewById(R.id.switchBtn);
-        ad_container = findViewById(R.id.ad_container);
+        googleView = findViewById(R.id.googleView);
 
     }
 
     @Override
     public void setEvents() {
+
         adapter = new ToolAdapter(this);
         presenter = new ToolPresenter(this, this);
         RecyclerView.LayoutManager manger = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
@@ -71,28 +69,25 @@ public class ToolActivity extends BaseActivity implements ToolView {
         });
 
 
+        AdView adView1 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView1.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView1);
+        AdView adView2 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView2.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView2);
 
-        try {
-            mAdWorker = AdWorkerFactory.getAdWorker(this, ad_container, new OnAdListener() {
-                @Override
-                public void onResultListener(int state, Object info) {
-                    LogUtils.i(state, info);
-                    switch (state) {
-                        case OnAdListener.AdDismissed:
-                        case OnAdListener.AdFailed:
-                            ad_container.setVisibility(View.GONE);
-                            break;
-                    }
-                }
-            }, AdType.AD_BANNER);
-            mAdWorker.loadAndShow(MyApplication.PORTRAIT_Q_BANNER_POSITION_ID);
-        } catch (Exception ignored) {}
+        GoogleUtils.loadInterstitialAd();
     }
 
     public void onToolClick(View v) {
         switch (v.getId()) {
             case R.id.like:
-                presenter.setQQLikeEvent();
+                GoogleUtils.showInterstitialAd(new OnResultListener<Boolean>() {
+                    @Override
+                    public void onResult(Boolean s) {
+                        presenter.setQQLikeEvent();
+                    }
+                });
                 break;
             case R.id.cehui:
                 presenter.getCeHuiData();
@@ -104,17 +99,6 @@ public class ToolActivity extends BaseActivity implements ToolView {
     protected void onResume() {
         super.onResume();
         presenter.getCeHuiData();
-    }
-
-    @Override
-    protected void onDestroy() {
-        try {
-            mAdWorker.recycle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        super.onDestroy();
-
     }
 
     @Override

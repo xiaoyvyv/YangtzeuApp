@@ -35,6 +35,10 @@ import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
+
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ConvertUtils;
@@ -90,17 +94,13 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
-
 /**
  * Created by 2016 on 2017/11/29.
  */
 
 public class MyUtils {
-    private final static String NameList[] = {"doc", "docx", "ppt", "pptx", "xls", "xlsx", "pdf", "txt", "epub"};
-    private final static String ImageList[] = {"png", "jpg", "gif", "webp", "bmp", "jpeg"};
+    private final static String[] NameList = {"doc", "docx", "ppt", "pptx", "xls", "xlsx", "pdf", "txt", "epub"};
+    private final static String[] ImageList = {"png", "jpg", "gif", "webp", "bmp", "jpeg"};
 
 
     public static void setToolbarBackToHome(final AppCompatActivity activity, Toolbar toolbar) {
@@ -263,7 +263,7 @@ public class MyUtils {
     //保存网络文件
     public static void saveFile(final Context context, String url, String path, String saveFileName) {
         if (saveFileName.length() > 25) {
-            saveFileName = saveFileName.substring(saveFileName.length() - 20, saveFileName.length());
+            saveFileName = saveFileName.substring(saveFileName.length() - 20);
         }
         if (path == null) {
             path = "A_Tool/Download/";
@@ -592,14 +592,14 @@ public class MyUtils {
             switch (number) {
                 case 0:
                     result = Math.round(Math.random() * 25 + 65);
-                    sb.append(String.valueOf((char) result));
+                    sb.append((char) result);
                     break;
                 case 1:
                     result = Math.round(Math.random() * 25 + 97);
-                    sb.append(String.valueOf((char) result));
+                    sb.append((char) result);
                     break;
                 case 2:
-                    sb.append(String.valueOf(new Random().nextInt(10)));
+                    sb.append(new Random().nextInt(10));
                     break;
             }
         }
@@ -957,6 +957,12 @@ public class MyUtils {
         //浏览器中打开
         if (url.endsWith("openBrowser")) {
             openBrowser(context, url);
+            return;
+        }
+
+        //无标题打开
+        if (url.endsWith("noTitle")) {
+            openUrl(context, url, true);
             return;
         }
 

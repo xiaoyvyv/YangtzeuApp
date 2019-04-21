@@ -8,6 +8,7 @@
 
 
     <com.lzy.widget.PullZoomView
+        android:id="@+id/pullZoomView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -133,6 +134,7 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:tag="content"
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

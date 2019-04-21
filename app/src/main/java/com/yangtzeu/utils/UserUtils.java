@@ -10,6 +10,7 @@ import android.os.Handler;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ObjectUtils;
@@ -20,9 +21,12 @@ import com.xiaomi.mimc.MIMCUser;
 import com.yangtzeu.app.MyApplication;
 import com.yangtzeu.database.DatabaseUtils;
 import com.yangtzeu.entity.BanBean;
+import com.yangtzeu.entity.LevelBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OkhttpError;
 import com.yangtzeu.http.OnResultStringListener;
+import com.yangtzeu.http.callback.StringCallBack;
+import com.yangtzeu.model.AnswerListModel;
 import com.yangtzeu.service.BackgroundService;
 import com.yangtzeu.ui.activity.LoginActivity;
 import com.yangtzeu.url.Url;
@@ -36,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.Call;
 import okhttp3.Cookie;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
@@ -85,7 +90,6 @@ public class UserUtils {
                     String regex0 = "CryptoJS.SHA1[(]\'(.*?)\'";
                     List<String> key_list = MyUtils.getSubUtil(scripts_text, regex0);
                     if (!ObjectUtils.isEmpty(key_list)) {
-                        //tring login_key = key_list.get(0).substring(key_list.indexOf("'") + 1, key_list.lastIndexOf("'"));
                         String login_key = key_list.get(0);
                         String login_encode_pass = EncryptUtils.encryptSHA1ToString(login_key + userPassword).toLowerCase();
                         LogUtils.i("密码加密前缀：" + login_key, "密码加密完成：" + login_encode_pass);
@@ -173,6 +177,7 @@ public class UserUtils {
                     if (onLoginResultListener != null)
                         onLoginResultListener.onFailure("验证码不正确");
                 } else {
+                    LogUtils.e(result);
                     if (onLoginResultListener != null)
                         onLoginResultListener.onFailure("登录未知错误");
                 }
@@ -197,7 +202,7 @@ public class UserUtils {
         }
 
         //截取有用的Cookie
-        String list[] = builder.toString().split(";");
+        String[] list = builder.toString().split(";");
         for (String string : list) {
             if (string.contains("JSESSIONID")) {
                 cookieStr.put("JSESSIONID", string + ";");
@@ -305,6 +310,29 @@ public class UserUtils {
                 progressDialog.dismiss();
                 if (logResultListener != null) {
                     logResultListener.onSuccess(error);
+                }
+            }
+        });
+    }
+
+    public static void addYvCoins(int i) {
+        FormBody formBody = new FormBody.Builder()
+                .add("size", String.valueOf(i))
+                .add("key", AnswerListModel.encodeKey())
+                .add("action", "addCoins")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(Url.Yangtzeu_App_Level)
+                .post(formBody)
+                .build();
+
+        OkHttp.getInstance().newCall(request).enqueue(new StringCallBack() {
+            @Override
+            public void onFinish(Call call, String response, boolean isResponseExist, boolean isCacheResponse) {
+                if (isResponseExist) {
+                    LevelBean levelBean = GsonUtils.fromJson(response, LevelBean.class);
+                    ToastUtils.showShort(levelBean.getMsg());
                 }
             }
         });

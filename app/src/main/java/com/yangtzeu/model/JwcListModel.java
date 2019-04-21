@@ -40,7 +40,6 @@ public class JwcListModel implements IJwcListModel {
                 if (view.getAllPage() == 0) {
                     view.setAllPage(all_page);
                 }
-
                 Elements list = document.select("div#list_r ul li");
                 List<JwcListBean> beans = new ArrayList<>();
                 for (int i = view.getStartIndex(); i < view.getStartIndex() + 20 && i < list.size(); i++) {

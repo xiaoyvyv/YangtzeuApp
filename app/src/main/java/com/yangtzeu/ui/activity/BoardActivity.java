@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -34,9 +37,6 @@ import com.yangtzeu.utils.MyUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-
 
 public class BoardActivity extends BaseActivity implements BoardView {
     private List<BoardBean.ResultBean> data = new ArrayList<>();
@@ -50,9 +50,7 @@ public class BoardActivity extends BaseActivity implements BoardView {
     private TextView replay_text;
     private Button send_replay;
     private TextView replay_title;
-    private boolean isRefresh = true;
     private Button chat_online;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,30 +72,7 @@ public class BoardActivity extends BaseActivity implements BoardView {
         chat_online = findViewById(R.id.chat_online);
     }
 
-    @Override
-    public void setEvents() {
-        president = new BoardPresenter(this, this);
-        adapter = new BoardAdapter(this);
-        mRecyclerView.setAdapter(adapter);
-
-        refresh.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                isRefresh = true;
-                page = 0;
-                president.loadBoardData();
-            }
-        });
-        refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                isRefresh = false;
-                page = page + 30;
-                president.loadBoardData();
-            }
-        });
-        refresh.autoRefresh();
-    }
+    private int mRealAds = 0;
 
 
     @Override
@@ -111,7 +86,6 @@ public class BoardActivity extends BaseActivity implements BoardView {
         }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
-
 
     @SuppressLint("SetTextI18n")
     public void showReplayOrAdd(final String to_number, final String id, String title) {
@@ -187,11 +161,6 @@ public class BoardActivity extends BaseActivity implements BoardView {
     }
 
     @Override
-    public boolean isRefresh() {
-        return isRefresh;
-    }
-
-    @Override
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
@@ -233,5 +202,31 @@ public class BoardActivity extends BaseActivity implements BoardView {
 
     public LinearLayout getReplay_container() {
         return replay_container;
+    }
+
+    @Override
+    public void setEvents() {
+        president = new BoardPresenter(this, this);
+        adapter = new BoardAdapter(this);
+        mRecyclerView.setAdapter(adapter);
+
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                adapter.clear();
+                page = 0;
+                president.loadBoardData();
+            }
+        });
+
+        refresh.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                page = page + 30;
+                president.loadBoardData();
+            }
+        });
+        refresh.autoRefresh();
+
     }
 }

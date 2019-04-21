@@ -3,6 +3,7 @@ package com.yangtzeu.presenter;
 import android.app.Activity;
 import android.content.DialogInterface;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.yangtzeu.model.SplashModel;
 import com.yangtzeu.ui.view.SplashView;
 import com.yangtzeu.utils.MyUtils;
@@ -32,7 +33,7 @@ public class SplashPresenter {
         int min = cal.get(Calendar.MINUTE);
         //凌晨开始计时到当前的分钟数
         int minuteOfDay = hour * 60 + min;
-        if (minuteOfDay < 200) {
+        if (minuteOfDay < 200 && !AppUtils.isAppDebug()) {
             MyUtils.getAlert(activity, "已经凌晨过了，教务处系统在凌晨可能无法访问，你要继续操作吗？", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -52,11 +53,8 @@ public class SplashPresenter {
         model.checkCopyRight(activity, view);
     }
 
-    public void loadMIAD() throws Exception {
+    public void loadMIAD() {
         model.loadMIAD(activity, view);
     }
 
-    public void onDestroy() {
-        model.onDestroy(activity, view);
-    }
 }

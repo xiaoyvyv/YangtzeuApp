@@ -16,6 +16,7 @@ import com.yangtzeu.entity.FileBean;
 import com.yangtzeu.model.imodel.IToolModel;
 import com.yangtzeu.service.qq.QQService;
 import com.yangtzeu.ui.view.ToolView;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MyUtils;
 
 import java.io.File;
@@ -49,7 +50,12 @@ public class ToolModel implements IToolModel {
                             activity.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         }
                     })
-                    .setNegativeButton(R.string.clear, null)
+                    .setNegativeButton(R.string.clear, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            GoogleUtils.loadInterstitialAd();
+                        }
+                    })
                     .create();
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();

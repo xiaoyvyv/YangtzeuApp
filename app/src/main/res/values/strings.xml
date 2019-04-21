@@ -394,4 +394,7 @@
     <string name="start">开始</string>
     <string name="qq_like">QQ名片自动赞</string>
     <string name="load_img">显示监听图片</string>
+    <string name="back">回退</string>
+    <string name="qq_send_trip">长大助手QQ信息连发器，打开后切换到聊天界面即可自动连续发送预设好的信息！</string>
+    <string name="qq_send">QQ消息连发服务</string>
 </resources>

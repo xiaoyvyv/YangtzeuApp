@@ -35,12 +35,59 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/slow_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@drawable/ic_divider"
-                android:orientation="vertical"
-                android:showDividers="middle" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/slow_container"
+                    android:layout_width="325dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:lineSpacingExtra="5dp"
+                        android:text="少壮不努力，老大徒伤悲!"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:lineSpacingExtra="5dp"
+                        android:text="抄答案一时爽，一直抄答案一直爽!"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:lineSpacingExtra="5dp"
+                        android:text="答案整理耗费了大量时间和精力，请同学们多多支持！"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:lineSpacingExtra="5dp"
+                        android:text="答案需求请到用户反馈里，将书名和作者发给我！"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

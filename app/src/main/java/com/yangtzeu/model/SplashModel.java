@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
-import com.ad.OnAdListener;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -17,12 +16,10 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.lib.subutil.GsonUtils;
-import com.miui.zeus.mimo.sdk.ad.AdWorkerFactory;
-import com.miui.zeus.mimo.sdk.ad.IAdWorker;
-import com.xiaomi.ad.common.pojo.AdType;
 import com.yangtzeu.R;
-import com.yangtzeu.app.MyApplication;
 import com.yangtzeu.entity.AdBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.OnResultStringListener;
@@ -31,6 +28,7 @@ import com.yangtzeu.ui.activity.LoginActivity;
 import com.yangtzeu.ui.activity.MainActivity;
 import com.yangtzeu.ui.view.SplashView;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.UserUtils;
 
@@ -44,8 +42,7 @@ public class SplashModel implements ISplashModel {
     private static final String AppDebugSignatureMD5 = "03:C2:04:3B:BF:74:83:AB:DC:D7:7B:B5:97:C6:A5:F3";
     private static final String AppReleaseSignatureMD5 = "AD:3B:5A:F3:92:92:8D:27:BE:C9:1A:60:AB:42:3B:7F";
     private boolean[] canEnter = {false, false};
-    private long ad_time = 4000;
-    private static IAdWorker myAdWorker;
+    private long ad_time = 8000;
 
     @Override
     public void loadAdImage(final Activity activity, final SplashView view) {
@@ -88,13 +85,18 @@ public class SplashModel implements ISplashModel {
             @Override
             public void run() {
                 canEnter[0] = true;
-                checkCanIn();
+                checkCanIn(activity, view);
             }
         }, ad_time);
     }
 
-    private void checkCanIn() {
+    private void checkCanIn(Activity activity, SplashView view) {
         if (canEnter[0] && canEnter[1]) {
+
+            canEnter[0] = false;
+            canEnter[1] = false;
+
+
             ActivityUtils.finishAllActivities();
             MyUtils.startActivity(MainActivity.class);
         }
@@ -137,7 +139,7 @@ public class SplashModel implements ISplashModel {
     }
 
     @Override
-    public void loadUser(final Activity activity, SplashView view) {
+    public void loadUser(final Activity activity, final SplashView view) {
         String number = SPUtils.getInstance("user_info").getString("number", "");
         String password = SPUtils.getInstance("user_info").getString("password", "");
 
@@ -158,7 +160,7 @@ public class SplashModel implements ISplashModel {
             @Override
             public void onSuccess(String result) {
                 canEnter[1] = true;
-                checkCanIn();
+                checkCanIn(activity, view);
             }
 
             @Override
@@ -189,34 +191,13 @@ public class SplashModel implements ISplashModel {
         }
     }
 
-
     @Override
-    public void loadMIAD(Activity activity, SplashView view) throws Exception {
-        myAdWorker = AdWorkerFactory.getAdWorker(activity, view.getAdContainer(), new OnAdListener() {
-            @Override
-            public void onResultListener(int state, Object info) {
-                LogUtils.e(state,info);
-                switch (state) {
-                    case OnAdListener.AdPresent:
-                        break;
-                    case OnAdListener.AdFailed:
-                        break;
-                }
-            }
-        }, AdType.AD_SPLASH);
-        myAdWorker.loadAndShow(MyApplication.PORTRAIT_SPLASH_POSITION_ID);
-    }
+    public void loadMIAD(final Activity activity, final SplashView view) {
+        AdView adView = GoogleUtils.newBannerView(activity, AdSize.MEDIUM_RECTANGLE);
+        adView.loadAd(GoogleUtils.getRequest());
+        view.getAdContainer().addView(adView);
 
-    @Override
-    public void onDestroy(Activity activity, SplashView view) {
-        try {
-            if (myAdWorker != null)
-                myAdWorker.recycle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
 
     public interface OnPermissionCallBack {
         void OnGranted();

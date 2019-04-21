@@ -18,6 +18,5 @@ public class BoardPresenter {
 
     public void loadBoardData() {
         mode.loadMessageData(activity, view);
-
     }
 }

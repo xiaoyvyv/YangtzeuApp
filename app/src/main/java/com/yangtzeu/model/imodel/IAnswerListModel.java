@@ -6,4 +6,5 @@ import com.yangtzeu.ui.view.AnswerListView;
 
 public interface IAnswerListModel {
     void loadAnswer(Activity activity, AnswerListView view);
+
 }

@@ -299,7 +299,25 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
+            android:layout_height="5dp"
+            android:background="@color/white_fa" />
+
+        <com.lib.view.MyHorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/googleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:orientation="horizontal" />
+        </com.lib.view.MyHorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
             android:background="@color/white_fa" />
 
         <LinearLayout
@@ -341,6 +359,18 @@
 
             </LinearLayout>
 
+            <com.lib.view.MyHorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/bottomViewContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:orientation="horizontal" />
+            </com.lib.view.MyHorizontalScrollView>
 
         </LinearLayout>
     </LinearLayout>

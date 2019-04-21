@@ -18,6 +18,12 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Translucent" parent="AppTheme.NoStateBar">
+        <item name="android:windowBackground">@color/translate_activity</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
     <!--默认-->
     <style name="AppTheme.NoActionBar" parent="App">
         <item name="colorPrimary">@color/colorPrimary</item>

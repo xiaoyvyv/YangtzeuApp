@@ -23,4 +23,5 @@ public class AnswerLayout1Presenter {
     public void loadHotAnswer() {
         mode.loadHotAnswer(activity, view);
     }
+
 }

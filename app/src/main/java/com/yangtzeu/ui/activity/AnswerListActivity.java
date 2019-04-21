@@ -4,15 +4,14 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.miui.zeus.mimo.sdk.ad.IAdWorker;
+import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.AnswerListPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.AnswerListView;
 import com.yangtzeu.utils.MyUtils;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class AnswerListActivity extends BaseActivity implements AnswerListView {
     private String from_url;
@@ -20,7 +19,6 @@ public class AnswerListActivity extends BaseActivity implements AnswerListView {
     private SwipeRefreshLayout refreshLayout;
     private Toolbar toolbar;
     private AnswerListPresenter presenter;
-    private IAdWorker adWorker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +52,6 @@ public class AnswerListActivity extends BaseActivity implements AnswerListView {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        try {
-            adWorker.recycle();
-            super.onDestroy();
-        } catch (Exception e) {
-            super.onDestroy();
-        }
-    }
 
     @Override
     public String getFromUrl() {
@@ -77,16 +66,6 @@ public class AnswerListActivity extends BaseActivity implements AnswerListView {
     @Override
     public SwipeRefreshLayout getRefresh() {
         return refreshLayout;
-    }
-
-    @Override
-    public IAdWorker getAdWorker() {
-        return adWorker;
-    }
-
-    @Override
-    public void setAdWorker(IAdWorker adWorker) {
-        this.adWorker = adWorker;
     }
 
 }

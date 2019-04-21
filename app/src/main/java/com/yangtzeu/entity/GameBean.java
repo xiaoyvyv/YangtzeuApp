@@ -21,6 +21,16 @@ public class GameBean {
 
         private String name;
         private String url;
+        private String image = "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=560302979,384745884&fm=26&gp=0.jpg";
+        private boolean isAd = false;
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
 
         public String getName() {
             return name;
@@ -36,6 +46,14 @@ public class GameBean {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        public boolean isAd() {
+            return isAd;
+        }
+
+        public void setAd(boolean ad) {
+            isAd = ad;
         }
     }
 }

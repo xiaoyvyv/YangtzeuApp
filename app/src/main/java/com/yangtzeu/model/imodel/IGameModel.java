@@ -6,4 +6,6 @@ import com.yangtzeu.ui.view.GameView;
 
 public interface IGameModel {
     void loadGames(Activity activity, GameView view);
+
+    void loadIcon(Activity activity, GameView view);
 }

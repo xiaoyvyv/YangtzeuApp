@@ -14,6 +14,7 @@ import com.yangtzeu.ui.view.GameView;
 import com.yangtzeu.url.Url;
 
 public class GameModel implements IGameModel {
+
     @Override
     public void loadGames(final Activity activity, final GameView view) {
         OkHttp.do_Get(Url.Yangtzeu_App_Game, new OnResultStringListener() {
@@ -23,6 +24,8 @@ public class GameModel implements IGameModel {
                 GameAdapter adapter = view.getAdapter();
                 adapter.setData(gameBean);
                 adapter.notifyDataSetChanged();
+
+                loadIcon(activity, view);
             }
 
             @Override
@@ -30,5 +33,18 @@ public class GameModel implements IGameModel {
                 ToastUtils.showShort(R.string.load_error);
             }
         });
+    }
+
+    @Override
+    public void loadIcon(Activity activity, GameView view) {
+        GameAdapter adapter = view.getAdapter();
+        int itemCount = adapter.getItemCount();
+        int i = itemCount / 5;
+        for (int j = 0; j < i; j++) {
+            GameBean.GamesBean bean = new GameBean.GamesBean();
+            bean.setAd(true);
+            adapter.addData(j * 5, bean);
+        }
+        //TODO 游戏广告
     }
 }

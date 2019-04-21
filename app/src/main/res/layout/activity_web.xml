@@ -7,20 +7,22 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.WebActivity">
 
+
     <com.google.android.material.appbar.AppBarLayout
-        app:elevation="@dimen/elevation"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/elevation">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/web_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/loading" />
+            app:title="加载中..." />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -36,14 +38,14 @@
     </FrameLayout>
 
     <com.lib.touch.DragView
-        android:alpha="0.4"
         android:id="@+id/ic_close"
-        android:visibility="invisible"
-        android:layout_margin="15dp"
-        android:layout_gravity="bottom|end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_close"
-        app:fabSize="mini"/>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="15dp"
+        android:alpha="0.4"
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_close" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

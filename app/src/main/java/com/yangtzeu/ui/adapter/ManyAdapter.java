@@ -9,8 +9,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.ScreenUtils;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -20,9 +21,6 @@ import com.yangtzeu.utils.MyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -35,15 +33,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
     private Context context;
     private List<ManyBean.DataBean> appBeans = new ArrayList<>();
-    private int spanCount;
 
     public ManyAdapter(Context context) {
         this.context = context;
     }
 
-    public void setSpanCount(int spanCount) {
-        this.spanCount = spanCount;
-    }
 
     public void setData(ManyBean bean) {
         this.appBeans = bean.getData();
@@ -64,7 +58,7 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
 
     @SuppressLint("CheckResult")
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {/*
         int dp30 = ConvertUtils.dp2px(30);
         int dp50 = ConvertUtils.dp2px(50);
         int screenWidth = ScreenUtils.getScreenWidth();
@@ -78,20 +72,18 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
                 params = new ViewGroup.LayoutParams(params.width , item_screen + dp50);
                 break;
         }
-        holder.itemView.setLayoutParams(params);
+        holder.itemView.setLayoutParams(params);*/
 
 
         ManyBean.DataBean itemBean = appBeans.get(position);
         final String url = itemBean.getUrl();
         final String title = itemBean.getTitle();
-        final String icon = itemBean.getIcon();
         final String image = itemBean.getImage();
 
         RequestOptions option = new RequestOptions();
         option.error(R.mipmap.holder);
         option.placeholder(R.mipmap.holder);
         Glide.with(context).load(image).apply(option).into(holder.image);
-        holder.icon.setText(icon);
         holder.title.setText(title);
         holder.title.setTextSize(itemBean.getFont());
         holder.OnClick.setOnClickListener(new View.OnClickListener() {
@@ -126,12 +118,10 @@ public class ManyAdapter extends RecyclerView.Adapter<ManyAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView title;
-        TextView icon;
         LinearLayout OnClick;
 
         ViewHolder(View view) {
             super(view);
-            icon = view.findViewById(R.id.icon);
             image = view.findViewById(R.id.image);
             title = view.findViewById(R.id.title);
             OnClick = view.findViewById(R.id.OnClick);

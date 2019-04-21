@@ -1,7 +1,7 @@
 package com.yangtzeu.ui.view;
 
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public interface SplashView {
@@ -9,5 +9,6 @@ public interface SplashView {
 
     TextView getAdTitle();
 
-    FrameLayout getAdContainer();
+    RelativeLayout getAdContainer();
+
 }

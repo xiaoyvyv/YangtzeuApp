@@ -3,8 +3,8 @@ package com.yangtzeu.ui.activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -19,13 +19,11 @@ import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.YangtzeuUtils;
 
 public class SplashActivity extends BaseActivity implements SplashView {
-
     private ImageView adView;
     private SplashPresenter presenter;
     private TextView adTitle;
+    private RelativeLayout ad_container;
     private TextView times;
-    private FrameLayout ad_container;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +37,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
     public void findViews() {
         adView = findViewById(R.id.adView);
         adTitle = findViewById(R.id.adTitle);
-        times = findViewById(R.id.times);
         ad_container = findViewById(R.id.ad_container);
+        times = findViewById(R.id.times);
     }
 
     @Override
@@ -53,11 +51,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
         presenter.loadPermission(new SplashModel.OnPermissionCallBack() {
             @Override
             public void OnGranted() {
-                try {
-                    presenter.loadMIAD();
-                } catch (Exception e) {
-                    ad_container.setVisibility(View.INVISIBLE);
-                }
+
+                presenter.loadMIAD();
 
                 //进入窗口创建文件夹
                 MyUtils.createSDCardDir("A_Tool/");
@@ -76,6 +71,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
             }
         });
 
+
     }
 
     @Override
@@ -90,13 +86,6 @@ public class SplashActivity extends BaseActivity implements SplashView {
     }
 
     @Override
-    protected void onDestroy() {
-        presenter.onDestroy();
-        super.onDestroy();
-    }
-
-
-    @Override
     public ImageView getAdView() {
         return adView;
     }
@@ -107,7 +96,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
     }
 
     @Override
-    public FrameLayout getAdContainer() {
+    public RelativeLayout getAdContainer() {
         return ad_container;
     }
+
 }

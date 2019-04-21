@@ -8,4 +8,6 @@ public interface IAnswerLayout1Model {
     void loadBanner(Activity activity, AnswerLayout1View view);
 
     void loadHotAnswer(Activity activity, AnswerLayout1View view);
+
+
 }

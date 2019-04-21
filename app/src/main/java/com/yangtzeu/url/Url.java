@@ -11,6 +11,8 @@ public class Url {
      */
     //App接口Host
     public static final String My_App_Home = "http://101.132.108.0";
+    //App接口Host
+    public static final String My_Api_Home = "http://api.xiaoyv.top";
     //mob的Key secret
     public static final String key = "20588bd8fbea0";
 
@@ -259,8 +261,6 @@ public class Url {
     public static final String Yangtzeu_App_FeedBack = My_App_Home + "/yangtzeu/api/yz_feedback.php";
     //全民k歌解析
     public static final String Yangtzeu_App_Kg = "http://3g.gljlw.com/diy/kge.php?url=";
-    //词霸
-    public static final String Yangtzeu_App_CiBa = "http://open.iciba.com/dsapi/";
     //OSS上传凭证
     public static final String Yangtzeu_App_STS = My_App_Home + "/sts-server/sts.php";
     //App留言板--发表
@@ -279,6 +279,11 @@ public class Url {
     public static final String Yangtzeu_Join_Group = "http://qm.qq.com/cgi-bin/qm/qr?k=dezJxL7E5dTPk0-q5Is6tKA8mPHgIfxy";
     //Vip视频
     public static final String Yangtzeu_App_Vip_Video = My_App_Home + "/yangtzeu/json/yz_vipvideo.json";
+
+    //等级系统
+    public static final String Yangtzeu_App_Level = My_Api_Home + "/level";
+
+
 
 
     /**

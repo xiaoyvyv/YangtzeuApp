@@ -1,26 +1,30 @@
 package com.yangtzeu.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lib.chat.adapter.GroupInnerUserAdapter;
 import com.lib.subutil.ClipboardUtils;
+import com.lzy.widget.PullZoomView;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ChatGroupInfoPresenter;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.ChatGroupInfoView;
 import com.yangtzeu.utils.MyUtils;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class ChatGroupInfoActivity extends BaseActivity implements ChatGroupInfoView {
@@ -35,6 +39,7 @@ public class ChatGroupInfoActivity extends BaseActivity implements ChatGroupInfo
     private GroupInnerUserAdapter adapter;
     private TextView invite;
     private Switch disturb;
+    private PullZoomView pullZoomView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +60,12 @@ public class ChatGroupInfoActivity extends BaseActivity implements ChatGroupInfo
         invite = findViewById(R.id.invite);
         disturb = findViewById(R.id.disturb);
         mineInfoLayout = findViewById(R.id.mineInfoLayout);
+        pullZoomView = findViewById(R.id.pullZoomView);
 
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void setEvents() {
         if (ObjectUtils.isEmpty(topicId)) {
@@ -74,8 +81,8 @@ public class ChatGroupInfoActivity extends BaseActivity implements ChatGroupInfo
             }
         });
 
+        adapter = new GroupInnerUserAdapter(this, pullZoomView);
 
-        adapter = new GroupInnerUserAdapter(this);
         LinearLayoutManager manger = new LinearLayoutManager(this);
         manger.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(manger);
@@ -97,6 +104,17 @@ public class ChatGroupInfoActivity extends BaseActivity implements ChatGroupInfo
             @Override
             public void onClick(View v) {
                 presenter.inviteJoinGroup();
+            }
+        });
+
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                    pullZoomView.requestDisallowInterceptTouchEvent(false);
+                else
+                    pullZoomView.requestDisallowInterceptTouchEvent(true);
+                return false;
             }
         });
     }

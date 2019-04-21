@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
@@ -33,9 +36,6 @@ import com.yangtzeu.utils.MyUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
     private Context context;
@@ -45,15 +45,14 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
         this.context = context;
     }
 
-    public void setDate(List<BoardBean.ResultBean> BigList) {
-        mBigList = BigList;
+    public void addDate(List<BoardBean.ResultBean> BigList) {
+        this.mBigList.addAll(BigList);
     }
 
     public void clear() {
         mBigList.clear();
         notifyDataSetChanged();
     }
-
 
     @NonNull
     @Override
@@ -64,7 +63,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, @SuppressLint("RecyclerView") final int i) {
-        if (ObjectUtils.isEmpty( mBigList.get(i).getId())) {
+        if (ObjectUtils.isEmpty(mBigList.get(i).getId())) {
             return;
         }
         try {
@@ -93,8 +92,8 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
                 viewHolder.LouZhuCommentView.addView(HuiFuItem);
                 TextView HuiFuItemText = HuiFuItem.findViewById(R.id.HuiFuText);
                 final String rText = replay.get(j).get回复内容();
-                final String rName ="<font color=#00367a>" + replay.get(j).get昵称() + "</font>" ;
-                HuiFuItemText.setText(Html.fromHtml(rName+":\t\t"+rText));
+                final String rName = "<font color=#00367a>" + replay.get(j).get昵称() + "</font>";
+                HuiFuItemText.setText(Html.fromHtml(rName + ":\t\t" + rText));
             }
 
 
@@ -102,7 +101,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
                 Background = Background.replace("‖", "&");
             }
             if (Background.contains("∩")) {
-                String BG_list[] = Background.split("∩");
+                String[] BG_list = Background.split("∩");
                 try {
                     SetTextImg(viewHolder.OnClick, viewHolder.mImageView, BG_list[0], BG_list[1]);
                 } catch (Exception e) {
@@ -146,7 +145,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
                     if (context.getReplay_container().getVisibility() == View.VISIBLE) {
                         context.getReplay_container().setVisibility(View.GONE);
                     } else {
-                        context.showReplayOrAdd(number,ID, Name);
+                        context.showReplayOrAdd(number, ID, Name);
                     }
                 }
             });

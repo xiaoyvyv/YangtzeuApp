@@ -6,20 +6,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.lib.gramophone.GramophoneView;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.KGPresident;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.ui.view.KGView;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MediaPlayUtil;
 import com.yangtzeu.utils.MyUtils;
 
 import java.util.Objects;
-
-import androidx.appcompat.widget.Toolbar;
 
 public class KgActivity extends BaseActivity implements KGView {
     private Toolbar toolbar;
@@ -29,6 +33,7 @@ public class KgActivity extends BaseActivity implements KGView {
     private Button download;
     private KGPresident president;
     private TextView true_path;
+    private LinearLayout googleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class KgActivity extends BaseActivity implements KGView {
         download = findViewById(R.id.download);
         image = findViewById(R.id.image);
         true_path = findViewById(R.id.true_path);
+        googleView = findViewById(R.id.googleView);
     }
 
     @Override
@@ -65,6 +71,13 @@ public class KgActivity extends BaseActivity implements KGView {
                 president.downloadMusic();
             }
         });
+
+        AdView adView1 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView1.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView1);
+        AdView adView2 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView2.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView2);
     }
 
     @Override

@@ -16,15 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lib.touch.DragView;
@@ -43,8 +45,6 @@ import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.MyUtils;
 
 import java.util.Objects;
-
-import androidx.appcompat.widget.Toolbar;
 
 import static com.lib.x5web.X5WebView.uploadFile;
 import static com.lib.x5web.X5WebView.uploadFiles;
@@ -73,7 +73,6 @@ public class WebActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         try {
             if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11) {
                 getWindow().setFlags(
@@ -105,7 +104,7 @@ public class WebActivity extends BaseActivity {
             ScreenUtils.setFullScreen(this);
         }
 
-        if (from_url.equals(Url.Yangtzeu_Fee)) {
+        if (StringUtils.equals(from_url, Url.Yangtzeu_Fee)) {
             setTheme(R.style.AppTheme_ShuiYaQing);
         }
         setContentView(R.layout.activity_web);
@@ -168,7 +167,7 @@ public class WebActivity extends BaseActivity {
         }
 
         if (isAnswer) {
-            mWebView.getSettings().setUserAgent(AnswerListModel.getAnswerKey());
+            mWebView.getSettings().setUserAgent(AnswerListModel.encodeKey());
         }
 
         ic_close.setPadding(ConvertUtils.dp2px(15));
@@ -189,7 +188,7 @@ public class WebActivity extends BaseActivity {
 
         mWebView.addJavascriptInterface(new X5JavaScriptFunction(WebActivity.this), "android");
 
-        String cookie_list[] = cookie.split(";");
+        String[] cookie_list = cookie.split(";");
         CookieManager cookieManager = CookieManager.getInstance();
 
         if (from_url.contains(Url.My_App_Home)) {

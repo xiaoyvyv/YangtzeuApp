@@ -3,31 +3,35 @@ package com.lib.chat.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.lib.chat.bean.CreateGroupBean;
 import com.lib.chat.common.Constant;
+import com.lzy.widget.PullZoomView;
 import com.yangtzeu.R;
 import com.yangtzeu.utils.MyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class GroupInnerUserAdapter extends RecyclerView.Adapter<GroupInnerUserAdapter.ViewHolder> {
+    private final PullZoomView zoomView;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private List<CreateGroupBean.DataBean.MembersBean> members = new ArrayList<>();
     private CreateGroupBean.DataBean dataBean;
 
-    public GroupInnerUserAdapter(Context context) {
-        mContext = context;
+    public GroupInnerUserAdapter(Context context, PullZoomView zoomView) {
+        this.mContext = context;
+        this.zoomView = zoomView;
         mLayoutInflater = LayoutInflater.from(mContext);
     }
 
@@ -46,7 +50,7 @@ public class GroupInnerUserAdapter extends RecyclerView.Adapter<GroupInnerUserAd
 
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     public void onBindViewHolder(@NonNull final GroupInnerUserAdapter.ViewHolder holder, int position) {
         CreateGroupBean.DataBean.MembersBean member = this.members.get(position);
@@ -65,6 +69,17 @@ public class GroupInnerUserAdapter extends RecyclerView.Adapter<GroupInnerUserAd
             @Override
             public void onClick(View v) {
                 MyUtils.chatOnline(mContext, account, Constant.USER_TYPE_USER);
+            }
+        });
+
+        holder.onClick.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                    zoomView.requestDisallowInterceptTouchEvent(false);
+                else
+                    zoomView.requestDisallowInterceptTouchEvent(true);
+                return false;
             }
         });
     }

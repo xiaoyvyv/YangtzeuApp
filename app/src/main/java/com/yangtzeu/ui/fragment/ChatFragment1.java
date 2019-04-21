@@ -6,15 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.lib.chat.adapter.ContactAdapter;
 import com.yangtzeu.R;
 import com.yangtzeu.presenter.ChatPart1Presenter;
 import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.view.ChatPartView1;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * Created by Administrator on 2018/3/6.
@@ -64,6 +64,7 @@ public class ChatFragment1 extends BaseFragment implements ChatPartView1 {
                 presenter.loadMessageHistory();
             }
         });
+
     }
 
     @Override

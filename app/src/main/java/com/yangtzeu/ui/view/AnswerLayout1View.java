@@ -10,4 +10,6 @@ public interface AnswerLayout1View {
 
 
     LinearLayout getContainer();
+
+    LinearLayout getBottomContainer();
 }

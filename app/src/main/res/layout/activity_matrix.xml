@@ -5,11 +5,11 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        app:elevation="@dimen/elevation"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/elevation">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -21,113 +21,139 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
-            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
             <androidx.cardview.widget.CardView
-                android:layout_margin="5dp"
-                app:cardCornerRadius="2.5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="2.5dp"
                 app:cardElevation="@dimen/elevation">
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:onClick="chooseAction"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:textColor="?attr/colorAccent"
-                            android:padding="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:alpha="0.8"
-                            android:textSize="16sp"
+                            android:padding="10dp"
                             android:text="请选择操作"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:id="@+id/which_action"
-                            android:text="求行列式值"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:onClick="chooseMatrix1"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
                             android:textColor="?attr/colorAccent"
-                            android:padding="10dp"
-                            android:alpha="0.8"
-                            android:textSize="16sp"
-                            android:text="请选择矩阵"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:textSize="16sp" />
+
                         <TextView
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:id="@+id/which_matrix1"
-                            android:text="请选择矩阵"
+                            android:id="@+id/which_action"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="求行列式值"
+                            android:textSize="16sp" />
                     </LinearLayout>
+
                     <LinearLayout
-                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
+                        android:onClick="chooseMatrix1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.8"
+                            android:padding="10dp"
+                            android:text="请选择矩阵"
+                            android:textColor="?attr/colorAccent"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/which_matrix1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="请选择矩阵"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:onClick="chooseMatrix2"
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:visibility="gone">
+
                         <TextView
-                            android:textColor="?attr/colorAccent"
-                            android:padding="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:alpha="0.8"
-                            android:textSize="16sp"
-                            android:text="选择矩阵二"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
                             android:padding="10dp"
-                            android:textSize="16sp"
-                            android:id="@+id/which_matrix2"
                             android:text="选择矩阵二"
+                            android:textColor="?attr/colorAccent"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/which_matrix2"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="选择矩阵二"
+                            android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
 
             <Button
-                android:textColor="?attr/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:alpha="0.8"
-                android:textSize="15sp"
                 android:onClick="do_result"
                 android:text="计算结果"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textColor="?attr/colorAccent"
+                android:textSize="15sp" />
+
             <TextView
-                android:layout_margin="5dp"
                 android:id="@+id/result"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.lib.view.MyHorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/googleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+    </com.lib.view.MyHorizontalScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,9 +1,9 @@
 package com.yangtzeu.ui.view;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yangtzeu.ui.adapter.JwcListAdapter;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 public interface JwcListView {
     RecyclerView getRecyclerView();
@@ -19,7 +19,10 @@ public interface JwcListView {
     void setAllPage(String all_page);
 
     String getKind();
+
     String getUrlHeader();
+
     int getStartIndex();
+
     void setStartIndex(int start);
 }

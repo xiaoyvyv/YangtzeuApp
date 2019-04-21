@@ -17,5 +17,4 @@ public interface ISplashModel {
 
     void loadMIAD(Activity activity, SplashView view) throws Exception;
 
-    void onDestroy(Activity activity, SplashView view);
 }

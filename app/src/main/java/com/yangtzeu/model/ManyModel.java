@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
@@ -37,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class ManyModel implements IManyModel, View.OnClickListener {
@@ -120,7 +121,6 @@ public class ManyModel implements IManyModel, View.OnClickListener {
                 ManyBean bean = GsonUtils.fromJson(response, ManyBean.class);
                 int spanCount = bean.getSpanCount();
                 view.getRecyclerView().setLayoutManager(new StaggeredGridLayoutManager(spanCount, StaggeredGridLayoutManager.VERTICAL));
-                adapter.setSpanCount(spanCount);
                 adapter.setData(bean);
                 adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             }

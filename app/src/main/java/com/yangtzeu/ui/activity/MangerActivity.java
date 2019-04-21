@@ -1,6 +1,13 @@
 package com.yangtzeu.ui.activity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -16,11 +23,6 @@ import com.yangtzeu.utils.MyUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MangerActivity extends BaseActivity implements MangerView {
     private Toolbar toolbar;
@@ -45,6 +47,18 @@ public class MangerActivity extends BaseActivity implements MangerView {
         toolbar = findViewById(R.id.toolbar);
         container = findViewById(R.id.slow_container);
         refreshLayout = findViewById(R.id.refreshLayout);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("数据管理").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                MyUtils.openUrl(MangerActivity.this, "http://101.132.108.0/yangtzeu/admin/index.html", true);
+                return false;
+            }
+        }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

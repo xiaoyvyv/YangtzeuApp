@@ -9,30 +9,26 @@ android {
         versionCode 9
         versionName "3.8"
         resConfigs "zh"
-/*
-        splits {
+
+  /*      splits {
             abi {
                 enable true
                 reset()
-                include "x86", "armeabi", "armeabi-v7a", "mips"
+                include "x86", "x86_64", "armeabi", "armeabi-v7a", "mips"
                 universalApk true
             }
-        }
-        ndk {
-            abiFilters "armeabi", "x86", "armeabi-v7a", "mips", "arm64-v8a"
-        }
-*/
-        ndk {
-            abiFilters "armeabi-v7a"
-        }
+        }*/
 
-       //添加多 dex分包支持
-        /*
+           ndk {
+                abiFilters "armeabi", "armeabi-v7a", "x86", "x86_64", "mips", "arm64-v8a"
+            }
+
+        //添加多 dex分包支持
         multiDexEnabled true
-        dexOptions{
+        dexOptions {
             preDexLibraries = false
         }
-        */
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -45,11 +41,15 @@ android {
         }
     }
 }
-
+repositories {
+    flatDir {
+        dirs 'libs' //this way we can find the .aar file in libs folder
+    }
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     testImplementation 'junit:junit:4.12'
@@ -72,11 +72,13 @@ dependencies {
     implementation 'com.blankj:utilcode:1.23.7'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation 'com.aliyun.dpa:oss-android-sdk:2.9.0'
-    //implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.android.gms:play-services-ads:17.2.0'
+
     implementation files('libs/tbs_sdk_v3.2.0.jar')
     implementation files('libs/animations.jar')
     implementation files('libs/jama-1.0.3.jar')
     implementation files('libs/xmd-transceiver-1.0.2.26-SNAPSHOT.jar')
     implementation files('libs/mimc-java-sdk-1.2.3-SNAPSHOT.jar')
-    implementation files('libs/MimoSdk.jar')
+
 }

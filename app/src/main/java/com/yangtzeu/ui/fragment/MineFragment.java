@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -24,8 +29,10 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lib.chat.common.UserManager;
 import com.xiaomi.mimc.common.MIMCConstant;
 import com.yangtzeu.R;
+import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.presenter.MinePresenter;
 import com.yangtzeu.ui.activity.ADActivity;
+import com.yangtzeu.ui.activity.AnswerWebActivity;
 import com.yangtzeu.ui.activity.BoardActivity;
 import com.yangtzeu.ui.activity.CetActivity;
 import com.yangtzeu.ui.activity.ChangePassActivity;
@@ -40,15 +47,11 @@ import com.yangtzeu.ui.activity.base.BaseFragment;
 import com.yangtzeu.ui.view.MineView;
 import com.yangtzeu.url.Url;
 import com.yangtzeu.utils.EmptyTableUtils;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MyUtils;
 import com.yangtzeu.utils.UserUtils;
 
 import java.util.Objects;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * Created by Administrator on 2018/3/6.
@@ -335,6 +338,8 @@ public class MineFragment extends BaseFragment implements MineView {
             }
         });
 
+
+        GoogleUtils.loadInterstitialAd();
         githubLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -350,7 +355,14 @@ public class MineFragment extends BaseFragment implements MineView {
                 build.setNeutralButton("ReadMe.MD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MyUtils.openUrl(getActivity(), Url.Yangtzeu_Github,true);
+                        GoogleUtils.showInterstitialAd(new OnResultListener<Boolean>() {
+                            @Override
+                            public void onResult(Boolean s) {
+                                Intent intent = new Intent(getActivity(), AnswerWebActivity.class);
+                                intent.putExtra("from_url", Url.Yangtzeu_Github);
+                                MyUtils.startActivity(intent);
+                            }
+                        });
                     }
                 });
                 build.setNegativeButton(R.string.clear, null);

@@ -15,12 +15,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
+
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.MatrixBean;
 import com.yangtzeu.ui.activity.base.BaseActivity;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MyUtils;
 
 import java.util.ArrayList;
@@ -29,8 +35,6 @@ import java.util.List;
 
 import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.Toolbar;
 
 public class MatrixActivity extends BaseActivity {
     private static List<MatrixBean> matrixs = new ArrayList<>();
@@ -46,6 +50,7 @@ public class MatrixActivity extends BaseActivity {
     private TextView which_matrix2;
     private TextView which_action;
     private TextView result;
+    private LinearLayout googleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +68,19 @@ public class MatrixActivity extends BaseActivity {
         which_matrix = findViewById(R.id.which_matrix1);
         which_matrix2 = findViewById(R.id.which_matrix2);
         result = findViewById(R.id.result);
+        googleView = findViewById(R.id.googleView);
 
     }
 
     @Override
     public void setEvents() {
 
+        AdView adView1 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView1.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView1);
+        AdView adView2 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView2.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView2);
     }
 
 
@@ -444,7 +456,7 @@ public class MatrixActivity extends BaseActivity {
                     } else ToastUtils.showLong(e.toString());
                 }
                 double detNum = MyUtils.getScale(det, ACCURACY);
-                result.setText("计算结果：" + String.valueOf(detNum));
+                result.setText("计算结果：" + detNum);
                 break;
             case 1:
                 try {

@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.lib.subutil.GsonUtils;
 import com.yangtzeu.R;
 import com.yangtzeu.entity.BannerBean;
@@ -21,15 +23,16 @@ import com.yangtzeu.model.imodel.IAnswerLayout1Model;
 import com.yangtzeu.ui.activity.WebActivity;
 import com.yangtzeu.ui.view.AnswerLayout1View;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MyUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class AnswerLayout1Model implements IAnswerLayout1Model {
+
     @Override
     public void loadBanner(final Activity activity, final AnswerLayout1View view) {
         OkHttp.do_Get(Url.Yangtzeu_App_Answer_Banner, new OnResultStringListener() {
@@ -39,12 +42,8 @@ public class AnswerLayout1Model implements IAnswerLayout1Model {
                 final List<BannerBean.DataBean> info = beans.getData();
                 //随机广告顺序排序
                 Collections.shuffle(info);
-                final List<String> info_str = new ArrayList<>();
-                for (int i = 0; i < info.size(); i++) {
-                    info_str.add(info.get(i).getTitle());
-                }
-
-                view.getBanner().setData(info, info_str);
+                Collections.shuffle(info);
+                view.getBanner().setData(info, null);
                 view.getBanner().setAdapter(new BGABanner.Adapter<ImageView, BannerBean.DataBean>() {
                     @Override
                     public void fillBannerItem(BGABanner banner, ImageView itemView, BannerBean.DataBean model, int position) {
@@ -68,7 +67,7 @@ public class AnswerLayout1Model implements IAnswerLayout1Model {
 
     }
 
-    @Override 
+    @Override
     @SuppressLint("InflateParams")
     public void loadHotAnswer(final Activity activity, final AnswerLayout1View view) {
         OkHttp.do_Get(Url.Yangtzeu_App_Hot_Answer, new OnResultStringListener() {
@@ -105,6 +104,13 @@ public class AnswerLayout1Model implements IAnswerLayout1Model {
                     });
                 }
 
+                AdView adView1 = GoogleUtils.newBannerView(activity, AdSize.LARGE_BANNER);
+                adView1.loadAd(GoogleUtils.getRequest());
+                AdView adView2 = GoogleUtils.newBannerView(activity, AdSize.LARGE_BANNER);
+                adView2.loadAd(GoogleUtils.getRequest());
+                LinearLayout googleView = view.getBottomContainer();
+                googleView.addView(adView1);
+                googleView.addView(adView2);
             }
 
             @Override

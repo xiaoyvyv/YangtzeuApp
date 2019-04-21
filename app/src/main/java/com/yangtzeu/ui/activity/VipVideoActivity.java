@@ -3,29 +3,33 @@ package com.yangtzeu.ui.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.ad.OnAdVideoListener;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.lib.subutil.GsonUtils;
 import com.lib.x5web.X5WebView;
 import com.lib.yun.StringUtils;
-import com.miui.zeus.mimo.sdk.ad.AdWorkerFactory;
-import com.miui.zeus.mimo.sdk.ad.IRewardVideoAdWorker;
-import com.xiaomi.ad.common.pojo.AdType;
 import com.yangtzeu.R;
-import com.yangtzeu.app.MyApplication;
 import com.yangtzeu.entity.VipVideoBean;
 import com.yangtzeu.http.OkHttp;
 import com.yangtzeu.http.callback.StringCallBack;
+import com.yangtzeu.listener.OnResultListener;
 import com.yangtzeu.ui.activity.base.BaseActivity;
 import com.yangtzeu.url.Url;
+import com.yangtzeu.utils.GoogleUtils;
 import com.yangtzeu.utils.MyUtils;
 
-import androidx.appcompat.widget.Toolbar;
 import okhttp3.Call;
 import okhttp3.Request;
 
@@ -38,7 +42,9 @@ public class VipVideoActivity extends BaseActivity {
     private Button play;
     private String nowApi;
     private String v_url;
-    private IRewardVideoAdWorker mAdWorker;
+    private RewardedVideoAd rewardedVideoAd;
+    private LinearLayout googleView;
+    private NestedScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +62,27 @@ public class VipVideoActivity extends BaseActivity {
         vip_line = findViewById(R.id.vip_line);
         vip_url = findViewById(R.id.vip_url);
         back = findViewById(R.id.back);
+        googleView = findViewById(R.id.googleView);
+        scrollView = findViewById(R.id.scrollView);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     public void setEvents() {
-        loadAd();
+        webView.loadUrl("https://m.v.qq.com/x/channel/select/movie");
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                    scrollView.requestDisallowInterceptTouchEvent(false);
+                else
+                    scrollView.requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
+
+        //加载VIP视频接口
         Request request = OkHttp.getRequest(Url.Yangtzeu_App_Vip_Video);
         OkHttp.getInstance().newCall(request).enqueue(new StringCallBack() {
             @Override
@@ -94,34 +115,6 @@ public class VipVideoActivity extends BaseActivity {
             }
         });
 
-
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    if (StringUtils.isEmpty(nowApi)) {
-                        ToastUtils.showShort("接口未加载成功，请重试");
-                        return;
-                    }
-                    String trim = vip_url.getText().toString().trim();
-                    if (StringUtils.isEmpty(trim)) {
-                        ToastUtils.showShort("请输入VIP视频地址后重试");
-                        return;
-                    }
-                    v_url = nowApi + trim;
-
-                    if (mAdWorker.isReady()) {
-                        mAdWorker.show();
-                    } else {
-                        MyUtils.openBrowser(VipVideoActivity.this, v_url);
-                    }
-                } catch (Exception e) {
-                    MyUtils.openBrowser(VipVideoActivity.this, v_url);
-                }
-            }
-        });
-
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +125,57 @@ public class VipVideoActivity extends BaseActivity {
                 }
             }
         });
-        webView.loadUrl("https://m.v.qq.com/x/channel/select/movie");
+        loadVideoAd();
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (StringUtils.isEmpty(nowApi)) {
+                    ToastUtils.showShort("接口未加载成功，请重试");
+                    return;
+                }
+                String trim = vip_url.getText().toString().trim();
+                if (StringUtils.isEmpty(trim)) {
+                    ToastUtils.showShort("请输入VIP视频地址后重试");
+                    return;
+                }
+                v_url = nowApi + trim;
+
+                //广告没有准备好
+                if (!GoogleUtils.showRewardedVideoAd()) {
+                    GoogleUtils.showInterstitialAd(new OnResultListener<Boolean>() {
+                        @Override
+                        public void onResult(Boolean s) {
+                            loadVideoAd();
+                            MyUtils.openBrowser(VipVideoActivity.this, v_url);
+                        }
+                    });
+                }
+            }
+        });
+
+        AdView adView1 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView1.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView1);
+        AdView adView2 = GoogleUtils.newBannerView(this, AdSize.LARGE_BANNER);
+        adView2.loadAd(GoogleUtils.getRequest());
+        googleView.addView(adView2);
+    }
+
+    private void loadVideoAd() {
+        rewardedVideoAd = GoogleUtils.loadRewardedVideoAd(new GoogleUtils.MyRewardedListener() {
+            @Override
+            public void onRewardedVideoAdClosed() {
+                MyUtils.openBrowser(VipVideoActivity.this, v_url);
+                loadVideoAd();
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int i) {
+                GoogleUtils.loadInterstitialAd();
+            }
+        });
     }
 
     public void OnVideoWeb(View view) {
@@ -152,46 +195,24 @@ public class VipVideoActivity extends BaseActivity {
         }
     }
 
-    public void loadAd() {
-        try {
-            mAdWorker = AdWorkerFactory.getRewardVideoAdWorker(this, MyApplication.PORTRAIT_VIDEO_POSITION_ID, AdType.AD_REWARDED_VIDEO);
-            mAdWorker.setListener(new OnAdVideoListener() {
-                @Override
-                public void onResultListener(int state, Object info) {
-                    switch (state) {
-                        case OnAdVideoListener.onAdPresent:
-                            ToastUtils.showLong("视频播放完即可观看VIP视频或点击下载跳过广告");
-                            break;
-                        case OnAdVideoListener.onAdClick:
-                            MyUtils.openBrowser(VipVideoActivity.this, v_url);
-                            break;
-                        case OnAdVideoListener.onAdDismissed:
-                            try {
-                                mAdWorker.recycle();
-                                loadAd();
-                            } catch (Exception ignored) {}
-                            MyUtils.openBrowser(VipVideoActivity.this, v_url);
-                            break;
-                        case OnAdVideoListener.onAdFailed:
-                            MyUtils.openBrowser(VipVideoActivity.this, v_url);
-                            break;
-                    }
-                }
-            });
-            mAdWorker.recycle();
-            mAdWorker.load();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void onResume() {
+        if (rewardedVideoAd != null)
+            rewardedVideoAd.resume(this);
+        super.onResume();
     }
 
     @Override
-    protected void onDestroy() {
-        try {
-            mAdWorker.recycle();
-            super.onDestroy();
-        } catch (Exception e) {
-            super.onDestroy();
-        }
+    public void onPause() {
+        if (rewardedVideoAd != null)
+            rewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (rewardedVideoAd != null)
+            rewardedVideoAd.destroy(this);
+        super.onDestroy();
     }
 }
